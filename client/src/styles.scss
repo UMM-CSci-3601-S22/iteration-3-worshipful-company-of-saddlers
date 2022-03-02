@@ -1,5 +1,6 @@
 // Custom Theming for Angular Material
-@use '@angular/material' as mat;
+@use "@angular/material" as mat;
+$my-primary: mat.define-palette(mat.$indigo-palette, 500);
 // For more information: https://material.angular.io/guide/theming
 // Plus imports for other components in your app.
 
@@ -7,7 +8,6 @@
 // have to load a single css file for Angular Material in your app.
 // Be sure that you only ever include this mixin once!
 @include mat.core();
-
 
 // This is to be able to theme parts of the app dynamically depending on theme (right now: light or dark)
 // You can put styles in this mixin and the theme variables will refer to the actual theme being used (light or dark)
@@ -31,7 +31,10 @@
     }
   }
   .drawer-list-item-active {
-    background-color: change-color(mat.get-color-from-palette($primary), $alpha: 0.15) !important;
+    background-color: change-color(
+      mat.get-color-from-palette($primary),
+      $alpha: 0.15
+    ) !important;
     color: mat.get-color-from-palette($primary) !important;
     .mat-list-icon {
       color: mat.get-color-from-palette($primary) !important;
@@ -50,26 +53,31 @@
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
 
-$light-primary: mat.define-palette(mat.$indigo-palette, 500); // 500 is the base hue of a Material color
+$light-primary: mat.define-palette(mat.$purple-palette, 700); // 500 is the base hue of a Material color
 
- // The 200 here makes the indigo color lighter
- // Material Design dark themes should use a desaturated versions of primary and accent colors
- // See: https://material.io/design/color/dark-theme.html
-$dark-primary: mat.define-palette(mat.$indigo-palette, 200);
+// The 200 here makes the indigo color lighter
+// Material Design dark themes should use a desaturated versions of primary and accent colors
+// See: https://material.io/design/color/dark-theme.html
+$dark-primary: mat.define-palette(mat.$purple-palette, 500);
 
-$light-accent: mat.define-palette(mat.$pink-palette, A200);
-$dark-accent: mat.define-palette(mat.$pink-palette, A100);
+$light-accent: mat.define-palette(mat.$orange-palette, 500);
+$dark-accent: mat.define-palette(mat.$orange-palette, 700);
 
 // The warn palette is optional (defaults to red).
-$light-warn: mat.define-palette(mat.$red-palette); // Without a hue given, it defaults to 500
+$light-warn: mat.define-palette(
+  mat.$red-palette
+); // Without a hue given, it defaults to 500
 $dark-warn: mat.define-palette(mat.$red-palette, 300);
 
 // Create the theme object for a light theme (a Sass map containing all of the palettes).
-$light-theme: mat.define-light-theme($light-primary, $light-accent, $light-warn);
+$light-theme: mat.define-light-theme(
+  $light-primary,
+  $light-accent,
+  $light-warn
+);
 
 // Create the theme object for a dark theme (a Sass map containing all of the palettes).
 $dark-theme: mat.define-dark-theme($dark-primary, $dark-accent, $dark-warn);
-
 
 // Sets up the theming for built in material components with the light theme
 @include mat.all-component-themes($light-theme);
@@ -77,14 +85,14 @@ $dark-theme: mat.define-dark-theme($dark-primary, $dark-accent, $dark-warn);
 // Sets up theming for our custom components with the light theme
 @include app-theming($light-theme);
 
-html, body {
+html,
+body {
   height: 100%;
 }
 
 body {
   margin: 0;
 }
-
 
 // This media query detects if the user has dark-mode turned on on their OS or browser
 // If you don't want to apply dark theme automatically,

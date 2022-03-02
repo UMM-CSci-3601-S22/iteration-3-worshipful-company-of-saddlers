@@ -10,6 +10,6 @@
     <p>Email: <a href="mailto:{{this.user.email}}" class="user-card-email">{{this.user.email}}</a></p>
   </mat-card-content>
   <mat-card-actions>
-    <button mat-button data-test="viewProfileButton" *ngIf="this.simple" [routerLink]="['/users', this.user._id]">View Profile</button>
+    <button color="primary" mat-raised-button data-test="viewProfileButton" *ngIf="this.simple" [routerLink]="['/users', this.user._id]">View Profile</button>
   </mat-card-actions>
 </mat-card>
