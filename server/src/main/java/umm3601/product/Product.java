@@ -5,7 +5,7 @@ public class Product {
   public String product_name;
   public String description;
   public String brand;
-  public String category;
+  public String category; // bakery, produce, meat, dairy, frozen foods, canned goods, drinks
   public String store;
   public String location;
   public String notes;

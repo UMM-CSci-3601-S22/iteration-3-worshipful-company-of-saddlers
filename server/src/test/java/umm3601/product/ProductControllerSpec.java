@@ -6,6 +6,7 @@ import static java.util.Map.entry;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -159,6 +160,19 @@ public class ProductControllerSpec {
             .append("notes", "I eat these with toothpaste, yum-yum.")
             .append("tags", ["Yeast","contains gluten","toast"])
             .append("threshold", 3));
+    testProducts.add(
+        new Document()
+            .append("product_name", "Rock")
+            .append("description", "")
+            .append("brand", "Hurt Ball")
+            .append("category", "miscellaneous")
+            .append("store", "Willies")
+            .append("location", "")
+            .append("lifespan", "")
+            .append("image", "")
+            .append("notes", "")
+            .append("tags", [])
+            .append("threshold", ""));
 
     milksId = new ObjectId();
     Document milk = new Document()
@@ -263,71 +277,6 @@ public class ProductControllerSpec {
   }
 
   @Test
-  public void canGetProductsWithLifespan14() throws IOException {
-    // Set the query string to test with
-    mockReq.setQueryString("lifespan=14");
-    // Create our fake Javalin context
-    Context ctx = mockContext("api/products");
-
-    productController.getProducts(ctx);
-    Product[] resultProducts = returnedProducts(ctx);
-
-    assertEquals(HttpCode.OK.getStatus(), mockRes.getStatus());
-    assertEquals(2, resultProducts.length); // There should be two products returned
-    for (Product product : resultProducts) {
-      assertEquals(14, product.lifespan); // Every product should take 14 days to spoil
-    }
-  }
-
-  /**
-   * Test that if the product sends a request with an illegal value in
-   * the age field (i.e., something that can't be parsed to a number)
-   * we get a reasonable error code back.
-   */
-  @Test
-  public void respondsAppropriatelyToNonNumericLifespan() {
-
-    mockReq.setQueryString("lifespan=abc");
-    Context ctx = mockContext("api/products");
-
-    // This should now throw a `ValidationException` because
-    // our request has an age that can't be parsed to a number.
-    assertThrows(ValidationException.class, () -> {
-      productController.getProducts(ctx);
-    });
-  }
-
-  @Test
-  public void canGetProductsWithThreshold4() throws IOException {
-    // Set the query string to test with
-    mockReq.setQueryString("threshold=4");
-    // Create our fake Javalin context
-    Context ctx = mockContext("api/products");
-
-    productController.getProducts(ctx);
-    Product[] resultProducts = returnedProducts(ctx);
-
-    assertEquals(HttpCode.OK.getStatus(), mockRes.getStatus());
-    assertEquals(1, resultProducts.length); // There should be one product returned
-    for (Product product : resultProducts) {
-      assertEquals(4, product.lifespan); // Product should take 4 days to spoil
-    }
-  }
-
-  @Test
-  public void respondsAppropriatelyToNonNumericThreshold() {
-
-    mockReq.setQueryString("threshold=abc");
-    Context ctx = mockContext("api/products");
-
-    // This should now throw a `ValidationException` because
-    // our request has an age that can't be parsed to a number.
-    assertThrows(ValidationException.class, () -> {
-      productController.getProducts(ctx);
-    });
-  }
-
-  @Test
   public void canGetProductsByBrand() throws IOException {
     mockReq.setQueryString("Brand=Dole");
     Context ctx = mockContext("api/products");
@@ -357,54 +306,9 @@ public class ProductControllerSpec {
     }
   }
 
-  @Test
-  public void getProductsByLocation() throws IOException {
-    mockReq.setQueryString("location=They're In the Walls");
-    Context ctx = mockContext("api/products");
-
-    productController.getProducts(ctx);
-    Product[] resultProducts = returnedProducts(ctx);
-
-    assertEquals(HttpURLConnection.HTTP_OK, mockRes.getStatus());
-    assertEquals(3, resultProducts.length);
-    for (Product product : resultProducts) {
-      assertEquals("They're In the Walls", product.location);
-    }
-  }
-  
-  @Test
-  public void getProductsByDescription() throws IOException {
-    mockReq.setQueryString("description=yellow");
-    Context ctx = mockContext("api/products");
-
-    productController.getProducts(ctx);
-    Product[] resultProducts = returnedProducts(ctx);
-
-    assertEquals(HttpURLConnection.HTTP_OK, mockRes.getStatus());
-    assertEquals(1, resultProducts.length);
-    for (Product product : resultProducts) {
-      assertContains("yellow", product.description);
-    }
-  }
-
    @Test
-  public void getProductsByNotes() throws IOException {
-    mockReq.setQueryString("notes=gerbils");
-    Context ctx = mockContext("api/products");
-
-    productController.getProducts(ctx);
-    Product[] resultProducts = returnedProducts(ctx);
-
-    assertEquals(HttpURLConnection.HTTP_OK, mockRes.getStatus());
-    assertEquals(1, resultProducts.length);
-    for (Product product : resultProducts) {
-      assertContains("gerbils", product.notes);
-    }
-  }
-
-   @Test
-  public void getProductsByTags() throws IOException {
-    mockReq.setQueryString("tags=Willies");
+  public void getProductsByCategory() throws IOException {
+    mockReq.setQueryString("category=dairy");
     Context ctx = mockContext("api/products");
 
     productController.getProducts(ctx);
@@ -414,53 +318,6 @@ public class ProductControllerSpec {
     assertEquals(3, resultProducts.length);
     for (Product product : resultProducts) {
       assertEquals("Willies", product.store);
-    }
-  }
-
-  @Test
-  public void getProductsByThreshold() throws IOException {
-    mockReq.setQueryString("store=Willies");
-    Context ctx = mockContext("api/products");
-
-    productController.getProducts(ctx);
-    Product[] resultProducts = returnedProducts(ctx);
-
-    assertEquals(HttpURLConnection.HTTP_OK, mockRes.getStatus());
-    assertEquals(3, resultProducts.length);
-    for (Product product : resultProducts) {
-      assertEquals("Willies", product.store);
-    }
-  }
-
-  @Test
-  public void getProductsByBrandAndLifespan() throws IOException {
-    mockReq.setQueryString("brand=OHMNET&lifespan=37");
-    Context ctx = mockContext("api/products");
-
-    productController.getProducts(ctx);
-    Product[] resultProducts = returnedProducts(ctx);
-
-    assertEquals(HttpURLConnection.HTTP_OK, mockRes.getStatus());
-    assertEquals(1, resultProducts.length);
-    for (Product product : resultProducts) {
-      assertEquals("OHMNET", product.company);
-      assertEquals(37, product.age);
-    }
-  }
-
-  @Test
-  public void getProductsByStoreAndLocation() throws IOException {
-    mockReq.setQueryString("brand=OHMNET&lifespan=37");
-    Context ctx = mockContext("api/products");
-
-    productController.getProducts(ctx);
-    Product[] resultProducts = returnedProducts(ctx);
-
-    assertEquals(HttpURLConnection.HTTP_OK, mockRes.getStatus());
-    assertEquals(1, resultProducts.length);
-    for (Product product : resultProducts) {
-      assertEquals("OHMNET", product.company);
-      assertEquals(37, product.age);
     }
   }
 
@@ -547,7 +404,7 @@ public class ProductControllerSpec {
   }
 
   @Test
-  public void addInvalidLifespanProduct() throws IOException {
+  public void addInvalidCategoryProduct() throws IOException {
     String testNewProduct = "{"
         + "\"product_name\": \"Test Product name\","
         + "\"description\":\"A test product description\","
@@ -597,31 +454,41 @@ public class ProductControllerSpec {
   }
 
   @Test
-  public void add0AgeProduct() throws IOException {
+  public void addNullLifespanProduct() throws IOException {
     String testNewProduct = "{"
-        + "\"name\": \"Test Product\","
-        + "\"age\": 0,"
-        + "\"company\": \"testers\","
-        + "\"email\": \"test@example.com\","
-        + "\"role\": \"viewer\""
+        + "\"product_name\": \"Test Product name\","
+        + "\"description\":\"A test product description\","
+        + "\"brand\": \"test brand\","
+        + "\"category\": \"test category\","
+        + "\"store\": \"test store\","
+        + "\"location\": \"test location\","
+        + "\"notes\": \"tastes like test\","
+        + "\"tags"\": \"test tag\""
+        + "\"threshold\": 84"
+        + "\"image\": \"https://gravatar.com/avatar/8c9616d6cc5de638ea6920fb5d65fc6c?d=identicon\""
         + "}";
     mockReq.setBodyContent(testNewProduct);
     mockReq.setMethod("POST");
 
     Context ctx = mockContext("api/products");
 
-    assertThrows(ValidationException.class, () -> {
-      productController.addNewProduct(ctx);
-    });
+    assertNotNull(addedProduct);
+    assertNull(addedProduct.getInteger("lifespan"));
   }
 
   @Test
   public void addNullNameProduct() throws IOException {
     String testNewProduct = "{"
-        + "\"age\": 25,"
-        + "\"company\": \"testers\","
-        + "\"email\": \"test@example.com\","
-        + "\"role\": \"viewer\""
+        + "\"description\":\"A test product description\","
+        + "\"brand\": \"test brand\","
+        + "\"category\": \"test category\","
+        + "\"store\": \"test store\","
+        + "\"location\": \"test location\","
+        + "\"notes\": \"tastes like test\","
+        + "\"tags"\": \"test tag\""
+        + "\"lifespan\": 100"
+        + "\"threshold\": 84"
+        + "\"image\": \"https://gravatar.com/avatar/8c9616d6cc5de638ea6920fb5d65fc6c?d=identicon\""
         + "}";
     mockReq.setBodyContent(testNewProduct);
     mockReq.setMethod("POST");
@@ -634,13 +501,19 @@ public class ProductControllerSpec {
   }
 
   @Test
-  public void addInvalidNameProduct() throws IOException {
+  public void addNullBrandProduct() throws IOException {
     String testNewProduct = "{"
-        + "\"name\": \"\","
-        + "\"age\": 25,"
-        + "\"company\": \"testers\","
-        + "\"email\": \"test@example.com\","
-        + "\"role\": \"viewer\""
+        + "\"product_name\": \"Test Product name\","
+        + "\"description\":\"A test product description\","
+        //+ "\"brand\": \"test brand\","//
+        + "\"category\": \"test category\","
+        + "\"store\": \"test store\","
+        + "\"location\": \"test location\","
+        + "\"notes\": \"tastes like test\","
+        + "\"tags"\": \"test tag\""
+        + "\"lifespan\": 100"
+        + "\"threshold\": 84"
+        + "\"image\": \"https://gravatar.com/avatar/8c9616d6cc5de638ea6920fb5d65fc6c?d=identicon\""
         + "}";
     mockReq.setBodyContent(testNewProduct);
     mockReq.setMethod("POST");
@@ -653,13 +526,19 @@ public class ProductControllerSpec {
   }
 
   @Test
-  public void addInvalidRoleProduct() throws IOException {
+  public void addNullCategoryProduct() throws IOException {
     String testNewProduct = "{"
-        + "\"name\": \"Test Product\","
-        + "\"age\": 25,"
-        + "\"company\": \"testers\","
-        + "\"email\": \"test@example.com\","
-        + "\"role\": \"invalidrole\""
+        + "\"product_name\": \"Test Product name\","
+        + "\"description\":\"A test product description\","
+        + "\"brand\": \"test brand\","
+        //+ "\"category\": \"test category\","//
+        + "\"store\": \"test store\","
+        + "\"location\": \"test location\","
+        + "\"notes\": \"tastes like test\","
+        + "\"tags"\": \"test tag\""
+        + "\"lifespan\": 100"
+        + "\"threshold\": 84"
+        + "\"image\": \"https://gravatar.com/avatar/8c9616d6cc5de638ea6920fb5d65fc6c?d=identicon\""
         + "}";
     mockReq.setBodyContent(testNewProduct);
     mockReq.setMethod("POST");
@@ -672,31 +551,19 @@ public class ProductControllerSpec {
   }
 
   @Test
-  public void addNullCompanyProduct() throws IOException {
+  public void addNullStoreProduct() throws IOException {
     String testNewProduct = "{"
-        + "\"name\": \"Test Product\","
-        + "\"age\": 25,"
-        + "\"email\": \"test@example.com\","
-        + "\"role\": \"viewer\""
-        + "}";
-    mockReq.setBodyContent(testNewProduct);
-    mockReq.setMethod("POST");
-
-    Context ctx = mockContext("api/products");
-
-    assertThrows(ValidationException.class, () -> {
-      productController.addNewProduct(ctx);
-    });
-  }
-
-  @Test
-  public void addInvalidCompanyProduct() throws IOException {
-    String testNewProduct = "{"
-        + "\"name\": \"\","
-        + "\"age\": 25,"
-        + "\"company\": \"\","
-        + "\"email\": \"test@example.com\","
-        + "\"role\": \"viewer\""
+        + "\"product_name\": \"Test Product name\","
+        + "\"description\":\"A test product description\","
+        + "\"brand\": \"test brand\","
+        + "\"category\": \"test category\","
+        //+ "\"store\": \"test store\","//
+        + "\"location\": \"test location\","
+        + "\"notes\": \"tastes like test\","
+        + "\"tags"\": \"test tag\""
+        + "\"lifespan\": 100"
+        + "\"threshold\": 84"
+        + "\"image\": \"https://gravatar.com/avatar/8c9616d6cc5de638ea6920fb5d65fc6c?d=identicon\""
         + "}";
     mockReq.setBodyContent(testNewProduct);
     mockReq.setMethod("POST");
