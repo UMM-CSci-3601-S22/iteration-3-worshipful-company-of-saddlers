@@ -6,7 +6,7 @@ import static java.util.Map.entry;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
+//import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -131,7 +131,7 @@ public class ProductControllerSpec {
             .append("lifespan", 14)
             .append("image", "https://gravatar.com/avatar/8c9616d6cc5de638ea6920fb5d65fc6c?d=identicon")
             .append("notes", "I eat these with toothpaste, yum-yum.")
-            .append("tags", new String[] { "yellow fruit", "potassium" })
+            .append("tags", new String[] {"yellow fruit", "potassium"})
             .append("threshold", 40));
     testProducts.add(
         new Document()
@@ -144,7 +144,7 @@ public class ProductControllerSpec {
             .append("lifespan", 2000)
             .append("image", "https://gravatar.com/avatar/8c9616d6cc5de638ea6920fb5d65fc6c?d=identicon")
             .append("notes", "I eat these with toothpaste, yum-yum.")
-            .append("tags", new String[] { "canned food", "non-perishable", "beans" })
+            .append("tags", new String[] {"canned food", "non-perishable", "beans"})
             .append("threshold", 4));
     testProducts.add(
         new Document()
@@ -157,7 +157,7 @@ public class ProductControllerSpec {
             .append("lifespan", 14)
             .append("image", "https://gravatar.com/avatar/8c9616d6cc5de638ea6920fb5d65fc6c?d=identicon")
             .append("notes", "I eat these with toothpaste, yum-yum.")
-            .append("tags", new String[] { "Yeast", "contains gluten", "toast" })
+            .append("tags", new String[] {"Yeast", "contains gluten", "toast"})
             .append("threshold", 3));
     testProducts.add(
         new Document()
@@ -184,7 +184,7 @@ public class ProductControllerSpec {
         .append("lifespan", 14)
         .append("image", "https://gravatar.com/avatar/8c9616d6cc5de638ea6920fb5d65fc6c?d=identicon")
         .append("notes", "check on gerbils every 3 days")
-        .append("tags", new String[] { "dairy", "perishable", "cold storage" })
+        .append("tags", new String[] {"dairy", "perishable", "cold storage"})
         .append("threshold", 2);
 
     productDocuments.insertMany(testProducts);
