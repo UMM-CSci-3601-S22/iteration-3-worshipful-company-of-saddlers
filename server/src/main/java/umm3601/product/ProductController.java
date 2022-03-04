@@ -2,16 +2,16 @@ package umm3601.product;
 
 import static com.mongodb.client.model.Filters.and;
 import static com.mongodb.client.model.Filters.eq;
-import static com.mongodb.client.model.Filters.regex;
+//import static com.mongodb.client.model.Filters.regex;
 
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
+//import java.nio.charset.StandardCharsets;
+//import java.security.MessageDigest;
+//import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.regex.Pattern;
+//import java.util.regex.Pattern;
 
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Sorts;
@@ -98,17 +98,18 @@ public class ProductController {
     List<Bson> filters = new ArrayList<>(); // start with a blank document
 
     /*
-    if (ctx.queryParamMap().containsKey(AGE_KEY)) {
-        int targetAge = ctx.queryParamAsClass(AGE_KEY, Integer.class).get();
-        filters.add(eq(AGE_KEY, targetAge));
-    }
-    if (ctx.queryParamMap().containsKey(COMPANY_KEY)) {
-      filters.add(regex(COMPANY_KEY,  Pattern.quote(ctx.queryParam(COMPANY_KEY)), "i"));
-    }
-    if (ctx.queryParamMap().containsKey(ROLE_KEY)) {
-      filters.add(eq(ROLE_KEY, ctx.queryParam(ROLE_KEY)));
-    }
-    */
+     * if (ctx.queryParamMap().containsKey(AGE_KEY)) {
+     * int targetAge = ctx.queryParamAsClass(AGE_KEY, Integer.class).get();
+     * filters.add(eq(AGE_KEY, targetAge));
+     * }
+     * if (ctx.queryParamMap().containsKey(COMPANY_KEY)) {
+     * filters.add(regex(COMPANY_KEY, Pattern.quote(ctx.queryParam(COMPANY_KEY)),
+     * "i"));
+     * }
+     * if (ctx.queryParamMap().containsKey(ROLE_KEY)) {
+     * filters.add(eq(ROLE_KEY, ctx.queryParam(ROLE_KEY)));
+     * }
+     */
 
     // Combine the list of filters into a single filtering document.
     Bson combinedFilter = filters.isEmpty() ? new Document() : and(filters);
@@ -122,10 +123,9 @@ public class ProductController {
     // "asc") to specify the sort order.
     String sortBy = Objects.requireNonNullElse(ctx.queryParam("sortby"), PRODUCT_NAME_KEY);
     String sortOrder = Objects.requireNonNullElse(ctx.queryParam("sortorder"), "asc");
-    Bson sortingOrder = sortOrder.equals("desc") ?  Sorts.descending(sortBy) : Sorts.ascending(sortBy);
+    Bson sortingOrder = sortOrder.equals("desc") ? Sorts.descending(sortBy) : Sorts.ascending(sortBy);
     return sortingOrder;
   }
-
 
   /**
    * Get a JSON response with a list of all the products.
