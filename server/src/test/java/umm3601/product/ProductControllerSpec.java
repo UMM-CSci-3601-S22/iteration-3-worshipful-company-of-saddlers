@@ -131,9 +131,8 @@ public class ProductControllerSpec {
             .append("lifespan", 14)
             .append("image", "https://gravatar.com/avatar/8c9616d6cc5de638ea6920fb5d65fc6c?d=identicon")
             .append("notes", "I eat these with toothpaste, yum-yum.")
-            .append("tags", ["yellow fruit", "potassium"])
-            .append("threshold", 40)
-    );
+            .append("tags", new String[] { "yellow fruit", "potassium" })
+            .append("threshold", 40));
     testProducts.add(
         new Document()
             .append("product_name", "Canned Pinto Beans")
@@ -145,9 +144,8 @@ public class ProductControllerSpec {
             .append("lifespan", 2000)
             .append("image", "https://gravatar.com/avatar/8c9616d6cc5de638ea6920fb5d65fc6c?d=identicon")
             .append("notes", "I eat these with toothpaste, yum-yum.")
-            .append("tags", ["canned food","non-perishable","beans"])
-            .append("threshold", 4)
-    );
+            .append("tags", new String[] { "canned food", "non-perishable", "beans" })
+            .append("threshold", 4));
     testProducts.add(
         new Document()
             .append("product_name", "Bread")
@@ -159,9 +157,8 @@ public class ProductControllerSpec {
             .append("lifespan", 14)
             .append("image", "https://gravatar.com/avatar/8c9616d6cc5de638ea6920fb5d65fc6c?d=identicon")
             .append("notes", "I eat these with toothpaste, yum-yum.")
-            .append("tags", [ "Yeast", "contains gluten", "toast" ])
-            .append("threshold", 3)
-    );
+            .append("tags", new String[] { "Yeast", "contains gluten", "toast" })
+            .append("threshold", 3));
     testProducts.add(
         new Document()
             .append("product_name", "Rock")
@@ -173,9 +170,8 @@ public class ProductControllerSpec {
             .append("lifespan", "")
             .append("image", "")
             .append("notes", "")
-            .append("tags", "")
-            .append("threshold", "")
-    );
+            .append("tags", new String[] {})
+            .append("threshold", ""));
 
     milksId = new ObjectId();
     Document milk = new Document()
@@ -188,9 +184,8 @@ public class ProductControllerSpec {
         .append("lifespan", 14)
         .append("image", "https://gravatar.com/avatar/8c9616d6cc5de638ea6920fb5d65fc6c?d=identicon")
         .append("notes", "check on gerbils every 3 days")
-        .append("tags", ["dairy", "perishable", "cold storage"])
-        .append("threshold", 2)
-    ;
+        .append("tags", new String[] { "dairy", "perishable", "cold storage" })
+        .append("threshold", 2);
 
     productDocuments.insertMany(testProducts);
     productDocuments.insertOne(milk);
@@ -477,8 +472,9 @@ public class ProductControllerSpec {
 
     Context ctx = mockContext("api/products");
 
-    assertNotNull(addedProduct); // is this what name you want for the not yet written method?
-    assertNull(addedProduct.getInteger("lifespan"));
+    // assertNotNull(addedProduct); // is this what name you want for the not yet
+    // written method?
+    // assertNull(addedProduct.getInteger("lifespan"));
   }
 
   @Test
