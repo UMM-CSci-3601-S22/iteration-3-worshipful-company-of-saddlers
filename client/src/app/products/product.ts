@@ -10,7 +10,7 @@ export interface Product {
   tags?: string[]; // client filter
   lifespan?: number; // server filter
   threshold?: number; // server filter
-  image?: File; // server filter
+  image?: string; // server filter
 }
 
-export type ProductCategory = 'bakery' | 'produce' | 'meat' | 'diary' | 'frozen foods' | 'canned goods' | 'drinks' | 'miscellaneous';
+export type ProductCategory = 'bakery' | 'produce' | 'meat' | 'dairy' | 'frozen foods' | 'canned goods' | 'drinks' | 'miscellaneous';
