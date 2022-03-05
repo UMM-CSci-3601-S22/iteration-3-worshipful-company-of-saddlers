@@ -158,7 +158,7 @@ public class ProductController {
         .check(product -> product.location != null && product.location.length() > 0,
             "Product must have a non-empty location")
         .check(product -> product.notes != null && product.notes.length() >= 0, "Product notes cannot be null")
-        .check(product -> product.tags != null && product.tags.length >= 0, "Product tags cannot be null")
+        .check(product -> product.tags != null && product.tags.size() >= 0, "Product tags cannot be null")
         .check(product -> product.lifespan > 0, "Products's lifespan must be greater than zero")
         .check(product -> product.threshold > 0, "Products's threshold must be greater than zero")
         .get();
