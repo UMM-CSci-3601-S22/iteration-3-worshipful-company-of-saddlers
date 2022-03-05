@@ -179,7 +179,7 @@ public class ProductControllerSpec {
             .append("description", "")
             .append("brand", "Hurt Ball")
             .append("category", "miscellaneous")
-            .append("store", "Willies")
+            .append("store", "Co-op")
             .append("location", "")
             .append("lifespan", "")
             .append("image", "")
@@ -191,10 +191,11 @@ public class ProductControllerSpec {
 
     milksId = new ObjectId();
     Document milk = new Document()
+        .append("_id", milksId)
         .append("product_name", "Milk")
         .append("description", "A dairy liquid obtained from the teat of an unsuspecting animal")
         .append("brand", "Gerbil Goods")
-        .append("category", "Dairy")
+        .append("category", "dairy")
         .append("store", "Co-op")
         .append("location", "They're In the Walls")
         .append("lifespan", 14)
@@ -284,7 +285,7 @@ public class ProductControllerSpec {
     String path = "api/products";
     Context ctx = mockContext(path);
 
-    productController.getProducts(ctx);
+    productController.getAllProducts(ctx);
     Product[] returnedProducts = returnedProducts(ctx);
 
     // The response status should be 200, i.e., our request.append("_id", milksId)
@@ -298,10 +299,10 @@ public class ProductControllerSpec {
 
   @Test
   public void canGetProductsByBrand() throws IOException {
-    mockReq.setQueryString("Brand=Dole");
+    mockReq.setQueryString("brand=Dole");
     Context ctx = mockContext("api/products");
 
-    productController.getProducts(ctx);
+    productController.getAllProducts(ctx);
     Product[] resultProducts = returnedProducts(ctx);
 
     assertEquals(HttpCode.OK.getStatus(), mockRes.getStatus());
@@ -316,7 +317,7 @@ public class ProductControllerSpec {
     mockReq.setQueryString("store=Willies");
     Context ctx = mockContext("api/products");
 
-    productController.getProducts(ctx);
+    productController.getAllProducts(ctx);
     Product[] resultProducts = returnedProducts(ctx);
 
     assertEquals(HttpURLConnection.HTTP_OK, mockRes.getStatus());
@@ -331,13 +332,13 @@ public class ProductControllerSpec {
     mockReq.setQueryString("category=dairy");
     Context ctx = mockContext("api/products");
 
-    productController.getProducts(ctx);
+    productController.getAllProducts(ctx);
     Product[] resultProducts = returnedProducts(ctx);
 
     assertEquals(HttpURLConnection.HTTP_OK, mockRes.getStatus());
-    assertEquals(3, resultProducts.length);
+    assertEquals(1, resultProducts.length);
     for (Product product : resultProducts) {
-      assertEquals("Willies", product.store);
+      assertEquals("Co-op", product.store);
     }
   }
 
@@ -346,7 +347,7 @@ public class ProductControllerSpec {
     String testID = milksId.toHexString();
     Context ctx = mockContext("api/products/{id}", Map.of("id", testID));
 
-    productController.getProduct(ctx);
+    productController.getProductByID(ctx);
     Product resultProduct = returnedSingleProduct(ctx);
 
     assertEquals(HttpURLConnection.HTTP_OK, mockRes.getStatus());
@@ -359,7 +360,7 @@ public class ProductControllerSpec {
     Context ctx = mockContext("api/products/{id}", Map.of("id", "bad"));
 
     assertThrows(BadRequestResponse.class, () -> {
-      productController.getProduct(ctx);
+      productController.getProductByID(ctx);
     });
   }
 
@@ -368,7 +369,7 @@ public class ProductControllerSpec {
     Context ctx = mockContext("api/products/{id}", Map.of("id", "58af3a600343927e48e87335"));
 
     assertThrows(NotFoundResponse.class, () -> {
-      productController.getProduct(ctx);
+      productController.getProductByID(ctx);
     });
   }
 
@@ -383,7 +384,7 @@ public class ProductControllerSpec {
         + "\"store\": \"test store\","
         + "\"location\": \"test location\","
         + "\"notes\": \"tastes like test\","
-        + "\"tags\": \"test tag\""
+        + "\"tags\": [\"test tag\"]"
         + "\"lifespan\": 100"
         + "\"threshold\": 84"
         + "\"image\": \"https://gravatar.com/avatar/8c9616d6cc5de638ea6920fb5d65fc6c?d=identicon\""

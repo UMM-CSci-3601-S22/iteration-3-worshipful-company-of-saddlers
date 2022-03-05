@@ -2,16 +2,13 @@ package umm3601.product;
 
 import static com.mongodb.client.model.Filters.and;
 import static com.mongodb.client.model.Filters.eq;
-//import static com.mongodb.client.model.Filters.regex;
+import static com.mongodb.client.model.Filters.regex;
 
-//import java.nio.charset.StandardCharsets;
-//import java.security.MessageDigest;
-//import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-//import java.util.regex.Pattern;
+import java.util.regex.Pattern;
 
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Sorts;
@@ -55,7 +52,7 @@ public class ProductController {
    *
    * @param ctx a Javalin HTTP context
    */
-  public void getProduct(Context ctx) {
+  public void getProductByID(Context ctx) {
     String id = ctx.pathParam("id");
     Product product;
 
@@ -76,7 +73,7 @@ public class ProductController {
    *
    * @param ctx a Javalin HTTP context
    */
-  public void getProducts(Context ctx) {
+  public void getAllProducts(Context ctx) {
     Bson combinedFilter = constructFilter(ctx);
     Bson sortingOrder = constructSortingOrder(ctx);
 
@@ -97,19 +94,43 @@ public class ProductController {
   private Bson constructFilter(Context ctx) {
     List<Bson> filters = new ArrayList<>(); // start with a blank document
 
-    /*
-     * if (ctx.queryParamMap().containsKey(AGE_KEY)) {
-     * int targetAge = ctx.queryParamAsClass(AGE_KEY, Integer.class).get();
-     * filters.add(eq(AGE_KEY, targetAge));
-     * }
-     * if (ctx.queryParamMap().containsKey(COMPANY_KEY)) {
-     * filters.add(regex(COMPANY_KEY, Pattern.quote(ctx.queryParam(COMPANY_KEY)),
-     * "i"));
-     * }
-     * if (ctx.queryParamMap().containsKey(ROLE_KEY)) {
-     * filters.add(eq(ROLE_KEY, ctx.queryParam(ROLE_KEY)));
-     * }
-     */
+    if (ctx.queryParamMap().containsKey(DESCRIPTION_KEY)) {
+      filters.add(regex(DESCRIPTION_KEY,  Pattern.quote(ctx.queryParam(DESCRIPTION_KEY)), "i"));
+    }
+
+    if (ctx.queryParamMap().containsKey(BRAND_KEY)) {
+      filters.add(regex(BRAND_KEY,  Pattern.quote(ctx.queryParam(BRAND_KEY)), "i"));
+    }
+
+    if (ctx.queryParamMap().containsKey(CATEGORY_KEY)) {
+      filters.add(regex(CATEGORY_KEY,  Pattern.quote(ctx.queryParam(CATEGORY_KEY)), "i"));
+    }
+
+    if (ctx.queryParamMap().containsKey(STORE_KEY)) {
+      filters.add(regex(STORE_KEY,  Pattern.quote(ctx.queryParam(STORE_KEY)), "i"));
+    }
+
+    if (ctx.queryParamMap().containsKey(LOCATION_KEY)) {
+      filters.add(regex(LOCATION_KEY,  Pattern.quote(ctx.queryParam(LOCATION_KEY)), "i"));
+    }
+
+    if (ctx.queryParamMap().containsKey(NOTES_KEY)) {
+      filters.add(regex(NOTES_KEY,  Pattern.quote(ctx.queryParam(NOTES_KEY)), "i"));
+    }
+
+    /* if (ctx.queryParamMap().containsKey(TAGS_KEY)) {
+      filters.add(regex(TAGS_KEY,  Pattern.quote(ctx.queryParam(TAGS_KEY)), "i"));
+    } */
+
+    if (ctx.queryParamMap().containsKey(LIFESPAN_KEY)) {
+      int targetLifespan = ctx.queryParamAsClass(LIFESPAN_KEY, Integer.class).get();
+      filters.add(eq(LIFESPAN_KEY, targetLifespan));
+  }
+
+  if (ctx.queryParamMap().containsKey(THRESHOLD_KEY)) {
+    int targetThreshold = ctx.queryParamAsClass(THRESHOLD_KEY, Integer.class).get();
+    filters.add(eq(THRESHOLD_KEY, targetThreshold));
+}
 
     // Combine the list of filters into a single filtering document.
     Bson combinedFilter = filters.isEmpty() ? new Document() : and(filters);
@@ -133,17 +154,7 @@ public class ProductController {
    * @param ctx a Javalin HTTP context
    */
   public void addNewProduct(Context ctx) {
-    /*
-     * The follow chain of statements uses the Javalin validator system
-     * to verify that instance of `User` provided in this context is
-     * a "legal" user. It checks the following things (in order):
-     * - The user has a value for the name (`usr.name != null`)
-     * - The user name is not blank (`usr.name.length > 0`)
-     * - The provided email is valid (matches EMAIL_REGEX)
-     * - The provided age is > 0
-     * - The provided role is valid (one of "admin", "editor", or "viewer")
-     * - A non-blank company is provided
-     */
+
     Product newProduct = ctx.bodyValidator(Product.class)
         .check(product -> product.product_name != null && product.product_name.length() > 0,
             "Product must have a non-empty product name")
@@ -161,6 +172,8 @@ public class ProductController {
         .check(product -> product.tags != null && product.tags.size() >= 0, "Product tags cannot be null")
         .check(product -> product.lifespan > 0, "Products's lifespan must be greater than zero")
         .check(product -> product.threshold > 0, "Products's threshold must be greater than zero")
+        .check(product -> product.image != null && product.image.length() > 0,
+            "Product must have a non-empty image URL")
         .get();
 
     productCollection.insertOne(newProduct);

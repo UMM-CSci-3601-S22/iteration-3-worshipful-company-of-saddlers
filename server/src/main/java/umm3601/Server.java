@@ -69,10 +69,10 @@ public class Server {
     server.get("/api/users/{id}", userController::getUser);
 
     // List products, filtered using query params
-    server.get("/api/products", productController::getProducts);
+    server.get("/api/products", productController::getAllProducts);
 
     // Get the specified product
-    server.get("/api/products/{id}", productController::getProduct);
+    server.get("/api/products/{id}", productController::getProductByID);
 
     // Delete the specified user
     server.delete("/api/users/{id}", userController::deleteUser);
