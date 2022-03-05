@@ -33,7 +33,7 @@ public class ProductController {
   private static final String STORE_KEY = "store";
   private static final String LOCATION_KEY = "location";
   private static final String NOTES_KEY = "notes";
-  private static final String TAGS_KEY = "tags";
+  //private static final String TAGS_KEY = "tags";
   private static final String LIFESPAN_KEY = "lifespan";
   private static final String THRESHOLD_KEY = "threshold";
 

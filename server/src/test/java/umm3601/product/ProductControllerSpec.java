@@ -56,7 +56,7 @@ import io.javalin.plugin.json.JavalinJackson;
 // these tests can/should be restructured so the constants (there are
 // also a lot of "magic strings" that Checkstyle doesn't actually
 // flag as a problem) make more sense.
-@SuppressWarnings({ "MagicNumber" })
+@SuppressWarnings({ "MagicNumber", "NoWhitespaceAfter" })
 public class ProductControllerSpec {
 
   // Mock requests and responses that will be reset in `setupEach()`
@@ -528,7 +528,7 @@ public class ProductControllerSpec {
     String testNewProduct = "{"
         + "\"product_name\": \"Test Product name\","
         + "\"description\":\"A test product description\","
-        // + "\"brand\": \"test brand\","//
+         + "\"brand\": \"test brand\","
         + "\"category\": \"test category\","
         + "\"store\": \"test store\","
         + "\"location\": \"test location\","
