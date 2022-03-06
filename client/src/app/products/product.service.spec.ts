@@ -162,4 +162,18 @@ describe('ProductService', () => {
     req.flush(targetProduct);
   });
 
+  it('addProduct() posts to api/products', () => {
+
+    productService.addProduct(testProducts[1]).subscribe(
+      id => expect(id).toBe('testid')
+    );
+
+    const req = httpTestingController.expectOne(productService.productUrl);
+
+    expect(req.request.method).toEqual('POST');
+    expect(req.request.body).toEqual(testProducts[1]);
+
+    req.flush({id: 'testid'});
+  });
+
 });
