@@ -61,7 +61,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
     this.frozenProducts = this.productService.filterProducts(
       this.allProducts, { category: 'frozen foods'});
     this.cannedProducts = this.productService.filterProducts(
-      this.allProducts, { category: 'canned good'});
+      this.allProducts, { category: 'canned goods'});
     this.drinkProducts = this.productService.filterProducts(
       this.allProducts, { category: 'drinks'});
     this.seasonalProducts = this.productService.filterProducts(
