@@ -130,7 +130,7 @@ describe('ProductService', () => {
     req.flush(testProducts);
   });
 
-  it('getUsers() calls api/products with multiple filter parameters', () => {
+  it('getProducts() calls api/products with multiple filter parameters', () => {
 
     productService.getProducts({ category: 'bakery', store: 'Walmart' }).subscribe(
       products => expect(products).toBe(testProducts)
@@ -160,6 +160,25 @@ describe('ProductService', () => {
     const req = httpTestingController.expectOne(expectedUrl);
     expect(req.request.method).toEqual('GET');
     req.flush(targetProduct);
+  });
+
+  it('filterProducts() filters by productName', () => {
+    expect(testProducts.length).toBe(3);
+    const name = 'a';
+    expect(productService.filterProducts(testProducts, { productName: name }).length).toBe(2);
+  });
+
+  it('filterProducts() filters by brand', () => {
+    expect(testProducts.length).toBe(3);
+    const productBrand = 'Dole';
+    expect(productService.filterProducts(testProducts, { brand: productBrand }).length).toBe(1);
+  });
+
+  it('filterProducts() filters by productName and brand', () => {
+    expect(testProducts.length).toBe(3);
+    const productBrand = 'Country Hearth';
+    const name = 'Wheat Bread';
+    expect(productService.filterProducts(testProducts, { productName: name, brand: productBrand }).length).toBe(1);
   });
 
   it('addProduct() posts to api/products', () => {
