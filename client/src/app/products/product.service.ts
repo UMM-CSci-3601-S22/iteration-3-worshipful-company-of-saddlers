@@ -30,7 +30,8 @@ export class ProductService {
     return this.httpClient.get<Product>(this.productUrl + '/' + id);
   }
 
-  filterProducts(products: Product[], filters: { productName?: string; brand?: string; limit?: number }): Product[] {
+  // eslint-disable-next-line max-len
+  filterProducts(products: Product[], filters: { productName?: string; brand?: string; limit?: number; category?: ProductCategory }): Product[] {
 
     let filteredProducts = products;
 
@@ -50,6 +51,11 @@ export class ProductService {
 
     if (filters.limit) {
       filteredProducts = filteredProducts.slice(0, filters.limit);
+    }
+
+    // Filter by category
+    if (filters.category) {
+      filteredProducts = filteredProducts.filter(product => product.category.indexOf(filters.category) !== -1);
     }
 
     return filteredProducts;
