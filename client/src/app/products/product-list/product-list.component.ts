@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { PageEvent } from '@angular/material/paginator';
 import { Product, ProductCategory } from '../product';
 import { ProductService } from '../product.service';
 import { Subscription } from 'rxjs';
@@ -20,6 +21,14 @@ export class ProductListComponent implements OnInit, OnDestroy {
   public productStore: string;
   getProductsSub: Subscription;
 
+  // MatPaginator Inputs
+  public productListLength: number;
+  public pageSize: 10;
+  public pageSizeOptions: number[] = [5, 10, 25, 50];
+
+  // MatPaginator Output
+  pageEvent: PageEvent;
+
   constructor(private productService: ProductService) { }
 
   getProductsFromServer(): void {
@@ -38,6 +47,13 @@ export class ProductListComponent implements OnInit, OnDestroy {
   public updateFilter(): void {
     this.filteredProducts = this.productService.filterProducts(
       this.serverFilteredProducts, { productName: this.name, brand: this.productBrand });
+    this.productListLength = this.filteredProducts.length;
+  }
+
+  setPageSizeOptions(setPageSizeOptionsInput: string) {
+    if (setPageSizeOptionsInput) {
+      this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
+    }
   }
 
   ngOnInit(): void {

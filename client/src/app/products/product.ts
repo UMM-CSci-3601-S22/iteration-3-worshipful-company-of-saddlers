@@ -13,4 +13,5 @@ export interface Product {
   image?: string; // server filter
 }
 
-export type ProductCategory = 'bakery' | 'produce' | 'meat' | 'dairy' | 'frozen foods' | 'canned goods' | 'drinks' | 'miscellaneous';
+// eslint-disable-next-line max-len
+export type ProductCategory = 'bakery' | 'produce' | 'meat' | 'dairy' | 'frozen foods' | 'canned goods' | 'drinks' | 'miscellaneous' | 'seasonal';
