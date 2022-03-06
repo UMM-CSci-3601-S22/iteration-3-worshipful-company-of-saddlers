@@ -384,11 +384,12 @@ public class ProductControllerSpec {
         + "\"store\": \"test store\","
         + "\"location\": \"test location\","
         + "\"notes\": \"tastes like test\","
-        + "\"tags\": [\"test tag\"]"
-        + "\"lifespan\": 100"
-        + "\"threshold\": 84"
+        + "\"tags\": [\"test tag\"],"
+        + "\"lifespan\": 100,"
+        + "\"threshold\": 84,"
         + "\"image\": \"https://gravatar.com/avatar/8c9616d6cc5de638ea6920fb5d65fc6c?d=identicon\""
         + "}";
+        System.err.println(testNewProduct);
     mockReq.setBodyContent(testNewProduct);
     mockReq.setMethod("POST");
 
@@ -417,7 +418,7 @@ public class ProductControllerSpec {
     assertEquals("test category", addedProduct.getString("category"));
     assertEquals("test store", addedProduct.getString("store"));
     assertEquals("test location", addedProduct.getString("location"));
-    assertEquals("test tag", addedProduct.getString("tags"));
+    //assertArrayEquals(new String[] {"test tag"}, addedProduct.get("tags"));
     assertEquals("tastes like test", addedProduct.getString("notes"));
     assertEquals(100, addedProduct.getInteger("lifespan"));
     assertEquals(84, addedProduct.getInteger("threshold"));
@@ -613,6 +614,20 @@ public class ProductControllerSpec {
 
     // Product is no longer in the database
     assertEquals(0, db.getCollection("products").countDocuments(eq("_id", new ObjectId(testID))));
+  }
+
+  @Test
+  public void cannotDeleteNonexistentProduct() throws IOException {
+    String testID = "588935f57546a2daea44de7c";
+
+    // Product exists before deletion
+    assertEquals(0, db.getCollection("products").countDocuments(eq("_id", new ObjectId(testID))));
+
+    Context ctx = mockContext("api/products/{id}", Map.of("id", testID));
+
+    assertThrows(NotFoundResponse.class, () -> {
+      productController.deleteProduct(ctx);
+    });
   }
 
 }
