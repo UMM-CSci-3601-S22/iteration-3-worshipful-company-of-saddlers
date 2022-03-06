@@ -1,0 +1,305 @@
+<!-- Form Fields and Search Bar ('Top' Content) -->
+<div fxLayout="row">
+  <div fxFlex fxFlex.gt-sm="80" fxFlexOffset.gt-sm="10">
+
+    <mat-card class="search-card">
+      <mat-card-title class="user-list-title">Products</mat-card-title>
+      <mat-card-content fxLayout="column" >
+
+        <!-- Form Field Container -->
+        <div fxLayout="row wrap" fxLayoutGap="15px">
+          <mat-form-field class="input-field">
+            <mat-label>Product Name</mat-label>
+            <input matInput data-test="productNameInput" placeholder="Filter products by name"
+            [(ngModel)]="name" (input)="updateFilter()">
+            <mat-hint>Filtered on client</mat-hint>
+          </mat-form-field>
+
+          <mat-form-field class="input-field">
+            <mat-label>Brand</mat-label>
+            <input matInput data-test="productBrandInput" placeholder="Filter products by brand"
+            [(ngModel)]="productBrand" (input)="updateFilter()">
+            <mat-hint>Filtered on client</mat-hint>
+          </mat-form-field>
+        </div>
+
+        <!-- Selector/Tree Container -->
+        <div fxLayout="row wrap" fxLayoutGap="15px">
+          <mat-form-field class="input-field">
+            <mat-label>Store</mat-label>
+            <mat-select (selectionChange)="getProductsFromServer()" [(ngModel)]="productStore" data-test="productStoreSelect">
+              <mat-option>--</mat-option>
+              <mat-option value="Willies">Willies</mat-option>
+              <mat-option value="Pomme de Terre">Pomme de Terre </mat-option>
+            </mat-select>
+            <mat-hint>Filtered on server</mat-hint>
+          </mat-form-field>
+
+          <mat-form-field class="input-field">
+            <mat-label>Category</mat-label>
+            <mat-select (selectionChange)="getProductsFromServer()" [(ngModel)]="productCategory" data-test="productCategorySelect">
+              <mat-option>--</mat-option>
+              <mat-option value="bakery">Bakery</mat-option>
+              <mat-option value="produce">Produce</mat-option>
+              <mat-option value="meat">Meat</mat-option>
+              <mat-option value="dairy">Dairy</mat-option>
+              <mat-option value="frozen foods">Frozen Foods</mat-option>
+              <mat-option value="canned good">Canned Goods</mat-option>
+              <mat-option value="drinks">Drinks</mat-option>
+              <mat-option value="miscellaneous">Miscellaneous</mat-option>
+              <mat-option value="seasonal">Seasonal</mat-option>
+            </mat-select>
+            <mat-hint>Filtered on server</mat-hint>
+          </mat-form-field>
+        </div>
+
+        <br>
+
+        <!-- Product Limit Container -->
+        <!-- <div fxLayout="row wrap" fxLayoutGap="10px" class="limitContainer">
+          <mat-form-field class="input-field">
+            <mat-label>Limit</mat-label>
+            <mat-select (selectionChange)="updateFilter()" [(ngModel)]="productLimit" data-test="productLimitSelect">
+              <mat-option>--</mat-option>
+              <mat-option value="5">5</mat-option>
+              <mat-option value="10">10</mat-option>
+              <mat-option value="25">25</mat-option>
+              <mat-option value="50">50</mat-option>
+              <mat-option value="10000">ALL</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div> -->
+
+      </mat-card-content>
+    </mat-card>
+
+  </div>
+</div>
+
+<!-- Product List ('Bottom' Content) -->
+<div fxLayout="row">
+  <div fxFlex fxFlex.gt-sm="80" fxFlexOffset.gt-sm="10" *ngIf="serverFilteredProducts; else productsError" >
+    <mat-card  *ngIf="activeFilters" class="conditional-product-list">
+      <mat-card-content>
+        <mat-nav-list class="filtered-product-nav-list">
+          <a mat-list-item *ngFor="let product of this.filteredProducts" [routerLink]="['/products', product._id]" class="product-list-item">
+            <h3 matLine class="product-list-name"> {{product.productName}} </h3>
+            <p matLine class="product-list-category"> {{product.category}} </p>
+            <p matLine class="product-list-brand"> {{product.brand}} </p>
+            <mat-divider></mat-divider>
+          </a>
+        </mat-nav-list>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="expansion-product-panels">
+      <mat-card-content>
+        <mat-accordion>
+
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Bakery Goods
+              </mat-panel-title>
+              <mat-panel-description>
+
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <mat-nav-list class="bakery-product-nav-list">
+              <a mat-list-item *ngFor="let product of this.bakeryProducts" [routerLink]="['/products', product._id]" class="product-list-item">
+                <h3 matLine class="product-list-name"> {{product.productName}} </h3>
+                <p matLine class="product-list-category"> {{product.category}} </p>
+                <p matLine class="product-list-brand"> {{product.brand}} </p>
+                <mat-divider></mat-divider>
+              </a>
+            </mat-nav-list>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Produce
+              </mat-panel-title>
+              <mat-panel-description>
+
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <mat-nav-list class="produce-product-nav-list">
+              <a mat-list-item *ngFor="let product of this.produceProducts" [routerLink]="['/products', product._id]" class="product-list-item">
+                <h3 matLine class="product-list-name"> {{product.productName}} </h3>
+                <p matLine class="product-list-category"> {{product.category}} </p>
+                <p matLine class="product-list-brand"> {{product.brand}} </p>
+                <mat-divider></mat-divider>
+              </a>
+            </mat-nav-list>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Meat
+              </mat-panel-title>
+              <mat-panel-description>
+
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <mat-nav-list class="meat-product-nav-list">
+              <a mat-list-item *ngFor="let product of this.meatProducts" [routerLink]="['/products', product._id]" class="product-list-item">
+                <h3 matLine class="product-list-name"> {{product.productName}} </h3>
+                <p matLine class="product-list-category"> {{product.category}} </p>
+                <p matLine class="product-list-brand"> {{product.brand}} </p>
+                <mat-divider></mat-divider>
+              </a>
+            </mat-nav-list>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Dairy
+              </mat-panel-title>
+              <mat-panel-description>
+
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <mat-nav-list class="dairy-product-nav-list">
+              <a mat-list-item *ngFor="let product of this.dairyProducts" [routerLink]="['/products', product._id]" class="product-list-item">
+                <h3 matLine class="product-list-name"> {{product.productName}} </h3>
+                <p matLine class="product-list-category"> {{product.category}} </p>
+                <p matLine class="product-list-brand"> {{product.brand}} </p>
+                <mat-divider></mat-divider>
+              </a>
+            </mat-nav-list>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Frozen Foods
+              </mat-panel-title>
+              <mat-panel-description>
+
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <mat-nav-list class="frozen-product-nav-list">
+              <a mat-list-item *ngFor="let product of this.frozenProducts" [routerLink]="['/products', product._id]" class="product-list-item">
+                <h3 matLine class="product-list-name"> {{product.productName}} </h3>
+                <p matLine class="product-list-category"> {{product.category}} </p>
+                <p matLine class="product-list-brand"> {{product.brand}} </p>
+                <mat-divider></mat-divider>
+              </a>
+            </mat-nav-list>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Canned Goods
+              </mat-panel-title>
+              <mat-panel-description>
+
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <mat-nav-list class="canned-product-nav-list">
+              <a mat-list-item *ngFor="let product of this.cannedProducts" [routerLink]="['/products', product._id]" class="product-list-item">
+                <h3 matLine class="product-list-name"> {{product.productName}} </h3>
+                <p matLine class="product-list-category"> {{product.category}} </p>
+                <p matLine class="product-list-brand"> {{product.brand}} </p>
+                <mat-divider></mat-divider>
+              </a>
+            </mat-nav-list>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Drinks
+              </mat-panel-title>
+              <mat-panel-description>
+
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <mat-nav-list class="drink-product-nav-list">
+              <a mat-list-item *ngFor="let product of this.drinkProducts" [routerLink]="['/products', product._id]" class="product-list-item">
+                <h3 matLine class="product-list-name"> {{product.productName}} </h3>
+                <p matLine class="product-list-category"> {{product.category}} </p>
+                <p matLine class="product-list-brand"> {{product.brand}} </p>
+                <mat-divider></mat-divider>
+              </a>
+            </mat-nav-list>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Seasonal Goods
+              </mat-panel-title>
+              <mat-panel-description>
+
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <mat-nav-list class="seasonal-product-nav-list">
+              <a mat-list-item *ngFor="let product of this.seasonalProducts" [routerLink]="['/products', product._id]" class="product-list-item">
+                <h3 matLine class="product-list-name"> {{product.productName}} </h3>
+                <p matLine class="product-list-category"> {{product.category}} </p>
+                <p matLine class="product-list-brand"> {{product.brand}} </p>
+                <mat-divider></mat-divider>
+              </a>
+            </mat-nav-list>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Miscellaneous Goods
+              </mat-panel-title>
+              <mat-panel-description>
+
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <mat-nav-list class="bakery-product-nav-list">
+              <a mat-list-item *ngFor="let product of this.miscellaneousProducts" [routerLink]="['/products', product._id]" class="product-list-item">
+                <h3 matLine class="product-list-name"> {{product.productName}} </h3>
+                <p matLine class="product-list-category"> {{product.category}} </p>
+                <p matLine class="product-list-brand"> {{product.brand}} </p>
+                <mat-divider></mat-divider>
+              </a>
+            </mat-nav-list>
+          </mat-expansion-panel>
+
+        </mat-accordion>
+
+        <!-- <mat-nav-list class="product-nav-list">
+          <h3 mat-subheader>Product List</h3>
+          <a mat-list-item *ngFor="let product of this.filteredProducts" [routerLink]="['/products', product._id]" class="product-list-item">
+            <h3 matLine class="product-list-name"> {{product.productName}} </h3>
+            <p matLine class="product-list-category"> {{product.category}} </p>
+            <p matLine class="product-list-brand"> {{product.brand}} </p>
+            <mat-divider></mat-divider>
+          </a>
+        </mat-nav-list> -->
+      </mat-card-content>
+      <mat-card-actions>
+
+      </mat-card-actions>
+    </mat-card>
+  </div>
+
+  <ng-template #productsError>
+    <div fxFlex fxFlex.gt-sm="80" fxFlexOffset.gt-sm="10" class="product-error">
+      <mat-error>
+        There was a problem loading the products. Possibly the server is down or perhaps there are network
+        issues.
+      </mat-error>
+      <mat-error>
+        Please wait a bit and try again.
+      </mat-error>
+    </div>
+  </ng-template>
+
+</div>
+
+<!-- Add Product Button -->
+<button mat-fab class="add-product-fab" matTooltip="Add Product" matTooltipPosition="left" routerLink="/products/new" data-test="addProductButton">
+  <mat-icon class="md-24" aria-label="Add Product">add</mat-icon>
+</button>
