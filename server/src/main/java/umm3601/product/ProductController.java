@@ -158,7 +158,7 @@ public class ProductController {
     Product newProduct = ctx.bodyValidator(Product.class)
         .check(product -> product.product_name != null && product.product_name.length() > 0,
             "Product must have a non-empty product name")
-        .check(product -> product.description != null && product.description.length() >= 0,
+        .check(product -> product.description != null,
             "Product description cannot be null")
         .check(product -> product.brand != null && product.brand.length() > 0, "Product must have a non-empty brand")
         // .check(product -> product.category.matches("^(admin|editor|viewer)$"), "User
@@ -168,7 +168,7 @@ public class ProductController {
         .check(product -> product.store != null && product.store.length() > 0, "Product must have a non-empty store")
         .check(product -> product.location != null && product.location.length() > 0,
             "Product must have a non-empty location")
-        .check(product -> product.notes != null && product.notes.length() >= 0, "Product notes cannot be null")
+        .check(product -> product.notes != null, "Product notes cannot be null")
         //.check(product -> product.tags != null && product.tags.size() >= 0, "Product tags cannot be null")
         .check(product -> product.lifespan > 0, "Products's lifespan must be greater than zero")
         .check(product -> product.threshold > 0, "Products's threshold must be greater than zero")
