@@ -3,7 +3,7 @@ package umm3601.pantry;
 import org.mongojack.Id;
 import org.mongojack.ObjectId;
 
-public class pantry {
+public class PantryItem {
   @ObjectId
   @Id
   // By default Java field names shouldn't start with underscores.
@@ -12,5 +12,6 @@ public class pantry {
   @SuppressWarnings({ "MemberName" })
   public String _id;
   public ObjectId product;
+  public String purchase_date;
   public String notes;
 }

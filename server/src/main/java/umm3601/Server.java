@@ -14,6 +14,7 @@ import io.javalin.Javalin;
 import io.javalin.core.util.RouteOverviewPlugin;
 import io.javalin.http.InternalServerErrorResponse;
 import umm3601.user.UserController;
+import umm3601.pantry.PantryController;
 import umm3601.product.ProductController;
 
 public class Server {
@@ -45,6 +46,7 @@ public class Server {
     // Initialize dependencies
     UserController userController = new UserController(database);
     ProductController productController = new ProductController(database);
+    PantryController pantryController = new PantryController(database);
 
     Javalin server = Javalin.create(config -> config.registerPlugin(new RouteOverviewPlugin("/api")));
     /*
@@ -73,6 +75,9 @@ public class Server {
 
     // Get the specified product
     server.get("/api/products/{id}", productController::getProductByID);
+
+    // Get the specified pantry item
+    server.get("/api/pantry/{id}", pantryController::getPantryItemByID);
 
     // Delete the specified user
     server.delete("/api/users/{id}", userController::deleteUser);
