@@ -1,1 +1,63 @@
-<p>product-list works!</p>
+<!-- Form Fields and Search Bar ('Top' Content) -->
+<div fxLayout="row">
+  <div fxFlex fxFlex.gt-sm="80" fxFlexOffset.gt-sm="10">
+
+    <mat-card class="search-card">
+      <mat-card-title class="user-list-title">Products</mat-card-title>
+      <mat-card-content fxLayout="column" >
+
+        <!-- Form Field Container -->
+        <div fxLayout="row wrap" fxLayoutGap="10px">
+
+        </div>
+
+        <!-- Selector/Tree Container -->
+        <div fxLayout="row wrap" fxLayoutGap="10px">
+
+        </div>
+
+        <!-- Paginate Container -->
+        <div fxLayout="row wrap" fxLayoutGap="10px">
+
+        </div>
+
+      </mat-card-content>
+    </mat-card>
+
+  </div>
+</div>
+
+<!-- Product List ('Bottom' Content) -->
+<div fxLayout="row">
+  <div fxFlex fxFlex.gt-sm="80" fxFlexOffset.gt-sm="10" *ngIf="serverFilteredProducts; else productsError" >
+    <mat-card>
+      <mat-card-content>
+        <mat-nav-list class="product-nav-list">
+          <h3 mat-subheader>Product List</h3>
+          <a mat-list-item *ngFor="let product of this.filteredProducts" [routerLink]="['/products', product._id]" class="product-list-item">
+            <h3 matLine class="product-list-name"> {{product.productName}} </h3>
+            <p matLine class="product-list-category"> {{product.category}} </p>
+          </a>
+        </mat-nav-list>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <ng-template #productsError>
+    <div fxFlex fxFlex.gt-sm="80" fxFlexOffset.gt-sm="10" class="product-error">
+      <mat-error>
+        There was a problem loading the products. Possibly the server is down or perhaps there are network
+        issues.
+      </mat-error>
+      <mat-error>
+        Please wait a bit and try again.
+      </mat-error>
+    </div>
+  </ng-template>
+
+</div>
+
+<!-- Add Product Button -->
+<button>
+
+</button>
