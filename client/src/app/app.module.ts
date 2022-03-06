@@ -50,6 +50,7 @@ import { ProductListComponent } from './products/product-list/product-list.compo
 import { ProductService } from './products/product.service';
 import { SingleProductPageComponent } from './products/single-product-page/single-product-page.component';
 import { AddProductComponent } from './products/add-product/add-product.component';
+import { ProductCardComponent } from './products/product-card/product-card.component';
 
 const MATERIAL_MODULES: any[] = [
   MatListModule,
@@ -95,6 +96,7 @@ const MATERIAL_MODULES: any[] = [
     ProductListComponent,
     SingleProductPageComponent,
     AddProductComponent,
+    ProductCardComponent,
   ],
   imports: [
     BrowserModule,

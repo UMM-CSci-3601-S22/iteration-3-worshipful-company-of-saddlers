@@ -1,0 +1,17 @@
+<mat-card class="product-card" *ngIf="this.product">
+  <mat-card-header>
+    <img mat-card-avatar [src]="this.product.image" class="product-image" *ngIf="this.product.image">
+    <mat-card-title class="product-card-name">{{ this.product.productName }}</mat-card-title>
+    <mat-card-subtitle class="product-card-brand">{{ this.product.brand }}</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content >
+    <p>Category: <span class="product-card-category">{{ this.product.category }}</span></p>
+    <p>Store: <span class="product-card-store">{{ this.product.store }}</span></p>
+    <p>Location: <span class="product-card-location">{{ this.product.location }}</span></p>
+    <p>Description: <span class="product-card-description">{{ this.product.description }}</span></p>
+    <p>Notes: <span class="product-card-notes">{{ this.product.notes }}</span></p>
+    <p>Tags: <span class="product-card-tags">{{ this.product.tags }}</span></p>
+    <p>Lifespan: <span class="product-card-lifespan">{{ this.product.lifespan }}</span></p>
+    <p>Threshold: <span class="product-card-threshold">{{ this.product.threshold }}</span></p>
+  </mat-card-content>
+</mat-card>
