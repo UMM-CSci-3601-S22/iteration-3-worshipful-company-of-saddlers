@@ -27,15 +27,15 @@ import io.javalin.http.NotFoundResponse;
 
 public class ProductController {
   private static final String PRODUCT_NAME_KEY = "product_name";
-  private static final String DESCRIPTION_KEY = "description";
+  // private static final String DESCRIPTION_KEY = "description";
   private static final String BRAND_KEY = "brand";
   private static final String CATEGORY_KEY = "category";
   private static final String STORE_KEY = "store";
-  private static final String LOCATION_KEY = "location";
-  private static final String NOTES_KEY = "notes";
-  //private static final String TAGS_KEY = "tags";
-  private static final String LIFESPAN_KEY = "lifespan";
-  private static final String THRESHOLD_KEY = "threshold";
+  // private static final String LOCATION_KEY = "location";
+  // private static final String NOTES_KEY = "notes";
+  // private static final String TAGS_KEY = "tags";
+  // private static final String LIFESPAN_KEY = "lifespan";
+  // private static final String THRESHOLD_KEY = "threshold";
 
   private final JacksonMongoCollection<Product> productCollection;
 
@@ -94,43 +94,53 @@ public class ProductController {
   private Bson constructFilter(Context ctx) {
     List<Bson> filters = new ArrayList<>(); // start with a blank document
 
-  /*   if (ctx.queryParamMap().containsKey(DESCRIPTION_KEY)) {
-      filters.add(regex(DESCRIPTION_KEY,  Pattern.quote(ctx.queryParam(DESCRIPTION_KEY)), "i"));
-    } */
+    /*
+     * if (ctx.queryParamMap().containsKey(DESCRIPTION_KEY)) {
+     * filters.add(regex(DESCRIPTION_KEY,
+     * Pattern.quote(ctx.queryParam(DESCRIPTION_KEY)), "i"));
+     * }
+     */
 
     if (ctx.queryParamMap().containsKey(BRAND_KEY)) {
-      filters.add(regex(BRAND_KEY,  Pattern.quote(ctx.queryParam(BRAND_KEY)), "i"));
+      filters.add(regex(BRAND_KEY, Pattern.quote(ctx.queryParam(BRAND_KEY)), "i"));
     }
 
     if (ctx.queryParamMap().containsKey(CATEGORY_KEY)) {
-      filters.add(regex(CATEGORY_KEY,  Pattern.quote(ctx.queryParam(CATEGORY_KEY)), "i"));
+      filters.add(regex(CATEGORY_KEY, Pattern.quote(ctx.queryParam(CATEGORY_KEY)), "i"));
     }
 
     if (ctx.queryParamMap().containsKey(STORE_KEY)) {
-      filters.add(regex(STORE_KEY,  Pattern.quote(ctx.queryParam(STORE_KEY)), "i"));
+      filters.add(regex(STORE_KEY, Pattern.quote(ctx.queryParam(STORE_KEY)), "i"));
     }
 
-    /* if (ctx.queryParamMap().containsKey(LOCATION_KEY)) {
-      filters.add(regex(LOCATION_KEY,  Pattern.quote(ctx.queryParam(LOCATION_KEY)), "i"));
-    }
+    /*
+     * if (ctx.queryParamMap().containsKey(LOCATION_KEY)) {
+     * filters.add(regex(LOCATION_KEY, Pattern.quote(ctx.queryParam(LOCATION_KEY)),
+     * "i"));
+     * }
+     *
+     * if (ctx.queryParamMap().containsKey(NOTES_KEY)) {
+     * filters.add(regex(NOTES_KEY, Pattern.quote(ctx.queryParam(NOTES_KEY)), "i"));
+     * }
+     */
 
-    if (ctx.queryParamMap().containsKey(NOTES_KEY)) {
-      filters.add(regex(NOTES_KEY,  Pattern.quote(ctx.queryParam(NOTES_KEY)), "i"));
-    } */
-
-    /* if (ctx.queryParamMap().containsKey(TAGS_KEY)) {
-      filters.add(regex(TAGS_KEY,  Pattern.quote(ctx.queryParam(TAGS_KEY)), "i"));
-    }
-
-    if (ctx.queryParamMap().containsKey(LIFESPAN_KEY)) {
-      int targetLifespan = ctx.queryParamAsClass(LIFESPAN_KEY, Integer.class).get();
-      filters.add(eq(LIFESPAN_KEY, targetLifespan));
-  }
-
-  if (ctx.queryParamMap().containsKey(THRESHOLD_KEY)) {
-    int targetThreshold = ctx.queryParamAsClass(THRESHOLD_KEY, Integer.class).get();
-    filters.add(eq(THRESHOLD_KEY, targetThreshold));
-} */
+    /*
+     * if (ctx.queryParamMap().containsKey(TAGS_KEY)) {
+     * filters.add(regex(TAGS_KEY, Pattern.quote(ctx.queryParam(TAGS_KEY)), "i"));
+     * }
+     *
+     * if (ctx.queryParamMap().containsKey(LIFESPAN_KEY)) {
+     * int targetLifespan = ctx.queryParamAsClass(LIFESPAN_KEY,
+     * Integer.class).get();
+     * filters.add(eq(LIFESPAN_KEY, targetLifespan));
+     * }
+     *
+     * if (ctx.queryParamMap().containsKey(THRESHOLD_KEY)) {
+     * int targetThreshold = ctx.queryParamAsClass(THRESHOLD_KEY,
+     * Integer.class).get();
+     * filters.add(eq(THRESHOLD_KEY, targetThreshold));
+     * }
+     */
 
     // Combine the list of filters into a single filtering document.
     Bson combinedFilter = filters.isEmpty() ? new Document() : and(filters);
@@ -169,7 +179,8 @@ public class ProductController {
         .check(product -> product.location != null && product.location.length() > 0,
             "Product must have a non-empty location")
         .check(product -> product.notes != null, "Product notes cannot be null")
-        //.check(product -> product.tags != null && product.tags.size() >= 0, "Product tags cannot be null")
+        // .check(product -> product.tags != null && product.tags.size() >= 0, "Product
+        // tags cannot be null")
         .check(product -> product.lifespan > 0, "Products's lifespan must be greater than zero")
         .check(product -> product.threshold > 0, "Products's threshold must be greater than zero")
         .check(product -> product.image != null && product.image.length() > 0,
