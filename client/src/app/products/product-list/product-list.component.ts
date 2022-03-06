@@ -14,17 +14,21 @@ export class ProductListComponent implements OnInit, OnDestroy {
   public serverFilteredProducts: Product[];
   public filteredProducts: Product[];
 
+  // Unfiltered product list
+  public allProducts: Product[];
+
   public name: string;
   public productBrand: string;
   public productCategory: ProductCategory;
   public productStore: string;
   public productLimit: number;
   getProductsSub: Subscription;
+  getUnfilteredProductsSub: Subscription;
 
-  // Bool for if there are active filters
+  // Boolean for if there are active filters
   public activeFilters: boolean;
 
-  // Category collections for use in displaying items
+  // Category collections for use in displaying products
   public bakeryProducts: Product[];
   public produceProducts: Product[];
   public meatProducts: Product[];
@@ -37,6 +41,34 @@ export class ProductListComponent implements OnInit, OnDestroy {
 
   constructor(private productService: ProductService) { }
 
+  getUnfilteredProducts(): void {
+    this.unsubUnfiltered();
+    this.getUnfilteredProductsSub = this.productService.getProducts().subscribe(returnedProducts => {
+      this.allProducts = returnedProducts;
+      this.makeCategoryLists();
+    });
+  }
+
+  public makeCategoryLists(): void {
+    this.bakeryProducts = this.productService.filterProducts(
+      this.allProducts, { category: 'bakery'});
+    this.produceProducts = this.productService.filterProducts(
+      this.allProducts, { category: 'produce'});
+    this.meatProducts = this.productService.filterProducts(
+      this.allProducts, { category: 'meat'});
+    this.dairyProducts = this.productService.filterProducts(
+      this.allProducts, { category: 'dairy'});
+    this.frozenProducts = this.productService.filterProducts(
+      this.allProducts, { category: 'frozen foods'});
+    this.cannedProducts = this.productService.filterProducts(
+      this.allProducts, { category: 'canned good'});
+    this.drinkProducts = this.productService.filterProducts(
+      this.allProducts, { category: 'drinks'});
+    this.seasonalProducts = this.productService.filterProducts(
+      this.allProducts, { category: 'seasonal'});
+    this.miscellaneousProducts = this.productService.filterProducts(
+      this.allProducts, { category: 'miscellaneous'});
+  }
   getProductsFromServer(): void {
     this.unsub();
     this.getProductsSub = this.productService.getProducts({
@@ -51,35 +83,22 @@ export class ProductListComponent implements OnInit, OnDestroy {
     if (this.productCategory || this.name || this.productBrand || this.productStore) {
       this.activeFilters = true;
     }
+    else {
+      this.activeFilters = false;
+    }
   }
 
   public updateFilter(): void {
     this.filteredProducts = this.productService.filterProducts(
       this.serverFilteredProducts, { productName: this.name, brand: this.productBrand , limit: this.productLimit });
-    this.bakeryProducts = this.productService.filterProducts(
-      this.filteredProducts, { category: 'bakery'});
-    this.produceProducts = this.productService.filterProducts(
-      this.filteredProducts, { category: 'produce'});
-    this.meatProducts = this.productService.filterProducts(
-      this.filteredProducts, { category: 'meat'});
-    this.dairyProducts = this.productService.filterProducts(
-      this.filteredProducts, { category: 'dairy'});
-    this.frozenProducts = this.productService.filterProducts(
-      this.filteredProducts, { category: 'frozen foods'});
-    this.cannedProducts = this.productService.filterProducts(
-      this.filteredProducts, { category: 'canned good'});
-    this.drinkProducts = this.productService.filterProducts(
-      this.filteredProducts, { category: 'drinks'});
-    this.seasonalProducts = this.productService.filterProducts(
-      this.filteredProducts, { category: 'seasonal'});
-    this.miscellaneousProducts = this.productService.filterProducts(
-      this.filteredProducts, { category: 'miscellaneous'});
+
   }
 
 
 
   ngOnInit(): void {
     this.getProductsFromServer();
+    this.getUnfilteredProducts();
   }
 
   ngOnDestroy(): void {
@@ -89,6 +108,12 @@ export class ProductListComponent implements OnInit, OnDestroy {
   unsub(): void {
     if (this.getProductsSub) {
       this.getProductsSub.unsubscribe();
+    }
+  }
+
+  unsubUnfiltered(): void {
+    if (this.getUnfilteredProductsSub) {
+      this.getUnfilteredProductsSub.unsubscribe();
     }
   }
 
