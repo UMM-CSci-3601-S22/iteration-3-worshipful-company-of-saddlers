@@ -79,9 +79,21 @@
 <!-- Product List ('Bottom' Content) -->
 <div fxLayout="row">
   <div fxFlex fxFlex.gt-sm="80" fxFlexOffset.gt-sm="10" *ngIf="serverFilteredProducts; else productsError" >
-    <mat-card>
+    <mat-card  *ngIf="activeFilters" class="conditional-product-list">
       <mat-card-content>
+        <mat-nav-list class="filtered-product-nav-list">
+          <a mat-list-item *ngFor="let product of this.filteredProducts" [routerLink]="['/products', product._id]" class="product-list-item">
+            <h3 matLine class="product-list-name"> {{product.productName}} </h3>
+            <p matLine class="product-list-category"> {{product.category}} </p>
+            <p matLine class="product-list-brand"> {{product.brand}} </p>
+            <mat-divider></mat-divider>
+          </a>
+        </mat-nav-list>
+      </mat-card-content>
+    </mat-card>
 
+    <mat-card class="expansion-product-panels">
+      <mat-card-content>
         <mat-accordion>
 
           <mat-expansion-panel>
@@ -267,6 +279,9 @@
           </a>
         </mat-nav-list> -->
       </mat-card-content>
+      <mat-card-actions>
+
+      </mat-card-actions>
     </mat-card>
   </div>
 

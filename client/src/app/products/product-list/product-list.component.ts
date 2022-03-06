@@ -21,6 +21,9 @@ export class ProductListComponent implements OnInit, OnDestroy {
   public productLimit: number;
   getProductsSub: Subscription;
 
+  // Bool for if there are active filters
+  public activeFilters: boolean;
+
   // Category collections for use in displaying items
   public bakeryProducts: Product[];
   public produceProducts: Product[];
@@ -45,6 +48,9 @@ export class ProductListComponent implements OnInit, OnDestroy {
     }, err => {
       console.log(err);
     });
+    if (this.productCategory || this.name || this.productBrand || this.productStore) {
+      this.activeFilters = true;
+    }
   }
 
   public updateFilter(): void {
