@@ -30,7 +30,7 @@ export class ProductService {
     return this.httpClient.get<Product>(this.productUrl + '/' + id);
   }
 
-  filterProducts(products: Product[], filters: { productName?: string; brand?: string }): Product[] {
+  filterProducts(products: Product[], filters: { productName?: string; brand?: string; limit?: number }): Product[] {
 
     let filteredProducts = products;
 
@@ -46,6 +46,10 @@ export class ProductService {
       filters.brand = filters.brand.toLowerCase();
 
       filteredProducts = filteredProducts.filter(product => product.brand.toLowerCase().indexOf(filters.brand) !== -1);
+    }
+
+    if (filters.limit) {
+      filteredProducts = filteredProducts.slice(0, filters.limit);
     }
 
     return filteredProducts;

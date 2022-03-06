@@ -19,15 +19,8 @@ export class ProductListComponent implements OnInit, OnDestroy {
   public productBrand: string;
   public productCategory: ProductCategory;
   public productStore: string;
+  public productLimit: number;
   getProductsSub: Subscription;
-
-  // MatPaginator Inputs
-  public productListLength: number;
-  public pageSize: 10;
-  public pageSizeOptions: number[] = [5, 10, 25, 50];
-
-  // MatPaginator Output
-  pageEvent: PageEvent;
 
   constructor(private productService: ProductService) { }
 
@@ -46,14 +39,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
 
   public updateFilter(): void {
     this.filteredProducts = this.productService.filterProducts(
-      this.serverFilteredProducts, { productName: this.name, brand: this.productBrand });
-    this.productListLength = this.filteredProducts.length;
-  }
-
-  setPageSizeOptions(setPageSizeOptionsInput: string) {
-    if (setPageSizeOptionsInput) {
-      this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
-    }
+      this.serverFilteredProducts, { productName: this.name, brand: this.productBrand , limit: this.productLimit });
   }
 
   ngOnInit(): void {

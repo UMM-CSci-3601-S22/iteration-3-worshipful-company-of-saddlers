@@ -55,14 +55,9 @@
 
         <br>
 
-        <!-- Paginate Container -->
-        <div fxLayout="row wrap" fxLayoutGap="10px" class="paginator">
-          <mat-paginator [length]="productListLength"
-               [pageSize]="pageSize"
-               [pageSizeOptions]="pageSizeOptions"
-               (page)="pageEvent = $event"
-               aria-label="Select page">
-          </mat-paginator>
+        <!-- Product Limit Container -->
+        <div fxLayout="row wrap" fxLayoutGap="10px" class="limiter">
+
         </div>
 
       </mat-card-content>
