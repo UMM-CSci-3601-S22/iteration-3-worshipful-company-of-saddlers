@@ -98,10 +98,6 @@ public class ProductController {
       filters.add(regex(PRODUCT_NAME_KEY,  Pattern.quote(ctx.queryParam(PRODUCT_NAME_KEY)), "i"));
     }
 
-  /*   if (ctx.queryParamMap().containsKey(DESCRIPTION_KEY)) {
-      filters.add(regex(DESCRIPTION_KEY,  Pattern.quote(ctx.queryParam(DESCRIPTION_KEY)), "i"));
-    } */
-
     if (ctx.queryParamMap().containsKey(BRAND_KEY)) {
       filters.add(regex(BRAND_KEY,  Pattern.quote(ctx.queryParam(BRAND_KEY)), "i"));
     }
@@ -113,28 +109,6 @@ public class ProductController {
     if (ctx.queryParamMap().containsKey(STORE_KEY)) {
       filters.add(regex(STORE_KEY,  Pattern.quote(ctx.queryParam(STORE_KEY)), "i"));
     }
-
-    /* if (ctx.queryParamMap().containsKey(LOCATION_KEY)) {
-      filters.add(regex(LOCATION_KEY,  Pattern.quote(ctx.queryParam(LOCATION_KEY)), "i"));
-    }
-
-    if (ctx.queryParamMap().containsKey(NOTES_KEY)) {
-      filters.add(regex(NOTES_KEY,  Pattern.quote(ctx.queryParam(NOTES_KEY)), "i"));
-    } */
-
-    /* if (ctx.queryParamMap().containsKey(TAGS_KEY)) {
-      filters.add(regex(TAGS_KEY,  Pattern.quote(ctx.queryParam(TAGS_KEY)), "i"));
-    }
-
-    if (ctx.queryParamMap().containsKey(LIFESPAN_KEY)) {
-      int targetLifespan = ctx.queryParamAsClass(LIFESPAN_KEY, Integer.class).get();
-      filters.add(eq(LIFESPAN_KEY, targetLifespan));
-  }
-
-  if (ctx.queryParamMap().containsKey(THRESHOLD_KEY)) {
-    int targetThreshold = ctx.queryParamAsClass(THRESHOLD_KEY, Integer.class).get();
-    filters.add(eq(THRESHOLD_KEY, targetThreshold));
-} */
 
     // Combine the list of filters into a single filtering document.
     Bson combinedFilter = filters.isEmpty() ? new Document() : and(filters);
