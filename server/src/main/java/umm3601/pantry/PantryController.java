@@ -89,7 +89,10 @@ public class PantryController {
           .collect(Collectors.toList());
     } catch (IllegalArgumentException e) {
       throw new BadRequestResponse("The requested pantry item's id wasn't a legal Mongo Object ID.");
-    }if (products == null) {
+    }
+    // Checks if any product is null, which means that
+    // at least one product was not in the database
+    if (products.stream().anyMatch(Objects::isNull)) {
       throw new NotFoundResponse("The requested pantry item(s) could not be found.");
     } else {
       ctx.json(products);
