@@ -85,7 +85,7 @@ public class PantryController {
     List<Product> products;
     try {
       products = pantryItems.stream()
-          .map(item -> productCollection.find(eq("_id", new ObjectId(item._id))).first())
+          .map(item -> productCollection.find(eq("_id", new ObjectId(item.product))).first())
           .collect(Collectors.toList());
     } catch (IllegalArgumentException e) {
       throw new BadRequestResponse("The requested pantry item's id wasn't a legal Mongo Object ID.");
@@ -93,7 +93,7 @@ public class PantryController {
     // Checks if any product is null, which means that
     // at least one product was not in the database
     if (products.stream().anyMatch(Objects::isNull)) {
-      throw new NotFoundResponse("The requested pantry item(s) could not be found.");
+      throw new NotFoundResponse("There are products(s) in the pantry could not be found.");
     } else {
       ctx.json(products);
     }
