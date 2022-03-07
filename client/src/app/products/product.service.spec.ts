@@ -181,6 +181,18 @@ describe('ProductService', () => {
     expect(productService.filterProducts(testProducts, { productName: name, brand: productBrand }).length).toBe(1);
   });
 
+  it('filterProducts() filters by limit', () => {
+    expect(testProducts.length).toBe(3);
+    const productLimit = 1;
+    expect(productService.filterProducts(testProducts, { limit: productLimit }).length).toBe(1);
+  });
+
+  it('filterProducts() filters by category', () => {
+    expect(testProducts.length).toBe(3);
+    const productCategory = 'dairy';
+    expect(productService.filterProducts(testProducts, { category: productCategory }).length).toBe(1);
+  });
+
   it('addProduct() posts to api/products', () => {
 
     productService.addProduct(testProducts[1]).subscribe(

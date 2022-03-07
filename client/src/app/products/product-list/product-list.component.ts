@@ -36,6 +36,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
   public frozenProducts: Product[];
   public cannedProducts: Product[];
   public drinkProducts: Product[];
+  public generalProducts: Product[];
   public seasonalProducts: Product[];
   public miscellaneousProducts: Product[];
 
@@ -64,6 +65,8 @@ export class ProductListComponent implements OnInit, OnDestroy {
       this.allProducts, { category: 'canned goods'});
     this.drinkProducts = this.productService.filterProducts(
       this.allProducts, { category: 'drinks'});
+    this.generalProducts = this.productService.filterProducts(
+      this.allProducts, { category: 'general grocery'});
     this.seasonalProducts = this.productService.filterProducts(
       this.allProducts, { category: 'seasonal'});
     this.miscellaneousProducts = this.productService.filterProducts(
