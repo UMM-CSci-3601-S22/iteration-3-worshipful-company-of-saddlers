@@ -125,6 +125,7 @@ public class PantryControllerSpec {
     MongoCollection<Document> pantryDocuments = db.getCollection("pantry");
     pantryDocuments.drop();
 
+    // Add test products to the database
     List<Document> testProducts = new ArrayList<>();
     bananaEntryId = new ObjectId();
     testProducts.add(
@@ -169,25 +170,28 @@ public class PantryControllerSpec {
 
     productDocuments.insertMany(testProducts);
 
+    // Add test pantry entries to the database
     List<Document> testPantryEntries = new ArrayList<>();
     testPantryEntries.add(
         new Document()
-            .append("product", bananaEntryId) // Needs to be oid
+            .append("product", bananaEntryId.toHexString()) // oid of banana
             .append("purchase_date", "2022-03-01")
             .append("notes", "I eat these with toothpaste, yum-yum."));
+    // Set up two instances beans entered at different dates
     testPantryEntries.add(
         new Document()
-            .append("product", beansEntryId) // Needs to be oid
+            .append("product", beansEntryId.toHexString()) // oid of beans
             .append("purchase_date", "2022-02-01")
             .append("notes", "My cool product notes."));
     testPantryEntries.add(
         new Document()
-            .append("product", beansEntryId) // Needs to be oid
+            .append("product", beansEntryId.toHexString()) // oid of beans
             .append("purchase_date", "2022-03-01")
-            .append("notes", "My cool product notes."));
+            .append("notes", "My other cool product notes."));
 
     productDocuments.insertMany(testPantryEntries);
 
+    // Entry just to test getById()
     appleEntryId = new ObjectId();
     Document apple = new Document()
         .append("_id", appleEntryId)
