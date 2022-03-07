@@ -290,10 +290,19 @@ public class PantryControllerSpec {
   }
 
   @Test
-  public void getPantryItemWithBadId() throws IOException {
+  public void getPantryItemByIdBadRequestResponse() throws IOException {
     Context ctx = mockContext("api/pantry/{id}", Map.of("id", "bad"));
 
     assertThrows(BadRequestResponse.class, () -> {
+      pantryController.getPantryItemByID(ctx);
+    });
+  }
+
+  @Test
+  public void getPantryItemByIdNotFoundResponse() throws IOException {
+    Context ctx = mockContext("api/pantry/{id}", Map.of("id", "6224ba3bfc13ae3ac400000d"));
+
+    assertThrows(NotFoundResponse.class, () -> {
       pantryController.getPantryItemByID(ctx);
     });
   }

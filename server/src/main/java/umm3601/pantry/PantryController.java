@@ -66,7 +66,7 @@ public class PantryController {
       throw new BadRequestResponse("The requested product id wasn't a legal Mongo Object ID.");
     }
     if (pantryItem == null) {
-      throw new NotFoundResponse("The requested product was not found");
+      throw new NotFoundResponse("The requested pantry item(s) could not be found");
     } else {
       ctx.json(pantryItem);
     }
