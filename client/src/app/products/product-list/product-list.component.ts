@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Product, ProductCategory } from '../product';
 import { ProductService } from '../product.service';
@@ -28,7 +29,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
   // Boolean for if there are active filters
   public activeFilters: boolean;
 
-  // Category collections for use in displaying products
+  // Category collections for use in displaying product categories
   public bakeryProducts: Product[];
   public produceProducts: Product[];
   public meatProducts: Product[];
@@ -36,6 +37,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
   public frozenProducts: Product[];
   public cannedProducts: Product[];
   public drinkProducts: Product[];
+  public generalProducts: Product[];
   public seasonalProducts: Product[];
   public miscellaneousProducts: Product[];
 
@@ -64,6 +66,8 @@ export class ProductListComponent implements OnInit, OnDestroy {
       this.allProducts, { category: 'canned goods'});
     this.drinkProducts = this.productService.filterProducts(
       this.allProducts, { category: 'drinks'});
+    this.generalProducts = this.productService.filterProducts(
+      this.allProducts, { category: 'general grocery'});
     this.seasonalProducts = this.productService.filterProducts(
       this.allProducts, { category: 'seasonal'});
     this.miscellaneousProducts = this.productService.filterProducts(
@@ -90,7 +94,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
 
   public updateFilter(): void {
     this.filteredProducts = this.productService.filterProducts(
-      this.serverFilteredProducts, { productName: this.name, brand: this.productBrand , limit: this.productLimit });
+      this.serverFilteredProducts, { product_name: this.name, brand: this.productBrand , limit: this.productLimit });
 
   }
 

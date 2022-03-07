@@ -10,7 +10,7 @@
         <div fxLayout="row wrap" fxLayoutGap="15px">
           <mat-form-field class="input-field">
             <mat-label>Product Name</mat-label>
-            <input matInput data-test="productNameInput" placeholder="Filter products by name"
+            <input matInput data-test="product_nameInput" placeholder="Filter products by name"
             [(ngModel)]="name" (input)="updateFilter()">
             <mat-hint>Filtered on client</mat-hint>
           </mat-form-field>
@@ -83,7 +83,7 @@
       <mat-card-content>
         <mat-nav-list class="filtered-product-nav-list">
           <a mat-list-item *ngFor="let product of this.filteredProducts" [routerLink]="['/products', product._id]" class="product-list-item">
-            <h3 matLine class="product-list-name"> {{product.productName}} </h3>
+            <p matLine class="product-list-name"> {{product.product_name}} </p>
             <p matLine class="product-list-category"> {{product.category}} </p>
             <p matLine class="product-list-brand"> {{product.brand}} </p>
             <mat-divider></mat-divider>
@@ -107,7 +107,7 @@
             </mat-expansion-panel-header>
             <mat-nav-list class="bakery-product-nav-list">
               <a mat-list-item *ngFor="let product of this.bakeryProducts" [routerLink]="['/products', product._id]" class="product-list-item">
-                <h3 matLine class="product-list-name"> {{product.productName}} </h3>
+                <h3 matLine class="product-list-name"> {{product.product_name}} </h3>
                 <p matLine class="product-list-category"> {{product.category}} </p>
                 <p matLine class="product-list-brand"> {{product.brand}} </p>
                 <mat-divider></mat-divider>
@@ -126,7 +126,7 @@
             </mat-expansion-panel-header>
             <mat-nav-list class="produce-product-nav-list">
               <a mat-list-item *ngFor="let product of this.produceProducts" [routerLink]="['/products', product._id]" class="product-list-item">
-                <h3 matLine class="product-list-name"> {{product.productName}} </h3>
+                <h3 matLine class="product-list-name"> {{product.product_name}} </h3>
                 <p matLine class="product-list-category"> {{product.category}} </p>
                 <p matLine class="product-list-brand"> {{product.brand}} </p>
                 <mat-divider></mat-divider>
@@ -145,7 +145,7 @@
             </mat-expansion-panel-header>
             <mat-nav-list class="meat-product-nav-list">
               <a mat-list-item *ngFor="let product of this.meatProducts" [routerLink]="['/products', product._id]" class="product-list-item">
-                <h3 matLine class="product-list-name"> {{product.productName}} </h3>
+                <h3 matLine class="product-list-name"> {{product.product_name}} </h3>
                 <p matLine class="product-list-category"> {{product.category}} </p>
                 <p matLine class="product-list-brand"> {{product.brand}} </p>
                 <mat-divider></mat-divider>
@@ -164,7 +164,7 @@
             </mat-expansion-panel-header>
             <mat-nav-list class="dairy-product-nav-list">
               <a mat-list-item *ngFor="let product of this.dairyProducts" [routerLink]="['/products', product._id]" class="product-list-item">
-                <h3 matLine class="product-list-name"> {{product.productName}} </h3>
+                <h3 matLine class="product-list-name"> {{product.product_name}} </h3>
                 <p matLine class="product-list-category"> {{product.category}} </p>
                 <p matLine class="product-list-brand"> {{product.brand}} </p>
                 <mat-divider></mat-divider>
@@ -183,7 +183,7 @@
             </mat-expansion-panel-header>
             <mat-nav-list class="frozen-product-nav-list">
               <a mat-list-item *ngFor="let product of this.frozenProducts" [routerLink]="['/products', product._id]" class="product-list-item">
-                <h3 matLine class="product-list-name"> {{product.productName}} </h3>
+                <h3 matLine class="product-list-name"> {{product.product_name}} </h3>
                 <p matLine class="product-list-category"> {{product.category}} </p>
                 <p matLine class="product-list-brand"> {{product.brand}} </p>
                 <mat-divider></mat-divider>
@@ -202,7 +202,7 @@
             </mat-expansion-panel-header>
             <mat-nav-list class="canned-product-nav-list">
               <a mat-list-item *ngFor="let product of this.cannedProducts" [routerLink]="['/products', product._id]" class="product-list-item">
-                <h3 matLine class="product-list-name"> {{product.productName}} </h3>
+                <h3 matLine class="product-list-name"> {{product.product_name}} </h3>
                 <p matLine class="product-list-category"> {{product.category}} </p>
                 <p matLine class="product-list-brand"> {{product.brand}} </p>
                 <mat-divider></mat-divider>
@@ -221,7 +221,26 @@
             </mat-expansion-panel-header>
             <mat-nav-list class="drink-product-nav-list">
               <a mat-list-item *ngFor="let product of this.drinkProducts" [routerLink]="['/products', product._id]" class="product-list-item">
-                <h3 matLine class="product-list-name"> {{product.productName}} </h3>
+                <h3 matLine class="product-list-name"> {{product.product_name}} </h3>
+                <p matLine class="product-list-category"> {{product.category}} </p>
+                <p matLine class="product-list-brand"> {{product.brand}} </p>
+                <mat-divider></mat-divider>
+              </a>
+            </mat-nav-list>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                General Grocery
+              </mat-panel-title>
+              <mat-panel-description>
+
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <mat-nav-list class="general-product-nav-list">
+              <a mat-list-item *ngFor="let product of this.generalProducts" [routerLink]="['/products', product._id]" class="product-list-item">
+                <h3 matLine class="product-list-name"> {{product.product_name}} </h3>
                 <p matLine class="product-list-category"> {{product.category}} </p>
                 <p matLine class="product-list-brand"> {{product.brand}} </p>
                 <mat-divider></mat-divider>
@@ -240,7 +259,7 @@
             </mat-expansion-panel-header>
             <mat-nav-list class="seasonal-product-nav-list">
               <a mat-list-item *ngFor="let product of this.seasonalProducts" [routerLink]="['/products', product._id]" class="product-list-item">
-                <h3 matLine class="product-list-name"> {{product.productName}} </h3>
+                <h3 matLine class="product-list-name"> {{product.product_name}} </h3>
                 <p matLine class="product-list-category"> {{product.category}} </p>
                 <p matLine class="product-list-brand"> {{product.brand}} </p>
                 <mat-divider></mat-divider>
@@ -259,7 +278,7 @@
             </mat-expansion-panel-header>
             <mat-nav-list class="bakery-product-nav-list">
               <a mat-list-item *ngFor="let product of this.miscellaneousProducts" [routerLink]="['/products', product._id]" class="product-list-item">
-                <h3 matLine class="product-list-name"> {{product.productName}} </h3>
+                <h3 matLine class="product-list-name"> {{product.product_name}} </h3>
                 <p matLine class="product-list-category"> {{product.category}} </p>
                 <p matLine class="product-list-brand"> {{product.brand}} </p>
                 <mat-divider></mat-divider>
@@ -272,7 +291,7 @@
         <!-- <mat-nav-list class="product-nav-list">
           <h3 mat-subheader>Product List</h3>
           <a mat-list-item *ngFor="let product of this.filteredProducts" [routerLink]="['/products', product._id]" class="product-list-item">
-            <h3 matLine class="product-list-name"> {{product.productName}} </h3>
+            <h3 matLine class="product-list-name"> {{product.product_name}} </h3>
             <p matLine class="product-list-category"> {{product.category}} </p>
             <p matLine class="product-list-brand"> {{product.brand}} </p>
             <mat-divider></mat-divider>

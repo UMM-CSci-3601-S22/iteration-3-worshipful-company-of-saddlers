@@ -94,6 +94,10 @@ public class ProductController {
   private Bson constructFilter(Context ctx) {
     List<Bson> filters = new ArrayList<>(); // start with a blank document
 
+    if (ctx.queryParamMap().containsKey(PRODUCT_NAME_KEY)) {
+      filters.add(regex(PRODUCT_NAME_KEY,  Pattern.quote(ctx.queryParam(PRODUCT_NAME_KEY)), "i"));
+    }
+
   /*   if (ctx.queryParamMap().containsKey(DESCRIPTION_KEY)) {
       filters.add(regex(DESCRIPTION_KEY,  Pattern.quote(ctx.queryParam(DESCRIPTION_KEY)), "i"));
     } */

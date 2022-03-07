@@ -1,68 +1,78 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { Product, ProductCategory } from 'src/app/products/product';
-import { ProductService } from 'src/app/products/product.service';
+import { Product, ProductCategory } from '../app/products/product';
+import { ProductService } from '../app/products/product.service';
 
-@Injectable()
-export class MockProductService extends ProductService {
-  static testProducts: Product[] = [
+/**
+ * A "mock" version of the `ProductService` that can be used to test components
+ * without having to create an actual service.
+ */
+ @Injectable()
+ export class MockProductService extends ProductService {
+   static testProducts: Product[] = [
     {
-      _id: 'apple_id',
-      productName: 'apple',
-      description: 'red fruit',
-      brand: 'dole',
+      _id: 'banana_id',
+      product_name: 'banana',
+      description: '',
+      brand: 'Dole',
       category: 'produce',
-      store: 'willies',
-      location: 'aisle 2',
-      notes: 'pretty good apple 8/10',
-      tags: ['fruit'],
-      lifespan: 14,
-      threshold: 28,
-      image: 'http://dummyimage.com/149x100.png/dddddd/000000'
+      store: 'Walmart',
+      location: '',
+      notes: '',
+      tags: [],
+      lifespan: 0,
+      threshold: 0,
+      image: ''
     },
     {
-      _id: 'potato_id',
-      productName: 'potato',
-      description: 'brown spud',
-      brand: 'earth brand',
-      category: 'produce',
-      store: 'willies',
-      location: 'aisle 1',
-      notes: 'pretty good spud 8/10',
-      tags: ['tuber'],
-      lifespan: 11,
-      threshold: 22,
-      image: 'http://dummyimage.com/149x100.png/dddddd/000000'
+      _id: 'milk_id',
+      product_name: 'Whole Milk',
+      description: '',
+      brand: 'Land O Lakes',
+      category: 'dairy',
+      store: 'SuperValu',
+      location: '',
+      notes: '',
+      tags: [],
+      lifespan: 0,
+      threshold: 0,
+      image: ''
     },
     {
-      _id: 'cereal_id',
-      productName: 'cereal',
-      description: 'grainy cereal',
-      brand: 'kellogs',
-      category: 'miscellaneous',
-      store: 'willies',
-      location: 'aisle 5',
-      notes: 'pretty good cereal 8/10',
-      tags: ['grain'],
-      lifespan: 15,
-      threshold: 3,
-      image: 'http://dummyimage.com/149x100.png/dddddd/000000'
+      _id: 'bread_id',
+      product_name: 'Wheat Bread',
+      description: '',
+      brand: 'Country Hearth',
+      category: 'bakery',
+      store: 'Walmart',
+      location: '',
+      notes: '',
+      tags: [],
+      lifespan: 0,
+      threshold: 0,
+      image: ''
     }
-  ];
+   ];
 
-  constructor() {
-    super(null);
-  }
+   constructor() {
+     super(null);
+   }
 
-  getProducts(filters?: { category?: ProductCategory; store?: string }): Observable<Product[]> {
-      return of(MockProductService.testProducts);
-  }
+   getProducts(filters: { category?: ProductCategory; store?: string }): Observable<Product[]> {
+     // Just return the test users regardless of what filters are passed in
+     return of(MockProductService.testProducts);
+   }
 
-  getProductById(id: string): Observable<Product> {
-      if (id === MockProductService.testProducts[0]._id) {
-        return of(MockProductService.testProducts[0]);
-      } else {
-        return of(null);
-      }
-  }
-}
+   getProductById(id: string): Observable<Product> {
+     // If the specified ID is for the first test product,
+     // return that product, otherwise return `null` so
+     // we can test illegal user requests.
+     if (id === MockProductService.testProducts[0]._id) {
+       return of(MockProductService.testProducts[0]);
+     } else {
+       return of(null);
+     }
+   }
+
+ }

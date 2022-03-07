@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import { HttpClient } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
@@ -9,7 +10,7 @@ describe('ProductService', () => {
   const testProducts: Product[] = [
     {
       _id: 'banana_id',
-      productName: 'banana',
+      product_name: 'banana',
       description: '',
       brand: 'Dole',
       category: 'produce',
@@ -23,7 +24,7 @@ describe('ProductService', () => {
     },
     {
       _id: 'milk_id',
-      productName: 'Whole Milk',
+      product_name: 'Whole Milk',
       description: '',
       brand: 'Land O Lakes',
       category: 'dairy',
@@ -37,7 +38,7 @@ describe('ProductService', () => {
     },
     {
       _id: 'bread_id',
-      productName: 'Wheat Bread',
+      product_name: 'Wheat Bread',
       description: '',
       brand: 'Country Hearth',
       category: 'bakery',
@@ -162,10 +163,10 @@ describe('ProductService', () => {
     req.flush(targetProduct);
   });
 
-  it('filterProducts() filters by productName', () => {
+  it('filterProducts() filters by product_name', () => {
     expect(testProducts.length).toBe(3);
     const name = 'a';
-    expect(productService.filterProducts(testProducts, { productName: name }).length).toBe(2);
+    expect(productService.filterProducts(testProducts, { product_name: name }).length).toBe(2);
   });
 
   it('filterProducts() filters by brand', () => {
@@ -174,11 +175,23 @@ describe('ProductService', () => {
     expect(productService.filterProducts(testProducts, { brand: productBrand }).length).toBe(1);
   });
 
-  it('filterProducts() filters by productName and brand', () => {
+  it('filterProducts() filters by product_name and brand', () => {
     expect(testProducts.length).toBe(3);
     const productBrand = 'Country Hearth';
     const name = 'Wheat Bread';
-    expect(productService.filterProducts(testProducts, { productName: name, brand: productBrand }).length).toBe(1);
+    expect(productService.filterProducts(testProducts, { product_name: name, brand: productBrand }).length).toBe(1);
+  });
+
+  it('filterProducts() filters by limit', () => {
+    expect(testProducts.length).toBe(3);
+    const productLimit = 1;
+    expect(productService.filterProducts(testProducts, { limit: productLimit }).length).toBe(1);
+  });
+
+  it('filterProducts() filters by category', () => {
+    expect(testProducts.length).toBe(3);
+    const productCategory = 'dairy';
+    expect(productService.filterProducts(testProducts, { category: productCategory }).length).toBe(1);
   });
 
   it('addProduct() posts to api/products', () => {

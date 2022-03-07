@@ -1,6 +1,7 @@
 export interface Product {
   _id: string;
-  productName: string; // Client filter
+  // eslint-disable-next-line @typescript-eslint/naming-convention
+  product_name: string; // Client filter
   description?: string; // Client filter
   brand: string; // client filter
   category: ProductCategory; // server filter
@@ -14,4 +15,4 @@ export interface Product {
 }
 
 // eslint-disable-next-line max-len
-export type ProductCategory = 'bakery' | 'produce' | 'meat' | 'dairy' | 'frozen foods' | 'canned goods' | 'drinks' | 'miscellaneous' | 'seasonal';
+export type ProductCategory = 'bakery' | 'produce' | 'meat' | 'dairy' | 'frozen foods' | 'canned goods' | 'drinks' | 'general grocery' | 'miscellaneous' | 'seasonal';
