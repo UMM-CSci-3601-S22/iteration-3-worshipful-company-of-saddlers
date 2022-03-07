@@ -189,13 +189,13 @@ public class PantryControllerSpec {
             .append("purchase_date", "2022-03-01")
             .append("notes", "My other cool product notes."));
 
-    productDocuments.insertMany(testPantryEntries);
+    pantryDocuments.insertMany(testPantryEntries);
 
     // Entry just to test getById()
     appleEntryId = new ObjectId();
     Document apple = new Document()
         .append("_id", appleEntryId)
-        .append("product", "6224bb95269ff20258e4bd24")
+        .append("product", bananaEntryId.toHexString())
         .append("purchase_date", "2023-01-27")
         .append("notes", "check on gerbils every 3 days");
 
@@ -285,7 +285,7 @@ public class PantryControllerSpec {
 
     assertEquals(HttpURLConnection.HTTP_OK, mockRes.getStatus());
     assertEquals(appleEntryId.toHexString(), resultProduct._id);
-    assertEquals("6224bb95269ff20258e4bd24", resultProduct.product);
+    assertEquals(bananaEntryId.toHexString(), resultProduct.product);
 
   }
 
