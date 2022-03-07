@@ -11,7 +11,7 @@ public class PantryItem {
   // name of the field as used by MongoDB.
   @SuppressWarnings({ "MemberName" })
   public String _id;
-  public ObjectId product;
+  public String product;
   public String purchase_date;
   public String notes;
 }

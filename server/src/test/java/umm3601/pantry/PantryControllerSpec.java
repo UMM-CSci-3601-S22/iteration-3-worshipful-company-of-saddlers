@@ -43,6 +43,7 @@ import io.javalin.http.HttpCode;
 import io.javalin.http.NotFoundResponse;
 import io.javalin.http.util.ContextUtil;
 import io.javalin.plugin.json.JavalinJackson;
+import umm3601.product.Product;
 
 /**
  * Tests the logic of the PantryController
@@ -57,7 +58,7 @@ import io.javalin.plugin.json.JavalinJackson;
 // also a lot of "magic strings" that Checkstyle doesn't actually
 // flag as a problem) make more sense.
 @SuppressWarnings({ "MagicNumber", })
-public class PantryControllerTest {
+public class PantryControllerSpec {
 
   // Mock requests and responses that will be reset in `setupEach()`
   // and then (re)used in each of the tests.
@@ -73,6 +74,8 @@ public class PantryControllerTest {
   // which suggests that maybe we should extract the tests that
   // care about it into their own spec file?
   private ObjectId appleEntryId;
+  private ObjectId bananaEntryId;
+  private ObjectId beansEntryId;
 
   // The client and database that will be used
   // for all the tests in this spec file.
@@ -123,8 +126,10 @@ public class PantryControllerTest {
     pantryDocuments.drop();
 
     List<Document> testProducts = new ArrayList<>();
+    bananaEntryId = new ObjectId();
     testProducts.add(
         new Document()
+            .append("_id", bananaEntryId)
             .append("product_name", "Banana")
             .append("description", "A yellow fruit")
             .append("brand", "Dole")
@@ -141,8 +146,10 @@ public class PantryControllerTest {
             })
             .append("lifespan", 4)
             .append("threshold", 40));
+    beansEntryId = new ObjectId();
     testProducts.add(
         new Document()
+            .append("_id", beansEntryId)
             .append("product_name", "Canned Pinto Beans")
             .append("description", "A can of pinto beans")
             .append("brand", "Our Family")
@@ -165,11 +172,18 @@ public class PantryControllerTest {
     List<Document> testPantryEntries = new ArrayList<>();
     testPantryEntries.add(
         new Document()
-            .append("product", "Banana") // Needs to be oid
+            .append("product", bananaEntryId) // Needs to be oid
+            .append("purchase_date", "2022-03-01")
             .append("notes", "I eat these with toothpaste, yum-yum."));
     testPantryEntries.add(
         new Document()
-            .append("product", "Banana") // Needs to be oid
+            .append("product", beansEntryId) // Needs to be oid
+            .append("purchase_date", "2022-02-01")
+            .append("notes", "My cool product notes."));
+    testPantryEntries.add(
+        new Document()
+            .append("product", beansEntryId) // Needs to be oid
+            .append("purchase_date", "2022-03-01")
             .append("notes", "My cool product notes."));
 
     productDocuments.insertMany(testPantryEntries);
@@ -235,6 +249,12 @@ public class PantryControllerTest {
     return pantryItems;
   }
 
+  private Product[] returnedProducts(Context ctx) {
+    String result = ctx.resultString();
+    Product[] products = javalinJackson.fromJsonString(result, Product[].class);
+    return products;
+  }
+
   /**
    * A little helper method that assumes that the given context
    * body contains a *single* PantryItem, and extracts and returns
@@ -273,4 +293,23 @@ public class PantryControllerTest {
       pantryController.getPantryItemByID(ctx);
     });
   }
+
+  @Test
+  public void canGetAllProducts() throws IOException {
+    // Create our fake Javalin context
+    String path = "api/pantry";
+    Context ctx = mockContext(path);
+
+    pantryController.getAllProductsInPantry(ctx);
+    Product[] returnedProducts = returnedProducts(ctx);
+
+    // The response status should be 200, i.e., our request
+    // was handled successfully (was OK). This is a named constant in
+    // the class HttpCode.
+    assertEquals(HttpCode.OK.getStatus(), mockRes.getStatus());
+    assertEquals(
+        db.getCollection("pantry").countDocuments(),
+        returnedProducts.length);
+  }
+
 }
