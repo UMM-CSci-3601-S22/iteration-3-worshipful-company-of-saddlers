@@ -14,6 +14,7 @@ import io.javalin.Javalin;
 import io.javalin.core.util.RouteOverviewPlugin;
 import io.javalin.http.InternalServerErrorResponse;
 import umm3601.user.UserController;
+import umm3601.pantry.PantryController;
 import umm3601.product.ProductController;
 
 public class Server {
@@ -45,6 +46,7 @@ public class Server {
     // Initialize dependencies
     UserController userController = new UserController(database);
     ProductController productController = new ProductController(database);
+    PantryController pantryController = new PantryController(database);
 
     Javalin server = Javalin.create(config -> config.registerPlugin(new RouteOverviewPlugin("/api")));
     /*
@@ -74,11 +76,23 @@ public class Server {
     // Get the specified product
     server.get("/api/products/{id}", productController::getProductByID);
 
+    // List products, filtered using query params
+    server.get("/api/pantry", pantryController::getAllProductsInPantry);
+
+    // List products, filtered using query params
+    server.get("/api/pantry/info", pantryController::getPantryInfo);
+
+    // Get the specified pantry item
+    server.get("/api/pantry/{id}", pantryController::getPantryItemByID);
+
     // Delete the specified user
     server.delete("/api/users/{id}", userController::deleteUser);
 
     // Delete the specified product
     server.delete("/api/products/{id}", productController::deleteProduct);
+
+    // Delete the specified pantry item
+    server.delete("/api/pantry/{id}", pantryController::deletePantryItem);
 
     // Add new user with the user info being in the JSON body
     // of the HTTP request
@@ -86,6 +100,9 @@ public class Server {
 
     // Add new product with info from JSON body of HTTP request
     server.post("/api/products", productController::addNewProduct);
+
+    // Add new pantry item with info from JSON body of HTTP request
+    server.post("/api/pantry", pantryController::addNewPantryItem);
 
     // This catches any uncaught exceptions thrown in the server
     // code and turns them into a 500 response ("Internal Server
