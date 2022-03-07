@@ -232,6 +232,25 @@
           <mat-expansion-panel>
             <mat-expansion-panel-header>
               <mat-panel-title>
+                General Grocery
+              </mat-panel-title>
+              <mat-panel-description>
+
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <mat-nav-list class="general-product-nav-list">
+              <a mat-list-item *ngFor="let product of this.generalProducts" [routerLink]="['/products', product._id]" class="product-list-item">
+                <h3 matLine class="product-list-name"> {{product.productName}} </h3>
+                <p matLine class="product-list-category"> {{product.category}} </p>
+                <p matLine class="product-list-brand"> {{product.brand}} </p>
+                <mat-divider></mat-divider>
+              </a>
+            </mat-nav-list>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
                 Seasonal Goods
               </mat-panel-title>
               <mat-panel-description>
