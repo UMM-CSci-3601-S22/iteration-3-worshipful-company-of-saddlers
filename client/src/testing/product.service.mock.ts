@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { Product, ProductCategory } from '../app/products/product';
@@ -12,7 +13,7 @@ import { ProductService } from '../app/products/product.service';
    static testProducts: Product[] = [
     {
       _id: 'banana_id',
-      productName: 'banana',
+      product_name: 'banana',
       description: '',
       brand: 'Dole',
       category: 'produce',
@@ -26,7 +27,7 @@ import { ProductService } from '../app/products/product.service';
     },
     {
       _id: 'milk_id',
-      productName: 'Whole Milk',
+      product_name: 'Whole Milk',
       description: '',
       brand: 'Land O Lakes',
       category: 'dairy',
@@ -40,7 +41,7 @@ import { ProductService } from '../app/products/product.service';
     },
     {
       _id: 'bread_id',
-      productName: 'Wheat Bread',
+      product_name: 'Wheat Bread',
       description: '',
       brand: 'Country Hearth',
       category: 'bakery',

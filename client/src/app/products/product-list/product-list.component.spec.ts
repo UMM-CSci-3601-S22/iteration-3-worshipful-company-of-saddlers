@@ -67,15 +67,15 @@ describe('ProductListComponent', () => {
   });
 
   it('contains a product named \'banana\'', () => {
-    expect(productList.serverFilteredProducts.some((product: Product) => product.productName === 'banana')).toBe(true);
+    expect(productList.serverFilteredProducts.some((product: Product) => product.product_name === 'banana')).toBe(true);
   });
 
   it('contain a product named \'Wheat Bread\'', () => {
-    expect(productList.serverFilteredProducts.some((product: Product) => product.productName === 'Wheat Bread')).toBe(true);
+    expect(productList.serverFilteredProducts.some((product: Product) => product.product_name === 'Wheat Bread')).toBe(true);
   });
 
   it('doesn\'t contain a product named \'Santa\'', () => {
-    expect(productList.serverFilteredProducts.some((product: Product) => product.productName === 'Santa')).toBe(false);
+    expect(productList.serverFilteredProducts.some((product: Product) => product.product_name === 'Santa')).toBe(false);
   });
 
   it('has one product that is dairy', () => {
