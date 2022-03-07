@@ -88,12 +88,18 @@ public class Server {
     // Delete the specified product
     server.delete("/api/products/{id}", productController::deleteProduct);
 
+    // Delete the specified pantry item
+    server.delete("/api/pantry/{id}", pantryController::deletePantryItem);
+
     // Add new user with the user info being in the JSON body
     // of the HTTP request
     server.post("/api/users", userController::addNewUser);
 
     // Add new product with info from JSON body of HTTP request
     server.post("/api/products", productController::addNewProduct);
+
+    // Add new pantry item with info from JSON body of HTTP request
+    server.post("/api/pantry", pantryController::addNewPantryItem);
 
     // This catches any uncaught exceptions thrown in the server
     // code and turns them into a 500 response ("Internal Server

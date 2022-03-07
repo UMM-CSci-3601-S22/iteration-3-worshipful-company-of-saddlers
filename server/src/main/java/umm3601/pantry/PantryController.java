@@ -4,6 +4,8 @@ import static com.mongodb.client.model.Filters.and;
 import static com.mongodb.client.model.Filters.eq;
 import static com.mongodb.client.model.Filters.regex;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -98,6 +100,84 @@ public class PantryController {
       ctx.json(products);
     }
 
+  }
+
+  // Helper function to check if a string is a valid date
+  // Format of the date string: yyyy-MM-dd
+  SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+  boolean isValidDate(String input) {
+    try {
+         dateFormat.parse(input);
+         return true;
+    }
+    catch(ParseException e){
+         return false;
+    }
+}
+
+/**
+* Checks if an activity exists with a given id. if no such activity exists
+* returns false. Returns true for one or more activities with a matching
+* id.
+*
+* @param db
+* @param id
+* @return boolean - true if one or more functions with matching names exit.
+*/
+public boolean productExists(String id) {
+  Product product;
+
+    try {
+      product = productCollection.find(eq("_id", new ObjectId(id))).first();
+    } catch (IllegalArgumentException e) {
+      return false;
+    }
+      if (product == null) {
+        return false;
+      } else {
+        return true;
+      }
+    }
+
+  /**
+   * Get a JSON response with a list of all the products.
+   *
+   * @param ctx a Javalin HTTP context
+   */
+  public void addNewPantryItem(Context ctx) {
+
+    PantryItem newPantryItem = ctx.bodyValidator(PantryItem.class)
+        .check(item -> productExists(item.product), "error: product does not exist")
+        .check(item -> ObjectId.isValid(item.product), "The product id is not a legal Mongo Object ID.")
+        .check(item -> item.notes != null, "Pantry item notes cannot be null")
+        .check(item -> isValidDate(item.purchase_date) , "The date is not in the correct format")
+        .get();
+
+    pantryCollection.insertOne(newPantryItem);
+
+    // 201 is the HTTP code for when we successfully
+    // create a new resource (a pantry item in this case).
+    // See, e.g., https://developer.mozilla.org/en-US/docs/Web/HTTP/Status
+    // for a description of the various response codes.
+    ctx.status(HttpCode.CREATED);
+    ctx.json(Map.of("id", newPantryItem._id));
+  }
+
+  /**
+   * Delete the pantry item specified by the `id` parameter in the request.
+   *
+   * @param ctx a Javalin HTTP context
+   */
+  public void deletePantryItem(Context ctx) {
+    String id = ctx.pathParam("id");
+    DeleteResult deleteResult = pantryCollection.deleteOne(eq("_id", new ObjectId(id)));
+    if (deleteResult.getDeletedCount() != 1) {
+      throw new NotFoundResponse(
+          "Was unable to delete ID "
+              + id
+              + "; perhaps illegal ID or an ID for an item not in the pantry?");
+    }
   }
 
 }
