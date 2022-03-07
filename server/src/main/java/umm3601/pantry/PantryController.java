@@ -73,7 +73,7 @@ public class PantryController {
   }
 
   /**
-   * Get a JSON response with a list of all the products.
+   * Get a JSON response with a list of all the products in pantry.
    *
    * @param ctx a Javalin HTTP context
    */

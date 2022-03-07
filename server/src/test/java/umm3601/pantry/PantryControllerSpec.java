@@ -316,4 +316,47 @@ public class PantryControllerSpec {
         returnedProducts.length);
   }
 
+  @Test
+  public void badRequestResponseGetAllProducts() throws IOException {
+    // Create our fake Javalin context
+    String path = "api/pantry";
+    Context ctx = mockContext(path);
+
+    MongoCollection<Document> pantryDocuments = db.getCollection("pantry");
+    // add a bad product _id to the pantry
+    Document apple = new Document()
+        .append("product", "bad")
+        .append("purchase_date", "2023-01-27")
+        .append("notes", "check on gerbils every 3 days");
+
+    pantryDocuments.insertOne(apple);
+
+    assertThrows(BadRequestResponse.class, () -> {
+      pantryController.getAllProductsInPantry(ctx);
+    });
+
+  }
+
+  @Test
+  public void notFoundResponseGetAllProducts() throws IOException {
+    // Create our fake Javalin context
+    String path = "api/pantry";
+    Context ctx = mockContext(path);
+
+    MongoCollection<Document> pantryDocuments = db.getCollection("pantry");
+    // add a product with valid oid to the pantry,
+    // but isnot in the product collection
+    Document apple = new Document()
+        .append("product", "6224ba3bfc13ae3ac400000a")
+        .append("purchase_date", "2023-01-27")
+        .append("notes", "check on gerbils every 3 days");
+
+    pantryDocuments.insertOne(apple);
+
+    assertThrows(NotFoundResponse.class, () -> {
+      pantryController.getAllProductsInPantry(ctx);
+    });
+
+  }
+
 }
