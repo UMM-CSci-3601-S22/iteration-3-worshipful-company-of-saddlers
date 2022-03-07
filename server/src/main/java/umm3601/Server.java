@@ -79,6 +79,9 @@ public class Server {
     // List products, filtered using query params
     server.get("/api/pantry", pantryController::getAllProductsInPantry);
 
+    // List products, filtered using query params
+    server.get("/api/pantry/info", pantryController::getPantryInfo);
+
     // Get the specified pantry item
     server.get("/api/pantry/{id}", pantryController::getPantryItemByID);
 

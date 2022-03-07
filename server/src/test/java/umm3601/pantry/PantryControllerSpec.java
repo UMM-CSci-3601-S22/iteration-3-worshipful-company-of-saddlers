@@ -7,7 +7,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -57,7 +56,7 @@ import umm3601.product.Product;
 // these tests can/should be restructured so the constants (there are
 // also a lot of "magic strings" that Checkstyle doesn't actually
 // flag as a problem) make more sense.
-@SuppressWarnings({ "MagicNumber", })
+@SuppressWarnings({ "MagicNumber", "NoWhitespaceAfter" })
 public class PantryControllerSpec {
 
   // Mock requests and responses that will be reset in `setupEach()`
@@ -366,6 +365,134 @@ public class PantryControllerSpec {
       pantryController.getAllProductsInPantry(ctx);
     });
 
+  }
+
+  @Test
+  public void addProduct() throws IOException {
+
+    String testNewEntry = "{"
+        + "\"product\": \"" + bananaEntryId.toHexString() + "\","
+        + "\"purchase_date\": \"2023-01-27\","
+        + "\"notes\": \"check on gerbils every 3 days\""
+        + "}";
+
+    mockReq.setBodyContent(testNewEntry);
+    mockReq.setMethod("POST");
+
+    Context ctx = mockContext("api/pantry");
+
+    pantryController.addNewPantryItem(ctx);
+    String result = ctx.resultString();
+    String id = javalinJackson.fromJsonString(result, ObjectNode.class).get("id").asText();
+
+    // Our status should be 201, i.e., our new product was successfully
+    // created. This is a named constant in the class HttpURLConnection.
+    assertEquals(HttpURLConnection.HTTP_CREATED, mockRes.getStatus());
+
+    // Successfully adding the product should return the newly generated MongoDB ID
+    // for that product.
+    assertNotEquals("", id);
+    assertEquals(1, db.getCollection("pantry").countDocuments(eq("_id", new ObjectId(id))));
+
+    // Verify that the product was added to the database with the correct ID
+    Document addedProduct = db.getCollection("pantry").find(eq("_id", new ObjectId(id))).first();
+
+    assertNotNull(addedProduct);
+    assertEquals(bananaEntryId.toHexString(), addedProduct.getString("product"));
+    assertEquals("2023-01-27", addedProduct.getString("purchase_date"));
+    assertEquals("check on gerbils every 3 days", addedProduct.getString("notes"));
+  }
+
+  @Test
+  public void addProductWithBadProduct() throws IOException {
+
+    String testNewEntry = "{"
+        + "\"product\": \"6224ba3bfc13ae3ac400000e\","
+        + "\"purchase_date\": \"2023-01-27\","
+        + "\"notes\": \"check on gerbils every 3 days\""
+        + "}";
+
+    mockReq.setBodyContent(testNewEntry);
+    mockReq.setMethod("POST");
+
+    Context ctx = mockContext("api/pantry");
+
+    assertThrows(ValidationException.class, () -> {
+      pantryController.addNewPantryItem(ctx);
+    });
+  }
+
+  @Test
+  public void addProductWithBadDate() throws IOException {
+
+    String testNewEntry = "{"
+        + "\"product\": \"" + bananaEntryId.toHexString() + "\","
+        + "\"purchase_date\": \"01272023\","
+        + "\"notes\": \"check on gerbils every 3 days\""
+        + "}";
+
+    mockReq.setBodyContent(testNewEntry);
+    mockReq.setMethod("POST");
+
+    Context ctx = mockContext("api/pantry");
+
+    assertThrows(ValidationException.class, () -> {
+      pantryController.addNewPantryItem(ctx);
+    });
+  }
+
+  @Test
+  public void addProductWithBadNote() throws IOException {
+
+    String testNewEntry = "{"
+        + "\"product\": \"" + bananaEntryId.toHexString() + "\","
+        + "\"purchase_date\": \"2023-01-27\","
+        + "\"notes\": null"
+        + "}";
+
+    mockReq.setBodyContent(testNewEntry);
+    mockReq.setMethod("POST");
+
+    Context ctx = mockContext("api/pantry");
+
+    assertThrows(ValidationException.class, () -> {
+      pantryController.addNewPantryItem(ctx);
+    });
+  }
+
+  @Test
+  public void deleteProduct() throws IOException {
+    String testID = appleEntryId.toHexString();
+
+    // Product exists before deletion
+    assertEquals(1, db.getCollection("pantry").countDocuments(eq("_id", new ObjectId(testID))));
+
+    Context ctx = mockContext("api/pantry/{id}", Map.of("id", testID));
+
+    pantryController.deletePantryItem(ctx);
+
+    assertEquals(HttpURLConnection.HTTP_OK, mockRes.getStatus());
+
+    // Product is no longer in the database
+    assertEquals(0, db.getCollection("products").countDocuments(eq("_id", new ObjectId(testID))));
+  }
+
+  @Test
+  public void canGetPantryInfo() throws IOException {
+    // Create our fake Javalin context
+    String path = "api/pantry/info";
+    Context ctx = mockContext(path);
+
+    pantryController.getPantryInfo(ctx);
+    PantryItem[] returnedProducts = returnedPantryItems(ctx);
+
+    // The response status should be 200, i.e., our request.append("_id", milksId)
+    // was handled successfully (was OK). This is a named constant in
+    // the class HttpCode.
+    assertEquals(HttpCode.OK.getStatus(), mockRes.getStatus());
+    assertEquals(
+        db.getCollection("pantry").countDocuments(),
+        returnedProducts.length);
   }
 
 }
