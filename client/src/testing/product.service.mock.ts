@@ -75,4 +75,8 @@ import { ProductService } from '../app/products/product.service';
      }
    }
 
+   addProduct(newProduct: Product): Observable<string>{
+    return of(Math.random().toString(16));
+   }
+
  }
