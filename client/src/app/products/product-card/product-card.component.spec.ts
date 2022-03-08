@@ -24,7 +24,7 @@ describe('ProductCardComponent', () => {
     component = fixture.componentInstance;
     component.product = {
       _id: 'apple_id',
-      productName: 'apple',
+      product_name: 'apple',
       description: 'red fruit',
       brand: 'dole',
       category: 'produce',
