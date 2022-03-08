@@ -78,16 +78,24 @@
 
 <!-- Product List ('Bottom' Content) -->
 <div fxLayout="row">
-  <div fxFlex fxFlex.gt-sm="80" fxFlexOffset.gt-sm="10" *ngIf="serverFilteredProducts; else productsError" >
+  <div fxFlex fxFlex.gt-sm="80" fxFlexOffset.gt-sm="10" *ngIf="serverFilteredProducts; else productsError" style="width: 90%;">
     <mat-card  *ngIf="activeFilters" class="conditional-product-list">
       <mat-card-content>
         <mat-nav-list class="filtered-product-nav-list">
-          <a mat-list-item *ngFor="let product of this.filteredProducts" [routerLink]="['/products', product._id]" class="product-list-item">
-            <p matLine class="product-list-name"> {{product.product_name}} </p>
-            <p matLine class="product-list-category"> {{product.category}} </p>
-            <p matLine class="product-list-brand"> {{product.brand}} </p>
-            <mat-divider></mat-divider>
-          </a>
+          <span fxLayout="row" *ngFor="let product of this.filteredProducts">
+            <a mat-list-item [routerLink]="['/products', product._id]" class="product-list-item">
+              <p matLine class="product-list-name"> {{product.product_name}} </p>
+              <p matLine class="product-list-brand"> {{product.brand}} </p>
+              <p matLine class="product-list-category"> {{product.category}} </p>
+              <p matLine class="product-list-store"> {{product.store}} </p>
+              <mat-divider></mat-divider>
+            </a>
+            <div class="deleteContainer" style="position: absolute;">
+              <button mat-icon-button class="delete-product-button" matTooltip="Delete Product" matTooltipPosition="left" routerLink="" data-test="deleteProductButton">
+                <mat-icon aria-label="Delete Product">close</mat-icon>
+              </button>
+            </div>
+          </span>
         </mat-nav-list>
       </mat-card-content>
     </mat-card>

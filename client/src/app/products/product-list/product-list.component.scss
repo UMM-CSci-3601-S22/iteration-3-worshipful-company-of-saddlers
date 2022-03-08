@@ -17,3 +17,17 @@
 .conditional-product-list {
   margin-bottom: 10px;
 }
+
+span {
+  text-align: left;
+  justify-content: right;
+  align-items: right;
+}
+
+.delete-product-button {
+  color: red;
+}
+
+.delete-product-button:hover {
+  color: lightsalmon;
+}
