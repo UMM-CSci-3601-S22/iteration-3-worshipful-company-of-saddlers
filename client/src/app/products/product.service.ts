@@ -67,7 +67,7 @@ export class ProductService {
     return this.httpClient.post<{id: string}>(this.productUrl, newProduct).pipe(map(res => res.id));
   }
 
-  deleteProduct(id: string): Observable<{}> {
+  deleteProduct(id: string): Observable<Product> {
     return this.httpClient.delete<Product>(this.productUrl + '/' + id);
   }
 
