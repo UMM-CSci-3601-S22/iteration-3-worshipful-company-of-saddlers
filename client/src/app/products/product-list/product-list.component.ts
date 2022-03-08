@@ -50,13 +50,14 @@ export class ProductListComponent implements OnInit, OnDestroy {
   // temp variables to use for deletion
   public tempId: string;
   public tempName: string;
+  public tempDialog: any;
   constructor(private productService: ProductService, private snackBar: MatSnackBar, public dialog: MatDialog) { }
 
   openDeleteDialog(pname: string, id: string) {
     this.tempId = id;
     this.tempName = pname;
-    const myTempDialog = this.dialog.open(this.dialogRef, { data: {name: pname, _id: id} }, );
-    myTempDialog.afterClosed().subscribe((res) => {
+    this.tempDialog = this.dialog.open(this.dialogRef, { data: {name: this.tempName, _id: this.tempId} }, );
+    this.tempDialog.afterClosed().subscribe((res) => {
 
       // Data back from dialog
       console.log({ res });
@@ -148,12 +149,15 @@ export class ProductListComponent implements OnInit, OnDestroy {
   }
 
   removeProduct(id: string): void {
+    console.log(id);
     this.productService.deleteProduct(id).subscribe(
       () => {
         this.allProducts = this.allProducts.filter(product => product._id !== id);
+        this.filteredProducts = this.filteredProducts.filter(product => product._id !== id);
      }
     );
-    this.snackBar.open('Failed to add the user', 'OK', {
+    this.tempDialog.close();
+    this.snackBar.open('Product deleted', 'OK', {
       duration: 5000,
     });
   }
