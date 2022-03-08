@@ -154,6 +154,16 @@ export class ProductListComponent implements OnInit, OnDestroy {
       () => {
         this.allProducts = this.allProducts.filter(product => product._id !== id);
         this.filteredProducts = this.filteredProducts.filter(product => product._id !== id);
+        this.bakeryProducts = this.bakeryProducts.filter(product => product._id !== id);
+        this.produceProducts = this.produceProducts.filter(product => product._id !== id);
+        this.meatProducts = this.meatProducts.filter(product => product._id !== id);
+        this.dairyProducts = this.dairyProducts.filter(product => product._id !== id);
+        this.frozenProducts = this.frozenProducts.filter(product => product._id !== id);
+        this.cannedProducts = this.cannedProducts.filter(product => product._id !== id);
+        this.drinkProducts = this.drinkProducts.filter(product => product._id !== id);
+        this.generalProducts = this.generalProducts.filter(product => product._id !== id);
+        this.seasonalProducts = this.seasonalProducts.filter(product => product._id !== id);
+        this.miscellaneousProducts = this.miscellaneousProducts.filter(product => product._id !== id);
      }
     );
     this.tempDialog.close();
