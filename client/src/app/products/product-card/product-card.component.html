@@ -1,0 +1,27 @@
+<mat-card class="product-card" style="margin: 16px" *ngIf="this.product">
+  <div fxLayout="row" >
+    <div style="padding: 16px;">
+      <mat-card-header>
+        <mat-card-title class="product-card-name">{{ this.product.product_name }}</mat-card-title>
+        <mat-card-subtitle class="product-card-brand">{{ this.product.brand }}</mat-card-subtitle>
+      </mat-card-header>
+      <img mat-card-md-image [src]="this.product.image" class="product-image" *ngIf="this.product.image">
+      <mat-card-header>
+        <mat-card-subtitle class="product-card-store">{{ this.product.store }}</mat-card-subtitle>
+        <mat-card-subtitle class="product-card-location">{{ this.product.location }}</mat-card-subtitle>
+      </mat-card-header>
+    </div>
+
+    <mat-card-content style="margin: 16px">
+      <p> Category: <span class="product-card-category">{{ this.product.category }}</span></p>
+      <p> Description: <span class="product-card-description">{{ this.product.description }}</span></p>
+      <p> Notes: <span class="product-card-notes">{{ this.product.notes }}</span></p>
+      <p> Tags: <span class="product-card-tags">{{ this.product.tags }}</span></p>
+      <p> Lifespan: <span class="product-card-lifespan">{{ this.product.lifespan }}</span></p>
+      <p> Threshold: <span class="product-card-threshold">{{ this.product.threshold }}</span></p>
+    </mat-card-content>
+  </div>
+  <mat-card-actions class="add-to-pantry">
+    <button color="primary" mat-raised-button data-test="addToPantryButton"> Add Product To Pantry</button>
+  </mat-card-actions>
+</mat-card>
