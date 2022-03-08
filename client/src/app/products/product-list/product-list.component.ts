@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Product, ProductCategory } from '../product';
 import { ProductService } from '../product.service';
 import { Subscription } from 'rxjs';
@@ -41,7 +42,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
   public seasonalProducts: Product[];
   public miscellaneousProducts: Product[];
 
-  constructor(private productService: ProductService) { }
+  constructor(private productService: ProductService, private snackBar: MatSnackBar) { }
 
   getUnfilteredProducts(): void {
     this.unsubUnfiltered();
@@ -119,6 +120,17 @@ export class ProductListComponent implements OnInit, OnDestroy {
     if (this.getUnfilteredProductsSub) {
       this.getUnfilteredProductsSub.unsubscribe();
     }
+  }
+
+  removeProduct(id: string): void {
+    this.productService.deleteProduct(id).subscribe(
+      () => {
+        this.allProducts = this.allProducts.filter(product => product._id !== id);
+     }
+    );
+    this.snackBar.open('Failed to add the user', 'OK', {
+      duration: 5000,
+    });
   }
 
 }

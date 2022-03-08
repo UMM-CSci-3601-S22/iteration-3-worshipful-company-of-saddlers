@@ -91,7 +91,11 @@
               <mat-divider></mat-divider>
             </a>
             <div class="deleteContainer" style="position: absolute;">
-              <button mat-icon-button class="delete-product-button" matTooltip="Delete Product" matTooltipPosition="left" routerLink="" data-test="deleteProductButton">
+              <button mat-icon-button class="delete-product-button"
+                                      matTooltip="Delete Product"
+                                      matTooltipPosition="left"
+                                      (click)="removeProduct(product._id)"
+                                      data-test="deleteProductButton">
                 <mat-icon aria-label="Delete Product">close</mat-icon>
               </button>
             </div>
