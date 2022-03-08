@@ -12,6 +12,8 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatIconModule } from '@angular/material/icon';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Observable } from 'rxjs';
@@ -34,6 +36,8 @@ const COMMON_IMPORTS: any[] = [
   MatDividerModule,
   MatRadioModule,
   MatIconModule,
+  MatSnackBar,
+  MatDialog,
   BrowserAnimationsModule,
   RouterTestingModule,
 ];
