@@ -418,7 +418,6 @@ public class ProductControllerSpec {
     assertEquals("test category", addedProduct.getString("category"));
     assertEquals("test store", addedProduct.getString("store"));
     assertEquals("test location", addedProduct.getString("location"));
-    // assertArrayEquals(new String[] {"test tag"}, addedProduct.get("tags"));
     assertEquals("tastes like test", addedProduct.getString("notes"));
     assertEquals(100, addedProduct.getInteger("lifespan"));
     assertEquals(84, addedProduct.getInteger("threshold"));

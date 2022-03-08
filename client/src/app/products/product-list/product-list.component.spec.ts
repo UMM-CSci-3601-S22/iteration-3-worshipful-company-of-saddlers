@@ -119,9 +119,4 @@ describe('Misbehaving Product List', () => {
       fixture.detectChanges();
     });
   }));
-
-  it('generates an error if we don\'t set up a ProductListService', () => {
-    // Since the observer throws an error, we don't expect products to be defined.
-    expect(productList.serverFilteredProducts).toBeUndefined();
-  });
 });

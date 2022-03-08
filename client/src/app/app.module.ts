@@ -24,19 +24,6 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatPaginatorModule } from '@angular/material/paginator';
-//import { MatAutocompleteModule } from '@angular/material/autocomplete';
-//import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
-//import { MatBadgeModule } from '@angular/material/badge';
-//import { MatButtonToggleModule}  from '@angular/material/button-toggle';
-//import { MatDialogModule } from '@angular/material/dialog';
-//import { MatChipsModule } from '@angular/material/chips';
-//import { MatProgressBarModule } from '@angular/material/progress-bar';
-//import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-//import { MatRippleModule } from '@angular/material/core';
-//import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-//import { MatSliderModule } from '@angular/material/slider';
-//import { MatTabsModule } from '@angular/material/tabs';
-//import { MatTreeModule } from '@angular/material/tree';
 
 import { UserListComponent } from './users/user-list.component';
 import { HomeComponent } from './home/home.component';
@@ -70,19 +57,6 @@ const MATERIAL_MODULES: any[] = [
   MatRadioModule,
   MatSnackBarModule,
   MatPaginatorModule,
-  //MatAutocompleteModule,
-  //MatBottomSheetModule,
-  //MatBadgeModule,
-  //MatButtonToggleModule,
-  //MatDialogModule,
-  //MatChipsModule,
-  //MatProgressBarModule,
-  //MatProgressSpinnerModule,
-  //MatRippleModule,
-  //MatSlideToggleModule,
-  //MatSliderModule,
-  //MatTabsModule,
-  //MatTreeModule
 ];
 
 @NgModule({
