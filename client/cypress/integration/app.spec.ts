@@ -9,7 +9,7 @@ describe('App', () => {
     page.getAppTitle().should('contain', 'Handy Pantry');
   });
 
-  it('The sidenav should open, navigate to "Users" and back to "Home"', () => {
+  it('The sidenav should open, navigate to "Products" and back to "Pantry"', () => {
     // Before clicking on the button, the sidenav should be hidden
     page.getSidenav()
       .should('be.hidden');
@@ -17,13 +17,13 @@ describe('App', () => {
       .should('be.visible');
 
     page.getSidenavButton().click();
-    page.getNavLink('Users').click();
-    cy.url().should('match', /\/users$/);
+    page.getNavLink('Products').click();
+    cy.url().should('match', /\/products$/);
     page.getSidenav()
       .should('be.hidden');
 
     page.getSidenavButton().click();
-    page.getNavLink('Home').click();
+    page.getNavLink('Pantry').click();
     cy.url().should('match', /^https?:\/\/[^\/]+\/?$/);
     page.getSidenav()
       .should('be.hidden');
