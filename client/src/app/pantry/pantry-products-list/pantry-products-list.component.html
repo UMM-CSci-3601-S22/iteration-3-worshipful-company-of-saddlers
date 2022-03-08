@@ -1,1 +1,46 @@
-<p>pantry-products-list works!</p>
+<div fxLayout="row">
+  <div fxFlex fxFlex.gt-sm="80" fxFlexOffset.gt-sm="10">
+    <!-- Card at the top of page that a user enters search queries into -->
+    <mat-card class="search-card">
+    </mat-card>
+
+    <!-- Page Break to separate List and Search cards  -->
+    <br>
+
+    <div fxLayout="row wrap">
+      <div fxFlex fxFlex.gt-sm="80" fxFlexOffset.gt-sm="10" *ngIf="getPantryItemsFromServer; else pantryError">
+
+        <!-- List view -->
+        <mat-card>
+          <mat-card-content>
+            <mat-nav-list class="pantry-nav-list">
+              <h3 mat-subheader>Pantry Items</h3>
+              <a mat-list-item *ngFor="let product of this.allProducts" [routerLink]="['/product', product._id]"
+                class="pantry-list-item" data-test="pantryListItem">
+                <h2 matLine class="product-list-name">{{product.product_name}}</h2>
+                <h4 matLine class="product-list-category">{{product.category}}</h4>
+                <p matLine class="product-list-body">{{product.description}}</p>
+              </a>
+            </mat-nav-list>
+          </mat-card-content>
+        </mat-card>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Maybe this should be a pop-up instead of just a text message? Not sure. -->
+  <ng-template #pantryError>
+    <div fxFlex fxFlex.gt-sm="80" fxFlexOffset.gt-sm="10" class="pantry-error">
+      <mat-error>
+        There was a problem loading the pantry. Possibly the server is down or perhaps there are network
+        issues.
+      </mat-error>
+      <mat-error>
+        Please wait a bit and try again.
+      </mat-error>
+    </div>
+  </ng-template>
+
+</div>
