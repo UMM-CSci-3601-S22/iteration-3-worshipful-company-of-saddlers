@@ -25,14 +25,9 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatPaginatorModule } from '@angular/material/paginator';
 
-import { UserListComponent } from './users/user-list.component';
 import { HomeComponent } from './home/home.component';
-import { UserService } from './users/user.service';
 import { HttpClientModule } from '@angular/common/http';
 import { LayoutModule } from '@angular/cdk/layout';
-import { UserCardComponent } from './users/user-card.component';
-import { UserProfileComponent } from './users/user-profile.component';
-import { AddUserComponent } from './users/add-user.component';
 import { ProductListComponent } from './products/product-list/product-list.component';
 import { ProductService } from './products/product.service';
 import { SingleProductPageComponent } from './products/single-product-page/single-product-page.component';
@@ -63,10 +58,6 @@ const MATERIAL_MODULES: any[] = [
   declarations: [
     AppComponent,
     HomeComponent,
-    UserListComponent,
-    UserCardComponent,
-    UserProfileComponent,
-    AddUserComponent,
     ProductListComponent,
     SingleProductPageComponent,
     AddProductComponent,
@@ -84,7 +75,6 @@ const MATERIAL_MODULES: any[] = [
     LayoutModule,
   ],
   providers: [
-    UserService,
     ProductService
   ],
   bootstrap: [AppComponent]
