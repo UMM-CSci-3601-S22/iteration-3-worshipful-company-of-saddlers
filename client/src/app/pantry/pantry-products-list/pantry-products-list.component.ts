@@ -38,9 +38,7 @@ export class PantryProductsListComponent implements OnInit {
   * Get the products in the pantry from the server,
   */
   getPantryItemsFromServer() {
-    this.pantryService.getPantryItems({
-      // eslint-disable-next-line @typescript-eslint/naming-convention
-    }).subscribe(returnedPantryProducts => {
+    this.pantryService.getPantryItems().subscribe(returnedPantryProducts => {
 
       this.allProducts = returnedPantryProducts;
     }, err => {
