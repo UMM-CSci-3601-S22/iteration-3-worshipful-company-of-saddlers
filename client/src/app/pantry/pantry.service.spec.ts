@@ -74,15 +74,24 @@ describe('PantryService', () => {
   });
 
   it('getPantryItems() calls api/pantry', () => {
-    // Assert that the products we get from this call to getProducts()
+    // Assert that the products we get from this call to getPantryItems()
     // should be our set of test products. Because we're subscribing
-    // to the result of getProducts(), this won't actually get
+    // to the result of getPantryItems(), this won't actually get
     // checked until the mocked HTTP request 'returns' a response.
-    // This happens when we call req.flush(testProducts) a few lines
+    // This happens when we call req.flush(testPantryProducts) a few lines
     // down.
     pantryService.getPantryItems().subscribe(
       products => expect(products).toBe(testPantryProducts)
     );
+
+        // Specify that (exactly) one request will be made to the specified URL.
+        const req = httpTestingController.expectOne(pantryService.pantryUrl);
+        // Check that the request made to that URL was a GET request.
+        expect(req.request.method).toEqual('GET');
+        // Specify the content of the response to that request. This
+        // triggers the subscribe above, which leads to that check
+        // actually being performed.
+        req.flush(testPantryProducts);
 
   });
 

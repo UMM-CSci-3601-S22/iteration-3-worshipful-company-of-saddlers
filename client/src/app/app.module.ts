@@ -33,6 +33,7 @@ import { SingleProductPageComponent } from './products/single-product-page/singl
 import { AddProductComponent } from './products/add-product/add-product.component';
 import { PantryProductsListComponent } from './pantry/pantry-products-list/pantry-products-list.component';
 import { ProductCardComponent } from './products/product-card/product-card.component';
+import { PantryService } from './pantry/pantry.service';
 
 const MATERIAL_MODULES: any[] = [
   MatListModule,
@@ -75,7 +76,8 @@ const MATERIAL_MODULES: any[] = [
     LayoutModule,
   ],
   providers: [
-    ProductService
+    ProductService,
+    PantryService
   ],
   bootstrap: [AppComponent]
 })
