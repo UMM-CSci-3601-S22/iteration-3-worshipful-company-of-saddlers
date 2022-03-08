@@ -9,17 +9,12 @@
         #routerLinkActiveInstance="routerLinkActive" [attr.tabindex]="routerLinkActiveInstance.isActive ? 0 : -1"
         [routerLinkActiveOptions]="{exact: true}" (click)="drawer.close()">
         <mat-icon matListIcon>home</mat-icon>
-        Home
+        My Pantry
       </a>
 
       <a mat-list-item routerLink="/products" routerLinkActive="drawer-list-item-active" (click)="drawer.close()">
         <mat-icon matListIcon>local_dining</mat-icon>
         Products
-      </a>
-
-      <a mat-list-item routerLink="/users" routerLinkActive="drawer-list-item-active" (click)="drawer.close()">
-        <mat-icon matListIcon>people</mat-icon>
-        Users
       </a>
 
     </mat-nav-list>
