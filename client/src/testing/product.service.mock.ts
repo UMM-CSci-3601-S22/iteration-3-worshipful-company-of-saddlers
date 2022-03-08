@@ -79,4 +79,8 @@ import { ProductService } from '../app/products/product.service';
     return of(Math.random().toString(16));
    }
 
+   deleteProduct(id: string): Observable<Product>{
+    return of();
+   }
+
  }
