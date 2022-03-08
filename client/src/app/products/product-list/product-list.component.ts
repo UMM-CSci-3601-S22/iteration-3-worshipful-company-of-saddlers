@@ -85,7 +85,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
     }, err => {
       console.log(err);
     });
-    if (this.productCategory || this.name || this.productBrand || this.productStore) {
+    if (this.productCategory || this.productStore) {
       this.activeFilters = true;
     }
     else {
@@ -96,6 +96,12 @@ export class ProductListComponent implements OnInit, OnDestroy {
   public updateFilter(): void {
     this.filteredProducts = this.productService.filterProducts(
       this.serverFilteredProducts, { product_name: this.name, brand: this.productBrand , limit: this.productLimit });
+      if (this.name || this.productBrand || this.productCategory || this.productStore) {
+        this.activeFilters = true;
+      }
+      else {
+        this.activeFilters = false;
+      }
 
   }
 
