@@ -24,7 +24,6 @@ export class AddProductComponent implements OnInit {
       {type: 'maxlength', message: 'Product name must be at less than 200 characters'}
     ],
     description: [
-      {type: 'notrequired', message: 'Product description is not required'},
       {type: 'minlength', message: 'Product description must be at least 1 character'},
       {type: 'maxlength', message: 'Product description must be at less than 500 characters'}
     ],
@@ -44,36 +43,27 @@ export class AddProductComponent implements OnInit {
       {type: 'maxlength', message: 'Product store must be at less than 100 characters'}
     ],
     location: [
-      {type: 'notrequired', message: 'Product location is not required'},
       {type: 'minlength', message: 'Product location must be at least 1 character'},
       {type: 'maxlength', message: 'Product location must be at less than 100 characters'}
     ],
     notes: [
-      {type: 'notrequired', message: 'Product notes are not required'},
       {type: 'minlength', message: 'Product notes must be at least 1 character'},
       {type: 'maxlength', message: 'Product notes must be at less than 350 characters'}
     ],
     tags: [
-      {type: 'notrequired', message: 'Product tags are not required'},
       {type: 'minlength', message: 'Product notes must be at least 1 character'},
       {type: 'maxlength', message: 'Product notes must be at less than 50 characters'}
     ],
     lifespan: [
-      {type: 'notrequired', message: 'Product lifespan is not required'},
       {type: 'min', message: 'Product lifespan must be at least 1'},
       {type: 'max', message: 'Product lifespan must be at less than 1000000'},
       {type: 'pattern', message: 'Lifespan must be a whole number'}
     ],
     threshold: [
-      {type: 'notrequired', message: 'Product threshold is not required'},
       {type: 'min', message: 'Product threshold must be at least 1'},
       {type: 'max', message: 'Product threshold must be at less than 1000000'},
       {type: 'pattern', message: 'Threshold must be a whole number'}
-    ],
-    image: [
-      {type: 'notrequired', message: 'Product image is not required'},
-      {type: 'image', message: 'must be an image link'}
-    ],
+    ]
   };
   constructor(private fb: FormBuilder, private productService: ProductService, private snackBar: MatSnackBar, private router: Router) {
   }
@@ -133,10 +123,7 @@ export class AddProductComponent implements OnInit {
         Validators.min(1),
         Validators.max(1000000),
         Validators.pattern('^[0-9]+$')
-      ])),
-
-      image: new FormControl('', Validators.compose([
-      ])),
+      ]))
 
     });
   }
