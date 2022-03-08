@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, TemplateRef, ViewChild, OnInit, OnDestroy } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
 import { Product, ProductCategory } from '../product';
 import { ProductService } from '../product.service';
 import { Subscription } from 'rxjs';
@@ -13,6 +14,10 @@ import { Subscription } from 'rxjs';
 })
 
 export class ProductListComponent implements OnInit, OnDestroy {
+  // MatDialog
+  @ViewChild('dialogRef')
+  dialogRef!: TemplateRef<any>;
+
   public serverFilteredProducts: Product[];
   public filteredProducts: Product[];
 
@@ -42,7 +47,16 @@ export class ProductListComponent implements OnInit, OnDestroy {
   public seasonalProducts: Product[];
   public miscellaneousProducts: Product[];
 
-  constructor(private productService: ProductService, private snackBar: MatSnackBar) { }
+  constructor(private productService: ProductService, private snackBar: MatSnackBar, public dialog: MatDialog) { }
+
+  openDeleteDialog() {
+    const myTempDialog = this.dialog.open(this.dialogRef);
+    myTempDialog.afterClosed().subscribe((res) => {
+
+      // Data back from dialog
+      console.log({ res });
+    });
+  }
 
   getUnfilteredProducts(): void {
     this.unsubUnfiltered();

@@ -7,7 +7,7 @@
       <mat-card-content fxLayout="column" >
 
         <!-- Form Field Container -->
-        <div fxLayout="row wrap" fxLayoutGap="15px">
+        <div fxLayout="row wrap" fxLayoutGap="15px" style="margin-right: 15px;">
           <mat-form-field class="input-field">
             <mat-label>Product Name</mat-label>
             <input matInput data-test="product_nameInput" placeholder="Filter products by name"
@@ -44,7 +44,7 @@
               <mat-option value="meat">Meat</mat-option>
               <mat-option value="dairy">Dairy</mat-option>
               <mat-option value="frozen foods">Frozen Foods</mat-option>
-              <mat-option value="canned good">Canned Goods</mat-option>
+              <mat-option value="canned goods">Canned Goods</mat-option>
               <mat-option value="drinks">Drinks</mat-option>
               <mat-option value="miscellaneous">Miscellaneous</mat-option>
               <mat-option value="seasonal">Seasonal</mat-option>
@@ -94,11 +94,24 @@
               <button mat-icon-button class="delete-product-button"
                                       matTooltip="Delete Product"
                                       matTooltipPosition="left"
-                                      (click)="removeProduct(product._id)"
+                                      (click)="openDeleteDialog()"
                                       data-test="deleteProductButton">
                 <mat-icon aria-label="Delete Product">close</mat-icon>
               </button>
             </div>
+
+            <!-- Dialog Template -->
+            <ng-template #dialogRef>
+              <h1 mat-dialog-title>Delete Product?</h1>
+              <div mat-dialog-content>
+                <h4>Are you sure you want to delete <i>{{product.product_name}}</i>? This action cannot be undone</h4>
+              </div>
+              <div mat-dialog-actions>
+                <button mat-button (click)="removeProduct(product._id)">Delete</button>
+                <button mat-button [mat-dialog-close]="" cdkFocusInitial>Cancel</button>
+              </div>
+            </ng-template>
+
           </span>
         </mat-nav-list>
       </mat-card-content>
