@@ -25,7 +25,6 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatPaginatorModule } from '@angular/material/paginator';
 
-import { HomeComponent } from './home/home.component';
 import { HttpClientModule } from '@angular/common/http';
 import { LayoutModule } from '@angular/cdk/layout';
 import { ProductListComponent } from './products/product-list/product-list.component';
@@ -57,7 +56,6 @@ const MATERIAL_MODULES: any[] = [
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
     ProductListComponent,
     SingleProductPageComponent,
     AddProductComponent,
