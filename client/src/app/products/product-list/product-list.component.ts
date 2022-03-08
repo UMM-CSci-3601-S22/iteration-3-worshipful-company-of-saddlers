@@ -47,10 +47,15 @@ export class ProductListComponent implements OnInit, OnDestroy {
   public seasonalProducts: Product[];
   public miscellaneousProducts: Product[];
 
+  // temp variables to use for deletion
+  public tempId: string;
+  public tempName: string;
   constructor(private productService: ProductService, private snackBar: MatSnackBar, public dialog: MatDialog) { }
 
-  openDeleteDialog() {
-    const myTempDialog = this.dialog.open(this.dialogRef);
+  openDeleteDialog(pname: string, id: string) {
+    this.tempId = id;
+    this.tempName = pname;
+    const myTempDialog = this.dialog.open(this.dialogRef, { data: {name: pname, _id: id} }, );
     myTempDialog.afterClosed().subscribe((res) => {
 
       // Data back from dialog

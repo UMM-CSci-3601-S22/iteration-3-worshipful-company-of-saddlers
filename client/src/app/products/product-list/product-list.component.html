@@ -94,24 +94,22 @@
               <button mat-icon-button class="delete-product-button"
                                       matTooltip="Delete Product"
                                       matTooltipPosition="left"
-                                      (click)="openDeleteDialog()"
+                                      (click)="openDeleteDialog(product.product_name, product._id)"
                                       data-test="deleteProductButton">
                 <mat-icon aria-label="Delete Product">close</mat-icon>
               </button>
-            </div>
-
-            <!-- Dialog Template -->
-            <ng-template #dialogRef>
+              <!-- Dialog Template -->
+            <ng-template #dialogRef let-mydata>
               <h1 mat-dialog-title>Delete Product?</h1>
               <div mat-dialog-content>
-                <h4>Are you sure you want to delete <i>{{product.product_name}}</i>? This action cannot be undone</h4>
+                <h4>Are you sure you want to delete <i>{{tempName}}</i>? This action cannot be undone</h4>
               </div>
               <div mat-dialog-actions>
-                <button mat-button (click)="removeProduct(product._id)">Delete</button>
+                <button mat-button color="warn" (click)="removeProduct(tempId)">Delete</button>
                 <button mat-button [mat-dialog-close]="" cdkFocusInitial>Cancel</button>
               </div>
             </ng-template>
-
+            </div>
           </span>
         </mat-nav-list>
       </mat-card-content>
