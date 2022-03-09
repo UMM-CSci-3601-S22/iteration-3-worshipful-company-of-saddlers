@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/naming-convention */
+/*
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { ProductCardComponent } from './product-card.component';
@@ -44,3 +44,4 @@ describe('ProductCardComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+ */

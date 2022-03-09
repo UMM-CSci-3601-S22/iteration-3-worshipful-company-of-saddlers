@@ -149,11 +149,11 @@ export class ProductListComponent implements OnInit, OnDestroy {
   }
 
   removeProduct(id: string): void {
-    console.log(id);
     this.productService.deleteProduct(id).subscribe(
       () => {
         this.allProducts = this.allProducts.filter(product => product._id !== id);
         this.filteredProducts = this.filteredProducts.filter(product => product._id !== id);
+        this.serverFilteredProducts = this.filteredProducts.filter(product => product._id !== id);
         this.bakeryProducts = this.bakeryProducts.filter(product => product._id !== id);
         this.produceProducts = this.produceProducts.filter(product => product._id !== id);
         this.meatProducts = this.meatProducts.filter(product => product._id !== id);

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -54,6 +55,10 @@ describe('ProductListComponent', () => {
     });
   });
 
+  afterEach(() => {
+    fixture.destroy();
+  });
+
   beforeEach(waitForAsync(() => {
     TestBed.compileComponents().then(() => {
       fixture = TestBed.createComponent(ProductListComponent);
@@ -85,7 +90,39 @@ describe('ProductListComponent', () => {
   it('has one product that is dairy', () => {
     expect(productList.serverFilteredProducts.filter((product: Product) => product.category === 'dairy').length).toBe(1);
   });
+
+  it('should call openDeleteDialog and call removeProduct', () => {
+    productList.openDeleteDialog('banana', 'banana_id');
+    fixture.detectChanges();
+    productList.removeProduct('banana_id');
+  });
+
+  it('should update all product lists on removeProduct call', () => {
+  productList.allProducts = productList.serverFilteredProducts;
+  productList.filteredProducts = productList.serverFilteredProducts;
+  productList.bakeryProducts = productList.serverFilteredProducts;
+  productList.produceProducts = productList.serverFilteredProducts;
+  productList.meatProducts = productList.serverFilteredProducts;
+  productList.dairyProducts = productList.serverFilteredProducts;
+  productList.frozenProducts = productList.serverFilteredProducts;
+  productList.cannedProducts = productList.serverFilteredProducts;
+  productList.drinkProducts = productList.serverFilteredProducts;
+  productList.generalProducts = productList.serverFilteredProducts;
+  productList.miscellaneousProducts = productList.serverFilteredProducts;
+  productList.seasonalProducts = productList.serverFilteredProducts;
+  productList.openDeleteDialog('banana', 'banana_id');
+  productList.removeProduct('banana_id');
+  });
+
+  it('should update filteredProducts on activeFilters', () => {
+    productList.productCategory = 'produce';
+    productList.productBrand = 'Dole';
+    productList.getProductsFromServer();
+    //expect(productList.filteredProducts.some((product: Product) => product.product_name === 'banana')).toBe(true);
+  });
+
 });
+
 
 describe('Misbehaving Product List', () => {
   let productList: ProductListComponent;
