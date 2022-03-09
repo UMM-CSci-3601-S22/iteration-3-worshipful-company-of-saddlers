@@ -3,7 +3,7 @@
     <form [formGroup]="addProductForm" (ngSubmit)="submitForm();">
     <mat-card class="add-product-card">
         <mat-card-header>
-          <mat-card-title class="add-product-title">New product</mat-card-title>
+          <mat-card-title class="add-product-title">Create a New product</mat-card-title>
         </mat-card-header>
         <mat-card-content fxLayout="column">
 
@@ -135,6 +135,13 @@
                 {{validation.message}}
               </mat-error>
             </mat-error>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Image</mat-label>
+            <input matInput placeholder="Image"
+                  formControlName="image">
+            <mat-hint>Feature coming soon</mat-hint>
           </mat-form-field>
 
         </mat-card-content>

@@ -123,10 +123,12 @@ export class AddProductComponent implements OnInit {
         Validators.min(1),
         Validators.max(1000000),
         Validators.pattern('^[0-9]+$')
-      ]))
+      ])),
 
+      image: new FormControl(),
     });
   }
+
   ngOnInit(): void {
     this.createForms();
   }
@@ -140,7 +142,7 @@ export class AddProductComponent implements OnInit {
     }, err => {
       this.snackBar.open('Failed to add the product', 'OK', {
         duration: 5000,
-    });
+      });
     });
   }
 
