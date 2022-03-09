@@ -26,19 +26,15 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatDialogModule } from '@angular/material/dialog';
 
-import { UserListComponent } from './users/user-list.component';
-import { HomeComponent } from './home/home.component';
-import { UserService } from './users/user.service';
 import { HttpClientModule } from '@angular/common/http';
 import { LayoutModule } from '@angular/cdk/layout';
-import { UserCardComponent } from './users/user-card.component';
-import { UserProfileComponent } from './users/user-profile.component';
-import { AddUserComponent } from './users/add-user.component';
 import { ProductListComponent } from './products/product-list/product-list.component';
 import { ProductService } from './products/product.service';
 import { SingleProductPageComponent } from './products/single-product-page/single-product-page.component';
 import { AddProductComponent } from './products/add-product/add-product.component';
+import { PantryProductsListComponent } from './pantry/pantry-products-list/pantry-products-list.component';
 import { ProductCardComponent } from './products/product-card/product-card.component';
+import { PantryService } from './pantry/pantry.service';
 
 const MATERIAL_MODULES: any[] = [
   MatListModule,
@@ -64,14 +60,10 @@ const MATERIAL_MODULES: any[] = [
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
-    UserListComponent,
-    UserCardComponent,
-    UserProfileComponent,
-    AddUserComponent,
     ProductListComponent,
     SingleProductPageComponent,
     AddProductComponent,
+    PantryProductsListComponent,
     ProductCardComponent,
   ],
   imports: [
@@ -86,8 +78,8 @@ const MATERIAL_MODULES: any[] = [
     LayoutModule,
   ],
   providers: [
-    UserService,
-    ProductService
+    ProductService,
+    PantryService
   ],
   bootstrap: [AppComponent]
 })
