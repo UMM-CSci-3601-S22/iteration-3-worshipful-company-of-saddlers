@@ -5,6 +5,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { Product, ProductCategory } from '../product';
 import { ProductService } from '../product.service';
 import { Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-product-list-component',
@@ -51,6 +53,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
   public tempId: string;
   public tempName: string;
   public tempDialog: any;
+  public tempDeleted: Product;
   constructor(private productService: ProductService, private snackBar: MatSnackBar, public dialog: MatDialog) { }
 
   openDeleteDialog(pname: string, id: string) {
@@ -148,9 +151,9 @@ export class ProductListComponent implements OnInit, OnDestroy {
     }
   }
 
-  removeProduct(id: string): void {
+  removeProduct(id: string): Product {
     this.productService.deleteProduct(id).subscribe(
-      () => {
+      prod => {
         this.allProducts = this.allProducts.filter(product => product._id !== id);
         this.filteredProducts = this.filteredProducts.filter(product => product._id !== id);
         this.serverFilteredProducts = this.filteredProducts.filter(product => product._id !== id);
@@ -164,12 +167,14 @@ export class ProductListComponent implements OnInit, OnDestroy {
         this.generalProducts = this.generalProducts.filter(product => product._id !== id);
         this.seasonalProducts = this.seasonalProducts.filter(product => product._id !== id);
         this.miscellaneousProducts = this.miscellaneousProducts.filter(product => product._id !== id);
+        this.tempDeleted = prod;
      }
     );
     this.tempDialog.close();
     this.snackBar.open('Product deleted', 'OK', {
       duration: 5000,
     });
+    return this.tempDeleted;
   }
 
 }
