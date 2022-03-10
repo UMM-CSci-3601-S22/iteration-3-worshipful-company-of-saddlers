@@ -112,6 +112,8 @@ describe('ProductListComponent', () => {
   productList.seasonalProducts = productList.serverFilteredProducts;
   productList.openDeleteDialog('banana', 'banana_id');
   productList.removeProduct('banana_id');
+  productList.produceProducts.filter(product => product._id !== 'banana_id');
+  expect(productList.produceProducts.length).toBe(2);
   });
 
   it('should update filteredProducts on activeFilters', () => {
