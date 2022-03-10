@@ -15,6 +15,9 @@ languages:
       - client/src/environments/.*\.ts
     exclude:
       - client/src/app/.*\.spec\.ts
+      #Excluding this file due to long createForms() function.
+      #After discussion, we concluded there is no good way to abstract this method to make it shorter
+      - client/src/app/products/add-product/add-product.component.ts
   test:
     include:
       - client/src/app/.*\.spec\.ts
