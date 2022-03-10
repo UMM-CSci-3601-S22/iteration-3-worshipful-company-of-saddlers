@@ -13,7 +13,6 @@ import org.bson.UuidRepresentation;
 import io.javalin.Javalin;
 import io.javalin.core.util.RouteOverviewPlugin;
 import io.javalin.http.InternalServerErrorResponse;
-import umm3601.user.UserController;
 import umm3601.pantry.PantryController;
 import umm3601.product.ProductController;
 
@@ -44,7 +43,6 @@ public class Server {
     MongoDatabase database = mongoClient.getDatabase(databaseName);
 
     // Initialize dependencies
-    UserController userController = new UserController(database);
     ProductController productController = new ProductController(database);
     PantryController pantryController = new PantryController(database);
 
@@ -64,12 +62,6 @@ public class Server {
 
     server.start(SERVER_PORT);
 
-    // List users, filtered using query parameters
-    server.get("/api/users", userController::getUsers);
-
-    // Get the specified user
-    server.get("/api/users/{id}", userController::getUser);
-
     // List products, filtered using query params
     server.get("/api/products", productController::getAllProducts);
 
@@ -85,18 +77,11 @@ public class Server {
     // Get the specified pantry item
     server.get("/api/pantry/{id}", pantryController::getPantryItemByID);
 
-    // Delete the specified user
-    server.delete("/api/users/{id}", userController::deleteUser);
-
     // Delete the specified product
     server.delete("/api/products/{id}", productController::deleteProduct);
 
     // Delete the specified pantry item
     server.delete("/api/pantry/{id}", pantryController::deletePantryItem);
-
-    // Add new user with the user info being in the JSON body
-    // of the HTTP request
-    server.post("/api/users", userController::addNewUser);
 
     // Add new product with info from JSON body of HTTP request
     server.post("/api/products", productController::addNewProduct);
