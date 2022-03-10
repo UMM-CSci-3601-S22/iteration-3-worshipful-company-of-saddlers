@@ -108,10 +108,8 @@ export class AddProductComponent implements OnInit {
         Validators.maxLength(350),
       ])),
 
-      tags: new FormControl('', Validators.compose([
-        Validators.minLength(1),
-        Validators.maxLength(50),
-      ])),
+      tags: null
+      ,
 
       lifespan: new FormControl('', Validators.compose([
         Validators.min(1),
@@ -125,7 +123,7 @@ export class AddProductComponent implements OnInit {
         Validators.pattern('^[0-9]+$')
       ])),
 
-      image: new FormControl(),
+      image: null,
     });
   }
 
@@ -134,6 +132,7 @@ export class AddProductComponent implements OnInit {
   }
 
   submitForm() {
+    console.log(this.addProductForm.value);
     this.productService.addProduct(this.addProductForm.value).subscribe(newID => {
       this.snackBar.open('Added Product' + this.addProductForm.value.product_name, null, {
         duration: 2000,
