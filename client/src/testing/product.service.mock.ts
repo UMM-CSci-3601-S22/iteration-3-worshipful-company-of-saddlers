@@ -55,6 +55,8 @@ import { ProductService } from '../app/products/product.service';
     }
    ];
 
+   deletedProduct: Product;
+
    constructor() {
      super(null);
    }
@@ -73,6 +75,13 @@ import { ProductService } from '../app/products/product.service';
      } else {
        return of(null);
      }
+   }
+
+   deleteProduct(id: string): Observable<Product> {
+    if (id === MockProductService.testProducts[0]._id) {this.deletedProduct = MockProductService.testProducts[0];}
+    if (id === MockProductService.testProducts[1]._id) {this.deletedProduct = MockProductService.testProducts[1];}
+    if (id === MockProductService.testProducts[2]._id) {this.deletedProduct = MockProductService.testProducts[2];}
+     return of(this.deletedProduct);
    }
 
  }

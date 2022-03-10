@@ -1,8 +1,12 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, TemplateRef, ViewChild, OnInit, OnDestroy } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
 import { Product, ProductCategory } from '../product';
 import { ProductService } from '../product.service';
 import { Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-product-list-component',
@@ -12,6 +16,10 @@ import { Subscription } from 'rxjs';
 })
 
 export class ProductListComponent implements OnInit, OnDestroy {
+  // MatDialog
+  @ViewChild('dialogRef')
+  dialogRef!: TemplateRef<any>;
+
   public serverFilteredProducts: Product[];
   public filteredProducts: Product[];
 
@@ -41,7 +49,23 @@ export class ProductListComponent implements OnInit, OnDestroy {
   public seasonalProducts: Product[];
   public miscellaneousProducts: Product[];
 
-  constructor(private productService: ProductService) { }
+  // temp variables to use for deletion
+  public tempId: string;
+  public tempName: string;
+  public tempDialog: any;
+  public tempDeleted: Product;
+  constructor(private productService: ProductService, private snackBar: MatSnackBar, public dialog: MatDialog) { }
+
+  openDeleteDialog(pname: string, id: string) {
+    this.tempId = id;
+    this.tempName = pname;
+    this.tempDialog = this.dialog.open(this.dialogRef, { data: {name: this.tempName, _id: this.tempId} }, );
+    this.tempDialog.afterClosed().subscribe((res) => {
+
+      // Data back from dialog
+      console.log({ res });
+    });
+  }
 
   getUnfilteredProducts(): void {
     this.unsubUnfiltered();
@@ -84,7 +108,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
     }, err => {
       console.log(err);
     });
-    if (this.productCategory || this.name || this.productBrand || this.productStore) {
+    if (this.productCategory || this.productStore) {
       this.activeFilters = true;
     }
     else {
@@ -95,6 +119,12 @@ export class ProductListComponent implements OnInit, OnDestroy {
   public updateFilter(): void {
     this.filteredProducts = this.productService.filterProducts(
       this.serverFilteredProducts, { product_name: this.name, brand: this.productBrand , limit: this.productLimit });
+      if (this.name || this.productBrand || this.productCategory || this.productStore) {
+        this.activeFilters = true;
+      }
+      else {
+        this.activeFilters = false;
+      }
 
   }
 
@@ -119,6 +149,32 @@ export class ProductListComponent implements OnInit, OnDestroy {
     if (this.getUnfilteredProductsSub) {
       this.getUnfilteredProductsSub.unsubscribe();
     }
+  }
+
+  removeProduct(id: string): Product {
+    this.productService.deleteProduct(id).subscribe(
+      prod => {
+        this.allProducts = this.allProducts.filter(product => product._id !== id);
+        this.filteredProducts = this.filteredProducts.filter(product => product._id !== id);
+        this.serverFilteredProducts = this.filteredProducts.filter(product => product._id !== id);
+        this.bakeryProducts = this.bakeryProducts.filter(product => product._id !== id);
+        this.produceProducts = this.produceProducts.filter(product => product._id !== id);
+        this.meatProducts = this.meatProducts.filter(product => product._id !== id);
+        this.dairyProducts = this.dairyProducts.filter(product => product._id !== id);
+        this.frozenProducts = this.frozenProducts.filter(product => product._id !== id);
+        this.cannedProducts = this.cannedProducts.filter(product => product._id !== id);
+        this.drinkProducts = this.drinkProducts.filter(product => product._id !== id);
+        this.generalProducts = this.generalProducts.filter(product => product._id !== id);
+        this.seasonalProducts = this.seasonalProducts.filter(product => product._id !== id);
+        this.miscellaneousProducts = this.miscellaneousProducts.filter(product => product._id !== id);
+        this.tempDeleted = prod;
+     }
+    );
+    this.tempDialog.close();
+    this.snackBar.open('Product deleted', 'OK', {
+      duration: 5000,
+    });
+    return this.tempDeleted;
   }
 
 }
