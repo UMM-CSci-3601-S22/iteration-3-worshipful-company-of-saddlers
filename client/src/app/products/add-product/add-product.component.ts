@@ -34,7 +34,7 @@ export class AddProductComponent implements OnInit {
     ],
     category: [
       {type: 'required', message: 'Product category is required'},
-      {type: 'pattern', message: 'Category must be, bakery, produce, meat, dairy, frozen foods,' +
+      {type: 'pattern', message: 'Category must be, bakery, produce, meat, dairy, frozen foods, ' +
         'canned goods, drinks, general grocery, miscellaneous, or seasonal'},
     ],
     store: [
