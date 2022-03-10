@@ -83,7 +83,7 @@
       <mat-card-content>
         <mat-nav-list class="filtered-product-nav-list">
           <span fxLayout="row" *ngFor="let product of this.filteredProducts">
-            <a mat-list-item [routerLink]="['/products', product._id]" class="product-list-item">
+            <a mat-list-item [routerLink]="['/products', product._id]" class="filtered-product-list-item">
               <p matLine class="product-list-name"> {{product.product_name}} </p>
               <p matLine class="product-list-brand"> {{product.brand}} </p>
               <p matLine class="product-list-category"> {{product.category}} </p>
