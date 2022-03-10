@@ -71,58 +71,35 @@ export class AddProductComponent implements OnInit {
   createForms() {
     this.addProductForm = this.fb.group({
       product_name: new FormControl('', Validators.compose([
-        Validators.required,
-        Validators.minLength(1),
-        Validators.maxLength(200),
+        Validators.required, Validators.minLength(1), Validators.maxLength(200),
       ])),
-
       description: new FormControl('', Validators.compose([
-        Validators.minLength(1),
-        Validators.maxLength(500),
+        Validators.minLength(1), Validators.maxLength(500),
       ])),
-
       brand: new FormControl('', Validators.compose([
-        Validators.required,
-        Validators.minLength(1),
-        Validators.maxLength(100),
+        Validators.required, Validators.minLength(1), Validators.maxLength(100),
       ])),
-
       category: new FormControl('', Validators.compose([
         Validators.required,
         Validators.pattern('^(bakery|produce|meat|dairy|frozen foods|canned goods|drinks|general grocery|miscellaneous|seasonal)$')
       ])),
-
       store: new FormControl('', Validators.compose([
-        Validators.required,
-        Validators.minLength(1),
-        Validators.maxLength(100),
+        Validators.required, Validators.minLength(1), Validators.maxLength(100),
       ])),
-
       location: new FormControl('', Validators.compose([
-        Validators.minLength(1),
-        Validators.maxLength(100),
+        Validators.minLength(1), Validators.maxLength(100),
       ])),
-
       notes: new FormControl('', Validators.compose([
-        Validators.minLength(1),
-        Validators.maxLength(350),
+        Validators.minLength(1), Validators.maxLength(350),
       ])),
-
       tags: null
       ,
-
       lifespan: new FormControl('', Validators.compose([
-        Validators.min(1),
-        Validators.max(1000000),
-        Validators.pattern('^[0-9]+$')
+        Validators.min(1), Validators.max(1000000), Validators.pattern('^[0-9]+$')
       ])),
-
       threshold: new FormControl('', Validators.compose([
-        Validators.min(1),
-        Validators.max(1000000),
-        Validators.pattern('^[0-9]+$')
+        Validators.min(1), Validators.max(1000000), Validators.pattern('^[0-9]+$')
       ])),
-
       image: null,
     });
   }
