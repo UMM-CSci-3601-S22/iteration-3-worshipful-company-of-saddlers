@@ -360,17 +360,6 @@ describe('AddProductComponent', () => {
       // when it's an upper case 'L' in `Validators.minLength(2)`.
     });
 
-    // In the real world, you'd want to be pretty careful about
-    // setting upper limits on things like name lengths just
-    // because there are people with really long names.
-    it('should fail on really long tags', () => {
-      tagsControl.setValue('x'.repeat(2000));
-      expect(tagsControl.valid).toBeFalsy();
-      // Annoyingly, Angular uses lowercase 'l' here
-      // when it's an upper case 'L' in `Validators.maxLength(2)`.
-      expect(tagsControl.hasError('maxlength')).toBeTruthy();
-    });
-
     it('should allow digits in the tags', () => {
       tagsControl.setValue('tag5');
       expect(tagsControl.valid).toBeTruthy();
