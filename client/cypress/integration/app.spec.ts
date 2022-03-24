@@ -18,7 +18,7 @@ describe('App', () => {
       .and('not.be.visible');
     });
 
-    it('The navigation bar should appear when clicked', () => {
+    it('The navigation bar button should exist', () => {
     page.getSidenavButton()
       .should('be.visible');
     });

@@ -9,40 +9,80 @@ export class ProductListPage {
     return cy.get('.filtered-product-nav-list .filtered-product-list-item');
   }
 
+  getProduceProductDropdown() {
+    return cy.get('.produce-product-expansion-panel');
+  }
+
   getProduceProductListItems() {
     return cy.get('.produce-product-nav-list .product-list-item');
+  }
+
+  getBakeryProductDropdown() {
+    return cy.get('.bakery-product-expansion-panel');
   }
 
   getBakeryProductListItems() {
     return cy.get('.bakery-product-nav-list .product-list-item');
   }
 
+  getMeatProductDropdown() {
+    return cy.get('.meat-product-expansion-panel');
+  }
+
   getMeatProductListItems() {
     return cy.get('.meat-product-nav-list .product-list-item');
+  }
+
+  getDairyProductDropdown() {
+    return cy.get('.dairy-product-expansion-panel');
   }
 
   getDairyProductListItems() {
     return cy.get('.dairy-product-nav-list .product-list-item');
   }
 
+  getDrinkProductDropdown() {
+    return cy.get('.drink-product-expansion-panel');
+  }
+
   getDrinkProductListItems() {
     return cy.get('.drink-product-nav-list .product-list-item');
+  }
+
+  getFrozenProductDropdown() {
+    return cy.get('.frozen-product-expansion-panel');
   }
 
   getFrozenProductListItems() {
     return cy.get('.frozen-product-nav-list .product-list-item');
   }
 
+  getCannedProductDropdown() {
+    return cy.get('.canned-product-expansion-panel');
+  }
+
   getCannedProductListItems() {
     return cy.get('.canned-product-nav-list .product-list-item');
+  }
+
+  getGeneralProductDropdown() {
+    return cy.get('.general-product-expansion-panel');
   }
 
   getGeneralProductListItems() {
     return cy.get('.general-product-nav-list .product-list-item');
   }
 
+  getSeasonalProductDropdown() {
+    return cy.get('.seasonal-product-expansion-panel');
+  }
+
   getSeasonalProductListItems() {
     return cy.get('.seasonal-product-nav-list .product-list-item');
+  }
+
+  getMiscellaneousProductDropdown() {
+    return cy.get('.miscellaneous-product-expansion-panel');
   }
 
   getMiscellaneousProductListItems() {
