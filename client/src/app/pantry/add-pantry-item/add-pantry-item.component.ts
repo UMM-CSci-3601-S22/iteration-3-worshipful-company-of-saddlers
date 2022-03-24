@@ -2,8 +2,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Product } from 'src/app/products/product';
 import { ProductService } from 'src/app/products/product.service';
+import { PantryItem } from '../pantryItem';
+import { PantryService } from '../pantry.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-add-pantry-item',
@@ -14,9 +16,12 @@ export class AddPantryItemComponent implements OnInit, OnDestroy {
 
   public allProducts: Product[];
 
+  public productToAdd: Product;
+
   getUnfilteredProductsSub: Subscription;
 
-  constructor(private productService: ProductService, private snackBar: MatSnackBar) { }
+  constructor(private productService: ProductService, private pantryService: PantryService,
+     private snackBar: MatSnackBar) { }
 
   // This needs to be able to get all of the products from the product database,
   // so that we can search for a product
