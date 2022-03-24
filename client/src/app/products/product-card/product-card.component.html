@@ -1,5 +1,5 @@
 <mat-card class="product-card" style="margin: 16px" *ngIf="this.product">
-  <div fxLayout="row" >
+  <div fxLayout="row">
     <div style="padding: 16px;">
       <mat-card-header>
         <mat-card-title class="product-card-name">{{ this.product.product_name }}</mat-card-title>
@@ -22,45 +22,15 @@
     </mat-card-content>
   </div>
   <mat-card-actions class="add-to-pantry">
-    <button color="primary" mat-raised-button type="button" (click)="popup = true" data-test="addToPantryButton"> Add Product To Pantry</button>
+    <button color="primary" mat-raised-button type="button" (click)="popup = true" data-test="addToPantryButton"> Add
+      Product To Pantry</button>
   </mat-card-actions>
 </mat-card>
 
 <div class="overlay" *ngIf="popup">
   <div class="popup">
-      <h2>Add This Product to Your Pantry</h2>
-      <a class="close" (click)="popup = false">&times;</a>
-      <div class="content">
-        <form [formGroup]="addToPantryForm" (ngSubmit)="submitForm();">
-          <mat-card class="add-to-pantry-card">
-            <mat-card-content fxLayout="column">
-              <mat-form-field>
-                <mat-label>Date Added to Pantry</mat-label>
-                <input matInput placeholder="Date Added to Pantry" formControlName="purchase_date"
-                      required>
-              </mat-form-field>
-
-              <mat-form-field>
-                <mat-label>Pantry Item Notes</mat-label>
-                <input matInput placeholder="Pantry Item Notes" formControlName="notes"
-                      required>
-              </mat-form-field>
-            </mat-card-content>
-
-            <mat-card-actions align="end">
-              <button
-                mat-button
-                type="button"
-                color="primary"
-                type="submit"
-                data-test="confirmAddProductToPantryButton"
-              >
-                Add Product To Pantry
-              </button>
-            </mat-card-actions>
-
-          </mat-card>
-        </form>
-      </div>
+    <h2>Add This Product to Your Pantry</h2>
+    <a class="close" (click)="popup = false">&times;</a>
+    <app-add-product-to-pantry [product]="this.product"></app-add-product-to-pantry>
   </div>
 </div>
