@@ -41,7 +41,7 @@ export class AddProductToPantryComponent implements OnInit {
 
   createForms() {
     this.addToPantryForm = this.fb.group({
-      _id: this.product._id,
+      product: this.product._id,
 
       purchase_date: new FormControl('', Validators.compose([
         Validators.required,
