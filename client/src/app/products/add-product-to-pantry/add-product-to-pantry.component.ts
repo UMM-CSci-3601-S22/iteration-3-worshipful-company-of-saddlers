@@ -24,7 +24,7 @@ export class AddProductToPantryComponent implements OnInit {
   pantryItem: PantryItem;
 
   addPantryValidationMessages = {
-    product_id: [
+    product: [
       {type: 'required', message: 'A product ID is required'}
     ],
     purchase_date: [
