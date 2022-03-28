@@ -15,7 +15,7 @@
           <mat-card-content>
             <mat-nav-list class="pantry-nav-list">
               <h3 mat-subheader>Pantry Items</h3>
-              <a mat-list-item *ngFor="let product of this.allProducts" [routerLink]="['/product', product._id]"
+              <a mat-list-item *ngFor="let product of this.pantryProducts" [routerLink]="['/product', product._id]"
                 class="pantry-list-item" data-test="pantryListItem">
                 <h2 matLine class="product-list-name">{{product.product_name}}</h2>
                 <h4 matLine class="product-list-category">{{product.category}}</h4>
@@ -30,11 +30,48 @@
 
   </div>
 
+  <div>
+    <div fxFlex fxFlex.gt-sm="200" *ngIf="getUnfilteredProducts; else productError">
+      <mat-card>
+        <mat-card-content>
+          <mat-nav-list class="add-product-nav-list">
+            <h3 mat-subheader>Search for a product</h3>
+            <div>
+              <mat-form-field class="input-field">
+                <mat-label>Product Name</mat-label>
+                <input matInput data-test="product_nameInput" placeholder="Search for a product"
+                [(ngModel)]="name" (input)="updateFilter()">
+              </mat-form-field>
+            </div>
+            <div>
+              <a mat-list-item *ngFor="let product of this.filteredProducts" [routerLink]="['/product', product._id]"
+              class="add-product-list-item" data-test="addProductListItem">
+              <h2 matLine class="add-product-list-name">{{product.product_name}}</h2>
+            </a>
+            </div>
+          </mat-nav-list>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+
   <!-- Maybe this should be a pop-up instead of just a text message? Not sure. -->
   <ng-template #pantryError>
     <div fxFlex fxFlex.gt-sm="80" fxFlexOffset.gt-sm="10" class="pantry-error">
       <mat-error>
         There was a problem loading the pantry. Possibly the server is down or perhaps there are network
+        issues.
+      </mat-error>
+      <mat-error>
+        Please wait a bit and try again.
+      </mat-error>
+    </div>
+  </ng-template>
+
+  <ng-template #productError>
+    <div fxFlex fxFlex.gt-sm="80" fxFlexOffset.gt-sm="10" class="product-error">
+      <mat-error>
+        There was a problem loading the products. Possibly the server is down or perhaps there are network
         issues.
       </mat-error>
       <mat-error>
