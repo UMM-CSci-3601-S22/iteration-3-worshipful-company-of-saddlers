@@ -16,7 +16,9 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MockPantryService } from 'src/testing/pantry.service.mock';
+import { MockProductService } from 'src/testing/product.service.mock';
 import { PantryService } from '../pantry.service';
+import { ProductService } from '../../products/product.service';
 
 import { PantryProductsListComponent } from './pantry-products-list.component';
 
@@ -48,7 +50,8 @@ describe('PantryProductsListComponent', () => {
     TestBed.configureTestingModule({
       imports: [COMMON_IMPORTS],
       declarations: [PantryProductsListComponent],
-      providers: [{ provide: PantryService, useValue: new MockPantryService() }]
+      providers: [{ provide: PantryService, useValue: new MockPantryService() },
+      { provide: ProductService, useValue: new MockProductService()}]
     });
   });
 
