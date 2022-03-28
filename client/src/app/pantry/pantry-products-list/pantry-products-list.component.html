@@ -30,8 +30,8 @@
 
   </div>
 
-  <div>
-    <div fxFlex fxFlex.gt-sm="200" *ngIf="getUnfilteredProducts; else productError">
+  <div fxLayout="row wrap">
+    <div fxFlex fxFlex.gt-sm="300" *ngIf="getUnfilteredProducts; else productError">
       <mat-card>
         <mat-card-content>
           <mat-nav-list class="add-product-nav-list">
@@ -45,10 +45,14 @@
             </div>
 
             <div *ngIf="activeFilters">
-              <a mat-list-item *ngFor="let product of this.filteredProducts" [routerLink]="['/product', product._id]"
+              <!--
+                We need to add a router link to the pop-up message for adding a product to the pantry that
+                Collin made.
+              -->
+              <a mat-list-item *ngFor="let product of this.filteredProducts"
               class="add-product-list-item" data-test="addProductListItem">
               <h2 matLine class="add-product-list-name">{{product.product_name}}</h2>
-            </a>
+              </a>
             </div>
           </mat-nav-list>
         </mat-card-content>
