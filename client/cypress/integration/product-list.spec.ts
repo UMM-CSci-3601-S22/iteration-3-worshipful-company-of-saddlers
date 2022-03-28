@@ -12,6 +12,99 @@ describe('Product list', () => {
     page.navigateTo();
   });
 
+  it('No filtered products should exist if nothing has been filtered', () => {
+    page.getFilteredProductListItems()
+      .should('not.exist');
+  });
+
+  it('Should type something in the product name filter and check that it returned correct products', () => {
+    // Filter for product Cake - Sheet Strawberry
+    cy.get('[data-test=product_nameInput]').type('Cake - Sheet Strawberry');
+
+    page.getFilteredProductListItems().should('have.lengthOf.above', 0);
+    // All returned filtered products should have the product name we are filtering by
+    page.getFilteredProductListItems().find('.product-list-name')
+      .should('contain.text', 'Cake - Sheet Strawberry')
+      .should('not.contain.text', 'Apple - Delicious, Red')
+      .should('not.contain.text', 'Cake Circle, Foil, Scallop');
+  });
+
+  it('Should type something partial in the product name filter and check that it returned correct products', () => {
+    // Filter for product Cake
+    cy.get('[data-test=product_nameInput]').type('Cake');
+
+    page.getFilteredProductListItems().should('have.lengthOf.above', 0);
+    // All returned filtered products should have the product name we are filtering by
+    page.getFilteredProductListItems().find('.product-list-name')
+      .should('contain.text', 'Cake - Sheet Strawberry')
+      .should('not.contain.text', 'Apple - Delicious, Red')
+      .should('contain.text', 'Cake Circle, Foil, Scallop');
+  });
+
+  it('Should type something in the brand filter and check that it returned correct products', () => {
+    // Filter for brand Treutel-Kunze
+    cy.get('[data-test=productBrandInput]').type('Treutel-Kunze');
+
+    page.getFilteredProductListItems().should('have.lengthOf.above', 0);
+    // All returned filtered products should have the product brand we are filtering by
+    page.getFilteredProductListItems().find('.product-list-brand')
+      .should('contain.text', 'Treutel-Kunze')
+      .should('not.contain.text', 'Erdman Group')
+      .should('not.contain.text', 'Treutel-Howell');
+  });
+
+  it('Should type something partial in the brand filter and check that it returned correct products', () => {
+    // Filter for brand Treutel
+    cy.get('[data-test=productBrandInput]').type('Treutel');
+
+    page.getFilteredProductListItems().should('have.lengthOf.above', 0);
+    // All returned filtered products should have the product brand we are filtering by
+    page.getFilteredProductListItems().find('.product-list-brand')
+      .should('contain.text', 'Treutel-Kunze')
+      .should('not.contain.text', 'Erdman Group')
+      .should('contain.text', 'Treutel-Howell');
+  });
+
+  it('Should select a store filter and check that it returned correct products', () => {
+    // Filter for store Willies
+    page.selectStore('Willies');
+
+    page.getFilteredProductListItems().should('have.lengthOf.above', 0);
+    // All returned filtered products should have the product store name we are filtering by
+    page.getFilteredProductListItems().find('.product-list-store')
+      .should('contain.text', 'Willies')
+      .should('not.contain.text', 'Pomme de Terre');
+    page.getFilteredProductListItems().find('.product-list-name')
+      .should('contain.text', 'Appetizer - Assorted Box')
+      .should('contain.text', 'Cookies - Amaretto')
+      .should('not.contain.text', 'Cod - Salted, Boneless')
+      .should('not.contain.text', 'Yogurt - Raspberry, 175 Gr');
+  });
+
+  it('Should select a category filter and check that it returned correct products', () => {
+    // Filter for category Produce
+    page.selectCategory('bakery');
+
+    page.getFilteredProductListItems().should('have.lengthOf.above', 0);
+    // All returned filtered products should have the product category we are filtering by
+    page.getFilteredProductListItems().find('.product-list-category')
+      .should('contain.text', 'bakery')
+      .should('not.contain.text', 'produce')
+      .should('not.contain.text', 'meat')
+      .should('not.contain.text', 'dairy')
+      .should('not.contain.text', 'frozen foods')
+      .should('not.contain.text', 'canned goods')
+      .should('not.contain.text', 'drinks')
+      .should('not.contain.text', 'general')
+      .should('not.contain.text', 'seasonal')
+      .should('not.contain.text', 'miscellaneous');
+    page.getFilteredProductListItems().find('.product-list-name')
+      .should('contain.text', 'English Muffin')
+      .should('contain.text', 'Horseradish Root')
+      .should('not.contain.text', 'Assorted Desserts')
+      .should('not.contain.text', 'Artichoke - Fresh');
+  });
+
   describe('Produce product list works', () => {
 
     it('The produce products should be invisible by default', () => {
