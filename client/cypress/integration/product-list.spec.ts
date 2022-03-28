@@ -304,4 +304,12 @@ describe('Product list', () => {
       page.getMiscellaneousProductListItems().should('be.visible');
     });
   });
+
+  it('Should click add product and go to the right URL', () => {
+    page.addProductButton().click();
+
+    cy.url().should(url => expect(url.endsWith('/products/new')).to.be.true);
+
+    cy.get('.add-product-title').should('have.text', 'Create a New Product');
+  });
 });

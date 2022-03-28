@@ -114,7 +114,15 @@ export class ProductListPage {
     return cy.get('[data-test=productStoreSelect]').click().get(`mat-option[value="${value}"]`).click();
   }
 
-  deleteProductInteraction(cssClass: string) {
-    return cy.get(cssClass + ' ' + '[data-test=deleteProductButton]');
+  deleteProductInteraction() {
+    return cy.get('[data-test=deleteProductButton]').click();
+  }
+
+  deleteProductCancel() {
+    return cy.get('[data-test=cancelDeleteProductButton]').click();
+  }
+
+  addProductButton() {
+    return cy.get('[data-test=addProductButton]');
   }
 }
