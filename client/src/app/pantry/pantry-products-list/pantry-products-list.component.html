@@ -1,4 +1,4 @@
-<div fxLayout="row">
+<div>
   <div fxFlex fxFlex.gt-sm="80" fxFlexOffset.gt-sm="10">
     <!-- Card at the top of page that a user enters search queries into -->
     <!-- <mat-card class="search-card">
@@ -43,7 +43,8 @@
                 [(ngModel)]="name" (input)="updateFilter()">
               </mat-form-field>
             </div>
-            <div>
+
+            <div *ngIf="activeFilters">
               <a mat-list-item *ngFor="let product of this.filteredProducts" [routerLink]="['/product', product._id]"
               class="add-product-list-item" data-test="addProductListItem">
               <h2 matLine class="add-product-list-name">{{product.product_name}}</h2>
