@@ -35,6 +35,8 @@ import { AddProductComponent } from './products/add-product/add-product.componen
 import { PantryProductsListComponent } from './pantry/pantry-products-list/pantry-products-list.component';
 import { ProductCardComponent } from './products/product-card/product-card.component';
 import { PantryService } from './pantry/pantry.service';
+import { AddPantryItemComponent } from './pantry/add-pantry-item/add-pantry-item.component';
+import { AddProductToPantryComponent } from './products/add-product-to-pantry/add-product-to-pantry.component';
 
 const MATERIAL_MODULES: any[] = [
   MatListModule,
@@ -65,6 +67,8 @@ const MATERIAL_MODULES: any[] = [
     AddProductComponent,
     PantryProductsListComponent,
     ProductCardComponent,
+    AddPantryItemComponent,
+    AddProductToPantryComponent,
   ],
   imports: [
     BrowserModule,

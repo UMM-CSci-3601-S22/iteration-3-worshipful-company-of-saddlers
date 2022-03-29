@@ -1,5 +1,5 @@
 <mat-card class="product-card" style="margin: 16px" *ngIf="this.product">
-  <div fxLayout="row" >
+  <div fxLayout="row">
     <div style="padding: 16px;">
       <mat-card-header>
         <mat-card-title class="product-card-name">{{ this.product.product_name }}</mat-card-title>
@@ -22,6 +22,15 @@
     </mat-card-content>
   </div>
   <mat-card-actions class="add-to-pantry">
-    <button color="primary" mat-raised-button data-test="addToPantryButton"> Add Product To Pantry</button>
+    <button color="primary" mat-raised-button type="button" (click)="popup = true" data-test="addToPantryButton"> Add
+      Product To Pantry</button>
   </mat-card-actions>
 </mat-card>
+
+<div class="overlay" *ngIf="popup">
+  <div class="popup">
+    <h2>Add This Product to Your Pantry</h2>
+    <a class="close" (click)="popup = false">&times;</a>
+    <app-add-product-to-pantry [product]="this.product"></app-add-product-to-pantry>
+  </div>
+</div>
