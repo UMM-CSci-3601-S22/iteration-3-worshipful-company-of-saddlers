@@ -18,10 +18,17 @@
               We need to add a router link to the pop-up message for adding a product to the pantry that
               Collin made.
             -->
-              <a mat-list-item *ngFor="let product of this.filteredProducts" class="add-product-list-item"
-                data-test="addProductListItem">
-                <h2 matLine class="add-product-list-name">{{product.product_name}}</h2>
-              </a>
+              <mat-list-item *ngFor="let product of this.filteredProducts" class="add-product-list-item"
+              data-test="addProductListItem">
+                <p matLine class="add-product-list-name">{{product.product_name}}</p>
+                  <div class="addContainer" style="position: absolute; margin-left: 400px">
+                    <button mat-raised-button class="add-product-button" matTooltip="Add Product"
+                      matTooltipPosition="left" (click)="popup = true"
+                      data-test="addProductButton">
+                      <mat-icon aria-label="Add Product">add</mat-icon>
+                    </button>
+                  </div>
+              </mat-list-item>
             </div>
           </mat-nav-list>
         </mat-card-content>
@@ -44,11 +51,11 @@
           <mat-card-content>
             <mat-nav-list class="pantry-nav-list">
               <h3 mat-subheader>Pantry Items</h3>
-              <a mat-list-item *ngFor="let product of this.pantryProducts" [routerLink]="['/product', product._id]"
+              <a mat-list-item *ngFor="let pantryItem of this.pantryProducts" [routerLink]="['', pantryItem.product]"
                 class="pantry-list-item" data-test="pantryListItem">
-                <h2 matLine class="product-list-name">{{product.product_name}}</h2>
-                <h4 matLine class="product-list-category">{{product.category}}</h4>
-                <p matLine class="product-list-body">{{product.description}}</p>
+                <h2 matLine class="pantry-list-name">{{pantryItem.product}}</h2>
+                <h4 matLine class="pantry-list-date">{{pantryItem.purchase_date}}</h4>
+                <p matLine class="pantry-list-notes">{{pantryItem.notes}}</p>
               </a>
             </mat-nav-list>
           </mat-card-content>
@@ -84,3 +91,11 @@
     </div>
   </ng-template>
 </div>
+
+<div class="overlay" *ngIf="popup">
+    <div class="popup">
+      <h2>Add This Product to Your Pantry</h2>
+      <a class="close" (click)="popup = false">&times;</a>
+      <app-add-product-to-pantry [product]="this.product"></app-add-product-to-pantry>
+    </div>
+  </div>

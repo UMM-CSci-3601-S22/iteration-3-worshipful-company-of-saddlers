@@ -89,7 +89,7 @@ public class PantryController {
     if (products.stream().anyMatch(Objects::isNull)) {
       throw new NotFoundResponse("There are products(s) in the pantry could not be found.");
     } else {
-      ctx.json(products);
+      ctx.json(pantryItems);
     }
 
   }

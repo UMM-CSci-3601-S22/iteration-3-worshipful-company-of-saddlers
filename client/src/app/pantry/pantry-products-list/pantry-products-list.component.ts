@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import { Component, OnInit, OnDestroy, TemplateRef, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, TemplateRef, ViewChild, Input } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable, Subscription } from 'rxjs';
-import { Product, ProductCategory } from 'src/app/products/product';
+import { Product } from 'src/app/products/product';
 import { ProductService } from 'src/app/products/product.service';
 import { PantryService } from '../pantry.service';
-import { MatDialog } from '@angular/material/dialog';
+import { AddProductToPantryComponent } from 'src/app/products/add-product-to-pantry/add-product-to-pantry.component';
 import { PantryItem } from '../pantryItem';
 
 @Component({
@@ -14,23 +14,19 @@ import { PantryItem } from '../pantryItem';
   styleUrls: ['./pantry-products-list.component.scss']
 })
 export class PantryProductsListComponent implements OnInit, OnDestroy {
-  @ViewChild('dialogRef')
-  dialogRef!: TemplateRef<any>;
+
+  @Input() product: Product;
+
   // Unfiltered product list
   public allProducts: Product[];
-  public pantryProducts: Product[];
+  public pantryProducts: PantryItem[];
   public filteredProducts: Product[];
-  public productToAdd: PantryItem;
 
   public name: string;
-  public productBrand: string;
-  public productCategory: ProductCategory;
-  public productStore: string;
 
   public activeFilters: boolean;
-  public tempId: string;
-  public tempName: string;
-  public tempDialog: any;
+
+  popup = false;
 
   getUnfilteredProductsSub: Subscription;
 
@@ -44,7 +40,7 @@ export class PantryProductsListComponent implements OnInit, OnDestroy {
    * @param snackBar the `MatSnackBar` used to display feedback
    */
   constructor(private pantryService: PantryService, private productService: ProductService,
-     private snackBar: MatSnackBar, public dialog: MatDialog) {
+     private snackBar: MatSnackBar) {
     // Nothing here – everything is in the injection parameters.
   }
 
@@ -84,17 +80,6 @@ export class PantryProductsListComponent implements OnInit, OnDestroy {
     else {
       this.activeFilters = false;
     }
-  }
-
-  openAddDialog(pname: string, id: string): void {
-    this.tempId = id;
-    this.tempName = pname;
-    this.tempDialog = this.dialog.open(this.dialogRef, { data: {name: this.tempName, _id: this.tempId} }, );
-    this.tempDialog.afterClosed().subscribe((res) => {
-
-      // Data back from dialog
-      console.log({ res });
-    });
   }
 
   /*
