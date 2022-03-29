@@ -59,24 +59,6 @@
 
   </div>
 
-
-            <div *ngIf="activeFilters">
-              <!--
-                We need to add a router link to the pop-up message for adding a product to the pantry that
-                Collin made.
-              -->
-              <a mat-list-item *ngFor="let product of this.filteredProducts"
-              class="add-product-list-item" data-test="addProductListItem">
-              <h2 matLine class="add-product-list-name">{{product.product_name}}</h2>
-              
-            </a>
-            </div>
-          </mat-nav-list>
-        </mat-card-content>
-      </mat-card>
-    </div>
-  </div>
-
   <!-- Maybe this should be a pop-up instead of just a text message? Not sure. -->
   <ng-template #pantryError>
     <div fxFlex fxFlex.gt-sm="80" fxFlexOffset.gt-sm="10" class="pantry-error">
