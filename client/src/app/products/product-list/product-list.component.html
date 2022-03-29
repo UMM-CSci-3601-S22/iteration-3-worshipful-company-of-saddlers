@@ -237,8 +237,8 @@
                     <h4>Are you sure you want to delete <i>{{tempName}}</i>? This action cannot be undone</h4>
                   </div>
                   <div mat-dialog-actions>
-                    <button mat-button color="warn" (click)="removeProduct(tempId)">Delete</button>
-                    <button mat-button [mat-dialog-close]="" cdkFocusInitial>Cancel</button>
+                    <button mat-button color="warn" (click)="removeProduct(tempId)" class="finalDeleteProductButton">Delete</button>
+                    <button mat-button [mat-dialog-close]="" cdkFocusInitial class="cancelDeleteProductButton">Cancel</button>
                   </div>
                 </ng-template>
                 </div>

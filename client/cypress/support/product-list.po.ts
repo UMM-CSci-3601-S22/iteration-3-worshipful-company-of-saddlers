@@ -118,6 +118,10 @@ export class ProductListPage {
     return cy.get('[data-test=deleteProductButton]').click();
   }
 
+  deleteProductDelete() {
+    return cy.get('[data-test=finalDeleteProductButton]').click();
+  }
+
   deleteProductCancel() {
     return cy.get('[data-test=cancelDeleteProductButton]').click();
   }

@@ -12,6 +12,26 @@ describe('Product list', () => {
     page.navigateTo();
   });
 
+  /*
+  it('Product delete from the product dropdown works', () => {
+    // Confirm that Beef - Tenderlion, Center Cut exists in the products page
+    cy.get('[data-test=product_nameInput]').type('Beef - Tenderlion, Center Cut');
+    page.getFilteredProductListItems().should('have.lengthOf', 1);
+    page.getFilteredProductListItems().find('.product-list-name')
+      .should('contain.text', 'Beef - Tenderlion, Center Cut');
+
+    // Open dropdown and delete item
+    page.getProduceProductDropdown().click();
+    page.getProduceProductListItems().find('.product-list-name').contains('Beef - Tenderlion, Center Cut');
+    page.deleteProductInteraction();
+    page.deleteProductDelete();
+
+    cy.get('[data-test=product_nameInput]').type('Beef - Tenderlion, Center Cut');
+    page.getFilteredProductListItems().should('have.lengthOf', 0);
+  });
+
+  */
+
   it('No filtered products should exist if nothing has been filtered', () => {
     page.getFilteredProductListItems()
       .should('not.exist');
