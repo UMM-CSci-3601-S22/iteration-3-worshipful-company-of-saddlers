@@ -65,7 +65,8 @@ export class AddProductComponent implements OnInit {
       {type: 'pattern', message: 'Threshold must be a whole number'}
     ]
   };
-  constructor(private fb: FormBuilder, private productService: ProductService, private snackBar: MatSnackBar, private router: Router) {
+  constructor(private fb: FormBuilder, private productService: ProductService,
+     private snackBar: MatSnackBar, private router: Router) {
   }
 
   createForms() {

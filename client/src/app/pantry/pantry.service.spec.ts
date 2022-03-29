@@ -5,6 +5,7 @@ import { TestBed } from '@angular/core/testing';
 import { Product } from '../products/product';
 
 import { PantryService } from './pantry.service';
+import { PantryItem } from './pantryItem';
 
 describe('PantryService', () => {
 
@@ -52,6 +53,15 @@ describe('PantryService', () => {
       image: ''
     }
   ];
+
+  const newProduct: PantryItem =
+  {
+    _id: 'new_id',
+    product: 'new product',
+    purchase_date: '2000-04-12',
+    notes: 'this is a new product.'
+  };
+
   let pantryService: PantryService;
   let httpClient: HttpClient;
   let httpTestingController: HttpTestingController;
@@ -72,6 +82,7 @@ describe('PantryService', () => {
     // After every test, assert that there are no more pending requests.
     httpTestingController.verify();
   });
+
 
   it('getPantryItems() calls api/pantry', () => {
     // Assert that the products we get from this call to getPantryItems()
@@ -96,5 +107,18 @@ describe('PantryService', () => {
   });
 
 
+  it('addPantryItem() posts to api/pantry', () => {
+    // Assert that the products that we add to the pantry are actually added
+    // to the pantry.
+    pantryService.addPantryItem(newProduct).subscribe(
+      id => expect(id).toBe('new_id')
+    );
+
+    const req = httpTestingController.expectOne(pantryService.pantryUrl);
+    expect(req.request.method).toEqual('POST');
+    expect(req.request.body).toEqual(newProduct);
+
+    req.flush({id: 'new_id'});
+  });
 
 });
