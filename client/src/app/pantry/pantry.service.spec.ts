@@ -83,6 +83,7 @@ describe('PantryService', () => {
     httpTestingController.verify();
   });
 
+
   it('getPantryItems() calls api/pantry', () => {
     // Assert that the products we get from this call to getPantryItems()
     // should be our set of test products. Because we're subscribing
@@ -105,7 +106,8 @@ describe('PantryService', () => {
 
   });
 
-  fit('addPantryItem() posts to api/pantry', () => {
+
+  it('addPantryItem() posts to api/pantry', () => {
     // Assert that the products that we add to the pantry are actually added
     // to the pantry.
     pantryService.addPantryItem(newProduct).subscribe(
