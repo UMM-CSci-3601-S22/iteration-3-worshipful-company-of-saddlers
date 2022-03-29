@@ -28,10 +28,12 @@ export class AddProductToPantryComponent implements OnInit {
       {type: 'required', message: 'A product ID is required'}
     ],
     purchase_date: [
-      {type: 'required', message: 'Purchase date is required'}
+      {type: 'required', message: 'Purchase date is required'},
+      {type: 'maxlength', message: 'Pantry item date must be 10 characters'},
+      {type: 'minlength', message: 'Pantry item date must be 10 characters'}
     ],
     notes: [
-      {type: 'maxlength', message: 'Pantry item notes must be less than 200 characters'}
+      {type: 'maxlength', message: 'Pantry item notes must be less than 500 characters'}
     ]
   };
 
@@ -45,10 +47,12 @@ export class AddProductToPantryComponent implements OnInit {
 
       purchase_date: new FormControl('', Validators.compose([
         Validators.required,
+        Validators.maxLength(10),
+        Validators.minLength(10)
       ])),
 
       notes: new FormControl('', Validators.compose([
-        Validators.maxLength(200)
+        Validators.maxLength(500)
       ])),
     });
   }
