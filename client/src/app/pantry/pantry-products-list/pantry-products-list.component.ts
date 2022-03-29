@@ -1,10 +1,12 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, TemplateRef, ViewChild } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable, Subscription } from 'rxjs';
 import { Product, ProductCategory } from 'src/app/products/product';
 import { ProductService } from 'src/app/products/product.service';
 import { PantryService } from '../pantry.service';
+import { MatDialog } from '@angular/material/dialog';
+import { PantryItem } from '../pantryItem';
 
 @Component({
   selector: 'app-pantry-products-list',
@@ -12,10 +14,13 @@ import { PantryService } from '../pantry.service';
   styleUrls: ['./pantry-products-list.component.scss']
 })
 export class PantryProductsListComponent implements OnInit, OnDestroy {
+  @ViewChild('dialogRef')
+  dialogRef!: TemplateRef<any>;
   // Unfiltered product list
   public allProducts: Product[];
   public pantryProducts: Product[];
   public filteredProducts: Product[];
+  public productToAdd: PantryItem;
 
   public name: string;
   public productBrand: string;
@@ -23,6 +28,9 @@ export class PantryProductsListComponent implements OnInit, OnDestroy {
   public productStore: string;
 
   public activeFilters: boolean;
+  public tempId: string;
+  public tempName: string;
+  public tempDialog: any;
 
   getUnfilteredProductsSub: Subscription;
 
@@ -36,7 +44,7 @@ export class PantryProductsListComponent implements OnInit, OnDestroy {
    * @param snackBar the `MatSnackBar` used to display feedback
    */
   constructor(private pantryService: PantryService, private productService: ProductService,
-     private snackBar: MatSnackBar) {
+     private snackBar: MatSnackBar, public dialog: MatDialog) {
     // Nothing here – everything is in the injection parameters.
   }
 
@@ -76,6 +84,17 @@ export class PantryProductsListComponent implements OnInit, OnDestroy {
     else {
       this.activeFilters = false;
     }
+  }
+
+  openAddDialog(pname: string, id: string): void {
+    this.tempId = id;
+    this.tempName = pname;
+    this.tempDialog = this.dialog.open(this.dialogRef, { data: {name: this.tempName, _id: this.tempId} }, );
+    this.tempDialog.afterClosed().subscribe((res) => {
+
+      // Data back from dialog
+      console.log({ res });
+    });
   }
 
   /*
