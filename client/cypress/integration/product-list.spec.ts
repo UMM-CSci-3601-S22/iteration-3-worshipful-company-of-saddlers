@@ -12,7 +12,7 @@ describe('Product list', () => {
     page.navigateTo();
   });
 
-  /*
+/*
   it('Product delete from the product dropdown works', () => {
     // Confirm that Beef - Tenderlion, Center Cut exists in the products page
     cy.get('[data-test=product_nameInput]').type('Beef - Tenderlion, Center Cut');
@@ -29,7 +29,7 @@ describe('Product list', () => {
     cy.get('[data-test=product_nameInput]').type('Beef - Tenderlion, Center Cut');
     page.getFilteredProductListItems().should('have.lengthOf', 0);
   });
-
+*/
 
 
   it('No filtered products should exist if nothing has been filtered', () => {
@@ -130,7 +130,7 @@ describe('Product list', () => {
       .should('not.contain.text', 'Assorted Desserts')
       .should('not.contain.text', 'Artichoke - Fresh');
   });
-  */
+
   describe('Produce product list works', () => {
     it('The produce products should appear and disappear when the panel is clicked', () => {
       // Before clicking on the button, the produce products should be hidden
