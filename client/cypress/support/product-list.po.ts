@@ -111,7 +111,9 @@ export class ProductListPage {
   }
 
   selectStore(value: string) {
-    return cy.get('[data-test=productStoreSelect]').click().get(`mat-option[value="${value}"]`).click();
+    return cy.get('[data-test=productStoreSelect]')
+    // Select and click the desired value from the resulting menu
+    .click().get(`mat-option[value="${value}"]`).click();
   }
 
   deleteProductInteraction() {

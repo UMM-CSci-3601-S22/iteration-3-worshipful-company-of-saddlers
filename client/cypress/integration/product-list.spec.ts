@@ -89,6 +89,10 @@ describe('Product list', () => {
     // Filter for store Willies
     page.selectStore('Willies');
 
+    // It takes too much time for the page to load, which causes the test
+    // to fail since it times out after 4000ms. Having an e2e test can fix this solution.
+    cy.wait(4000);
+
     page.getFilteredProductListItems().should('exist');
     page.getFilteredProductListItems().should('have.lengthOf.above', 0);
     // All returned filtered products should have the product store name we are filtering by
