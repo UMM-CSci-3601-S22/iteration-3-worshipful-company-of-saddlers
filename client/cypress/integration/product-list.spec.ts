@@ -89,6 +89,7 @@ describe('Product list', () => {
     // Filter for store Willies
     page.selectStore('Willies');
 
+    page.getFilteredProductListItems().should('exist');
     page.getFilteredProductListItems().should('have.lengthOf.above', 0);
     // All returned filtered products should have the product store name we are filtering by
     page.getFilteredProductListItems().find('.product-list-store')
@@ -105,6 +106,7 @@ describe('Product list', () => {
     // Filter for category Produce
     page.selectCategory('bakery');
 
+    page.getFilteredProductListItems().should('exist');
     page.getFilteredProductListItems().should('have.lengthOf.above', 0);
     // All returned filtered products should have the product category we are filtering by
     page.getFilteredProductListItems().find('.product-list-category')
