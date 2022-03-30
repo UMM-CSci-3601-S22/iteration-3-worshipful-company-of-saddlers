@@ -30,7 +30,7 @@ describe('Product list', () => {
     page.getFilteredProductListItems().should('have.lengthOf', 0);
   });
 
-  */
+
 
   it('No filtered products should exist if nothing has been filtered', () => {
     page.getFilteredProductListItems()
@@ -130,7 +130,7 @@ describe('Product list', () => {
       .should('not.contain.text', 'Assorted Desserts')
       .should('not.contain.text', 'Artichoke - Fresh');
   });
-
+  */
   describe('Produce product list works', () => {
     it('The produce products should appear and disappear when the panel is clicked', () => {
       // Before clicking on the button, the produce products should be hidden
@@ -142,6 +142,9 @@ describe('Product list', () => {
       // After clicking the dropdown panel, the produce products should not be hidden
       page.getProduceProductDropdown().click();
       page.getProduceProductListItems().should('be.visible');
+      // After clicking the dropdown panel again, the produce product should not be hidden
+      page.getProduceProductDropdown().click();
+      page.getProduceProductListItems().should('not.be.visible');
     });
   });
 
@@ -156,6 +159,9 @@ describe('Product list', () => {
       // After clicking the dropdown panel, the bakery products should not be hidden
       page.getBakeryProductDropdown().click();
       page.getBakeryProductListItems().should('be.visible');
+      // After clicking the dropdown panel again, the bakery product should not be hidden
+      page.getBakeryProductDropdown().click();
+      page.getBakeryProductListItems().should('not.be.visible');
     });
   });
 
@@ -170,6 +176,9 @@ describe('Product list', () => {
       // After clicking the dropdown panel, the meat products should not be hidden
       page.getMeatProductDropdown().click();
       page.getMeatProductListItems().should('be.visible');
+      // After clicking the dropdown panel again, the meat product should not be hidden
+      page.getMeatProductDropdown().click();
+      page.getMeatProductListItems().should('not.be.visible');
     });
   });
 
@@ -184,6 +193,9 @@ describe('Product list', () => {
       // After clicking the dropdown panel, the dairy products should not be hidden
       page.getDairyProductDropdown().click();
       page.getDairyProductListItems().should('be.visible');
+      // After clicking the dropdown panel again, the dairy product should not be hidden
+      page.getDairyProductDropdown().click();
+      page.getDairyProductListItems().should('not.be.visible');
     });
   });
 
@@ -198,6 +210,9 @@ describe('Product list', () => {
       // After clicking the dropdown panel, the drink products should not be hidden
       page.getDrinkProductDropdown().click();
       page.getDrinkProductListItems().should('be.visible');
+      // After clicking the dropdown panel again, the drink product should not be hidden
+      page.getDrinkProductDropdown().click();
+      page.getDrinkProductListItems().should('not.be.visible');
     });
   });
 
@@ -212,6 +227,9 @@ describe('Product list', () => {
       // After clicking the dropdown panel, the frozen food products should not be hidden
       page.getFrozenProductDropdown().click();
       page.getFrozenProductListItems().should('be.visible');
+      // After clicking the dropdown panel again, the frozen food product should not be hidden
+      page.getFrozenProductDropdown().click();
+      page.getFrozenProductListItems().should('not.be.visible');
     });
   });
 
@@ -226,6 +244,9 @@ describe('Product list', () => {
       // After clicking the dropdown panel, the canned goods products should not be hidden
       page.getCannedProductDropdown().click();
       page.getCannedProductListItems().should('be.visible');
+      // After clicking the dropdown panel again, the canned goods product should not be hidden
+      page.getCannedProductDropdown().click();
+      page.getCannedProductListItems().should('not.be.visible');
     });
   });
 
@@ -240,6 +261,9 @@ describe('Product list', () => {
       // After clicking the dropdown panel, the general products should not be hidden
       page.getGeneralProductDropdown().click();
       page.getGeneralProductListItems().should('be.visible');
+      // After clicking the dropdown panel again, the general product should not be hidden
+      page.getGeneralProductDropdown().click();
+      page.getGeneralProductListItems().should('not.be.visible');
     });
   });
 
@@ -254,6 +278,9 @@ describe('Product list', () => {
       // After clicking the dropdown panel, the seasonal products should not be hidden
       page.getSeasonalProductDropdown().click();
       page.getSeasonalProductListItems().should('be.visible');
+      // After clicking the dropdown panel again, the seasonal product should not be hidden
+      page.getSeasonalProductDropdown().click();
+      page.getSeasonalProductListItems().should('not.be.visible');
     });
   });
 
@@ -268,6 +295,9 @@ describe('Product list', () => {
       // After clicking the dropdown panel, the miscellaneous products should not be hidden
       page.getMiscellaneousProductDropdown().click();
       page.getMiscellaneousProductListItems().should('be.visible');
+      // After clicking the dropdown panel again, the miscellaneous product should not be hidden
+      page.getMiscellaneousProductDropdown().click();
+      page.getMiscellaneousProductListItems().should('not.be.visible');
     });
   });
 
