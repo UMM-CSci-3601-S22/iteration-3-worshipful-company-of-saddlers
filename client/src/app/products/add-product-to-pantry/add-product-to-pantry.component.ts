@@ -5,6 +5,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Product } from '../product';
 import { ProductService } from '../product.service';
+import { PantryProductsListComponent } from 'src/app/pantry/pantry-products-list/pantry-products-list.component';
 import { PantryService } from 'src/app/pantry/pantry.service';
 import { PantryItem } from 'src/app/pantry/pantryItem';
 
@@ -22,6 +23,8 @@ export class AddProductToPantryComponent implements OnInit {
   addToPantryForm: FormGroup;
 
   pantryItem: PantryItem;
+
+  pantryList: PantryProductsListComponent;
 
   addPantryValidationMessages = {
     product: [
@@ -64,7 +67,7 @@ export class AddProductToPantryComponent implements OnInit {
   submitForm() {
     console.log(this.addToPantryForm.value);
     this.pantryService.addPantryItem(this.addToPantryForm.value).subscribe(newID => {
-      this.snackBar.open('Added Product to Pantry' + this.addToPantryForm.value.product_name, null, {
+      this.snackBar.open('Added Product to Pantry', null, {
         duration: 2000,
       });
       this.router.navigate(['']);
@@ -73,6 +76,8 @@ export class AddProductToPantryComponent implements OnInit {
         duration: 5000,
       });
     });
+    this.pantryList.getPantryItemsFromServer();
+    this.pantryService.getPantryItems();
   }
 
 }
