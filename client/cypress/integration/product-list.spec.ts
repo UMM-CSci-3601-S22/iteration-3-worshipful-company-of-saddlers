@@ -23,10 +23,10 @@ describe('Product list', () => {
 
     // Open dropdown and delete item
     page.getProduceProductDropdown().click();
-    page.getProduceProductListItems().find('.product-list-name').contains('Beef - Tenderlion, Center Cut');
-    page.deleteProductInteraction();
+    page.getProduceProductListItems().first().find('.produce-product-nav-list').click();
     page.deleteProductDelete();
 
+    // Confirm that Beef - Tenderlion, Center Cut no longer exists in the products page
     cy.get('[data-test=product_nameInput]').type('Beef - Tenderlion, Center Cut');
     page.getFilteredProductListItems().should('have.lengthOf', 0);
   });
@@ -112,7 +112,8 @@ describe('Product list', () => {
     page.selectStore('Willies');
 
     // It takes too much time for the page to load, which causes the test
-    // to fail since it times out after 4000ms. Having an e2e test can fix this solution.
+    // to fail since it times out after 4000ms. Having cypress wait for 4
+    // seconds catches the system up to confirm the assertions without timing out
     cy.wait(4000);
 
     page.getFilteredProductListItems().should('exist');

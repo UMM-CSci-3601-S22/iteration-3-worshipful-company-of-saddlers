@@ -116,8 +116,11 @@ export class ProductListPage {
     .click().get(`mat-option[value="${value}"]`).click();
   }
 
-  deleteProductInteraction() {
-    return cy.get('[data-test=deleteProductButton]').click();
+  /**
+   * @param card
+   */
+  deleteProductInteraction(card: Cypress.Chainable<JQuery<HTMLElement>>) {
+    return card.find<HTMLButtonElement>('[data-test=deleteProductButton]').click();
   }
 
   deleteProductDelete() {
