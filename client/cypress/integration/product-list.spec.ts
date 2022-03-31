@@ -12,7 +12,8 @@ describe('Product list', () => {
     page.navigateTo();
   });
 
-  /*
+  /* Product Delete possible format
+
   it('Product delete from the product dropdown works', () => {
     // Confirm that Beef - Tenderlion, Center Cut exists in the products page
     cy.get('[data-test=product_nameInput]').type('Beef - Tenderlion, Center Cut');
@@ -29,7 +30,28 @@ describe('Product list', () => {
     cy.get('[data-test=product_nameInput]').type('Beef - Tenderlion, Center Cut');
     page.getFilteredProductListItems().should('have.lengthOf', 0);
   });
+  */
 
+  /* Product Profile possible format
+
+  it('Should click filtered product and go to the right URL', () => {
+    // Get Beef - Tenderlion, Center Cut
+    cy.get('[data-test=product_nameInput]').type('Beef - Tenderlion, Center Cut');
+    page.getFilteredProductListItems().first().then((list) => {
+      const firstProductName = list.find('.product-list-name').text();
+      const firstProductCategory = list.find('.product-list-category').text();
+
+      page.getFilteredProductListItems().first().click();
+
+      // The URL should be '/products/' followed by a mongo ID
+      cy.url().should('match', /\/users\/[0-9a-fA-F]{24}S/);
+
+      // On this profile page we were sent to, the name and category should be correct
+      cy.get('.product-card-name').first().should('have.text', firstProductName);
+      cy.get('.product-card-category').first().should('have.text', firstProductCategory);
+
+    });
+  });
   */
 
   it('No filtered products should exist if nothing has been filtered', () => {
