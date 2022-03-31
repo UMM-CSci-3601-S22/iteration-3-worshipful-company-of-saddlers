@@ -92,7 +92,7 @@ describe('Product list', () => {
     // It takes too much time for the page to load, which causes the test
     // to fail since it times out after 4000ms. Having cypress wait for 4
     // seconds catches the system up to confirm the assertions without timing out
-    cy.wait(4000);
+    cy.wait(1000);
 
     page.getFilteredProductListItems().should('exist');
     page.getFilteredProductListItems().should('have.lengthOf.above', 0);
@@ -166,6 +166,25 @@ describe('Product list', () => {
       page.getProduceProductDropdown().click();
       page.getProduceProductListItems().should('not.be.visible');
     });
+
+    it('Should click produce product and go to the right URL', () => {
+      // Get produce product list dropdown
+      page.getProduceProductDropdown().click();
+      page.getProduceProductListItems().first().then((list) => {
+        const firstProductName = list.find('.product-list-name').text().trim();
+        const firstProductCategory = list.find('.product-list-category').text().trim();
+
+        page.getProduceProductListItems().first().click();
+
+        // The URL should be '/products/' followed by a mongo ID
+        cy.url().should('match', /products\/[0-9a-fA-F]{24}$/);
+
+        // On this profile page we were sent to, the name and category should be correct
+        cy.get('.product-card-name').should('have.text', firstProductName);
+        cy.get('.product-card-category').first().should('have.text', 'produce');
+
+      });
+    });
   });
 
   describe('Bakery product list works', () => {
@@ -182,6 +201,25 @@ describe('Product list', () => {
       // After clicking the dropdown panel again, the bakery product should not be hidden
       page.getBakeryProductDropdown().click();
       page.getBakeryProductListItems().should('not.be.visible');
+    });
+
+    it('Should click bakery product and go to the right URL', () => {
+      // Get bakery product list dropdown
+      page.getBakeryProductDropdown().click();
+      page.getBakeryProductListItems().first().then((list) => {
+        const firstProductName = list.find('.product-list-name').text().trim();
+        const firstProductCategory = list.find('.product-list-category').text().trim();
+
+        page.getBakeryProductListItems().first().click();
+
+        // The URL should be '/products/' followed by a mongo ID
+        cy.url().should('match', /products\/[0-9a-fA-F]{24}$/);
+
+        // On this profile page we were sent to, the name and category should be correct
+        cy.get('.product-card-name').should('have.text', firstProductName);
+        cy.get('.product-card-category').first().should('have.text', 'bakery');
+
+      });
     });
   });
 
@@ -200,6 +238,25 @@ describe('Product list', () => {
       page.getMeatProductDropdown().click();
       page.getMeatProductListItems().should('not.be.visible');
     });
+
+    it('Should click meat product and go to the right URL', () => {
+      // Get meat product list dropdown
+      page.getMeatProductDropdown().click();
+      page.getMeatProductListItems().first().then((list) => {
+        const firstProductName = list.find('.product-list-name').text().trim();
+        const firstProductCategory = list.find('.product-list-category').text().trim();
+
+        page.getMeatProductListItems().first().click();
+
+        // The URL should be '/products/' followed by a mongo ID
+        cy.url().should('match', /products\/[0-9a-fA-F]{24}$/);
+
+        // On this profile page we were sent to, the name and category should be correct
+        cy.get('.product-card-name').should('have.text', firstProductName);
+        cy.get('.product-card-category').first().should('have.text', 'meat');
+
+      });
+    });
   });
 
   describe('Dairy product list works', () => {
@@ -216,6 +273,25 @@ describe('Product list', () => {
       // After clicking the dropdown panel again, the dairy product should not be hidden
       page.getDairyProductDropdown().click();
       page.getDairyProductListItems().should('not.be.visible');
+    });
+
+    it('Should click dairy product and go to the right URL', () => {
+      // Get dairy product list dropdown
+      page.getDairyProductDropdown().click();
+      page.getDairyProductListItems().first().then((list) => {
+        const firstProductName = list.find('.product-list-name').text().trim();
+        const firstProductCategory = list.find('.product-list-category').text().trim();
+
+        page.getDairyProductListItems().first().click();
+
+        // The URL should be '/products/' followed by a mongo ID
+        cy.url().should('match', /products\/[0-9a-fA-F]{24}$/);
+
+        // On this profile page we were sent to, the name and category should be correct
+        cy.get('.product-card-name').should('have.text', firstProductName);
+        cy.get('.product-card-category').first().should('have.text', 'dairy');
+
+      });
     });
   });
 
@@ -234,6 +310,25 @@ describe('Product list', () => {
       page.getDrinkProductDropdown().click();
       page.getDrinkProductListItems().should('not.be.visible');
     });
+
+    it('Should click drinks product and go to the right URL', () => {
+      // Get drinks product list dropdown
+      page.getDrinkProductDropdown().click();
+      page.getDrinkProductListItems().first().then((list) => {
+        const firstProductName = list.find('.product-list-name').text().trim();
+        const firstProductCategory = list.find('.product-list-category').text().trim();
+
+        page.getDrinkProductListItems().first().click();
+
+        // The URL should be '/products/' followed by a mongo ID
+        cy.url().should('match', /products\/[0-9a-fA-F]{24}$/);
+
+        // On this profile page we were sent to, the name and category should be correct
+        cy.get('.product-card-name').should('have.text', firstProductName);
+        cy.get('.product-card-category').first().should('have.text', 'drinks');
+
+      });
+    });
   });
 
   describe('Frozen food product list works', () => {
@@ -250,6 +345,25 @@ describe('Product list', () => {
       // After clicking the dropdown panel again, the frozen food product should not be hidden
       page.getFrozenProductDropdown().click();
       page.getFrozenProductListItems().should('not.be.visible');
+    });
+
+    it('Should click frozen product and go to the right URL', () => {
+      // Get frozen food product list dropdown
+      page.getFrozenProductDropdown().click();
+      page.getFrozenProductListItems().first().then((list) => {
+        const firstProductName = list.find('.product-list-name').text().trim();
+        const firstProductCategory = list.find('.product-list-category').text().trim();
+
+        page.getFrozenProductListItems().first().click();
+
+        // The URL should be '/products/' followed by a mongo ID
+        cy.url().should('match', /products\/[0-9a-fA-F]{24}$/);
+
+        // On this profile page we were sent to, the name and category should be correct
+        cy.get('.product-card-name').should('have.text', firstProductName);
+        cy.get('.product-card-category').first().should('have.text', 'frozen foods');
+
+      });
     });
   });
 
@@ -268,6 +382,25 @@ describe('Product list', () => {
       page.getCannedProductDropdown().click();
       page.getCannedProductListItems().should('not.be.visible');
     });
+
+    it('Should click canned goods product and go to the right URL', () => {
+      // Get canned goods product list dropdown
+      page.getCannedProductDropdown().click();
+      page.getCannedProductListItems().first().then((list) => {
+        const firstProductName = list.find('.product-list-name').text().trim();
+        const firstProductCategory = list.find('.product-list-category').text().trim();
+
+        page.getCannedProductListItems().first().click();
+
+        // The URL should be '/products/' followed by a mongo ID
+        cy.url().should('match', /products\/[0-9a-fA-F]{24}$/);
+
+        // On this profile page we were sent to, the name and category should be correct
+        cy.get('.product-card-name').should('have.text', firstProductName);
+        cy.get('.product-card-category').first().should('have.text', 'canned goods');
+
+      });
+    });
   });
 
   describe('General product list works', () => {
@@ -284,6 +417,25 @@ describe('Product list', () => {
       // After clicking the dropdown panel again, the general product should not be hidden
       page.getGeneralProductDropdown().click();
       page.getGeneralProductListItems().should('not.be.visible');
+    });
+
+    it('Should click general product and go to the right URL', () => {
+      // Get general product list dropdown
+      page.getGeneralProductDropdown().click();
+      page.getGeneralProductListItems().first().then((list) => {
+        const firstProductName = list.find('.product-list-name').text().trim();
+        const firstProductCategory = list.find('.product-list-category').text().trim();
+
+        page.getGeneralProductListItems().first().click();
+
+        // The URL should be '/products/' followed by a mongo ID
+        cy.url().should('match', /products\/[0-9a-fA-F]{24}$/);
+
+        // On this profile page we were sent to, the name and category should be correct
+        cy.get('.product-card-name').should('have.text', firstProductName);
+        cy.get('.product-card-category').first().should('have.text', 'general grocery');
+
+      });
     });
   });
 
@@ -302,6 +454,25 @@ describe('Product list', () => {
       page.getSeasonalProductDropdown().click();
       page.getSeasonalProductListItems().should('not.be.visible');
     });
+
+    it('Should click seasonal product and go to the right URL', () => {
+      // Get seasonal product list dropdown
+      page.getSeasonalProductDropdown().click();
+      page.getSeasonalProductListItems().first().then((list) => {
+        const firstProductName = list.find('.product-list-name').text().trim();
+        const firstProductCategory = list.find('.product-list-category').text().trim();
+
+        page.getSeasonalProductListItems().first().click();
+
+        // The URL should be '/products/' followed by a mongo ID
+        cy.url().should('match', /products\/[0-9a-fA-F]{24}$/);
+
+        // On this profile page we were sent to, the name and category should be correct
+        cy.get('.product-card-name').should('have.text', firstProductName);
+        cy.get('.product-card-category').first().should('have.text', 'seasonal');
+
+      });
+    });
   });
 
   describe('Miscellaneous product list works', () => {
@@ -318,6 +489,25 @@ describe('Product list', () => {
       // After clicking the dropdown panel again, the miscellaneous product should not be hidden
       page.getMiscellaneousProductDropdown().click();
       page.getMiscellaneousProductListItems().should('not.be.visible');
+    });
+
+    it('Should click miscellaneous product and go to the right URL', () => {
+      // Get miscellaneous product list dropdown
+      page.getMiscellaneousProductDropdown().click();
+      page.getMiscellaneousProductListItems().first().then((list) => {
+        const firstProductName = list.find('.product-list-name').text().trim();
+        const firstProductCategory = list.find('.product-list-category').text().trim();
+
+        page.getMiscellaneousProductListItems().first().click();
+
+        // The URL should be '/products/' followed by a mongo ID
+        cy.url().should('match', /products\/[0-9a-fA-F]{24}$/);
+
+        // On this profile page we were sent to, the name and category should be correct
+        cy.get('.product-card-name').should('have.text', firstProductName);
+        cy.get('.product-card-category').first().should('have.text', 'miscellaneous');
+
+      });
     });
   });
 
