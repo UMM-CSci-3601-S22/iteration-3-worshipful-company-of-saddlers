@@ -32,28 +32,6 @@ describe('Product list', () => {
   });
   */
 
-  /* Product Profile possible format
-
-  it('Should click filtered product and go to the right URL', () => {
-    // Get Beef - Tenderlion, Center Cut
-    cy.get('[data-test=product_nameInput]').type('Beef - Tenderlion, Center Cut');
-    page.getFilteredProductListItems().first().then((list) => {
-      const firstProductName = list.find('.product-list-name').text();
-      const firstProductCategory = list.find('.product-list-category').text();
-
-      page.getFilteredProductListItems().first().click();
-
-      // The URL should be '/products/' followed by a mongo ID
-      cy.url().should('match', /\/users\/[0-9a-fA-F]{24}S/);
-
-      // On this profile page we were sent to, the name and category should be correct
-      cy.get('.product-card-name').first().should('have.text', firstProductName);
-      cy.get('.product-card-category').first().should('have.text', firstProductCategory);
-
-    });
-  });
-  */
-
   it('No filtered products should exist if nothing has been filtered', () => {
     page.getFilteredProductListItems()
       .should('not.exist');
@@ -152,6 +130,25 @@ describe('Product list', () => {
       .should('contain.text', 'Horseradish Root')
       .should('not.contain.text', 'Assorted Desserts')
       .should('not.contain.text', 'Artichoke - Fresh');
+  });
+
+  it('Should click filtered product and go to the right URL', () => {
+    // Get Beef - Tenderlion, Center Cut
+    cy.get('[data-test=product_nameInput]').type('Beef - Tenderlion, Center Cut');
+    page.getFilteredProductListItems().first().then((list) => {
+      const firstProductName = list.find('.product-list-name').text().trim();
+      const firstProductCategory = list.find('.product-list-category').text().trim();
+
+      page.getFilteredProductListItems().first().click();
+
+      // The URL should be '/products/' followed by a mongo ID
+      cy.url().should('match', /products\/[0-9a-fA-F]{24}$/);
+
+      // On this profile page we were sent to, the name and category should be correct
+      cy.get('.product-card-name').should('have.text', firstProductName);
+      cy.get('.product-card-category').first().should('have.text', firstProductCategory);
+
+    });
   });
 
   describe('Produce product list works', () => {
