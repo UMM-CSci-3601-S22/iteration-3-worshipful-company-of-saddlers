@@ -12,26 +12,6 @@ describe('Product list', () => {
     page.navigateTo();
   });
 
-  /* Product Delete possible format
-
-  it('Product delete from the product dropdown works', () => {
-    // Confirm that Beef - Tenderlion, Center Cut exists in the products page
-    cy.get('[data-test=product_nameInput]').type('Beef - Tenderlion, Center Cut');
-    page.getFilteredProductListItems().should('have.lengthOf', 1);
-    page.getFilteredProductListItems().find('.product-list-name')
-      .should('contain.text', 'Beef - Tenderlion, Center Cut');
-
-    // Open dropdown and delete item
-    page.getProduceProductDropdown().click();
-    page.getProduceProductListItems().first().find('.produce-product-nav-list').click();
-    page.deleteProductDelete();
-
-    // Confirm that Beef - Tenderlion, Center Cut no longer exists in the products page
-    cy.get('[data-test=product_nameInput]').type('Beef - Tenderlion, Center Cut');
-    page.getFilteredProductListItems().should('have.lengthOf', 0);
-  });
-  */
-
   it('No filtered products should exist if nothing has been filtered', () => {
     page.getFilteredProductListItems()
       .should('not.exist');
@@ -151,6 +131,39 @@ describe('Product list', () => {
     });
   });
 
+  it('Product delete cancel from filtering works', () => {
+    // Confirm that Hagen Daza - Dk Choocolate exists in the products page
+    cy.get('[data-test=product_nameInput]').type('Hagen Daza - Dk Choocolate');
+    page.getFilteredProductListItems().should('have.lengthOf', 1);
+    page.getFilteredProductListItems().find('.product-list-name')
+      .should('contain.text', 'Hagen Daza - Dk Choocolate');
+
+    // Open dropdown and delete item
+    page.getFirstFilterDelete().click();
+    cy.window().should('exist');
+    cy.get('[cdkfocusinitial=""] > .mat-button-wrapper').click();
+
+    // Confirm that Hagen Daza - Dk Choocolate still exists in the products page
+    page.getFilteredProductListItems().should('have.lengthOf', 1);
+  });
+
+  it('Product delete from filtering works', () => {
+    // Confirm that Hagen Daza - Dk Choocolate exists in the products page
+    cy.get('[data-test=product_nameInput]').type('Hagen Daza - Dk Choocolate');
+    page.getFilteredProductListItems().should('have.lengthOf', 1);
+    page.getFilteredProductListItems().find('.product-list-name')
+      .should('contain.text', 'Hagen Daza - Dk Choocolate');
+
+    // Open dropdown and delete item
+    page.getFirstFilterDelete().click();
+    cy.window().should('exist');
+    cy.get('.mat-warn > .mat-button-wrapper').click();
+
+    // Confirm that Hagen Daza - Dk Choocolate no longer exists in the products page
+    cy.get('[data-test=product_nameInput]').type('Hagen Daza - Dk Choocolate');
+    page.getFilteredProductListItems().should('have.lengthOf', 0);
+  });
+
   describe('Produce product list works', () => {
     it('The produce products should appear and disappear when the panel is clicked', () => {
       // Before clicking on the button, the produce products should be hidden
@@ -184,6 +197,40 @@ describe('Product list', () => {
         cy.get('.product-card-category').first().should('have.text', 'produce');
 
       });
+    });
+
+    it('Product delete cancel from the produce dropdown works', () => {
+      // Confirm that Beef - Tenderlion, Center Cut exists in the products page
+      cy.get('[data-test=product_nameInput]').type('Beef - Tenderlion, Center Cut');
+      page.getFilteredProductListItems().should('have.lengthOf', 1);
+      page.getFilteredProductListItems().find('.product-list-name')
+        .should('contain.text', 'Beef - Tenderlion, Center Cut');
+
+      // Open dropdown and delete item
+      page.getProduceProductDropdown().click();
+      page.getFirstProduceDelete().click();
+      cy.window().should('exist');
+      cy.get('[cdkfocusinitial=""] > .mat-button-wrapper').click();
+
+      // Confirm that Beef - Tenderlion, Center Cut still exists in the products page
+      page.getFilteredProductListItems().should('have.lengthOf', 1);
+    });
+
+    it('Product delete from the produce dropdown works', () => {
+      // Confirm that Beef - Tenderlion, Center Cut exists in the products page
+      cy.get('[data-test=product_nameInput]').type('Beef - Tenderlion, Center Cut');
+      page.getFilteredProductListItems().should('have.lengthOf', 1);
+      page.getFilteredProductListItems().find('.product-list-name')
+        .should('contain.text', 'Beef - Tenderlion, Center Cut');
+
+      // Open dropdown and delete item
+      page.getProduceProductDropdown().click();
+      page.getFirstProduceDelete().click();
+      cy.window().should('exist');
+      cy.get('.mat-warn > .mat-button-wrapper').click();
+
+      // Confirm that Beef - Tenderlion, Center Cut no longer exists in the products page
+      page.getFilteredProductListItems().should('have.lengthOf', 0);
     });
   });
 
@@ -221,6 +268,40 @@ describe('Product list', () => {
 
       });
     });
+
+    it('Product delete cancel from the Bakery dropdown works', () => {
+      // Confirm that Apple - Delicious, Red exists in the products page
+      cy.get('[data-test=product_nameInput]').type('Apple - Delicious, Red');
+      page.getFilteredProductListItems().should('have.lengthOf', 1);
+      page.getFilteredProductListItems().find('.product-list-name')
+        .should('contain.text', 'Apple - Delicious, Red');
+
+      // Open dropdown and delete item
+      page.getBakeryProductDropdown().click();
+      page.getFirstBakeryDelete().click();
+      cy.window().should('exist');
+      cy.get('[cdkfocusinitial=""] > .mat-button-wrapper').click();
+
+      // Confirm that Apple - Delicious, Red still exists in the products page
+      page.getFilteredProductListItems().should('have.lengthOf', 1);
+    });
+
+    it('Product delete from the bakery dropdown works', () => {
+      // Confirm that Apple - Delicious, Red exists in the products page
+      cy.get('[data-test=product_nameInput]').type('Apple - Delicious, Red');
+      page.getFilteredProductListItems().should('have.lengthOf', 1);
+      page.getFilteredProductListItems().find('.product-list-name')
+        .should('contain.text', 'Apple - Delicious, Red');
+
+      // Open dropdown and delete item
+      page.getBakeryProductDropdown().click();
+      page.getFirstBakeryDelete().click();
+      cy.window().should('exist');
+      cy.get('.mat-warn > .mat-button-wrapper').click();
+
+      // Confirm that Apple - Delicious, Red no longer exists in the products page
+      page.getFilteredProductListItems().should('have.lengthOf', 0);
+    });
   });
 
   describe('Meat product list works', () => {
@@ -256,6 +337,40 @@ describe('Product list', () => {
         cy.get('.product-card-category').first().should('have.text', 'meat');
 
       });
+    });
+
+    it('Product delete cancel from the meat dropdown works', () => {
+      // Confirm that Appetizer - Assorted Box exists in the products page
+      cy.get('[data-test=product_nameInput]').type('Appetizer - Assorted Box');
+      page.getFilteredProductListItems().should('have.lengthOf', 1);
+      page.getFilteredProductListItems().find('.product-list-name')
+        .should('contain.text', 'Appetizer - Assorted Box');
+
+      // Open dropdown and delete item
+      page.getMeatProductDropdown().click();
+      page.getFirstMeatDelete().click();
+      cy.window().should('exist');
+      cy.get('[cdkfocusinitial=""] > .mat-button-wrapper').click();
+
+      // Confirm that Appetizer - Assorted Box still exists in the products page
+      page.getFilteredProductListItems().should('have.lengthOf', 1);
+    });
+
+    it('Product delete from the meat dropdown works', () => {
+      // Confirm that Appetizer - Assorted Box exists in the products page
+      cy.get('[data-test=product_nameInput]').type('Appetizer - Assorted Box');
+      page.getFilteredProductListItems().should('have.lengthOf', 1);
+      page.getFilteredProductListItems().find('.product-list-name')
+        .should('contain.text', 'Appetizer - Assorted Box');
+
+      // Open dropdown and delete item
+      page.getMeatProductDropdown().click();
+      page.getFirstMeatDelete().click();
+      cy.window().should('exist');
+      cy.get('.mat-warn > .mat-button-wrapper').click();
+
+      // Confirm that Appetizer - Assorted Box no longer exists in the products page
+      page.getFilteredProductListItems().should('have.lengthOf', 0);
     });
   });
 
@@ -293,6 +408,40 @@ describe('Product list', () => {
 
       });
     });
+
+    it('Product delete cancel from the dairy dropdown works', () => {
+      // Confirm that Cinnamon Rolls exists in the products page
+      cy.get('[data-test=product_nameInput]').type('Cinnamon Rolls');
+      page.getFilteredProductListItems().should('have.lengthOf', 3);
+      page.getFilteredProductListItems().find('.product-list-name')
+        .should('contain.text', 'Cinnamon Rolls');
+
+      // Open dropdown and delete item
+      page.getDairyProductDropdown().click();
+      page.getFirstDairyDelete().click();
+      cy.window().should('exist');
+      cy.get('[cdkfocusinitial=""] > .mat-button-wrapper').click();
+
+      // Confirm that Cinnamon Rolls still exists in the products page
+      page.getFilteredProductListItems().should('have.lengthOf', 3);
+    });
+
+    it('Product delete from the dairy dropdown works', () => {
+      // Confirm that Cinnamon Rolls exists in the products page
+      cy.get('[data-test=product_nameInput]').type('Cinnamon Rolls');
+      page.getFilteredProductListItems().should('have.lengthOf', 3);
+      page.getFilteredProductListItems().find('.product-list-name')
+        .should('contain.text', 'Cinnamon Rolls');
+
+      // Open dropdown and delete item
+      page.getDairyProductDropdown().click();
+      page.getFirstDairyDelete().click();
+      cy.window().should('exist');
+      cy.get('.mat-warn > .mat-button-wrapper').click();
+
+      // Confirm that Cinnamon Rolls no longer exists in the products page
+      page.getFilteredProductListItems().should('have.lengthOf', 2);
+    });
   });
 
   describe('Drinks product list works', () => {
@@ -328,6 +477,40 @@ describe('Product list', () => {
         cy.get('.product-card-category').first().should('have.text', 'drinks');
 
       });
+    });
+
+    it('Product delete cancel from the drinks dropdown works', () => {
+      // Confirm that Apples - Sliced / Wedge exists in the products page
+      cy.get('[data-test=product_nameInput]').type('Apples - Sliced / Wedge');
+      page.getFilteredProductListItems().should('have.lengthOf', 1);
+      page.getFilteredProductListItems().find('.product-list-name')
+        .should('contain.text', 'Apples - Sliced / Wedge');
+
+      // Open dropdown and delete item
+      page.getDrinkProductDropdown().click();
+      page.getFirstDrinkDelete().click();
+      cy.window().should('exist');
+      cy.get('[cdkfocusinitial=""] > .mat-button-wrapper').click();
+
+      // Confirm that Apples - Sliced / Wedge still exists in the products page
+      page.getFilteredProductListItems().should('have.lengthOf', 1);
+    });
+
+    it('Product delete from the drinks dropdown works', () => {
+      // Confirm that Apples - Sliced / Wedge exists in the products page
+      cy.get('[data-test=product_nameInput]').type('Apples - Sliced / Wedge');
+      page.getFilteredProductListItems().should('have.lengthOf', 1);
+      page.getFilteredProductListItems().find('.product-list-name')
+        .should('contain.text', 'Apples - Sliced / Wedge');
+
+      // Open dropdown and delete item
+      page.getDrinkProductDropdown().click();
+      page.getFirstDrinkDelete().click();
+      cy.window().should('exist');
+      cy.get('.mat-warn > .mat-button-wrapper').click();
+
+      // Confirm that Apples - Sliced / Wedge no longer exists in the products page
+      page.getFilteredProductListItems().should('have.lengthOf', 0);
     });
   });
 
@@ -365,6 +548,40 @@ describe('Product list', () => {
 
       });
     });
+
+    it('Product delete cancel from the frozen foods dropdown works', () => {
+      // Confirm that Beef - Bones, Cut - Up exists in the products page
+      cy.get('[data-test=product_nameInput]').type('Beef - Bones, Cut - Up');
+      page.getFilteredProductListItems().should('have.lengthOf', 1);
+      page.getFilteredProductListItems().find('.product-list-name')
+        .should('contain.text', 'Beef - Bones, Cut - Up');
+
+      // Open dropdown and delete item
+      page.getFrozenProductDropdown().click();
+      page.getFirstFrozenDelete().click();
+      cy.window().should('exist');
+      cy.get('[cdkfocusinitial=""] > .mat-button-wrapper').click();
+
+      // Confirm that Beef - Bones, Cut - Up still exists in the products page
+      page.getFilteredProductListItems().should('have.lengthOf', 1);
+    });
+
+    it('Product delete from the frozen foods dropdown works', () => {
+      // Confirm that Beef - Bones, Cut - Up exists in the products page
+      cy.get('[data-test=product_nameInput]').type('Beef - Bones, Cut - Up');
+      page.getFilteredProductListItems().should('have.lengthOf', 1);
+      page.getFilteredProductListItems().find('.product-list-name')
+        .should('contain.text', 'Beef - Bones, Cut - Up');
+
+      // Open dropdown and delete item
+      page.getFrozenProductDropdown().click();
+      page.getFirstFrozenDelete().click();
+      cy.window().should('exist');
+      cy.get('.mat-warn > .mat-button-wrapper').click();
+
+      // Confirm that Beef - Bones, Cut - Up no longer exists in the products page
+      page.getFilteredProductListItems().should('have.lengthOf', 0);
+    });
   });
 
   describe('Canned goods product list works', () => {
@@ -400,6 +617,40 @@ describe('Product list', () => {
         cy.get('.product-card-category').first().should('have.text', 'canned goods');
 
       });
+    });
+
+    it('Product delete cancel from the canned goods dropdown works', () => {
+      // Confirm that Bag Stand exists in the products page
+      cy.get('[data-test=product_nameInput]').type('Bag Stand');
+      page.getFilteredProductListItems().should('have.lengthOf', 1);
+      page.getFilteredProductListItems().find('.product-list-name')
+        .should('contain.text', 'Bag Stand');
+
+      // Open dropdown and delete item
+      page.getCannedProductDropdown().click();
+      page.getFirstCannedDelete().click();
+      cy.window().should('exist');
+      cy.get('[cdkfocusinitial=""] > .mat-button-wrapper').click();
+
+      // Confirm that Bag Stand still exists in the products page
+      page.getFilteredProductListItems().should('have.lengthOf', 1);
+    });
+
+    it('Product delete from the canned goods dropdown works', () => {
+      // Confirm that Bag Stand exists in the products page
+      cy.get('[data-test=product_nameInput]').type('Bag Stand');
+      page.getFilteredProductListItems().should('have.lengthOf', 1);
+      page.getFilteredProductListItems().find('.product-list-name')
+        .should('contain.text', 'Bag Stand');
+
+      // Open dropdown and delete item
+      page.getCannedProductDropdown().click();
+      page.getFirstCannedDelete().click();
+      cy.window().should('exist');
+      cy.get('.mat-warn > .mat-button-wrapper').click();
+
+      // Confirm that Bag Stand no longer exists in the products page
+      page.getFilteredProductListItems().should('have.lengthOf', 0);
     });
   });
 
@@ -437,6 +688,40 @@ describe('Product list', () => {
 
       });
     });
+
+    it('Product delete cancel from the grocery dropdown works', () => {
+      // Confirm that Bagel - Sesame Seed Presliced exists in the products page
+      cy.get('[data-test=product_nameInput]').type('Bagel - Sesame Seed Presliced');
+      page.getFilteredProductListItems().should('have.lengthOf', 1);
+      page.getFilteredProductListItems().find('.product-list-name')
+        .should('contain.text', 'Bagel - Sesame Seed Presliced');
+
+      // Open dropdown and delete item
+      page.getGeneralProductDropdown().click();
+      page.getFirstGeneralDelete().click();
+      cy.window().should('exist');
+      cy.get('[cdkfocusinitial=""] > .mat-button-wrapper').click();
+
+      // Confirm that Bagel - Sesame Seed Presliced still exists in the products page
+      page.getFilteredProductListItems().should('have.lengthOf', 1);
+    });
+
+    it('Product delete from the grocery dropdown works', () => {
+      // Confirm that Bagel - Sesame Seed Presliced exists in the products page
+      cy.get('[data-test=product_nameInput]').type('Bagel - Sesame Seed Presliced');
+      page.getFilteredProductListItems().should('have.lengthOf', 1);
+      page.getFilteredProductListItems().find('.product-list-name')
+        .should('contain.text', 'Bagel - Sesame Seed Presliced');
+
+      // Open dropdown and delete item
+      page.getGeneralProductDropdown().click();
+      page.getFirstGeneralDelete().click();
+      cy.window().should('exist');
+      cy.get('.mat-warn > .mat-button-wrapper').click();
+
+      // Confirm that Bagel - Sesame Seed Presliced no longer exists in the products page
+      page.getFilteredProductListItems().should('have.lengthOf', 0);
+    });
   });
 
   describe('Seasonal product list works', () => {
@@ -473,6 +758,40 @@ describe('Product list', () => {
 
       });
     });
+
+    it('Product delete cancel from the seasonal dropdown works', () => {
+      // Confirm that Beef - Ground Lean Fresh exists in the products page
+      cy.get('[data-test=product_nameInput]').type('Beef - Ground Lean Fresh');
+      page.getFilteredProductListItems().should('have.lengthOf', 1);
+      page.getFilteredProductListItems().find('.product-list-name')
+        .should('contain.text', 'Beef - Ground Lean Fresh');
+
+      // Open dropdown and delete item
+      page.getSeasonalProductDropdown().click();
+      page.getFirstSeasonalDelete().click();
+      cy.window().should('exist');
+      cy.get('[cdkfocusinitial=""] > .mat-button-wrapper').click();
+
+      // Confirm that Beef - Ground Lean Fresh still exists in the products page
+      page.getFilteredProductListItems().should('have.lengthOf', 1);
+    });
+
+    it('Product delete from the seasonal dropdown works', () => {
+      // Confirm that Beef - Ground Lean Fresh exists in the products page
+      cy.get('[data-test=product_nameInput]').type('Beef - Ground Lean Fresh');
+      page.getFilteredProductListItems().should('have.lengthOf', 1);
+      page.getFilteredProductListItems().find('.product-list-name')
+        .should('contain.text', 'Beef - Ground Lean Fresh');
+
+      // Open dropdown and delete item
+      page.getSeasonalProductDropdown().click();
+      page.getFirstSeasonalDelete().click();
+      cy.window().should('exist');
+      cy.get('.mat-warn > .mat-button-wrapper').click();
+
+      // Confirm that Beef - Ground Lean Fresh no longer exists in the products page
+      page.getFilteredProductListItems().should('have.lengthOf', 0);
+    });
   });
 
   describe('Miscellaneous product list works', () => {
@@ -508,6 +827,40 @@ describe('Product list', () => {
         cy.get('.product-card-category').first().should('have.text', 'miscellaneous');
 
       });
+    });
+
+    it('Product delete cancel from the miscellaneous dropdown works', () => {
+      // Confirm that Arctic Char - Fresh, Whole exists in the products page
+      cy.get('[data-test=product_nameInput]').type('Arctic Char - Fresh, Whole');
+      page.getFilteredProductListItems().should('have.lengthOf', 1);
+      page.getFilteredProductListItems().find('.product-list-name')
+        .should('contain.text', 'Arctic Char - Fresh, Whole');
+
+      // Open dropdown and delete item
+      page.getMiscellaneousProductDropdown().click();
+      page.getFirstMiscellaneousDelete().click();
+      cy.window().should('exist');
+      cy.get('[cdkfocusinitial=""] > .mat-button-wrapper').click();
+
+      // Confirm that Arctic Char - Fresh, Whole still exists in the products page
+      page.getFilteredProductListItems().should('have.lengthOf', 1);
+    });
+
+    it('Product delete from the miscellaneous dropdown works', () => {
+      // Confirm that Arctic Char - Fresh, Whole exists in the products page
+      cy.get('[data-test=product_nameInput]').type('Arctic Char - Fresh, Whole');
+      page.getFilteredProductListItems().should('have.lengthOf', 1);
+      page.getFilteredProductListItems().find('.product-list-name')
+        .should('contain.text', 'Arctic Char - Fresh, Whole');
+
+      // Open dropdown and delete item
+      page.getMiscellaneousProductDropdown().click();
+      page.getFirstMiscellaneousDelete().click();
+      cy.window().should('exist');
+      cy.get('.mat-warn > .mat-button-wrapper').click();
+
+      // Confirm that Arctic Char - Fresh, Whole no longer exists in the products page
+      page.getFilteredProductListItems().should('have.lengthOf', 0);
     });
   });
 

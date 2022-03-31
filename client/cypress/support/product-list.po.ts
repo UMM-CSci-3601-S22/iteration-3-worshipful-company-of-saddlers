@@ -9,12 +9,20 @@ export class ProductListPage {
     return cy.get('.filtered-product-nav-list .filtered-product-list-item');
   }
 
+  getFirstFilterDelete() {
+    return cy.get('.filtered-product-nav-list .deleteContainer').first();
+  }
+
   getProduceProductDropdown() {
     return cy.get('.produce-product-expansion-panel');
   }
 
   getProduceProductListItems() {
     return cy.get('.produce-product-nav-list .product-list-item');
+  }
+
+  getFirstProduceDelete() {
+    return cy.get('.produce-product-nav-list .deleteContainer').first();
   }
 
   getBakeryProductDropdown() {
@@ -25,12 +33,20 @@ export class ProductListPage {
     return cy.get('.bakery-product-nav-list .product-list-item');
   }
 
+  getFirstBakeryDelete() {
+    return cy.get('.bakery-product-nav-list .deleteContainer').first();
+  }
+
   getMeatProductDropdown() {
     return cy.get('.meat-product-expansion-panel');
   }
 
   getMeatProductListItems() {
     return cy.get('.meat-product-nav-list .product-list-item');
+  }
+
+  getFirstMeatDelete() {
+    return cy.get('.meat-product-nav-list .deleteContainer').first();
   }
 
   getDairyProductDropdown() {
@@ -41,12 +57,20 @@ export class ProductListPage {
     return cy.get('.dairy-product-nav-list .product-list-item');
   }
 
+  getFirstDairyDelete() {
+    return cy.get('.dairy-product-nav-list .deleteContainer').first();
+  }
+
   getDrinkProductDropdown() {
     return cy.get('.drink-product-expansion-panel');
   }
 
   getDrinkProductListItems() {
     return cy.get('.drink-product-nav-list .product-list-item');
+  }
+
+  getFirstDrinkDelete() {
+    return cy.get('.drink-product-nav-list .deleteContainer').first();
   }
 
   getFrozenProductDropdown() {
@@ -57,12 +81,20 @@ export class ProductListPage {
     return cy.get('.frozen-product-nav-list .product-list-item');
   }
 
+  getFirstFrozenDelete() {
+    return cy.get('.frozen-product-nav-list .deleteContainer').first();
+  }
+
   getCannedProductDropdown() {
     return cy.get('.canned-product-expansion-panel');
   }
 
   getCannedProductListItems() {
     return cy.get('.canned-product-nav-list .product-list-item');
+  }
+
+  getFirstCannedDelete() {
+    return cy.get('.canned-product-nav-list .deleteContainer').first();
   }
 
   getGeneralProductDropdown() {
@@ -73,6 +105,10 @@ export class ProductListPage {
     return cy.get('.general-product-nav-list .product-list-item');
   }
 
+  getFirstGeneralDelete() {
+    return cy.get('.general-product-nav-list .deleteContainer').first();
+  }
+
   getSeasonalProductDropdown() {
     return cy.get('.seasonal-product-expansion-panel');
   }
@@ -81,12 +117,20 @@ export class ProductListPage {
     return cy.get('.seasonal-product-nav-list .product-list-item');
   }
 
+  getFirstSeasonalDelete() {
+    return cy.get('.seasonal-product-nav-list .deleteContainer').first();
+  }
+
   getMiscellaneousProductDropdown() {
     return cy.get('.miscellaneous-product-expansion-panel');
   }
 
   getMiscellaneousProductListItems() {
     return cy.get('.miscellaneous-product-nav-list .product-list-item');
+  }
+
+  getFirstMiscellaneousDelete() {
+    return cy.get('.miscellaneous-product-nav-list .deleteContainer').first();
   }
 
   /**
@@ -114,13 +158,6 @@ export class ProductListPage {
     return cy.get('[data-test=productStoreSelect]')
     // Select and click the desired value from the resulting menu
     .click().get(`mat-option[value="${value}"]`).click();
-  }
-
-  /**
-   * @param card
-   */
-  deleteProductInteraction(card: Cypress.Chainable<JQuery<HTMLElement>>) {
-    return card.find<HTMLButtonElement>('[data-test=deleteProductButton]').click();
   }
 
   deleteProductDelete() {
