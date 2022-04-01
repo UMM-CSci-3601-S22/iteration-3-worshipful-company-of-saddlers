@@ -21,11 +21,11 @@ export class AddProductComponent implements OnInit {
     product_name: [
       {type: 'required', message: 'Product\'s name is required'},
       {type: 'minlength', message: 'Product name must be at least 1 character'},
-      {type: 'maxlength', message: 'Product name must be at less than 200 characters'}
+      {type: 'maxlength', message: 'Product name must be at less than 100 characters'}
     ],
     description: [
       {type: 'minlength', message: 'Product description must be at least 1 character'},
-      {type: 'maxlength', message: 'Product description must be at less than 500 characters'}
+      {type: 'maxlength', message: 'Product description must be at less than 200 characters'}
     ],
     brand: [
       {type: 'required', message: 'Product brand is required'},
