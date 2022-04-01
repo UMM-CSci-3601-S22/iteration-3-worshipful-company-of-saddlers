@@ -97,6 +97,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
     this.miscellaneousProducts = this.productService.filterProducts(
       this.allProducts, { category: 'miscellaneous'});
   }
+
   getProductsFromServer(): void {
     this.unsub();
     this.getProductsSub = this.productService.getProducts({

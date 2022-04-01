@@ -24,8 +24,6 @@ export class AddProductToPantryComponent implements OnInit {
 
   pantryItem: PantryItem;
 
-  pantryList: PantryProductsListComponent;
-
   addPantryValidationMessages = {
     product: [
       {type: 'required', message: 'A product ID is required'}
@@ -41,7 +39,7 @@ export class AddProductToPantryComponent implements OnInit {
   };
 
   constructor(private fb: FormBuilder, private pantryService: PantryService,
-     private snackBar: MatSnackBar, private router: Router) {
+     private snackBar: MatSnackBar, private router: Router, private pantryList: PantryProductsListComponent) {
   }
 
   createForms() {
@@ -71,13 +69,12 @@ export class AddProductToPantryComponent implements OnInit {
         duration: 2000,
       });
       this.router.navigate(['']);
+      this.pantryList.reloadComponent();
     }, err => {
       this.snackBar.open('Failed to add the product to your pantry', 'OK', {
         duration: 5000,
       });
     });
-    this.pantryList.getPantryItemsFromServer();
-    this.pantryService.getPantryItems();
   }
 
 }

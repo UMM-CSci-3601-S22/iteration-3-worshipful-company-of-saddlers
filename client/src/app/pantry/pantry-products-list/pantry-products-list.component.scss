@@ -52,6 +52,10 @@ element.style {
   right: 0;
   background: rgba(0, 0, 0, 0.7);
   transition: opacity 500ms;
-visibility: visible;
+  visibility: visible;
   opacity: 1;
+}
+
+#underlay {
+  background: rgba(0, 0, 0, 0.7);
 }

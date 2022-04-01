@@ -7,6 +7,7 @@ import { ProductService } from 'src/app/products/product.service';
 import { PantryService } from '../pantry.service';
 import { AddProductToPantryComponent } from 'src/app/products/add-product-to-pantry/add-product-to-pantry.component';
 import { PantryItem } from '../pantryItem';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-pantry-products-list',
@@ -40,7 +41,7 @@ export class PantryProductsListComponent implements OnInit, OnDestroy {
    * @param snackBar the `MatSnackBar` used to display feedback
    */
   constructor(private pantryService: PantryService, private productService: ProductService,
-     private snackBar: MatSnackBar) {
+     private snackBar: MatSnackBar, private router: Router) {
     // Nothing here – everything is in the injection parameters.
   }
 
@@ -83,12 +84,19 @@ export class PantryProductsListComponent implements OnInit, OnDestroy {
   }
 
   /*
-  * Starts an asynchronous operation to update the users list
+  * Starts an asynchronous operation to update the pantry items list
   */
   ngOnInit(): void {
     this.getPantryItemsFromServer();
     this.getUnfilteredProducts();
   }
+
+  reloadComponent() {
+    const currentUrl = this.router.url;
+      this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+      this.router.onSameUrlNavigation = 'reload';
+      this.router.navigate([currentUrl]);
+    }
 
   ngOnDestroy(): void {
     this.unsubUnfiltered();
