@@ -8,6 +8,7 @@ import { PantryService } from '../pantry.service';
 import { AddProductToPantryComponent } from 'src/app/products/add-product-to-pantry/add-product-to-pantry.component';
 import { PantryItem } from '../pantryItem';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-pantry-products-list',
@@ -15,6 +16,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./pantry-products-list.component.scss']
 })
 export class PantryProductsListComponent implements OnInit, OnDestroy {
+
+  @ViewChild('dialogRef')
+  dialogRef!: TemplateRef<any>;
 
   @Input() product: Product;
 
@@ -31,6 +35,20 @@ export class PantryProductsListComponent implements OnInit, OnDestroy {
 
   getUnfilteredProductsSub: Subscription;
 
+  public tempId: string;
+  public tempDialog: any;
+  public tempDeleted: Product;
+
+  public bakeryItems: PantryItem[];
+  public produceItems: PantryItem[];
+  public meatItems: PantryItem[];
+  public dairyItems: PantryItem[];
+  public frozenItems: PantryItem[];
+  public cannedItems: PantryItem[];
+  public drinkItems: PantryItem[];
+  public generalItems: PantryItem[];
+  public seasonalItems: PantryItem[];
+  public miscellaneousItems: PantryItem[];
 
 
   /**
@@ -41,7 +59,7 @@ export class PantryProductsListComponent implements OnInit, OnDestroy {
    * @param snackBar the `MatSnackBar` used to display feedback
    */
   constructor(private pantryService: PantryService, private productService: ProductService,
-     private snackBar: MatSnackBar, private router: Router) {
+     private snackBar: MatSnackBar, private router: Router, public dialog: MatDialog) {
     // Nothing here – everything is in the injection parameters.
   }
 
@@ -107,4 +125,65 @@ export class PantryProductsListComponent implements OnInit, OnDestroy {
       this.getUnfilteredProductsSub.unsubscribe();
     }
   }
+
+  openDeleteDialog(pname: string, id: string) {
+    this.tempId = id;
+    this.tempDialog = this.dialog.open(this.dialogRef, { data: {_id: this.tempId} }, );
+    this.tempDialog.afterClosed().subscribe((res) => {
+
+      // Data back from dialog
+      console.log({ res });
+    });
+  }
+
+  public makeCategoryLists(): void {
+    this.bakeryItems = this.pantryService.filterPantryItems(
+      this.pantryProducts, { category: 'bakery'});
+    this.produceItems = this.pantryService.filterPantryItems(
+      this.pantryProducts, { category: 'produce'});
+    this.meatItems = this.pantryService.filterPantryItems(
+      this.pantryProducts, { category: 'meat'});
+    this.dairyItems = this.pantryService.filterPantryItems(
+      this.pantryProducts, { category: 'dairy'});
+    this.frozenItems = this.pantryService.filterPantryItems(
+      this.pantryProducts, { category: 'frozen foods'});
+    this.cannedItems = this.pantryService.filterPantryItems(
+      this.pantryProducts, { category: 'canned goods'});
+    this.drinkItems = this.pantryService.filterPantryItems(
+      this.pantryProducts, { category: 'drinks'});
+    this.generalItems = this.pantryService.filterPantryItems(
+      this.pantryProducts, { category: 'general grocery'});
+    this.seasonalItems = this.pantryService.filterPantryItems(
+      this.pantryProducts, { category: 'seasonal'});
+    this.miscellaneousItems = this.pantryService.filterPantryItems(
+      this.pantryProducts, { category: 'miscellaneous'});
+  }
+
+  removeProduct(id: string): Product {
+    this.pantryService.deleteItem(id).subscribe(
+      item => {
+        this.pantryProducts = this.pantryProducts.filter(product => product._id !== id);
+        this.filteredProducts = this.filteredProducts.filter(product => product._id !== id);
+        this.pantryProducts = this.filteredProducts.filter(product => product._id !== id);
+        this.bakeryItems = this.bakeryItems.filter(product => product._id !== id);
+        this.produceItems = this.produceItems.filter(product => product._id !== id);
+        this.meatItems = this.meatItems.filter(product => product._id !== id);
+        this.dairyItems = this.dairyItems.filter(product => product._id !== id);
+        this.frozenItems = this.frozenItems.filter(product => product._id !== id);
+        this.cannedItems = this.cannedItems.filter(product => product._id !== id);
+        this.drinkItems = this.drinkItems.filter(product => product._id !== id);
+        this.generalItems = this.generalItems.filter(product => product._id !== id);
+        this.seasonalItems = this.seasonalItems.filter(product => product._id !== id);
+        this.miscellaneousItems = this.miscellaneousItems.filter(product => product._id !== id);
+        this.tempDeleted = item;
+     }
+    );
+    this.tempDialog.close();
+    this.snackBar.open('Pantry Item deleted', 'OK', {
+      duration: 5000,
+    });
+    return this.tempDeleted;
+  }
+
+
 }
