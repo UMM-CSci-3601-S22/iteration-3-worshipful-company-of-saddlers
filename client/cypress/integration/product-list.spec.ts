@@ -689,7 +689,7 @@ describe('Product list', () => {
       });
     });
 
-    it('Product delete cancel from the grocery dropdown works', () => {
+    it('Product delete cancel from the general dropdown works', () => {
       // Confirm that Bagel - Sesame Seed Presliced exists in the products page
       cy.get('[data-test=product_nameInput]').type('Bagel - Sesame Seed Presliced');
       page.getFilteredProductListItems().should('have.lengthOf', 1);
@@ -706,7 +706,7 @@ describe('Product list', () => {
       page.getFilteredProductListItems().should('have.lengthOf', 1);
     });
 
-    it('Product delete from the grocery dropdown works', () => {
+    it('Product delete from the general dropdown works', () => {
       // Confirm that Bagel - Sesame Seed Presliced exists in the products page
       cy.get('[data-test=product_nameInput]').type('Bagel - Sesame Seed Presliced');
       page.getFilteredProductListItems().should('have.lengthOf', 1);
