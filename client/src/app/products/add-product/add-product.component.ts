@@ -48,7 +48,7 @@ export class AddProductComponent implements OnInit {
     ],
     notes: [
       {type: 'minlength', message: 'Product notes must be at least 1 character'},
-      {type: 'maxlength', message: 'Product notes must be at less than 350 characters'}
+      {type: 'maxlength', message: 'Product notes must be at less than 200 characters'}
     ],
     tags: [
       {type: 'minlength', message: 'Product notes must be at least 1 character'},
@@ -72,10 +72,10 @@ export class AddProductComponent implements OnInit {
   createForms() {
     this.addProductForm = this.fb.group({
       product_name: new FormControl('', Validators.compose([
-        Validators.required, Validators.minLength(1), Validators.maxLength(200),
+        Validators.required, Validators.minLength(1), Validators.maxLength(100),
       ])),
       description: new FormControl('', Validators.compose([
-        Validators.minLength(1), Validators.maxLength(500),
+        Validators.minLength(1), Validators.maxLength(200),
       ])),
       brand: new FormControl('', Validators.compose([
         Validators.required, Validators.minLength(1), Validators.maxLength(100),
@@ -91,7 +91,7 @@ export class AddProductComponent implements OnInit {
         Validators.minLength(1), Validators.maxLength(100),
       ])),
       notes: new FormControl('', Validators.compose([
-        Validators.minLength(1), Validators.maxLength(350),
+        Validators.minLength(1), Validators.maxLength(200),
       ])),
       tags: null
       ,

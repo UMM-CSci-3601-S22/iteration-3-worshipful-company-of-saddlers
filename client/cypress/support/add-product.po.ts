@@ -38,11 +38,17 @@ export class AddProductPage {
     if (newProduct.notes) {
       this.getFormField('notes').type(newProduct.notes);
     }
+    if (newProduct.tags) {
+      this.getFormField('tags').type('Default tags');
+    }
     if (newProduct.lifespan) {
       this.getFormField('lifespan').type(newProduct.lifespan.toString());
     }
     if (newProduct.threshold) {
       this.getFormField('threshold').type(newProduct.threshold.toString());
+    }
+    if (newProduct.image) {
+      this.getFormField('image').type(newProduct.image);
     }
     return this.addProductButton().click();
   }
