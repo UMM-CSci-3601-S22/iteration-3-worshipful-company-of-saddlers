@@ -7,7 +7,7 @@ describe('Add product', () => {
   beforeEach(() => {
     page.navigateTo();
   });
-/*
+
   describe('Adding a new product', () => {
 
     beforeEach(() => {
@@ -25,7 +25,6 @@ describe('Add product', () => {
         store: 'Willies',
         location: 'Aisle 42',
         notes: 'Product Notes',
-        tags: ['tags'],
         lifespan: 30,
         threshold: 45,
         image: 'Image',
@@ -43,12 +42,9 @@ describe('Add product', () => {
       cy.get('.product-card-brand').should('have.text', product.brand);
       cy.get('.product-card-category').should('have.text', product.category);
       cy.get('.product-card-store').should('have.text', product.store);
-
-      // We should see the confirmation message at the bottom of the screen
-      cy.get('.mat-simple-snackbar').should('contain', `Added Product ${product.product_name}`);
     });
   });
-*/
+
   it('Should have the correct title', () => {
     page.getTitle().should('have.text', 'Create a New Product');
   });

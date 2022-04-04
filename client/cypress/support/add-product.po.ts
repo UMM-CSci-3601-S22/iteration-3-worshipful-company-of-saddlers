@@ -38,9 +38,6 @@ export class AddProductPage {
     if (newProduct.notes) {
       this.getFormField('notes').type(newProduct.notes);
     }
-    if (newProduct.tags) {
-      this.getFormField('tags').type('Default tags');
-    }
     if (newProduct.lifespan) {
       this.getFormField('lifespan').type(newProduct.lifespan.toString());
     }
