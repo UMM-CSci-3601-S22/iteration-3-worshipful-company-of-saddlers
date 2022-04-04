@@ -4,8 +4,10 @@
         <mat-card-content fxLayout="column">
           <mat-form-field>
             <mat-label>Date Added to Pantry</mat-label>
-            <input matInput placeholder="Date Added to Pantry" formControlName="purchase_date"
+            <input matInput [matDatePicker]="picker" formControlName="purchase_date"
                   required>
+                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
           </mat-form-field>
 
           <mat-form-field>
