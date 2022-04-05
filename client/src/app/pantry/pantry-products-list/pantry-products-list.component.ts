@@ -78,6 +78,7 @@ export class PantryProductsListComponent implements OnInit, OnDestroy {
     this.pantryService.getPantryItems().subscribe(returnedPantryProducts => {
 
       this.pantryProducts = returnedPantryProducts;
+      this.lengthItems = this.pantryProducts.length;
     }, err => {
       // If there was an error getting the users, log
       // the problem and display a message.
@@ -89,19 +90,14 @@ export class PantryProductsListComponent implements OnInit, OnDestroy {
         { duration: 3000 });
 
     });
-
-    this.lengthItems = this.pantryProducts.length;
-
-    console.error(this.lengthItems);
   }
 
   getUnfilteredProducts(): void {
     this.unsubUnfiltered();
     this.getUnfilteredProductsSub = this.productService.getProducts().subscribe(returnedProducts => {
       this.allProducts = returnedProducts;
+      this.lengthAllProducts = this.allProducts.length;
     });
-
-    this.lengthAllProducts = this.allProducts.length;
   }
 
   updateFilter(): void {

@@ -57,7 +57,7 @@
         <mat-card>
           <mat-card-content>
             <mat-nav-list class="pantry-nav-list">
-              <h3 mat-subheader>Pantry Items</h3>
+              <h3 mat-subheader>Pantry Items  ({{this.lengthItems}})</h3>
               <a mat-list-item *ngFor="let pantryItem of this.pantryProducts" [routerLink]="['', pantryItem.product]"
                 class="pantry-list-item" data-test="pantryListItem">
                 <h2 matLine class="pantry-list-name">{{pantryItem.product}}</h2>
@@ -73,7 +73,7 @@
           <mat-card>
             <mat-card-content>
               <mat-nav-list class="category-listing">
-                <h3 mat-subheader>Bakery Items</h3>
+                <h3 mat-subheader>Bakery Items  ({{this.bakeryItems.length}})</h3>
                 <a mat-list-item *ngFor="let pantryItem of this.bakeryItems" class="pantry-bakery-items">
                   <h2 matLine>{{pantryItem.product}}</h2>
                   <h4 matLine>{{pantryItem.purchase_date}}</h4>
