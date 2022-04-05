@@ -14,8 +14,10 @@
 
     <mat-card-content style="margin: 16px">
       <p> Category: <span class="product-card-category">{{ this.product.category }}</span></p>
-      <p> Description: <span class="product-card-description">{{ this.product.description }}</span></p>
-      <p> Notes: <span class="product-card-notes">{{ this.product.notes }}</span></p>
+      <p> Description:</p>
+        <p style="margin-left: 10%; margin-right: 10%;" class="product-card-description">{{ this.product.description }}</p>
+      <p> Notes: </p>
+        <p style="margin-left: 10%; margin-right: 10%;" class="product-card-notes">{{ this.product.notes }}</p>
       <p> Tags: <span class="product-card-tags">{{ this.product.tags }}</span></p>
       <p> Lifespan: <span class="product-card-lifespan">{{ this.product.lifespan }}</span></p>
       <p> Threshold: <span class="product-card-threshold">{{ this.product.threshold }}</span></p>
