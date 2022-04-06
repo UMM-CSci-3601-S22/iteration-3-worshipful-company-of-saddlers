@@ -4,5 +4,6 @@ export interface PantryItem {
   // eslint-disable-next-line @typescript-eslint/naming-convention
   purchase_date: string;
   notes?: string;
-
+  name: string;
+  category: string;
 }
