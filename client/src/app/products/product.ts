@@ -15,4 +15,4 @@ export interface Product {
 }
 
 // eslint-disable-next-line max-len
-export type ProductCategory = 'bakery' | 'produce' | 'meat' | 'dairy' | 'frozen foods' | 'canned goods' | 'drinks' | 'general grocery' | 'miscellaneous' | 'seasonal';
+export type ProductCategory = 'baked goods' | 'baking supplies' | 'beverages' | 'cleaning products' | 'dairy' | 'deli' | 'frozen foods' | 'herbs/spices' | 'meat' | 'miscellaneous' | 'paper products' | 'pet supplies' | 'produce' | 'staples' | 'toiletries';
