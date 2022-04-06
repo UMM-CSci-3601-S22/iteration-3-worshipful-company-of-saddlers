@@ -82,7 +82,8 @@ export class AddProductComponent implements OnInit {
       ])),
       category: new FormControl('', Validators.compose([
         Validators.required,
-        Validators.pattern('^(bakery|produce|meat|dairy|frozen foods|canned goods|drinks|general grocery|miscellaneous|seasonal)$')
+        Validators.pattern('^(baked goods|baking supplies|beverages|cleaning products|dairy|deli|' +
+          'frozen foods|herbs/spices|meat|miscellaneous|paper products|pet supplies|produce|staples|toiletries)$')
       ])),
       store: new FormControl('', Validators.compose([
         Validators.required, Validators.minLength(1), Validators.maxLength(100),
