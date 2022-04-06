@@ -1,6 +1,8 @@
 package umm3601.pantry;
 
+import static com.mongodb.client.model.Filters.and;
 import static com.mongodb.client.model.Filters.eq;
+import static com.mongodb.client.model.Filters.regex;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -8,12 +10,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.result.DeleteResult;
 
+import org.bson.Document;
 import org.bson.UuidRepresentation;
+import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
 import org.mongojack.JacksonMongoCollection;
 
@@ -33,7 +38,8 @@ import org.bson.conversions.Bson;
 import umm3601.product.Product;
 
 public class PantryController {
-
+  private static final String PANTRY_ITEM_KEY = "product";
+  private static final String CATEGORY_KEY = "category";
   // private static final String PRODUCT_KEY = "product";
   // private static final String PURCHASE_DATE_KEY = "purchase_date";
   // private static final String NOTES_KEY = "notes";
