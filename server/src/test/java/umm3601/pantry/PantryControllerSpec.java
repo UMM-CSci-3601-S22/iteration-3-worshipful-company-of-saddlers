@@ -252,7 +252,7 @@ public class PantryControllerSpec {
     return pantryItems;
   }
 
-  private Product[] returnedProducts(Context ctx) {
+  public Product[] returnedProducts(Context ctx) {
     String result = ctx.resultString();
     Product[] products = javalinJackson.fromJsonString(result, Product[].class);
     return products;
@@ -313,7 +313,7 @@ public class PantryControllerSpec {
     Context ctx = mockContext(path);
 
     pantryController.getAllProductsInPantry(ctx);
-    Product[] returnedProducts = returnedProducts(ctx);
+    PantryItem[] returnedProducts = returnedPantryItems(ctx);
 
     // The response status should be 200, i.e., our request
     // was handled successfully (was OK). This is a named constant in

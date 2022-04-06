@@ -34,21 +34,27 @@ export class PantryProductsListComponent implements OnInit, OnDestroy {
   popup = false;
 
   getUnfilteredProductsSub: Subscription;
+  getUnfilteredItemsSub: Subscription;
 
   public tempId: string;
   public tempDialog: any;
   public tempDeleted: Product;
 
-  public bakeryItems: PantryItem[] = [];
-  public produceItems: PantryItem[] = [];
-  public meatItems: PantryItem[] = [];
-  public dairyItems: PantryItem[] = [];
-  public frozenItems: PantryItem[] = [];
-  public cannedItems: PantryItem[] = [];
-  public drinkItems: PantryItem[] = [];
-  public generalItems: PantryItem[] = [];
-  public seasonalItems: PantryItem[] = [];
-  public miscellaneousItems: PantryItem[] = [];
+  public bakingSuppliesItems: PantryItem[];
+  public bakedGoodsItems: PantryItem[];
+  public deliItems: PantryItem[];
+  public cleaningItems: PantryItem[];
+  public petSuppliesItems: PantryItem[];
+  public produceItems: PantryItem[];
+  public meatItems: PantryItem[];
+  public dairyItems: PantryItem[];
+  public frozenItems: PantryItem[];
+  public paperItems: PantryItem[];
+  public beverageItems: PantryItem[];
+  public herbItems: PantryItem[];
+  public stapleItems: PantryItem[];
+  public toiletriesItems: PantryItem[];
+  public miscellaneousItems: PantryItem[];
 
   i: number;
   j: number;
@@ -93,10 +99,18 @@ export class PantryProductsListComponent implements OnInit, OnDestroy {
   }
 
   getUnfilteredProducts(): void {
-    this.unsubUnfiltered();
+    this.unsubProductsUnfiltered();
     this.getUnfilteredProductsSub = this.productService.getProducts().subscribe(returnedProducts => {
       this.allProducts = returnedProducts;
       this.lengthAllProducts = this.allProducts.length;
+    });
+  }
+
+  getUnfilteredItems(): void {
+    this.unsubItemsUnfiltered();
+    this.getUnfilteredItemsSub = this.pantryService.getPantryItems().subscribe(returnedItems => {
+      this.pantryProducts = returnedItems;
+      this.makeCategoryLists();
     });
   }
 
@@ -118,7 +132,7 @@ export class PantryProductsListComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.getPantryItemsFromServer();
     this.getUnfilteredProducts();
-    this.intoCategories();
+    this.getUnfilteredItems();
   }
 
   reloadComponent() {
@@ -129,12 +143,19 @@ export class PantryProductsListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.unsubUnfiltered();
+    this.unsubProductsUnfiltered();
+    this.unsubItemsUnfiltered();
   }
 
-  unsubUnfiltered(): void {
+  unsubProductsUnfiltered(): void {
     if (this.getUnfilteredProductsSub) {
       this.getUnfilteredProductsSub.unsubscribe();
+    }
+  }
+
+  unsubItemsUnfiltered(): void {
+    if (this.getUnfilteredItemsSub) {
+      this.getUnfilteredItemsSub.unsubscribe();
     }
   }
 
@@ -148,88 +169,37 @@ export class PantryProductsListComponent implements OnInit, OnDestroy {
     });
   }
 
-  // removeProduct(id: string): Product {
-  //   this.pantryService.deleteItem(id).subscribe(
-  //     item => {
-  //       this.pantryProducts = this.pantryProducts.filter(product => product._id !== id);
-  //       this.filteredProducts = this.filteredProducts.filter(product => product._id !== id);
-  //       this.pantryProducts = this.filteredProducts.filter(product => product._id !== id);
-  //       this.bakeryItems = this.bakeryItems.filter(product => product._id !== id);
-  //       this.produceItems = this.produceItems.filter(product => product._id !== id);
-  //       this.meatItems = this.meatItems.filter(product => product._id !== id);
-  //       this.dairyItems = this.dairyItems.filter(product => product._id !== id);
-  //       this.frozenItems = this.frozenItems.filter(product => product._id !== id);
-  //       this.cannedItems = this.cannedItems.filter(product => product._id !== id);
-  //       this.drinkItems = this.drinkItems.filter(product => product._id !== id);
-  //       this.generalItems = this.generalItems.filter(product => product._id !== id);
-  //       this.seasonalItems = this.seasonalItems.filter(product => product._id !== id);
-  //       this.miscellaneousItems = this.miscellaneousItems.filter(product => product._id !== id);
-  //       this.tempDeleted = item;
-  //    }
-  //   );
-  //   this.tempDialog.close();
-  //   this.snackBar.open('Pantry Item deleted', 'OK', {
-  //     duration: 5000,
-  //   });
-  //   return this.tempDeleted;
-  // }
-
-
-  // Counts the number of a given item in the pantry.
-  // countItems(id: string): number {
-  //   for (this.i = 0; this.i < this.lengthAllProducts; this.i++) {
-  //     if (this.pantryProducts[this.i].product === id) {
-  //       this.count++;
-  //     }
-  //   }
-  //   return this.count;
-  // }
-
-  // Iterates through the array of pantryItems, and finds the product with the
-  // matching id, and then puts the pantryItem into the correct category array.
-  intoCategories(): void {
-    for (this.i = 0; this.i < this.lengthItems; this.i++) {
-      for (this.j = 0; this.j < this.lengthAllProducts; this.j++) {
-        if (this.pantryProducts[this.i].product === this.allProducts[this.j]._id) {
-          this.category = this.allProducts[this.j].category;
-          this.correctCategory(this.pantryProducts[this.i], this.category);
-        }
-      }
-    }
-  }
-
-  // Helper function that puts a pantryItem into the correct category array.
-  correctCategory(pantryItem: PantryItem, category: string): void {
-    if (category === 'bakery') {
-      this.bakeryItems.push(pantryItem);
-    }
-    if (category === 'produce') {
-      this.produceItems.push(pantryItem);
-    }
-    if (category === 'meat') {
-      this.meatItems.push(pantryItem);
-    }
-    if (category === 'dairy') {
-      this.dairyItems.push(pantryItem);
-    }
-    if (category === 'frozen') {
-      this.frozenItems.push(pantryItem);
-    }
-    if (category === 'canned') {
-      this.cannedItems.push(pantryItem);
-    }
-    if (category === 'drink') {
-      this.drinkItems.push(pantryItem);
-    }
-    if (category === 'general') {
-      this.generalItems.push(pantryItem);
-    }
-    if (category === 'seasonal') {
-      this.seasonalItems.push(pantryItem);
-    }
-    if (category === 'miscellaneous') {
-      this.miscellaneousItems.push(pantryItem);
-    }
+  public makeCategoryLists(): void {
+    this.bakedGoodsItems = this.pantryService.filterItems(
+      this.pantryProducts, { category: 'baked goods'});
+    this.produceItems = this.pantryService.filterItems(
+      this.pantryProducts, { category: 'produce'});
+    this.meatItems = this.pantryService.filterItems(
+      this.pantryProducts, { category: 'meat'});
+    this.dairyItems = this.pantryService.filterItems(
+      this.pantryProducts, { category: 'dairy'});
+    this.frozenItems = this.pantryService.filterItems(
+      this.pantryProducts, { category: 'frozen foods'});
+    this.herbItems = this.pantryService.filterItems(
+      this.pantryProducts, { category: 'herbs and spices'});
+    this.beverageItems = this.pantryService.filterItems(
+      this.pantryProducts, { category: 'beverages'});
+    this.cleaningItems = this.pantryService.filterItems(
+      this.pantryProducts, { category: 'cleaning products'});
+    this.paperItems = this.pantryService.filterItems(
+      this.pantryProducts, { category: 'paper products'});
+    this.miscellaneousItems = this.pantryService.filterItems(
+      this.pantryProducts, { category: 'miscellaneous'});
+    this.deliItems = this.pantryService.filterItems(
+      this.pantryProducts, { category: 'deli'});
+    this.stapleItems = this.pantryService.filterItems(
+      this.pantryProducts, { category: 'staples'});
+    this.toiletriesItems = this.pantryService.filterItems(
+      this.pantryProducts, { category: 'toiletries'});
+    this.bakingSuppliesItems = this.pantryService.filterItems(
+      this.pantryProducts, { category: 'baking supplies'});
+    this.petSuppliesItems = this.pantryService.filterItems(
+      this.pantryProducts, { category: 'pet supplies'});
   }
 
 }

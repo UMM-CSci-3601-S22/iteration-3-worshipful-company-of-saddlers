@@ -18,9 +18,38 @@ export class PantryService {
 
   constructor(private httpClient: HttpClient) {}
 
-  getPantryItems(): Observable<PantryItem[]> {
+  getPantryItems(filters?: {category?: ProductCategory; name?: string}): Observable<PantryItem[]> {
+    let httpParams: HttpParams = new HttpParams();
+    if (filters) {
+      if (filters.category) {
+        httpParams = httpParams.set('category', filters.category);
+      }
+      if (filters.name) {
+        httpParams = httpParams.set('name', filters.name);
+      }
+    }
     return this.httpClient.get<PantryItem[]>(this.pantryUrl, {
+      params: httpParams,
     });
+  }
+
+  filterItems(items: PantryItem[], filters: { category?: ProductCategory; name?: string }): PantryItem[] {
+
+    let filteredItems = items;
+
+    // Filter by name
+    if (filters.name) {
+      filters.name = filters.name.toLowerCase();
+
+      filteredItems = filteredItems.filter(item => item.name.toLowerCase().indexOf(filters.name) !== -1);
+    }
+
+    // Filter by category
+    if (filters.category) {
+      filteredItems = filteredItems.filter(item => item.category.indexOf(filters.category) !== -1);
+    }
+
+    return filteredItems;
   }
 
   addPantryItem(newPantryItem: PantryItem): Observable<string> {

@@ -38,15 +38,20 @@ export class ProductListComponent implements OnInit, OnDestroy {
   public activeFilters: boolean;
 
   // Category collections for use in displaying product categories
-  public bakeryProducts: Product[];
+  public bakingSuppliesProducts: Product[];
+  public bakedGoodsProducts: Product[];
+  public deliProducts: Product[];
+  public cleaningProducts: Product[];
+  public petSuppliesProducts: Product[];
   public produceProducts: Product[];
   public meatProducts: Product[];
   public dairyProducts: Product[];
   public frozenProducts: Product[];
-  public cannedProducts: Product[];
-  public drinkProducts: Product[];
-  public generalProducts: Product[];
-  public seasonalProducts: Product[];
+  public paperProducts: Product[];
+  public beverageProducts: Product[];
+  public herbProducts: Product[];
+  public stapleProducts: Product[];
+  public toiletriesProducts: Product[];
   public miscellaneousProducts: Product[];
 
   // temp variables to use for deletion
@@ -76,8 +81,8 @@ export class ProductListComponent implements OnInit, OnDestroy {
   }
 
   public makeCategoryLists(): void {
-    this.bakeryProducts = this.productService.filterProducts(
-      this.allProducts, { category: 'bakery'});
+    this.bakedGoodsProducts = this.productService.filterProducts(
+      this.allProducts, { category: 'baked goods'});
     this.produceProducts = this.productService.filterProducts(
       this.allProducts, { category: 'produce'});
     this.meatProducts = this.productService.filterProducts(
@@ -86,16 +91,26 @@ export class ProductListComponent implements OnInit, OnDestroy {
       this.allProducts, { category: 'dairy'});
     this.frozenProducts = this.productService.filterProducts(
       this.allProducts, { category: 'frozen foods'});
-    this.cannedProducts = this.productService.filterProducts(
-      this.allProducts, { category: 'canned goods'});
-    this.drinkProducts = this.productService.filterProducts(
-      this.allProducts, { category: 'drinks'});
-    this.generalProducts = this.productService.filterProducts(
-      this.allProducts, { category: 'general grocery'});
-    this.seasonalProducts = this.productService.filterProducts(
-      this.allProducts, { category: 'seasonal'});
+    this.herbProducts = this.productService.filterProducts(
+      this.allProducts, { category: 'herbs and spices'});
+    this.beverageProducts = this.productService.filterProducts(
+      this.allProducts, { category: 'beverages'});
+    this.cleaningProducts = this.productService.filterProducts(
+      this.allProducts, { category: 'cleaning products'});
+    this.paperProducts = this.productService.filterProducts(
+      this.allProducts, { category: 'paper products'});
     this.miscellaneousProducts = this.productService.filterProducts(
       this.allProducts, { category: 'miscellaneous'});
+    this.deliProducts = this.productService.filterProducts(
+      this.allProducts, { category: 'deli'});
+    this.stapleProducts = this.productService.filterProducts(
+      this.allProducts, { category: 'staples'});
+    this.toiletriesProducts = this.productService.filterProducts(
+      this.allProducts, { category: 'toiletries'});
+    this.bakingSuppliesProducts = this.productService.filterProducts(
+      this.allProducts, { category: 'baking supplies'});
+    this.petSuppliesProducts = this.productService.filterProducts(
+      this.allProducts, { category: 'pet supplies'});
   }
 
   getProductsFromServer(): void {
@@ -158,16 +173,21 @@ export class ProductListComponent implements OnInit, OnDestroy {
         this.allProducts = this.allProducts.filter(product => product._id !== id);
         this.filteredProducts = this.filteredProducts.filter(product => product._id !== id);
         this.serverFilteredProducts = this.filteredProducts.filter(product => product._id !== id);
-        this.bakeryProducts = this.bakeryProducts.filter(product => product._id !== id);
+        this.bakedGoodsProducts = this.bakedGoodsProducts.filter(product => product._id !== id);
         this.produceProducts = this.produceProducts.filter(product => product._id !== id);
         this.meatProducts = this.meatProducts.filter(product => product._id !== id);
         this.dairyProducts = this.dairyProducts.filter(product => product._id !== id);
         this.frozenProducts = this.frozenProducts.filter(product => product._id !== id);
-        this.cannedProducts = this.cannedProducts.filter(product => product._id !== id);
-        this.drinkProducts = this.drinkProducts.filter(product => product._id !== id);
-        this.generalProducts = this.generalProducts.filter(product => product._id !== id);
-        this.seasonalProducts = this.seasonalProducts.filter(product => product._id !== id);
+        this.herbProducts = this.herbProducts.filter(product => product._id !== id);
+        this.beverageProducts = this.beverageProducts.filter(product => product._id !== id);
+        this.paperProducts = this.paperProducts.filter(product => product._id !== id);
+        this.petSuppliesProducts = this.petSuppliesProducts.filter(product => product._id !== id);
         this.miscellaneousProducts = this.miscellaneousProducts.filter(product => product._id !== id);
+        this.stapleProducts = this.stapleProducts.filter(product => product._id !== id);
+        this.deliProducts = this.deliProducts.filter(product => product._id !== id);
+        this.toiletriesProducts = this.toiletriesProducts.filter(product => product._id !== id);
+        this.bakingSuppliesProducts = this.bakingSuppliesProducts.filter(product => product._id !== id);
+
         this.tempDeleted = prod;
      }
     );
