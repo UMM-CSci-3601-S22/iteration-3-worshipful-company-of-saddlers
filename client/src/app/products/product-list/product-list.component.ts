@@ -38,21 +38,21 @@ export class ProductListComponent implements OnInit, OnDestroy {
   public activeFilters: boolean;
 
   // Category collections for use in displaying product categories
-  public bakingSuppliesProducts: Product[];
-  public bakedGoodsProducts: Product[];
-  public deliProducts: Product[];
-  public cleaningProducts: Product[];
-  public petSuppliesProducts: Product[];
-  public produceProducts: Product[];
-  public meatProducts: Product[];
-  public dairyProducts: Product[];
-  public frozenProducts: Product[];
-  public paperProducts: Product[];
-  public beverageProducts: Product[];
-  public herbProducts: Product[];
-  public stapleProducts: Product[];
-  public toiletriesProducts: Product[];
-  public miscellaneousProducts: Product[];
+  public bakingSuppliesProducts: Product[] = [];
+  public bakedGoodsProducts: Product[] = [];
+  public deliProducts: Product[] = [];
+  public cleaningProducts: Product[] = [];
+  public petSuppliesProducts: Product[] = [];
+  public produceProducts: Product[] = [];
+  public meatProducts: Product[] = [];
+  public dairyProducts: Product[] = [];
+  public frozenProducts: Product[] = [];
+  public paperProducts: Product[] = [];
+  public beverageProducts: Product[] = [];
+  public herbProducts: Product[] = [];
+  public stapleProducts: Product[] = [];
+  public toiletriesProducts: Product[] = [];
+  public miscellaneousProducts: Product[] = [];
 
   // temp variables to use for deletion
   public tempId: string;
