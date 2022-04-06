@@ -21,11 +21,11 @@ export class AddProductComponent implements OnInit {
     product_name: [
       {type: 'required', message: 'Product\'s name is required'},
       {type: 'minlength', message: 'Product name must be at least 1 character'},
-      {type: 'maxlength', message: 'Product name must be at less than 100 characters'}
+      {type: 'maxlength', message: 'Product name must be at less than 200 characters'}
     ],
     description: [
       {type: 'minlength', message: 'Product description must be at least 1 character'},
-      {type: 'maxlength', message: 'Product description must be at less than 200 characters'}
+      {type: 'maxlength', message: 'Product description must be at less than 500 characters'}
     ],
     brand: [
       {type: 'required', message: 'Product brand is required'},
@@ -48,7 +48,7 @@ export class AddProductComponent implements OnInit {
     ],
     notes: [
       {type: 'minlength', message: 'Product notes must be at least 1 character'},
-      {type: 'maxlength', message: 'Product notes must be at less than 200 characters'}
+      {type: 'maxlength', message: 'Product notes must be at less than 350 characters'}
     ],
     tags: [
       {type: 'minlength', message: 'Product notes must be at least 1 character'},
@@ -72,10 +72,10 @@ export class AddProductComponent implements OnInit {
   createForms() {
     this.addProductForm = this.fb.group({
       product_name: new FormControl('', Validators.compose([
-        Validators.required, Validators.minLength(1), Validators.maxLength(100),
+        Validators.required, Validators.minLength(1), Validators.maxLength(200),
       ])),
       description: new FormControl('', Validators.compose([
-        Validators.minLength(1), Validators.maxLength(200),
+        Validators.minLength(1), Validators.maxLength(500),
       ])),
       brand: new FormControl('', Validators.compose([
         Validators.required, Validators.minLength(1), Validators.maxLength(100),
@@ -91,7 +91,7 @@ export class AddProductComponent implements OnInit {
         Validators.minLength(1), Validators.maxLength(100),
       ])),
       notes: new FormControl('', Validators.compose([
-        Validators.minLength(1), Validators.maxLength(200),
+        Validators.minLength(1), Validators.maxLength(350),
       ])),
       tags: null
       ,
@@ -112,7 +112,7 @@ export class AddProductComponent implements OnInit {
   submitForm() {
     console.log(this.addProductForm.value);
     this.productService.addProduct(this.addProductForm.value).subscribe(newID => {
-      this.snackBar.open('Added Product' + this.addProductForm.value.product_name, null, {
+      this.snackBar.open('Added Product ' + this.addProductForm.value.product_name, null, {
         duration: 2000,
       });
       this.router.navigate(['/products/', newID]);
