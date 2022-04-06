@@ -33,6 +33,25 @@ export class PantryService {
     });
   }
 
+  filterItems(items: PantryItem[], filters: { category?: ProductCategory; name?: string }): PantryItem[] {
+
+    let filteredItems = items;
+
+    // Filter by name
+    if (filters.name) {
+      filters.name = filters.name.toLowerCase();
+
+      filteredItems = filteredItems.filter(item => item.name.toLowerCase().indexOf(filters.name) !== -1);
+    }
+
+    // Filter by category
+    if (filters.category) {
+      filteredItems = filteredItems.filter(item => item.category.indexOf(filters.category) !== -1);
+    }
+
+    return filteredItems;
+  }
+
   addPantryItem(newPantryItem: PantryItem): Observable<string> {
     // Send post request to add a new user with the user data as the body.
     return this.httpClient.post<{id: string}>(this.pantryUrl, newPantryItem).pipe(map(res => res.id));

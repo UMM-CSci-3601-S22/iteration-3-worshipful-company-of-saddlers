@@ -34,26 +34,27 @@ export class PantryProductsListComponent implements OnInit, OnDestroy {
   popup = false;
 
   getUnfilteredProductsSub: Subscription;
+  getUnfilteredItemsSub: Subscription;
 
   public tempId: string;
   public tempDialog: any;
   public tempDeleted: Product;
 
-  public bakingSuppliesProducts: Product[];
-  public bakedGoodsProducts: Product[];
-  public deliProducts: Product[];
-  public cleaningProducts: Product[];
-  public petSuppliesProducts: Product[];
-  public produceProducts: Product[];
-  public meatProducts: Product[];
-  public dairyProducts: Product[];
-  public frozenProducts: Product[];
-  public paperProducts: Product[];
-  public beverageProducts: Product[];
-  public herbProducts: Product[];
-  public stapleProducts: Product[];
-  public toiletriesProducts: Product[];
-  public miscellaneousProducts: Product[];
+  public bakingSuppliesItems: PantryItem[];
+  public bakedGoodsItems: PantryItem[];
+  public deliItems: PantryItem[];
+  public cleaningItems: PantryItem[];
+  public petSuppliesItems: PantryItem[];
+  public produceItems: PantryItem[];
+  public meatItems: PantryItem[];
+  public dairyItems: PantryItem[];
+  public frozenItems: PantryItem[];
+  public paperItems: PantryItem[];
+  public beverageItems: PantryItem[];
+  public herbItems: PantryItem[];
+  public stapleItems: PantryItem[];
+  public toiletriesItems: PantryItem[];
+  public miscellaneousItems: PantryItem[];
 
   i: number;
   j: number;
@@ -98,10 +99,18 @@ export class PantryProductsListComponent implements OnInit, OnDestroy {
   }
 
   getUnfilteredProducts(): void {
-    this.unsubUnfiltered();
+    this.unsubProductsUnfiltered();
     this.getUnfilteredProductsSub = this.productService.getProducts().subscribe(returnedProducts => {
       this.allProducts = returnedProducts;
       this.lengthAllProducts = this.allProducts.length;
+    });
+  }
+
+  getUnfilteredItems(): void {
+    this.unsubItemsUnfiltered();
+    this.getUnfilteredItemsSub = this.pantryService.getPantryItems().subscribe(returnedItems => {
+      this.pantryProducts = returnedItems;
+      this.makeCategoryLists();
     });
   }
 
@@ -123,6 +132,7 @@ export class PantryProductsListComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.getPantryItemsFromServer();
     this.getUnfilteredProducts();
+    this.getUnfilteredItems();
   }
 
   reloadComponent() {
@@ -133,12 +143,19 @@ export class PantryProductsListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.unsubUnfiltered();
+    this.unsubProductsUnfiltered();
+    this.unsubItemsUnfiltered();
   }
 
-  unsubUnfiltered(): void {
+  unsubProductsUnfiltered(): void {
     if (this.getUnfilteredProductsSub) {
       this.getUnfilteredProductsSub.unsubscribe();
+    }
+  }
+
+  unsubItemsUnfiltered(): void {
+    if (this.getUnfilteredItemsSub) {
+      this.getUnfilteredItemsSub.unsubscribe();
     }
   }
 
@@ -153,36 +170,36 @@ export class PantryProductsListComponent implements OnInit, OnDestroy {
   }
 
   public makeCategoryLists(): void {
-    this.bakedGoodsProducts = this.productService.filterProducts(
-      this.allProducts, { category: 'baked goods'});
-    this.produceProducts = this.productService.filterProducts(
-      this.allProducts, { category: 'produce'});
-    this.meatProducts = this.productService.filterProducts(
-      this.allProducts, { category: 'meat'});
-    this.dairyProducts = this.productService.filterProducts(
-      this.allProducts, { category: 'dairy'});
-    this.frozenProducts = this.productService.filterProducts(
-      this.allProducts, { category: 'frozen foods'});
-    this.herbProducts = this.productService.filterProducts(
-      this.allProducts, { category: 'herbs and spices'});
-    this.beverageProducts = this.productService.filterProducts(
-      this.allProducts, { category: 'beverages'});
-    this.cleaningProducts = this.productService.filterProducts(
-      this.allProducts, { category: 'cleaning products'});
-    this.paperProducts = this.productService.filterProducts(
-      this.allProducts, { category: 'paper products'});
-    this.miscellaneousProducts = this.productService.filterProducts(
-      this.allProducts, { category: 'miscellaneous'});
-    this.deliProducts = this.productService.filterProducts(
-      this.allProducts, { category: 'deli'});
-    this.stapleProducts = this.productService.filterProducts(
-      this.allProducts, { category: 'staples'});
-    this.toiletriesProducts = this.productService.filterProducts(
-      this.allProducts, { category: 'toiletries'});
-    this.bakingSuppliesProducts = this.productService.filterProducts(
-      this.allProducts, { category: 'baking supplies'});
-    this.petSuppliesProducts = this.productService.filterProducts(
-      this.allProducts, { category: 'pet supplies'});
+    this.bakedGoodsItems = this.pantryService.filterItems(
+      this.pantryProducts, { category: 'baked goods'});
+    this.produceItems = this.pantryService.filterItems(
+      this.pantryProducts, { category: 'produce'});
+    this.meatItems = this.pantryService.filterItems(
+      this.pantryProducts, { category: 'meat'});
+    this.dairyItems = this.pantryService.filterItems(
+      this.pantryProducts, { category: 'dairy'});
+    this.frozenItems = this.pantryService.filterItems(
+      this.pantryProducts, { category: 'frozen foods'});
+    this.herbItems = this.pantryService.filterItems(
+      this.pantryProducts, { category: 'herbs and spices'});
+    this.beverageItems = this.pantryService.filterItems(
+      this.pantryProducts, { category: 'beverages'});
+    this.cleaningItems = this.pantryService.filterItems(
+      this.pantryProducts, { category: 'cleaning products'});
+    this.paperItems = this.pantryService.filterItems(
+      this.pantryProducts, { category: 'paper products'});
+    this.miscellaneousItems = this.pantryService.filterItems(
+      this.pantryProducts, { category: 'miscellaneous'});
+    this.deliItems = this.pantryService.filterItems(
+      this.pantryProducts, { category: 'deli'});
+    this.stapleItems = this.pantryService.filterItems(
+      this.pantryProducts, { category: 'staples'});
+    this.toiletriesItems = this.pantryService.filterItems(
+      this.pantryProducts, { category: 'toiletries'});
+    this.bakingSuppliesItems = this.pantryService.filterItems(
+      this.pantryProducts, { category: 'baking supplies'});
+    this.petSuppliesItems = this.pantryService.filterItems(
+      this.pantryProducts, { category: 'pet supplies'});
   }
 
 }

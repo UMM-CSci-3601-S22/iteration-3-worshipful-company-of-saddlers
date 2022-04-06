@@ -58,38 +58,616 @@
           <mat-card-content>
             <mat-nav-list class="pantry-nav-list">
               <h3 mat-subheader>Pantry Items  ({{this.lengthItems}})</h3>
-              <a mat-list-item *ngFor="let pantryItem of this.pantryProducts" [routerLink]="['', pantryItem.product]"
+              <a mat-list-item *ngFor="let pantryItem of this.pantryProducts"
                 class="pantry-list-item" data-test="pantryListItem">
                 <h2 matLine class="pantry-list-name">{{pantryItem.name}}</h2>
+                <h4 matLine class="item-category">{{pantryItem.category}}</h4>
                 <h4 matLine class="pantry-list-date">{{pantryItem.purchase_date}}</h4>
                 <p matLine class="pantry-list-notes">{{pantryItem.notes}}</p>
               </a>
             </mat-nav-list>
           </mat-card-content>
         </mat-card>
-
-      <div fxLayout="row wrap">
-        <div fxFlex fxFlex.gt-sm="80" fxFlexOffset.gt-sm="10" *ngIf="getPantryItemsFromServer;">
-          <mat-card>
-            <mat-card-content>
-              <mat-nav-list class="category-listing">
-                <h3 mat-subheader>Bakery Items  ({{this.bakeryItems.length}})</h3>
-                <a mat-list-item *ngFor="let pantryItem of this.bakeryItems" class="pantry-bakery-items">
-                  <h2 matLine>{{pantryItem.name}}</h2>
-                  <h4 matLine>{{pantryItem.purchase_date}}</h4>
-                  <p matLine>{{pantryItem.notes}}</p>
-                </a>
-              </mat-nav-list>
-            </mat-card-content>
-          </mat-card>
-        </div>
-      </div>
-
       </div>
     </div>
-
   </div>
 
+  <div>
+     <!-- All Products separated into categories and listed in dropdowns -->
+     <mat-card class="expansion-product-panels">
+      <mat-card-content>
+        <mat-accordion>
+
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Baked Goods
+              </mat-panel-title>
+              <mat-panel-description>
+
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <mat-nav-list class="baked-goods-product-nav-list">
+              <span fxLayout="row" *ngFor="let item of this.bakedGoodsItems">
+                <a mat-list-item class="product-list-item">
+                  <p matLine class="product-list-name"> {{item.name}} </p>
+                  <p matLine class="pantryItem-list-date">{{item.purchase_date}}</p>
+                  <p matLine class="product-list-category"> {{item.category}} </p>
+                  <mat-divider></mat-divider>
+                </a>
+                <div class="deleteContainer" style="position: absolute;">
+                  <button mat-icon-button class="delete-product-button" matTooltip="Delete Product"
+                    matTooltipPosition="left" (click)="openDeleteDialog(product.product_name, product._id)"
+                    data-test="deleteProductButton">
+                    <mat-icon aria-label="Delete Product">close</mat-icon>
+                  </button>
+                  <!-- Dialog Template -->
+                  <!-- <ng-template #dialogRef let-mydata>
+                    <h1 mat-dialog-title>Delete Product?</h1>
+                    <div mat-dialog-content>
+                      <h4>Are you sure you want to delete <i>{{tempName}}</i>? This action cannot be undone</h4>
+                    </div>
+                    <div mat-dialog-actions>
+                      <button mat-button color="warn" (click)="removeProduct(tempId)">Delete</button>
+                      <button mat-button [mat-dialog-close]="" cdkFocusInitial>Cancel</button>
+                    </div>
+                  </ng-template> -->
+                </div>
+              </span>
+            </mat-nav-list>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Produce
+              </mat-panel-title>
+              <mat-panel-description>
+
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <mat-nav-list class="produce-product-nav-list">
+              <span fxLayout="row" *ngFor="let item of this.produceItems">
+                <a mat-list-item class="product-list-item">
+                  <p matLine class="product-list-name"> {{item.name}} </p>
+                  <p matLine class="product-list-category"> {{item.category}} </p>
+                  <p matLine class="product-list-store"> {{item.purchase_date}} </p>
+                  <mat-divider></mat-divider>
+                </a>
+                <div class="deleteContainer" style="position: absolute;">
+                  <button mat-icon-button class="delete-product-button" matTooltip="Delete Product"
+                    matTooltipPosition="left" (click)="openDeleteDialog(product.product_name, product._id)"
+                    data-test="deleteProductButton">
+                    <mat-icon aria-label="Delete Product">close</mat-icon>
+                  </button>
+                  <!-- Dialog Template -->
+                  <!-- <ng-template #dialogRef let-mydata>
+                    <h1 mat-dialog-title>Delete Product?</h1>
+                    <div mat-dialog-content>
+                      <h4>Are you sure you want to delete <i>{{tempName}}</i>? This action cannot be undone</h4>
+                    </div>
+                    <div mat-dialog-actions>
+                      <button mat-button color="warn" (click)="removeProduct(tempId)">Delete</button>
+                      <button mat-button [mat-dialog-close]="" cdkFocusInitial>Cancel</button>
+                    </div>
+                  </ng-template> -->
+                </div>
+              </span>
+            </mat-nav-list>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Meat
+              </mat-panel-title>
+              <mat-panel-description>
+
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <mat-nav-list class="meat-product-nav-list">
+              <span fxLayout="row" *ngFor="let item of this.meatItems">
+                <a mat-list-item class="product-list-item">
+                  <p matLine class="product-list-name"> {{item.name}} </p>
+                  <p matLine class="product-list-category"> {{item.category}} </p>
+                  <p matLine class="product-list-store"> {{item.purchase_date}} </p>
+                  <mat-divider></mat-divider>
+                </a>
+                <div class="deleteContainer" style="position: absolute;">
+                  <button mat-icon-button class="delete-product-button" matTooltip="Delete Product"
+                    matTooltipPosition="left" (click)="openDeleteDialog(product.product_name, product._id)"
+                    data-test="deleteProductButton">
+                    <mat-icon aria-label="Delete Product">close</mat-icon>
+                  </button>
+                  <!-- Dialog Template -->
+                  <!-- <ng-template #dialogRef let-mydata>
+                    <h1 mat-dialog-title>Delete Product?</h1>
+                    <div mat-dialog-content>
+                      <h4>Are you sure you want to delete <i>{{tempName}}</i>? This action cannot be undone</h4>
+                    </div>
+                    <div mat-dialog-actions>
+                      <button mat-button color="warn" (click)="removeProduct(tempId)">Delete</button>
+                      <button mat-button [mat-dialog-close]="" cdkFocusInitial>Cancel</button>
+                    </div>
+                  </ng-template> -->
+                </div>
+              </span>
+            </mat-nav-list>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Dairy
+              </mat-panel-title>
+              <mat-panel-description>
+
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <mat-nav-list class="dairy-product-nav-list">
+              <span fxLayout="row" *ngFor="let item of this.dairyItems">
+                <a mat-list-item  class="product-list-item">
+                  <p matLine class="product-list-name"> {{item.name}} </p>
+                  <p matLine class="product-list-category"> {{item.category}} </p>
+                  <p matLine class="product-list-store"> {{item.purchase_date}} </p>
+                  <mat-divider></mat-divider>
+                </a>
+                <div class="deleteContainer" style="position: absolute;">
+                  <button mat-icon-button class="delete-product-button" matTooltip="Delete Product"
+                    matTooltipPosition="left" (click)="openDeleteDialog(product.product_name, product._id)"
+                    data-test="deleteProductButton">
+                    <mat-icon aria-label="Delete Product">close</mat-icon>
+                  </button>
+                  <!-- Dialog Template -->
+                  <!-- <ng-template #dialogRef let-mydata>
+                    <h1 mat-dialog-title>Delete Product?</h1>
+                    <div mat-dialog-content>
+                      <h4>Are you sure you want to delete <i>{{tempName}}</i>? This action cannot be undone</h4>
+                    </div>
+                    <div mat-dialog-actions>
+                      <button mat-button color="warn" (click)="removeProduct(tempId)">Delete</button>
+                      <button mat-button [mat-dialog-close]="" cdkFocusInitial>Cancel</button>
+                    </div>
+                  </ng-template> -->
+                </div>
+              </span>
+            </mat-nav-list>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Frozen Foods
+              </mat-panel-title>
+              <mat-panel-description>
+
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <mat-nav-list class="frozen-product-nav-list">
+              <span fxLayout="row" *ngFor="let item of this.frozenItems">
+                <a mat-list-item  class="product-list-item">
+                  <p matLine class="product-list-name"> {{item.name}} </p>
+                  <p matLine class="product-list-category"> {{item.category}} </p>
+                  <p matLine class="product-list-store"> {{item.purchase_date}} </p>
+                  <mat-divider></mat-divider>
+                </a>
+                <div class="deleteContainer" style="position: absolute;">
+                  <button mat-icon-button class="delete-product-button" matTooltip="Delete Product"
+                    matTooltipPosition="left" (click)="openDeleteDialog(product.product_name, product._id)"
+                    data-test="deleteProductButton">
+                    <mat-icon aria-label="Delete Product">close</mat-icon>
+                  </button>
+                  <!-- Dialog Template -->
+                  <!-- <ng-template #dialogRef let-mydata>
+                    <h1 mat-dialog-title>Delete Product?</h1>
+                    <div mat-dialog-content>
+                      <h4>Are you sure you want to delete <i>{{tempName}}</i>? This action cannot be undone</h4>
+                    </div>
+                    <div mat-dialog-actions>
+                      <button mat-button color="warn" (click)="removeProduct(tempId)">Delete</button>
+                      <button mat-button [mat-dialog-close]="" cdkFocusInitial>Cancel</button>
+                    </div>
+                  </ng-template> -->
+                </div>
+              </span>
+            </mat-nav-list>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Paper Products
+              </mat-panel-title>
+              <mat-panel-description>
+
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <mat-nav-list class="canned-product-nav-list">
+              <span fxLayout="row" *ngFor="let item of this.paperItems">
+                <a mat-list-item  class="product-list-item">
+                  <p matLine class="product-list-name"> {{item.name}} </p>
+                  <p matLine class="product-list-category"> {{item.category}} </p>
+                  <p matLine class="product-list-store"> {{item.purchase_date}} </p>
+                  <mat-divider></mat-divider>
+                </a>
+                <div class="deleteContainer" style="position: absolute;">
+                  <button mat-icon-button class="delete-product-button" matTooltip="Delete Product"
+                    matTooltipPosition="left" (click)="openDeleteDialog(product.product_name, product._id)"
+                    data-test="deleteProductButton">
+                    <mat-icon aria-label="Delete Product">close</mat-icon>
+                  </button>
+                  <!-- Dialog Template -->
+                  <!-- <ng-template #dialogRef let-mydata>
+                    <h1 mat-dialog-title>Delete Product?</h1>
+                    <div mat-dialog-content>
+                      <h4>Are you sure you want to delete <i>{{tempName}}</i>? This action cannot be undone</h4>
+                    </div>
+                    <div mat-dialog-actions>
+                      <button mat-button color="warn" (click)="removeProduct(tempId)">Delete</button>
+                      <button mat-button [mat-dialog-close]="" cdkFocusInitial>Cancel</button>
+                    </div>
+                  </ng-template> -->
+                </div>
+              </span>
+            </mat-nav-list>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Beverages
+              </mat-panel-title>
+              <mat-panel-description>
+
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <mat-nav-list class="drink-product-nav-list">
+              <span fxLayout="row" *ngFor="let item of this.beverageItems">
+                <a mat-list-item  class="product-list-item">
+                  <p matLine class="product-list-name"> {{item.name}} </p>
+                  <p matLine class="product-list-category"> {{item.category}} </p>
+                  <p matLine class="product-list-store"> {{item.purchase_date}} </p>
+                  <mat-divider></mat-divider>
+                </a>
+                <div class="deleteContainer" style="position: absolute;">
+                  <button mat-icon-button class="delete-product-button" matTooltip="Delete Product"
+                    matTooltipPosition="left" (click)="openDeleteDialog(product.product_name, product._id)"
+                    data-test="deleteProductButton">
+                    <mat-icon aria-label="Delete Product">close</mat-icon>
+                  </button>
+                  <!-- Dialog Template -->
+                  <!-- <ng-template #dialogRef let-mydata>
+                    <h1 mat-dialog-title>Delete Product?</h1>
+                    <div mat-dialog-content>
+                      <h4>Are you sure you want to delete <i>{{tempName}}</i>? This action cannot be undone</h4>
+                    </div>
+                    <div mat-dialog-actions>
+                      <button mat-button color="warn" (click)="removeProduct(tempId)">Delete</button>
+                      <button mat-button [mat-dialog-close]="" cdkFocusInitial>Cancel</button>
+                    </div>
+                  </ng-template> -->
+                </div>
+              </span>
+            </mat-nav-list>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Pet Supplies
+              </mat-panel-title>
+              <mat-panel-description>
+
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <mat-nav-list class="general-product-nav-list">
+              <span fxLayout="row" *ngFor="let item of this.petSuppliesItems">
+                <a mat-list-item  class="product-list-item">
+                  <p matLine class="product-list-name"> {{item.name}} </p>
+                  <p matLine class="product-list-category"> {{item.category}} </p>
+                  <p matLine class="product-list-store"> {{item.purchase_date}} </p>
+                  <mat-divider></mat-divider>
+                </a>
+                <div class="deleteContainer" style="position: absolute;">
+                  <button mat-icon-button class="delete-product-button" matTooltip="Delete Product"
+                    matTooltipPosition="left" (click)="openDeleteDialog(product.product_name, product._id)"
+                    data-test="deleteProductButton">
+                    <mat-icon aria-label="Delete Product">close</mat-icon>
+                  </button>
+                  <!-- Dialog Template -->
+                  <!-- <ng-template #dialogRef let-mydata>
+                    <h1 mat-dialog-title>Delete Product?</h1>
+                    <div mat-dialog-content>
+                      <h4>Are you sure you want to delete <i>{{tempName}}</i>? This action cannot be undone</h4>
+                    </div>
+                    <div mat-dialog-actions>
+                      <button mat-button color="warn" (click)="removeProduct(tempId)">Delete</button>
+                      <button mat-button [mat-dialog-close]="" cdkFocusInitial>Cancel</button>
+                    </div>
+                  </ng-template> -->
+                </div>
+              </span>
+            </mat-nav-list>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Deli
+              </mat-panel-title>
+              <mat-panel-description>
+
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <mat-nav-list class="seasonal-product-nav-list">
+              <span fxLayout="row" *ngFor="let item of this.deliItems">
+                <a mat-list-item  class="product-list-item">
+                  <p matLine class="product-list-name"> {{item.name}} </p>
+                  <p matLine class="product-list-category"> {{item.category}} </p>
+                  <p matLine class="product-list-store"> {{item.purchase_date}} </p>
+                  <mat-divider></mat-divider>
+                </a>
+                <div class="deleteContainer" style="position: absolute;">
+                  <button mat-icon-button class="delete-product-button" matTooltip="Delete Product"
+                    matTooltipPosition="left" (click)="openDeleteDialog(product.product_name, product._id)"
+                    data-test="deleteProductButton">
+                    <mat-icon aria-label="Delete Product">close</mat-icon>
+                  </button>
+                  <!-- Dialog Template -->
+                  <!-- <ng-template #dialogRef let-mydata>
+                    <h1 mat-dialog-title>Delete Product?</h1>
+                    <div mat-dialog-content>
+                      <h4>Are you sure you want to delete <i>{{tempName}}</i>? This action cannot be undone</h4>
+                    </div>
+                    <div mat-dialog-actions>
+                      <button mat-button color="warn" (click)="removeProduct(tempId)">Delete</button>
+                      <button mat-button [mat-dialog-close]="" cdkFocusInitial>Cancel</button>
+                    </div>
+                  </ng-template> -->
+                </div>
+              </span>
+            </mat-nav-list>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Miscellaneous Goods
+              </mat-panel-title>
+              <mat-panel-description>
+
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <mat-nav-list class="Baked Goods-product-nav-list">
+              <span fxLayout="row" *ngFor="let item of this.miscellaneousItems">
+                <a mat-list-item  class="product-list-item">
+                  <p matLine class="product-list-name"> {{item.name}} </p>
+                  <p matLine class="product-list-category"> {{item.category}} </p>
+                  <p matLine class="product-list-store"> {{item.purchase_date}} </p>
+                  <mat-divider></mat-divider>
+                </a>
+                <div class="deleteContainer" style="position: absolute;">
+                  <button mat-icon-button class="delete-product-button" matTooltip="Delete Product"
+                    matTooltipPosition="left" (click)="openDeleteDialog(product.product_name, product._id)"
+                    data-test="deleteProductButton">
+                    <mat-icon aria-label="Delete Product">close</mat-icon>
+                  </button>
+                  <!-- Dialog Template -->
+                  <!-- <ng-template #dialogRef let-mydata>
+                    <h1 mat-dialog-title>Delete Product?</h1>
+                    <div mat-dialog-content>
+                      <h4>Are you sure you want to delete <i>{{tempName}}</i>? This action cannot be undone</h4>
+                    </div>
+                    <div mat-dialog-actions>
+                      <button mat-button color="warn" (click)="removeProduct(tempId)">Delete</button>
+                      <button mat-button [mat-dialog-close]="" cdkFocusInitial>Cancel</button>
+                    </div>
+                  </ng-template> -->
+                </div>
+              </span>
+            </mat-nav-list>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Herbs and Spices
+              </mat-panel-title>
+              <mat-panel-description>
+
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <mat-nav-list class="Baked Goods-product-nav-list">
+              <span fxLayout="row" *ngFor="let item of this.herbItems">
+                <a mat-list-item  class="product-list-item">
+                  <p matLine class="product-list-name"> {{item.name}} </p>
+                  <p matLine class="product-list-category"> {{item.category}} </p>
+                  <p matLine class="product-list-store"> {{item.purchase_date}} </p>
+                  <mat-divider></mat-divider>
+                </a>
+                <div class="deleteContainer" style="position: absolute;">
+                  <button mat-icon-button class="delete-product-button" matTooltip="Delete Product"
+                    matTooltipPosition="left" (click)="openDeleteDialog(product.product_name, product._id)"
+                    data-test="deleteProductButton">
+                    <mat-icon aria-label="Delete Product">close</mat-icon>
+                  </button>
+                  <!-- Dialog Template -->
+                  <!-- <ng-template #dialogRef let-mydata>
+                    <h1 mat-dialog-title>Delete Product?</h1>
+                    <div mat-dialog-content>
+                      <h4>Are you sure you want to delete <i>{{tempName}}</i>? This action cannot be undone</h4>
+                    </div>
+                    <div mat-dialog-actions>
+                      <button mat-button color="warn" (click)="removeProduct(tempId)">Delete</button>
+                      <button mat-button [mat-dialog-close]="" cdkFocusInitial>Cancel</button>
+                    </div>
+                  </ng-template> -->
+                </div>
+              </span>
+            </mat-nav-list>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Baking Supplies
+              </mat-panel-title>
+              <mat-panel-description>
+
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <mat-nav-list class="Baked Goods-product-nav-list">
+              <span fxLayout="row" *ngFor="let item of this.bakingSuppliesItems">
+                <a mat-list-item  class="product-list-item">
+                  <p matLine class="product-list-name"> {{item.name}} </p>
+                  <p matLine class="product-list-category"> {{item.category}} </p>
+                  <p matLine class="product-list-store"> {{item.purchase_date}} </p>
+                  <mat-divider></mat-divider>
+                </a>
+                <div class="deleteContainer" style="position: absolute;">
+                  <button mat-icon-button class="delete-product-button" matTooltip="Delete Product"
+                    matTooltipPosition="left" (click)="openDeleteDialog(product.product_name, product._id)"
+                    data-test="deleteProductButton">
+                    <mat-icon aria-label="Delete Product">close</mat-icon>
+                  </button>
+                  <!-- Dialog Template -->
+                  <!-- <ng-template #dialogRef let-mydata>
+                    <h1 mat-dialog-title>Delete Product?</h1>
+                    <div mat-dialog-content>
+                      <h4>Are you sure you want to delete <i>{{tempName}}</i>? This action cannot be undone</h4>
+                    </div>
+                    <div mat-dialog-actions>
+                      <button mat-button color="warn" (click)="removeProduct(tempId)">Delete</button>
+                      <button mat-button [mat-dialog-close]="" cdkFocusInitial>Cancel</button>
+                    </div>
+                  </ng-template> -->
+                </div>
+              </span>
+            </mat-nav-list>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Toiletries
+              </mat-panel-title>
+              <mat-panel-description>
+
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <mat-nav-list class="Baked Goods-product-nav-list">
+              <span fxLayout="row" *ngFor="let item of this.toiletriesItems">
+                <a mat-list-item  class="product-list-item">
+                  <p matLine class="product-list-name"> {{item.name}} </p>
+                  <p matLine class="product-list-category"> {{item.category}} </p>
+                  <p matLine class="product-list-store"> {{item.purchase_date}} </p>
+                  <mat-divider></mat-divider>
+                </a>
+                <div class="deleteContainer" style="position: absolute;">
+                  <button mat-icon-button class="delete-product-button" matTooltip="Delete Product"
+                    matTooltipPosition="left" (click)="openDeleteDialog(product.product_name, product._id)"
+                    data-test="deleteProductButton">
+                    <mat-icon aria-label="Delete Product">close</mat-icon>
+                  </button>
+                  <!-- Dialog Template -->
+                  <!-- <ng-template #dialogRef let-mydata>
+                    <h1 mat-dialog-title>Delete Product?</h1>
+                    <div mat-dialog-content>
+                      <h4>Are you sure you want to delete <i>{{tempName}}</i>? This action cannot be undone</h4>
+                    </div>
+                    <div mat-dialog-actions>
+                      <button mat-button color="warn" (click)="removeProduct(tempId)">Delete</button>
+                      <button mat-button [mat-dialog-close]="" cdkFocusInitial>Cancel</button>
+                    </div>
+                  </ng-template> -->
+                </div>
+              </span>
+            </mat-nav-list>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Staples
+              </mat-panel-title>
+              <mat-panel-description>
+
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <mat-nav-list class="Baked Goods-product-nav-list">
+              <span fxLayout="row" *ngFor="let item of this.stapleItems">
+                <a mat-list-item  class="product-list-item">
+                  <p matLine class="product-list-name"> {{item.name}} </p>
+                  <p matLine class="product-list-category"> {{item.category}} </p>
+                  <p matLine class="product-list-store"> {{item.purchase_date}} </p>
+                  <mat-divider></mat-divider>
+                </a>
+                <div class="deleteContainer" style="position: absolute;">
+                  <button mat-icon-button class="delete-product-button" matTooltip="Delete Product"
+                    matTooltipPosition="left" (click)="openDeleteDialog(product.product_name, product._id)"
+                    data-test="deleteProductButton">
+                    <mat-icon aria-label="Delete Product">close</mat-icon>
+                  </button>
+                  <!-- Dialog Template -->
+                  <!-- <ng-template #dialogRef let-mydata>
+                    <h1 mat-dialog-title>Delete Product?</h1>
+                    <div mat-dialog-content>
+                      <h4>Are you sure you want to delete <i>{{tempName}}</i>? This action cannot be undone</h4>
+                    </div>
+                    <div mat-dialog-actions>
+                      <button mat-button color="warn" (click)="removeProduct(tempId)">Delete</button>
+                      <button mat-button [mat-dialog-close]="" cdkFocusInitial>Cancel</button>
+                    </div>
+                  </ng-template> -->
+                </div>
+              </span>
+            </mat-nav-list>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Cleaning Products
+              </mat-panel-title>
+              <mat-panel-description>
+
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <mat-nav-list class="Baked Goods-product-nav-list">
+              <span fxLayout="row" *ngFor="let item of this.cleaningItems">
+                <a mat-list-item  class="product-list-item">
+                  <p matLine class="product-list-name"> {{item.name}} </p>
+                  <p matLine class="product-list-category"> {{item.category}} </p>
+                  <p matLine class="product-list-store"> {{item.purchase_date}} </p>
+                  <mat-divider></mat-divider>
+                </a>
+                <div class="deleteContainer" style="position: absolute;">
+                  <button mat-icon-button class="delete-product-button" matTooltip="Delete Product"
+                    matTooltipPosition="left" (click)="openDeleteDialog(product.product_name, product._id)"
+                    data-test="deleteProductButton">
+                    <mat-icon aria-label="Delete Product">close</mat-icon>
+                  </button>
+                  <!-- Dialog Template -->
+                  <!-- <ng-template #dialogRef let-mydata>
+                    <h1 mat-dialog-title>Delete Product?</h1>
+                    <div mat-dialog-content>
+                      <h4>Are you sure you want to delete <i>{{tempName}}</i>? This action cannot be undone</h4>
+                    </div>
+                    <div mat-dialog-actions>
+                      <button mat-button color="warn" (click)="removeProduct(tempId)">Delete</button>
+                      <button mat-button [mat-dialog-close]="" cdkFocusInitial>Cancel</button>
+                    </div>
+                  </ng-template> -->
+                </div>
+              </span>
+            </mat-nav-list>
+          </mat-expansion-panel>
+
+        </mat-accordion>
+      </mat-card-content>
+    </mat-card>
+
+  </div>
   <!-- Maybe this should be a pop-up instead of just a text message? Not sure. -->
   <ng-template #pantryError>
     <div fxFlex fxFlex.gt-sm="80" fxFlexOffset.gt-sm="10" class="pantry-error">
@@ -114,4 +692,3 @@
       </mat-error>
     </div>
   </ng-template>
-</div>
