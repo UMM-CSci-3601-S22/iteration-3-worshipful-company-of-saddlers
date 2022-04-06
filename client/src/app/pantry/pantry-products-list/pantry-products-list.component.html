@@ -21,7 +21,7 @@
               <mat-list-item *ngFor="let product of this.filteredProducts" class="add-product-list-item"
               data-test="addProductListItem">
                 <p matLine class="add-product-list-name">{{product.product_name}}</p>
-                  <div class="addContainer" style="position: absolute; margin-left: 400px">
+                  <div *ngIf="!popup" class="addContainer" style="position: absolute; margin-left: 400px">
                     <button mat-raised-button class="add-product-button" matTooltip="Add Product"
                       matTooltipPosition="left" (click)="popup = true"
                       data-test="addProductButton">
@@ -57,7 +57,7 @@
         <mat-card>
           <mat-card-content>
             <mat-nav-list class="pantry-nav-list">
-              <h3 mat-subheader>Pantry Items</h3>
+              <h3 mat-subheader>Pantry Items  ({{this.lengthItems}})</h3>
               <a mat-list-item *ngFor="let pantryItem of this.pantryProducts" [routerLink]="['', pantryItem.product]"
                 class="pantry-list-item" data-test="pantryListItem">
                 <h2 matLine class="pantry-list-name">{{pantryItem.product}}</h2>
@@ -67,6 +67,23 @@
             </mat-nav-list>
           </mat-card-content>
         </mat-card>
+
+      <div fxLayout="row wrap">
+        <div fxFlex fxFlex.gt-sm="80" fxFlexOffset.gt-sm="10" *ngIf="getPantryItemsFromServer;">
+          <mat-card>
+            <mat-card-content>
+              <mat-nav-list class="category-listing">
+                <h3 mat-subheader>Bakery Items  ({{this.bakeryItems.length}})</h3>
+                <a mat-list-item *ngFor="let pantryItem of this.bakeryItems" class="pantry-bakery-items">
+                  <h2 matLine>{{pantryItem.product}}</h2>
+                  <h4 matLine>{{pantryItem.purchase_date}}</h4>
+                  <p matLine>{{pantryItem.notes}}</p>
+                </a>
+              </mat-nav-list>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
 
       </div>
     </div>

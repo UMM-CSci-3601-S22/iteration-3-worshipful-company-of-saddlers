@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -28,20 +28,23 @@ export class PantryService {
     return this.httpClient.post<{id: string}>(this.pantryUrl, newPantryItem).pipe(map(res => res.id));
   }
 
+  getProducts(filters?: { category?: ProductCategory; store?: string }): Observable<Product[]> {
+    let httpParams: HttpParams = new HttpParams();
+    if (filters) {
+      if (filters.category) {
+        httpParams = httpParams.set('category', filters.category);
+      }
+      if (filters.store) {
+        httpParams = httpParams.set('store', filters.store);
+      }
+    }
+    return this.httpClient.get<Product[]>(this.productUrl, {
+      params: httpParams,
+    });
+  }
+
   getProductById(id: string): Observable<Product> {
     return this.httpClient.get<Product>(this.productUrl + '/' + id);
-  }
-
-  getItemIds() {
-
-  }
-
-
-  getProducts(): Product[]{
-    for(this.i = 0; this.i < this.ids.len(); this.i++) {
-      this.products[this.i] = this.getProductById(this.ids[this.i]);
-    }
-    return this.products;
   }
 
 }
