@@ -13,40 +13,52 @@ export class ProductListPage {
     return cy.get('.filtered-product-nav-list .deleteContainer').first();
   }
 
-  getProduceProductDropdown() {
-    return cy.get('.produce-product-expansion-panel');
+  getBakedGoodsProductDropdown() {
+    return cy.get('.baked-goods-product-expansion-panel');
   }
 
-  getProduceProductListItems() {
-    return cy.get('.produce-product-nav-list .product-list-item');
+  getBakedGoodsProductListItems() {
+    return cy.get('.baked-goods-product-nav-list .product-list-item');
   }
 
-  getFirstProduceDelete() {
-    return cy.get('.produce-product-nav-list .deleteContainer').first();
+  getFirstBakedGoodsDelete() {
+    return cy.get('.baked-goods-product-nav-list .deleteContainer').first();
   }
 
-  getBakeryProductDropdown() {
-    return cy.get('.bakery-product-expansion-panel');
+  getBakingSuppliesProductDropdown() {
+    return cy.get('.baking-supplies-product-expansion-panel');
   }
 
-  getBakeryProductListItems() {
-    return cy.get('.bakery-product-nav-list .product-list-item');
+  getBakingSuppliesProductListItems() {
+    return cy.get('.baking-supplies-product-nav-list .product-list-item');
   }
 
-  getFirstBakeryDelete() {
-    return cy.get('.bakery-product-nav-list .deleteContainer').first();
+  getBakingSuppliesDelete() {
+    return cy.get('.baking-supplies-product-nav-list .deleteContainer').first();
   }
 
-  getMeatProductDropdown() {
-    return cy.get('.meat-product-expansion-panel');
+  getBeverageProductDropdown() {
+    return cy.get('.beverage-supplies-product-expansion-panel');
   }
 
-  getMeatProductListItems() {
-    return cy.get('.meat-product-nav-list .product-list-item');
+  getBeverageProductListItems() {
+    return cy.get('.beverage-supplies-product-nav-list .product-list-item');
   }
 
-  getFirstMeatDelete() {
-    return cy.get('.meat-product-nav-list .deleteContainer').first();
+  getBeverageDelete() {
+    return cy.get('.beverage-supplies-product-nav-list .deleteContainer').first();
+  }
+
+  getCleaningProductDropdown() {
+    return cy.get('.cleaning-supplies-product-expansion-panel');
+  }
+
+  getCleaningProductListItems() {
+    return cy.get('.cleaning-supplies-product-nav-list .product-list-item');
+  }
+
+  getCleaningDelete() {
+    return cy.get('.cleaning-supplies-product-nav-list .deleteContainer').first();
   }
 
   getDairyProductDropdown() {
@@ -61,16 +73,16 @@ export class ProductListPage {
     return cy.get('.dairy-product-nav-list .deleteContainer').first();
   }
 
-  getDrinkProductDropdown() {
-    return cy.get('.drink-product-expansion-panel');
+  getDeliProductDropdown() {
+    return cy.get('.deli-product-expansion-panel');
   }
 
-  getDrinkProductListItems() {
-    return cy.get('.drink-product-nav-list .product-list-item');
+  getDeliProductListItems() {
+    return cy.get('.deli-product-nav-list .product-list-item');
   }
 
-  getFirstDrinkDelete() {
-    return cy.get('.drink-product-nav-list .deleteContainer').first();
+  getFirstDeliDelete() {
+    return cy.get('.deli-product-nav-list .deleteContainer').first();
   }
 
   getFrozenProductDropdown() {
@@ -85,40 +97,28 @@ export class ProductListPage {
     return cy.get('.frozen-product-nav-list .deleteContainer').first();
   }
 
-  getCannedProductDropdown() {
-    return cy.get('.canned-product-expansion-panel');
+  getHerbProductDropdown() {
+    return cy.get('.herb-product-expansion-panel');
   }
 
-  getCannedProductListItems() {
-    return cy.get('.canned-product-nav-list .product-list-item');
+  getHerbProductListItems() {
+    return cy.get('.herb-product-nav-list .product-list-item');
   }
 
-  getFirstCannedDelete() {
-    return cy.get('.canned-product-nav-list .deleteContainer').first();
+  getFirstHerbDelete() {
+    return cy.get('.herb-product-nav-list .deleteContainer').first();
   }
 
-  getGeneralProductDropdown() {
-    return cy.get('.general-product-expansion-panel');
+  getMeatProductDropdown() {
+    return cy.get('.meat-product-expansion-panel');
   }
 
-  getGeneralProductListItems() {
-    return cy.get('.general-product-nav-list .product-list-item');
+  getMeatProductListItems() {
+    return cy.get('.meat-product-nav-list .product-list-item');
   }
 
-  getFirstGeneralDelete() {
-    return cy.get('.general-product-nav-list .deleteContainer').first();
-  }
-
-  getSeasonalProductDropdown() {
-    return cy.get('.seasonal-product-expansion-panel');
-  }
-
-  getSeasonalProductListItems() {
-    return cy.get('.seasonal-product-nav-list .product-list-item');
-  }
-
-  getFirstSeasonalDelete() {
-    return cy.get('.seasonal-product-nav-list .deleteContainer').first();
+  getFirstMeatDelete() {
+    return cy.get('.meat-product-nav-list .deleteContainer').first();
   }
 
   getMiscellaneousProductDropdown() {
@@ -131,6 +131,66 @@ export class ProductListPage {
 
   getFirstMiscellaneousDelete() {
     return cy.get('.miscellaneous-product-nav-list .deleteContainer').first();
+  }
+
+  getPaperProductDropdown() {
+    return cy.get('.paper-product-expansion-panel');
+  }
+
+  getPaperProductListItems() {
+    return cy.get('.paper-product-nav-list .product-list-item');
+  }
+
+  getFirstPaperDelete() {
+    return cy.get('.paper-product-nav-list .deleteContainer').first();
+  }
+
+  getPetProductDropdown() {
+    return cy.get('.pet-supplies-product-expansion-panel');
+  }
+
+  getPetProductListItems() {
+    return cy.get('.pet-supplies-product-nav-list .product-list-item');
+  }
+
+  getFirstPetDelete() {
+    return cy.get('.pet-supplies-product-nav-list .deleteContainer').first();
+  }
+
+  getProduceProductDropdown() {
+    return cy.get('.produce-product-expansion-panel');
+  }
+
+  getProduceProductListItems() {
+    return cy.get('.produce-product-nav-list .product-list-item');
+  }
+
+  getFirstProduceDelete() {
+    return cy.get('.produce-product-nav-list .deleteContainer').first();
+  }
+
+  getStapleProductDropdown() {
+    return cy.get('.staple-product-expansion-panel');
+  }
+
+  getStapleProductListItems() {
+    return cy.get('.staple-product-nav-list .product-list-item');
+  }
+
+  getStapleProduceDelete() {
+    return cy.get('.staple-product-nav-list .deleteContainer').first();
+  }
+
+  getToiletriesProductDropdown() {
+    return cy.get('.toiletries-product-expansion-panel');
+  }
+
+  getToiletriesProductListItems() {
+    return cy.get('.toiletries-product-nav-list .product-list-item');
+  }
+
+  getFirstToiletriesDelete() {
+    return cy.get('.toiletries-product-nav-list .deleteContainer').first();
   }
 
   /**
