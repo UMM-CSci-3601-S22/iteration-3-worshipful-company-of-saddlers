@@ -313,7 +313,7 @@ public class PantryControllerSpec {
     Context ctx = mockContext(path);
 
     pantryController.getAllProductsInPantry(ctx);
-    Product[] returnedProducts = returnedProducts(ctx);
+    PantryItem[] returnedProducts = returnedPantryItems(ctx);
 
     // The response status should be 200, i.e., our request
     // was handled successfully (was OK). This is a named constant in
