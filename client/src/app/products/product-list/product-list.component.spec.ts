@@ -128,16 +128,21 @@ describe('Delete From ProductList', () => {
   it('should call openDeleteDialog and call removeProduct', () => {
     productList.allProducts = productList.serverFilteredProducts;
     productList.filteredProducts = productList.serverFilteredProducts;
-    productList.bakeryProducts = productList.serverFilteredProducts;
+    productList.bakedGoodsProducts = productList.serverFilteredProducts;
+    productList.bakingSuppliesProducts = productList.serverFilteredProducts;
     productList.produceProducts = productList.serverFilteredProducts;
     productList.meatProducts = productList.serverFilteredProducts;
     productList.dairyProducts = productList.serverFilteredProducts;
     productList.frozenProducts = productList.serverFilteredProducts;
-    productList.cannedProducts = productList.serverFilteredProducts;
-    productList.drinkProducts = productList.serverFilteredProducts;
-    productList.generalProducts = productList.serverFilteredProducts;
+    productList.deliProducts = productList.serverFilteredProducts;
+    productList.beverageProducts = productList.serverFilteredProducts;
+    productList.herbProducts = productList.serverFilteredProducts;
     productList.miscellaneousProducts = productList.serverFilteredProducts;
-    productList.seasonalProducts = productList.serverFilteredProducts;
+    productList.stapleProducts = productList.serverFilteredProducts;
+    productList.stapleProducts = productList.serverFilteredProducts;
+    productList.paperProducts = productList.serverFilteredProducts;
+    productList.cleaningProducts = productList.serverFilteredProducts;
+    productList.petSuppliesProducts = productList.serverFilteredProducts;
     productList.openDeleteDialog('banana', 'banana_id');
     fixture.detectChanges();
     productList.removeProduct('banana_id');
