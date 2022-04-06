@@ -25,9 +25,6 @@ export class AddProductToPantryComponent implements OnInit {
   pantryItem: PantryItem;
 
   addPantryValidationMessages = {
-    product: [
-      {type: 'required', message: 'A product ID is required'}
-    ],
     purchase_date: [
       {type: 'required', message: 'Purchase date is required'},
       {type: 'maxlength', message: 'Pantry item date must be 10 characters'},
@@ -45,6 +42,10 @@ export class AddProductToPantryComponent implements OnInit {
   createForms() {
     this.addToPantryForm = this.fb.group({
       product: this.product._id,
+
+      name: this.product.product_name,
+
+      category: this.product.category,
 
       purchase_date: new FormControl('', Validators.compose([
         Validators.required,
