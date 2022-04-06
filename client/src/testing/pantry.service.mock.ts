@@ -2,6 +2,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { PantryService } from 'src/app/pantry/pantry.service';
+import { PantryItem } from 'src/app/pantry/pantryItem';
 import { Product, ProductCategory } from '../app/products/product';
 
 /**
@@ -10,48 +11,30 @@ import { Product, ProductCategory } from '../app/products/product';
  */
  @Injectable()
  export class MockPantryService extends PantryService {
-   static testPantryProducts: Product[] = [
+   static testPantryProducts: PantryItem[] = [
     {
-      _id: 'banana_id',
-      product_name: 'banana',
-      description: '',
-      brand: 'Dole',
+      _id: 'banana _id',
+      product: 'banana product id',
+      name: 'banana',
       category: 'produce',
-      store: 'Walmart',
-      location: '',
-      notes: '',
-      tags: [],
-      lifespan: 0,
-      threshold: 0,
-      image: ''
+      purchase_date: '01-02-2022',
+      notes: 'notes for banana pantry item'
     },
     {
-      _id: 'milk_id',
-      product_name: 'Whole Milk',
-      description: '',
-      brand: 'Land O Lakes',
+      _id: 'milk _id',
+      product: 'milk product id',
+      name: 'milk',
       category: 'dairy',
-      store: 'SuperValu',
-      location: '',
-      notes: '',
-      tags: [],
-      lifespan: 0,
-      threshold: 0,
-      image: ''
+      purchase_date: '02-02-2022',
+      notes: 'notes for milk pantry item'
     },
     {
-      _id: 'bread_id',
-      product_name: 'Wheat Bread',
-      description: '',
-      brand: 'Country Hearth',
-      category: 'bakery',
-      store: 'Walmart',
-      location: '',
-      notes: '',
-      tags: [],
-      lifespan: 0,
-      threshold: 0,
-      image: ''
+      _id: 'bread _id',
+      product: 'bread product id',
+      name: 'bread',
+      category: 'baked goods',
+      purchase_date: '03-02-2022',
+      notes: 'notes for bread pantry item'
     }
    ];
 
@@ -59,7 +42,7 @@ import { Product, ProductCategory } from '../app/products/product';
      super(null);
    }
 
-   getPantryItems(): Observable<Product[]> {
+   getPantryItems(): Observable<PantryItem[]> {
      // Just return the test products regardless of what filters are passed in
      return of(MockPantryService.testPantryProducts);
    }

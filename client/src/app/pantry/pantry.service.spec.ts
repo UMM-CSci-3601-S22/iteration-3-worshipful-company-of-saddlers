@@ -9,57 +9,41 @@ import { PantryItem } from './pantryItem';
 
 describe('PantryService', () => {
 
-  const testPantryProducts: Product[] = [
+  const testPantryProducts: PantryItem[] = [
     {
-      _id: 'banana_id',
-      product_name: 'banana',
-      description: '',
-      brand: 'Dole',
+      _id: 'banana _id',
+      product: 'banana product id',
+      name: 'banana',
       category: 'produce',
-      store: 'Walmart',
-      location: '',
-      notes: '',
-      tags: [],
-      lifespan: 0,
-      threshold: 0,
-      image: ''
+      purchase_date: '01-02-2022',
+      notes: 'notes for banana pantry item'
     },
     {
-      _id: 'milk_id',
-      product_name: 'Whole Milk',
-      description: '',
-      brand: 'Land O Lakes',
+      _id: 'milk _id',
+      product: 'milk product id',
+      name: 'milk',
       category: 'dairy',
-      store: 'SuperValu',
-      location: '',
-      notes: '',
-      tags: [],
-      lifespan: 0,
-      threshold: 0,
-      image: ''
+      purchase_date: '02-02-2022',
+      notes: 'notes for milk pantry item'
     },
     {
-      _id: 'bread_id',
-      product_name: 'Wheat Bread',
-      description: '',
-      brand: 'Country Hearth',
-      category: 'bakery',
-      store: 'Walmart',
-      location: '',
-      notes: '',
-      tags: [],
-      lifespan: 0,
-      threshold: 0,
-      image: ''
+      _id: 'bread _id',
+      product: 'bread product id',
+      name: 'bread',
+      category: 'baked goods',
+      purchase_date: '03-02-2022',
+      notes: 'notes for bread pantry item'
     }
   ];
 
   const newProduct: PantryItem =
   {
     _id: 'new_id',
-    product: 'new product',
-    purchase_date: '2000-04-12',
-    notes: 'this is a new product.'
+    product: 'new product id',
+    name: 'new product name',
+    category: 'produce',
+    purchase_date: '04-05-2022',
+    notes: 'this is a new product in the pantry'
   };
 
   let pantryService: PantryService;

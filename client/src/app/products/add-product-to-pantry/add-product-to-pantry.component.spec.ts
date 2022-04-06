@@ -13,6 +13,9 @@ import { PantryService } from 'src/app/pantry/pantry.service';
 import { ProductService } from '../product.service';
 import { AddProductToPantryComponent } from './add-product-to-pantry.component';
 import { SingleProductPageComponent } from '../single-product-page/single-product-page.component';
+import { PantryProductsListComponent } from 'src/app/pantry/pantry-products-list/pantry-products-list.component';
+import { HttpClient, HttpHandler } from '@angular/common/http';
+import { MatDialog, MatDialogModule, MAT_DIALOG_SCROLL_STRATEGY } from '@angular/material/dialog';
 
 describe('AddProductToPantryComponent', () => {
   let addProductToPantryComponent: AddProductToPantryComponent;
@@ -31,9 +34,15 @@ describe('AddProductToPantryComponent', () => {
         MatInputModule,
         BrowserAnimationsModule,
         RouterTestingModule,
+        MatDialogModule
       ],
       declarations: [ AddProductToPantryComponent, SingleProductPageComponent ],
-      providers: [{ provide: PantryService, useValue: new MockPantryService() }]
+      providers: [{ provide: PantryService, useValue: new MockPantryService() },
+      PantryProductsListComponent,
+      ProductService,
+      HttpClient,
+      HttpHandler,
+      MatDialog,]
     }).compileComponents().catch(error => {
       expect(error).toBeNull();
     });
@@ -56,6 +65,12 @@ describe('AddProductToPantryComponent', () => {
       threshold: 0,
       image: ''
     };
+    /*addProductToPantryComponent.pantryItem = {
+        _id: 'banana _id',
+        product: 'banana product id',
+        purchase_date: '01-02-2022',
+        notes: 'notes for banana pantry item'
+      };*/
     addProductToPantryComponent.ngOnInit();
     fixture.detectChanges();
     addProductToPantryForm = addProductToPantryComponent.addToPantryForm;
