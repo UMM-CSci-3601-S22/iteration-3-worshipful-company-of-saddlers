@@ -118,7 +118,6 @@ export class PantryProductsListComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.getPantryItemsFromServer();
     this.getUnfilteredProducts();
-    this.intoCategories();
   }
 
   reloadComponent() {
