@@ -175,18 +175,24 @@ public class PantryControllerSpec {
         new Document()
             .append("product", bananaEntryId.toHexString()) // oid of banana
             .append("purchase_date", "2022-03-01")
-            .append("notes", "I eat these with toothpaste, yum-yum."));
+            .append("notes", "I eat these with toothpaste, yum-yum.")
+            .append("name", "Banana")
+            .append("category", "produce"));
     // Set up two instances beans entered at different dates
     testPantryEntries.add(
         new Document()
             .append("product", beansEntryId.toHexString()) // oid of beans
             .append("purchase_date", "2022-02-01")
-            .append("notes", "My cool product notes."));
+            .append("notes", "My cool product notes.")
+            .append("name", "Beans")
+            .append("category", "staples"));
     testPantryEntries.add(
         new Document()
             .append("product", beansEntryId.toHexString()) // oid of beans
             .append("purchase_date", "2022-03-01")
-            .append("notes", "My other cool product notes."));
+            .append("notes", "My other cool product notes.")
+            .append("name", "Beans")
+            .append("category", "staples"));
 
     pantryDocuments.insertMany(testPantryEntries);
 
@@ -196,7 +202,9 @@ public class PantryControllerSpec {
         .append("_id", appleEntryId)
         .append("product", bananaEntryId.toHexString())
         .append("purchase_date", "2023-01-27")
-        .append("notes", "check on gerbils every 3 days");
+        .append("notes", "check on gerbils every 3 days")
+        .append("name", "Apple")
+        .append("category", "produce");
 
     pantryDocuments.insertOne(apple);
 
@@ -335,7 +343,9 @@ public class PantryControllerSpec {
     Document apple = new Document()
         .append("product", "bad")
         .append("purchase_date", "2023-01-27")
-        .append("notes", "check on gerbils every 3 days");
+        .append("notes", "check on gerbils every 3 days")
+        .append("name", "Apple")
+        .append("category", "produce");
 
     pantryDocuments.insertOne(apple);
 
@@ -357,7 +367,9 @@ public class PantryControllerSpec {
     Document apple = new Document()
         .append("product", "6224ba3bfc13ae3ac400000a")
         .append("purchase_date", "2023-01-27")
-        .append("notes", "check on gerbils every 3 days");
+        .append("notes", "check on gerbils every 3 days")
+        .append("name", "Apple")
+        .append("category", "produce");
 
     pantryDocuments.insertOne(apple);
 
@@ -404,12 +416,14 @@ public class PantryControllerSpec {
   }
 
   @Test
-  public void addProductWithBadProduct() throws IOException {
+  public void addItemWithBadProduct() throws IOException {
 
     String testNewEntry = "{"
         + "\"product\": \"6224ba3bfc13ae3ac400000e\","
         + "\"purchase_date\": \"2023-01-27\","
         + "\"notes\": \"check on gerbils every 3 days\""
+        + "\"name\": \"Banana Phone\""
+        + "\"category\": \"produce\""
         + "}";
 
     mockReq.setBodyContent(testNewEntry);
@@ -423,12 +437,14 @@ public class PantryControllerSpec {
   }
 
   @Test
-  public void addProductWithBadDate() throws IOException {
+  public void addItemWithBadDate() throws IOException {
 
     String testNewEntry = "{"
         + "\"product\": \"" + bananaEntryId.toHexString() + "\","
         + "\"purchase_date\": \"01272023\","
         + "\"notes\": \"check on gerbils every 3 days\""
+        + "\"name\": \"Banana Phone\""
+        + "\"category\": \"produce\""
         + "}";
 
     mockReq.setBodyContent(testNewEntry);
@@ -442,12 +458,14 @@ public class PantryControllerSpec {
   }
 
   @Test
-  public void addProductWithBadNote() throws IOException {
+  public void addItemWithBadNote() throws IOException {
 
     String testNewEntry = "{"
         + "\"product\": \"" + bananaEntryId.toHexString() + "\","
         + "\"purchase_date\": \"2023-01-27\","
         + "\"notes\": null"
+        + "\"name\": \"Banana Phone\""
+        + "\"category\": \"produce\""
         + "}";
 
     mockReq.setBodyContent(testNewEntry);
@@ -461,7 +479,7 @@ public class PantryControllerSpec {
   }
 
   @Test
-  public void deleteProduct() throws IOException {
+  public void deletePantryItem() throws IOException {
     String testID = appleEntryId.toHexString();
 
     // Product exists before deletion
@@ -474,7 +492,7 @@ public class PantryControllerSpec {
     assertEquals(HttpURLConnection.HTTP_OK, mockRes.getStatus());
 
     // Product is no longer in the database
-    assertEquals(0, db.getCollection("products").countDocuments(eq("_id", new ObjectId(testID))));
+    assertEquals(0, db.getCollection("pantry").countDocuments(eq("_id", new ObjectId(testID))));
   }
 
   @Test
@@ -493,6 +511,19 @@ public class PantryControllerSpec {
     assertEquals(
         db.getCollection("pantry").countDocuments(),
         returnedProducts.length);
+  }
+
+  @Test
+  public void filterByCategory() throws IOException {
+    mockReq.setQueryString("category=staples");
+    String path = "api/pantry";
+    Context ctx = mockContext(path);
+
+    pantryController.getAllItems(ctx);
+    PantryItem[] returnedItems = returnedPantryItems(ctx);
+
+    assertEquals(HttpCode.OK.getStatus(), mockRes.getStatus());
+    assertEquals(2, returnedItems.length);
   }
 
 }
