@@ -208,4 +208,12 @@ describe('ProductService', () => {
     req.flush({id: 'testid'});
   });
 
+  it('deleteProduct() posts to api/products', () => {
+
+    const res = productService.deleteProduct(testProducts[1]._id);
+
+    expect(res).toBeDefined();
+    expect(res).toBeTruthy();
+  });
+
 });

@@ -138,6 +138,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.unsub();
+    this.unsubUnfiltered();
   }
 
   unsub(): void {

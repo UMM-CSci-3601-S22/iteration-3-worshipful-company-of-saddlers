@@ -127,7 +127,7 @@
         <mat-accordion>
 
           <mat-expansion-panel>
-            <mat-expansion-panel-header>
+            <mat-expansion-panel-header class="bakery-product-expansion-panel">
               <mat-panel-title>
                 Bakery Goods
               </mat-panel-title>
@@ -167,7 +167,7 @@
           </mat-expansion-panel>
 
           <mat-expansion-panel>
-            <mat-expansion-panel-header>
+            <mat-expansion-panel-header class="produce-product-expansion-panel">
               <mat-panel-title>
                 Produce
               </mat-panel-title>
@@ -191,23 +191,23 @@
                     <mat-icon aria-label="Delete Product">close</mat-icon>
                   </button>
                   <!-- Dialog Template -->
-                  <ng-template #dialogRef let-mydata>
-                    <h1 mat-dialog-title>Delete Product?</h1>
-                    <div mat-dialog-content>
-                      <h4>Are you sure you want to delete <i>{{tempName}}</i>? This action cannot be undone</h4>
-                    </div>
-                    <div mat-dialog-actions>
-                      <button mat-button color="warn" (click)="removeProduct(tempId)">Delete</button>
-                      <button mat-button [mat-dialog-close]="" cdkFocusInitial>Cancel</button>
-                    </div>
-                  </ng-template>
+                <ng-template #dialogRef let-mydata>
+                  <h1 mat-dialog-title>Delete Product?</h1>
+                  <div mat-dialog-content>
+                    <h4>Are you sure you want to delete <i>{{tempName}}</i>? This action cannot be undone</h4>
+                  </div>
+                  <div mat-dialog-actions>
+                    <button mat-button color="warn" (click)="removeProduct(tempId)">Delete</button>
+                    <button mat-button [mat-dialog-close]="" cdkFocusInitial>Cancel</button>
+                  </div>
+                </ng-template>
                 </div>
               </span>
             </mat-nav-list>
           </mat-expansion-panel>
 
           <mat-expansion-panel>
-            <mat-expansion-panel-header>
+            <mat-expansion-panel-header class="meat-product-expansion-panel">
               <mat-panel-title>
                 Meat
               </mat-panel-title>
@@ -231,23 +231,23 @@
                     <mat-icon aria-label="Delete Product">close</mat-icon>
                   </button>
                   <!-- Dialog Template -->
-                  <ng-template #dialogRef let-mydata>
-                    <h1 mat-dialog-title>Delete Product?</h1>
-                    <div mat-dialog-content>
-                      <h4>Are you sure you want to delete <i>{{tempName}}</i>? This action cannot be undone</h4>
-                    </div>
-                    <div mat-dialog-actions>
-                      <button mat-button color="warn" (click)="removeProduct(tempId)">Delete</button>
-                      <button mat-button [mat-dialog-close]="" cdkFocusInitial>Cancel</button>
-                    </div>
-                  </ng-template>
+                <ng-template #dialogRef let-mydata>
+                  <h1 mat-dialog-title>Delete Product?</h1>
+                  <div mat-dialog-content>
+                    <h4>Are you sure you want to delete <i>{{tempName}}</i>? This action cannot be undone</h4>
+                  </div>
+                  <div mat-dialog-actions>
+                    <button mat-button color="warn" (click)="removeProduct(tempId)" class="finalDeleteProductButton">Delete</button>
+                    <button mat-button [mat-dialog-close]="" cdkFocusInitial class="cancelDeleteProductButton">Cancel</button>
+                  </div>
+                </ng-template>
                 </div>
               </span>
             </mat-nav-list>
           </mat-expansion-panel>
 
           <mat-expansion-panel>
-            <mat-expansion-panel-header>
+            <mat-expansion-panel-header class="dairy-product-expansion-panel">
               <mat-panel-title>
                 Dairy
               </mat-panel-title>
@@ -287,7 +287,7 @@
           </mat-expansion-panel>
 
           <mat-expansion-panel>
-            <mat-expansion-panel-header>
+            <mat-expansion-panel-header class="frozen-product-expansion-panel">
               <mat-panel-title>
                 Frozen Foods
               </mat-panel-title>
@@ -327,7 +327,7 @@
           </mat-expansion-panel>
 
           <mat-expansion-panel>
-            <mat-expansion-panel-header>
+            <mat-expansion-panel-header class="canned-product-expansion-panel">
               <mat-panel-title>
                 Canned Goods
               </mat-panel-title>
@@ -367,7 +367,7 @@
           </mat-expansion-panel>
 
           <mat-expansion-panel>
-            <mat-expansion-panel-header>
+            <mat-expansion-panel-header class="drink-product-expansion-panel">
               <mat-panel-title>
                 Drinks
               </mat-panel-title>
@@ -407,7 +407,7 @@
           </mat-expansion-panel>
 
           <mat-expansion-panel>
-            <mat-expansion-panel-header>
+            <mat-expansion-panel-header class="general-product-expansion-panel">
               <mat-panel-title>
                 General Grocery
               </mat-panel-title>
@@ -447,7 +447,7 @@
           </mat-expansion-panel>
 
           <mat-expansion-panel>
-            <mat-expansion-panel-header>
+            <mat-expansion-panel-header class="seasonal-product-expansion-panel">
               <mat-panel-title>
                 Seasonal Goods
               </mat-panel-title>
@@ -487,7 +487,7 @@
           </mat-expansion-panel>
 
           <mat-expansion-panel>
-            <mat-expansion-panel-header>
+            <mat-expansion-panel-header class="miscellaneous-product-expansion-panel">
               <mat-panel-title>
                 Miscellaneous Goods
               </mat-panel-title>
@@ -495,7 +495,7 @@
 
               </mat-panel-description>
             </mat-expansion-panel-header>
-            <mat-nav-list class="bakery-product-nav-list">
+            <mat-nav-list class="miscellaneous-product-nav-list">
               <span fxLayout="row" *ngFor="let product of this.miscellaneousProducts">
                 <a mat-list-item [routerLink]="['/products', product._id]" class="product-list-item">
                   <p matLine class="product-list-name"> {{product.product_name}} </p>
