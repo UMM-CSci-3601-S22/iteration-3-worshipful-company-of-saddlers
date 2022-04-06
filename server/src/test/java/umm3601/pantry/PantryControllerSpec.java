@@ -16,7 +16,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.mockrunner.mock.web.MockHttpServletRequest;
 import com.mockrunner.mock.web.MockHttpServletResponse;
@@ -253,7 +252,7 @@ public class PantryControllerSpec {
     return pantryItems;
   }
 
-  private Product[] returnedProducts(Context ctx) {
+  public Product[] returnedProducts(Context ctx) {
     String result = ctx.resultString();
     Product[] products = javalinJackson.fromJsonString(result, Product[].class);
     return products;
