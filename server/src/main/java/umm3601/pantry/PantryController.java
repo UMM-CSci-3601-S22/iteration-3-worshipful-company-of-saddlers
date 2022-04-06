@@ -119,14 +119,14 @@ public class PantryController {
     // database system. So MongoDB is going to find the products with the specified
     // properties, return those sorted in the specified manner, and put the
     // results into an initially empty ArrayList.
-    ArrayList<Product> matchingProducts = productCollection
+    ArrayList<PantryItem> matchingItems = pantryCollection
         .find(combinedFilter)
         .sort(sortingOrder)
         .into(new ArrayList<>());
 
     // Set the JSON body of the response to be the list of products returned by
     // the database.
-    ctx.json(matchingProducts);
+    ctx.json(matchingItems);
   }
 
   private Bson constructFilter(Context ctx) {
