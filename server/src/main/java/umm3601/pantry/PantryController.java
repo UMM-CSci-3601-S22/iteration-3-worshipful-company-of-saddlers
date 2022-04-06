@@ -98,6 +98,29 @@ public class PantryController {
 
   }
 
+  /**
+   * Get a JSON response with a list of all the products.
+   *
+   * @param ctx a Javalin HTTP context
+   */
+  public void getAllItems(Context ctx) {
+    Bson combinedFilter = constructFilter(ctx);
+    Bson sortingOrder = constructSortingOrder(ctx);
+
+    // All three of the find, sort, and into steps happen "in parallel" inside the
+    // database system. So MongoDB is going to find the products with the specified
+    // properties, return those sorted in the specified manner, and put the
+    // results into an initially empty ArrayList.
+    ArrayList<PantryItem> matchingItems = pantryCollection
+        .find(combinedFilter)
+        .sort(sortingOrder)
+        .into(new ArrayList<>());
+
+    // Set the JSON body of the response to be the list of products returned by
+    // the database.
+    ctx.json(matchingItems);
+  }
+
   private Bson constructFilter(Context ctx) {
     List<Bson> filters = new ArrayList<>(); // start with a blank document
 
