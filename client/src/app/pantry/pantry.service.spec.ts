@@ -1,3 +1,4 @@
+/* eslint-disable object-shorthand */
 /* eslint-disable @typescript-eslint/naming-convention */
 import { HttpClient } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
@@ -33,6 +34,51 @@ describe('PantryService', () => {
       category: 'baked goods',
       purchase_date: '03-02-2022',
       notes: 'notes for bread pantry item'
+    }
+  ];
+
+  const testProducts: Product[] = [
+    {
+      _id: 'banana_id',
+      product_name: 'banana',
+      description: '',
+      brand: 'Dole',
+      category: 'produce',
+      store: 'willies',
+      location: '',
+      notes: '',
+      tags: [],
+      lifespan: 0,
+      threshold: 0,
+      image: ''
+    },
+    {
+      _id: 'milk_id',
+      product_name: 'Whole Milk',
+      description: '',
+      brand: 'Land O Lakes',
+      category: 'dairy',
+      store: 'willies',
+      location: '',
+      notes: '',
+      tags: [],
+      lifespan: 0,
+      threshold: 0,
+      image: ''
+    },
+    {
+      _id: 'bread_id',
+      product_name: 'Wheat Bread',
+      description: '',
+      brand: 'Country Hearth',
+      category: 'baked goods',
+      store: 'pomme de terre',
+      location: '',
+      notes: '',
+      tags: [],
+      lifespan: 0,
+      threshold: 0,
+      image: ''
     }
   ];
 
@@ -90,6 +136,55 @@ describe('PantryService', () => {
 
   });
 
+  it('getPantryItems() calls api/pantryItems with filter param category \' deli\'', () => {
+    pantryService.getPantryItems({category: 'deli'}).subscribe(
+      pantryItems => expect(pantryItems).toBe(testPantryProducts)
+    );
+
+    const req = httpTestingController.expectOne(
+      (request) => request.url.startsWith(pantryService.pantryUrl) && request.params.has('category')
+    );
+
+    expect(req.request.method).toEqual('GET');
+
+    expect(req.request.params.get('category')).toEqual('deli');
+
+    req.flush(testPantryProducts);
+  });
+
+  it('getPantryItems() calls api/pantryItems with filter param name \'bread\'', () => {
+    pantryService.getPantryItems({name: 'bread'}).subscribe(
+      pantryItems => expect(pantryItems).toBe(testPantryProducts)
+    );
+
+    const req = httpTestingController.expectOne(
+      (request) => request.url.startsWith(pantryService.pantryUrl) && request.params.has('name')
+    );
+
+    expect(req.request.method).toEqual('GET');
+
+    expect(req.request.params.get('name')).toEqual('bread');
+
+    req.flush(testPantryProducts);
+  });
+
+  it('filterItems filters items by name param \'bread\'', () => {
+    expect(testPantryProducts.length).toBe(3);
+    const name = 'bread';
+    expect(pantryService.filterItems(testPantryProducts, { name: name }).length).toBe(1);
+  });
+
+  it('filterItems filters items by name param \'b\'', () => {
+    expect(testPantryProducts.length).toBe(3);
+    const name = 'b';
+    expect(pantryService.filterItems(testPantryProducts, { name: name }).length).toBe(2);
+  });
+
+  it('filterItems filters items by category param \'produce\'', () => {
+    expect(testPantryProducts.length).toBe(3);
+    const category = 'produce';
+    expect(pantryService.filterItems(testPantryProducts, { category: category }).length).toBe(1);
+  });
 
   it('addPantryItem() posts to api/pantry', () => {
     // Assert that the products that we add to the pantry are actually added
@@ -103,6 +198,59 @@ describe('PantryService', () => {
     expect(req.request.body).toEqual(newProduct);
 
     req.flush({id: 'new_id'});
+  });
+
+  it('getProducts() calls api/products with filter parameter \'produce\'', () => {
+
+    pantryService.getProducts({ category: 'produce' }).subscribe(
+      products => expect(products).toBe(testProducts)
+    );
+
+    // Specify that (exactly) one request will be made to the specified URL with the category parameter.
+    const req = httpTestingController.expectOne(
+      (request) => request.url.startsWith(pantryService.productUrl) && request.params.has('category')
+    );
+
+    // Check that the request made to that URL was a GET request.
+    expect(req.request.method).toEqual('GET');
+
+    // Check that the role parameter was 'admin'
+    expect(req.request.params.get('category')).toEqual('produce');
+
+    req.flush(testProducts);
+  });
+
+  it('getProducts() calls api/products with filter store parameter \'willies\'', () => {
+
+    pantryService.getProducts({ store: 'willies' }).subscribe(
+      products => expect(products).toBe(testProducts)
+    );
+
+    // Specify that (exactly) one request will be made to the specified URL with the category parameter.
+    const req = httpTestingController.expectOne(
+      (request) => request.url.startsWith(pantryService.productUrl) && request.params.has('store')
+    );
+
+    // Check that the request made to that URL was a GET request.
+    expect(req.request.method).toEqual('GET');
+
+    // Check that the role parameter was 'admin'
+    expect(req.request.params.get('store')).toEqual('willies');
+
+    req.flush(testProducts);
+  });
+
+  it('getProductById() calls api/products/id', () => {
+    const targetProduct: Product = testProducts[1];
+    const targetId: string = targetProduct._id;
+    pantryService.getProductById(targetId).subscribe(
+      product => expect(product).toBe(targetProduct)
+    );
+
+    const expectedUrl: string = pantryService.productUrl + '/' + targetId;
+    const req = httpTestingController.expectOne(expectedUrl);
+    expect(req.request.method).toEqual('GET');
+    req.flush(targetProduct);
   });
 
 });
