@@ -14,7 +14,6 @@ const routes: Routes = [
   {path: 'products', component: ProductListComponent},
   {path: 'products/new', component: AddProductComponent},
   {path: 'products/:id', component: SingleProductPageComponent},
-  {path: 'pantry/new', component: AddPantryItemComponent},
 ];
 
 @NgModule({
