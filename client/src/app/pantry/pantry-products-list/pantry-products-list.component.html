@@ -51,7 +51,7 @@
     <!-- Page Break to separate List and Search cards  -->
     <!-- <br> -->
     <div fxLayout="row wrap">
-      <div fxFlex fxFlex.gt-sm="80" fxFlexOffset.gt-sm="10" *ngIf="getPantryItemsFromServer; else pantryError">
+      <div fxFlex fxFlex.gt-sm="80" fxFlexOffset.gt-sm="10" *ngIf="getItemsFromServer; else pantryError">
 
         <!-- List view -->
         <mat-card>

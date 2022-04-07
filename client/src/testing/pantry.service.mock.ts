@@ -38,6 +38,8 @@ import { Product, ProductCategory } from '../app/products/product';
     }
    ];
 
+   deletedItem: PantryItem;
+
    constructor() {
      super(null);
    }
@@ -47,4 +49,10 @@ import { Product, ProductCategory } from '../app/products/product';
      return of(MockPantryService.testPantryProducts);
    }
 
+   deleteItem(id: string): Observable<PantryItem> {
+    if (id === MockPantryService.testPantryProducts[0]._id) {this.deletedItem = MockPantryService.testPantryProducts[0];}
+    if (id === MockPantryService.testPantryProducts[1]._id) {this.deletedItem = MockPantryService.testPantryProducts[1];}
+    if (id === MockPantryService.testPantryProducts[2]._id) {this.deletedItem = MockPantryService.testPantryProducts[2];}
+     return of(this.deletedItem);
+   }
  }

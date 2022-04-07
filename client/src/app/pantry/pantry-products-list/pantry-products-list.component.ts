@@ -6,7 +6,7 @@ import { Product } from 'src/app/products/product';
 import { ProductService } from 'src/app/products/product.service';
 import { PantryService } from '../pantry.service';
 import { AddProductToPantryComponent } from 'src/app/products/add-product-to-pantry/add-product-to-pantry.component';
-import { PantryItem } from '../pantryItem';
+import { PantryItem, ProductCategory } from '../pantryItem';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 
@@ -25,15 +25,19 @@ export class PantryProductsListComponent implements OnInit, OnDestroy {
   // Unfiltered product list
   public allProducts: Product[] = [];
   public pantryProducts: PantryItem[] = [];
+  public serverFilteredItems: PantryItem[];
+  public filteredItems: PantryItem[];
   public filteredProducts: Product[];
 
   public name: string;
+  public productCategory: ProductCategory;
 
   public activeFilters: boolean;
 
   popup = false;
 
   getUnfilteredProductsSub: Subscription;
+  getItemsSub: Subscription;
   getUnfilteredItemsSub: Subscription;
 
   public tempId: string;
@@ -59,7 +63,6 @@ export class PantryProductsListComponent implements OnInit, OnDestroy {
 
   i: number;
   j: number;
-  category: string;
   lengthAllProducts: number;
   lengthItems: number;
 
@@ -81,22 +84,40 @@ export class PantryProductsListComponent implements OnInit, OnDestroy {
   /*
   * Get the products in the pantry from the server,
   */
-  getPantryItemsFromServer() {
-    this.pantryService.getPantryItems().subscribe(returnedPantryProducts => {
+  // getPantryItemsFromServer() {
+  //   this.pantryService.getPantryItems().subscribe(returnedPantryProducts => {
 
-      this.pantryProducts = returnedPantryProducts;
-      this.lengthItems = this.pantryProducts.length;
+  //     this.pantryProducts = returnedPantryProducts;
+  //     this.lengthItems = this.pantryProducts.length;
+  //   }, err => {
+  //     // If there was an error getting the users, log
+  //     // the problem and display a message.
+  //     console.error('We couldn\'t get the list of products in your pantry; the server might be down');
+  //     this.snackBar.open(
+  //       'Problem contacting the server - try again',
+  //       'OK',
+  //       // The message will disappear after 3 seconds.
+  //       { duration: 3000 });
+
+  //   });
+  // }
+
+  getItemsFromServer(): void {
+    this.unsub();
+    this.getItemsSub = this.pantryService.getPantryItems({
+      category: this.productCategory,
+      name: this.name
+    }).subscribe(returnedItems => {
+      this.serverFilteredItems = returnedItems;
     }, err => {
-      // If there was an error getting the users, log
-      // the problem and display a message.
-      console.error('We couldn\'t get the list of products in your pantry; the server might be down');
-      this.snackBar.open(
-        'Problem contacting the server - try again',
-        'OK',
-        // The message will disappear after 3 seconds.
-        { duration: 3000 });
-
+      console.log(err);
     });
+    if (this.productCategory || this.name) {
+      this.activeFilters = true;
+    }
+    else {
+      this.activeFilters = false;
+    }
   }
 
   getUnfilteredProducts(): void {
@@ -127,11 +148,23 @@ export class PantryProductsListComponent implements OnInit, OnDestroy {
     }
   }
 
+  updateItemFilter(): void {
+    this.filteredItems = this.pantryService.filterItems(
+      this.serverFilteredItems, {category: this.productCategory, name: this.name}
+    );
+    if (this.name || this.productCategory) {
+      this.activeFilters = true;
+    }
+    else {
+      this.activeFilters = false;
+    }
+  }
+
   /*
   * Starts an asynchronous operation to update the pantry items list
   */
   ngOnInit(): void {
-    this.getPantryItemsFromServer();
+    this.getItemsFromServer();
     this.getUnfilteredProducts();
     this.getUnfilteredItems();
   }
@@ -146,6 +179,7 @@ export class PantryProductsListComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.unsubProductsUnfiltered();
     this.unsubItemsUnfiltered();
+    this.unsub();
   }
 
   unsubProductsUnfiltered(): void {
@@ -168,6 +202,12 @@ export class PantryProductsListComponent implements OnInit, OnDestroy {
       // Data back from dialog
       console.log({ res });
     });
+  }
+
+  unsub(): void {
+    if (this.getItemsSub) {
+      this.getItemsSub.unsubscribe();
+    }
   }
 
   public makeCategoryLists(): void {

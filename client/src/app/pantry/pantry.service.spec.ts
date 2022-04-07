@@ -253,4 +253,17 @@ describe('PantryService', () => {
     req.flush(targetProduct);
   });
 
+  it('deleteItem() deletes from api/pantry', () => {
+    const targetItem: PantryItem = testPantryProducts[1];
+    const targetId: string = targetItem._id;
+    pantryService.deleteItem(targetId).subscribe(
+      item => expect(item).toBe(targetItem)
+    );
+
+    const expectedUrl: string = pantryService.pantryUrl + '/' + targetId;
+    const req = httpTestingController.expectOne(expectedUrl);
+    expect(req.request.method).toEqual('DELETE');
+    req.flush(targetItem);
+  });
+
 });

@@ -25,6 +25,7 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 
 import { PantryProductsListComponent } from './pantry-products-list.component';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { ProductListComponent } from 'src/app/products/product-list/product-list.component';
 
 
 const COMMON_IMPORTS: any[] = [
@@ -45,7 +46,7 @@ const COMMON_IMPORTS: any[] = [
   BrowserAnimationsModule,
   RouterTestingModule,
   MatDialogModule,
-  HttpClientTestingModule
+  HttpClientTestingModule,
 ];
 
 describe('PantryProductsListComponent', () => {
@@ -78,6 +79,70 @@ describe('PantryProductsListComponent', () => {
     expect(pantryProductsList).toBeTruthy();
   });
 
+  it('should call openDeleteDialog and call removeItem on milk', () => {
+    pantryProductsList.pantryProducts = pantryProductsList.serverFilteredItems;
+    pantryProductsList.bakedGoodsItems = pantryProductsList.serverFilteredItems;
+    pantryProductsList.bakingSuppliesItems = pantryProductsList.serverFilteredItems;
+    pantryProductsList.cleaningItems = pantryProductsList.serverFilteredItems;
+    pantryProductsList.dairyItems = pantryProductsList.serverFilteredItems;
+    pantryProductsList.deliItems = pantryProductsList.serverFilteredItems;
+    pantryProductsList.frozenItems = pantryProductsList.serverFilteredItems;
+    pantryProductsList.herbItems = pantryProductsList.serverFilteredItems;
+    pantryProductsList.meatItems = pantryProductsList.serverFilteredItems;
+    pantryProductsList.miscellaneousItems = pantryProductsList.serverFilteredItems;
+    pantryProductsList.paperItems = pantryProductsList.serverFilteredItems;
+    pantryProductsList.petSuppliesItems = pantryProductsList.serverFilteredItems;
+    pantryProductsList.produceItems = pantryProductsList.serverFilteredItems;
+    pantryProductsList.stapleItems = pantryProductsList.serverFilteredItems;
+    pantryProductsList.toiletriesItems = pantryProductsList.serverFilteredItems;
+    pantryProductsList.openDeleteDialog('milk', 'milk _id');
+    fixture.detectChanges();
+    pantryProductsList.removeItem('milk _id');
+    expect(pantryProductsList.dairyItems.length).toBe(2);
+  });
 
+  it('should call openDeleteDialog and call removeProduct on bread', () => {
+    pantryProductsList.pantryProducts = pantryProductsList.serverFilteredItems;
+    pantryProductsList.bakedGoodsItems = pantryProductsList.serverFilteredItems;
+    pantryProductsList.bakingSuppliesItems = pantryProductsList.serverFilteredItems;
+    pantryProductsList.cleaningItems = pantryProductsList.serverFilteredItems;
+    pantryProductsList.dairyItems = pantryProductsList.serverFilteredItems;
+    pantryProductsList.deliItems = pantryProductsList.serverFilteredItems;
+    pantryProductsList.frozenItems = pantryProductsList.serverFilteredItems;
+    pantryProductsList.herbItems = pantryProductsList.serverFilteredItems;
+    pantryProductsList.meatItems = pantryProductsList.serverFilteredItems;
+    pantryProductsList.miscellaneousItems = pantryProductsList.serverFilteredItems;
+    pantryProductsList.paperItems = pantryProductsList.serverFilteredItems;
+    pantryProductsList.petSuppliesItems = pantryProductsList.serverFilteredItems;
+    pantryProductsList.produceItems = pantryProductsList.serverFilteredItems;
+    pantryProductsList.stapleItems = pantryProductsList.serverFilteredItems;
+    pantryProductsList.toiletriesItems = pantryProductsList.serverFilteredItems;
+    pantryProductsList.openDeleteDialog('bread', 'bread _id');
+    fixture.detectChanges();
+    pantryProductsList.removeItem('bread _id');
+    expect(pantryProductsList.bakedGoodsItems.length).toBe(2);
+  });
+
+  it('should call openDeleteDialog and call removeProduct on banana', () => {
+    pantryProductsList.pantryProducts = pantryProductsList.serverFilteredItems;
+    pantryProductsList.bakedGoodsItems = pantryProductsList.serverFilteredItems;
+    pantryProductsList.bakingSuppliesItems = pantryProductsList.serverFilteredItems;
+    pantryProductsList.cleaningItems = pantryProductsList.serverFilteredItems;
+    pantryProductsList.dairyItems = pantryProductsList.serverFilteredItems;
+    pantryProductsList.deliItems = pantryProductsList.serverFilteredItems;
+    pantryProductsList.frozenItems = pantryProductsList.serverFilteredItems;
+    pantryProductsList.herbItems = pantryProductsList.serverFilteredItems;
+    pantryProductsList.meatItems = pantryProductsList.serverFilteredItems;
+    pantryProductsList.miscellaneousItems = pantryProductsList.serverFilteredItems;
+    pantryProductsList.paperItems = pantryProductsList.serverFilteredItems;
+    pantryProductsList.petSuppliesItems = pantryProductsList.serverFilteredItems;
+    pantryProductsList.produceItems = pantryProductsList.serverFilteredItems;
+    pantryProductsList.stapleItems = pantryProductsList.serverFilteredItems;
+    pantryProductsList.toiletriesItems = pantryProductsList.serverFilteredItems;
+    pantryProductsList.openDeleteDialog('banana', 'banana _id');
+    fixture.detectChanges();
+    pantryProductsList.removeItem('banana _id');
+    expect(pantryProductsList.produceItems.length).toBe(2);
+  });
 });
 
