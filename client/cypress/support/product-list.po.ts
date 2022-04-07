@@ -9,44 +9,188 @@ export class ProductListPage {
     return cy.get('.filtered-product-nav-list .filtered-product-list-item');
   }
 
-  getProduceProductListItems() {
-    return cy.get('.produce-product-nav-list .product-list-item');
+  getFirstFilterDelete() {
+    return cy.get('.filtered-product-nav-list .deleteContainer').first();
   }
 
-  getBakeryProductListItems() {
-    return cy.get('.bakery-product-nav-list .product-list-item');
+  getBakedGoodsProductDropdown() {
+    return cy.get('.baked-goods-product-expansion-panel');
   }
 
-  getMeatProductListItems() {
-    return cy.get('.meat-product-nav-list .product-list-item');
+  getBakedGoodsProductListItems() {
+    return cy.get('.baked-goods-product-nav-list .product-list-item');
+  }
+
+  getFirstBakedGoodsDelete() {
+    return cy.get('.baked-goods-product-nav-list .deleteContainer').first();
+  }
+
+  getBakingSuppliesProductDropdown() {
+    return cy.get('.baking-supplies-product-expansion-panel');
+  }
+
+  getBakingSuppliesProductListItems() {
+    return cy.get('.baking-supplies-product-nav-list .product-list-item');
+  }
+
+  getFirstBakingSuppliesDelete() {
+    return cy.get('.baking-supplies-product-nav-list .deleteContainer').first();
+  }
+
+  getBeverageProductDropdown() {
+    return cy.get('.beverage-product-expansion-panel');
+  }
+
+  getBeverageProductListItems() {
+    return cy.get('.beverage-product-nav-list .product-list-item');
+  }
+
+  getFirstBeverageProductDelete() {
+    return cy.get('.beverage-product-nav-list .deleteContainer').first();
+  }
+
+  getCleaningProductDropdown() {
+    return cy.get('.cleaning-supplies-product-expansion-panel');
+  }
+
+  getCleaningProductListItems() {
+    return cy.get('.cleaning-supplies-product-nav-list .product-list-item');
+  }
+
+  getFirstCleaningProductDelete() {
+    return cy.get('.cleaning-supplies-product-nav-list .deleteContainer').first();
+  }
+
+  getDairyProductDropdown() {
+    return cy.get('.dairy-product-expansion-panel');
   }
 
   getDairyProductListItems() {
     return cy.get('.dairy-product-nav-list .product-list-item');
   }
 
-  getDrinkProductListItems() {
-    return cy.get('.drink-product-nav-list .product-list-item');
+  getFirstDairyProductDelete() {
+    return cy.get('.dairy-product-nav-list .deleteContainer').first();
+  }
+
+  getDeliProductDropdown() {
+    return cy.get('.deli-product-expansion-panel');
+  }
+
+  getDeliProductListItems() {
+    return cy.get('.deli-product-nav-list .product-list-item');
+  }
+
+  getFirstDeliProductDelete() {
+    return cy.get('.deli-product-nav-list .deleteContainer').first();
+  }
+
+  getFrozenProductDropdown() {
+    return cy.get('.frozen-product-expansion-panel');
   }
 
   getFrozenProductListItems() {
     return cy.get('.frozen-product-nav-list .product-list-item');
   }
 
-  getCannedProductListItems() {
-    return cy.get('.canned-product-nav-list .product-list-item');
+  getFirstFrozenProductDelete() {
+    return cy.get('.frozen-product-nav-list .deleteContainer').first();
   }
 
-  getGeneralProductListItems() {
-    return cy.get('.general-product-nav-list .product-list-item');
+  getHerbProductDropdown() {
+    return cy.get('.herb-product-expansion-panel');
   }
 
-  getSeasonalProductListItems() {
-    return cy.get('.seasonal-product-nav-list .product-list-item');
+  getHerbProductListItems() {
+    return cy.get('.herb-product-nav-list .product-list-item');
+  }
+
+  getFirstHerbProductDelete() {
+    return cy.get('.herb-product-nav-list .deleteContainer').first();
+  }
+
+  getMeatProductDropdown() {
+    return cy.get('.meat-product-expansion-panel');
+  }
+
+  getMeatProductListItems() {
+    return cy.get('.meat-product-nav-list .product-list-item');
+  }
+
+  getFirstMeatProductDelete() {
+    return cy.get('.meat-product-nav-list .deleteContainer').first();
+  }
+
+  getMiscellaneousProductDropdown() {
+    return cy.get('.miscellaneous-product-expansion-panel');
   }
 
   getMiscellaneousProductListItems() {
     return cy.get('.miscellaneous-product-nav-list .product-list-item');
+  }
+
+  getFirstMiscellaneousProductDelete() {
+    return cy.get('.miscellaneous-product-nav-list .deleteContainer').first();
+  }
+
+  getPaperProductDropdown() {
+    return cy.get('.paper-product-expansion-panel');
+  }
+
+  getPaperProductListItems() {
+    return cy.get('.paper-product-nav-list .product-list-item');
+  }
+
+  getFirstPaperProductDelete() {
+    return cy.get('.paper-product-nav-list .deleteContainer').first();
+  }
+
+  getPetProductDropdown() {
+    return cy.get('.pet-supplies-product-expansion-panel');
+  }
+
+  getPetProductListItems() {
+    return cy.get('.pet-supplies-product-nav-list .product-list-item');
+  }
+
+  getFirstPetProductDelete() {
+    return cy.get('.pet-supplies-product-nav-list .deleteContainer').first();
+  }
+
+  getProduceProductDropdown() {
+    return cy.get('.produce-product-expansion-panel');
+  }
+
+  getProduceProductListItems() {
+    return cy.get('.produce-product-nav-list .product-list-item');
+  }
+
+  getFirstProduceProductDelete() {
+    return cy.get('.produce-product-nav-list .deleteContainer').first();
+  }
+
+  getStapleProductDropdown() {
+    return cy.get('.staple-product-expansion-panel');
+  }
+
+  getStapleProductListItems() {
+    return cy.get('.staple-product-nav-list .product-list-item');
+  }
+
+  getFirstStapleProductDelete() {
+    return cy.get('.staple-product-nav-list .deleteContainer').first();
+  }
+
+  getToiletriesProductDropdown() {
+    return cy.get('.toiletries-product-expansion-panel');
+  }
+
+  getToiletriesProductListItems() {
+    return cy.get('.toiletries-product-nav-list .product-list-item');
+  }
+
+  getFirstToiletriesProductDelete() {
+    return cy.get('.toiletries-product-nav-list .deleteContainer').first();
   }
 
   /**
@@ -63,14 +207,28 @@ export class ProductListPage {
    *
    * @param value The category *value* to select, this is what's found in the mat-option "value" attribute.
    */
-  selectCategory(value: ProductCategory) {
+  selectCategory(value: string) {
     // Find and click the drop down
     return cy.get('[data-test=productCategorySelect]').click()
       // Select and click the desired value from the resulting menu
       .get(`mat-option[value="${value}"]`).click();
   }
 
-  deleteProductInteraction(cssClass: string) {
-    return cy.get(cssClass + ' ' + '[data-test=deleteProductButton]');
+  selectStore(value: string) {
+    return cy.get('[data-test=productStoreSelect]')
+    // Select and click the desired value from the resulting menu
+    .click().get(`mat-option[value="${value}"]`).click();
+  }
+
+  deleteProductDelete() {
+    return cy.get('[data-test=finalDeleteProductButton]').click();
+  }
+
+  deleteProductCancel() {
+    return cy.get('[data-test=cancelDeleteProductButton]').click();
+  }
+
+  addProductButton() {
+    return cy.get('[data-test=addProductButton]');
   }
 }

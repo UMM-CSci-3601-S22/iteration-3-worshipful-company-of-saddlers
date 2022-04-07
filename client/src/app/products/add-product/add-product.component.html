@@ -3,7 +3,7 @@
     <form [formGroup]="addProductForm" (ngSubmit)="submitForm();">
     <mat-card class="add-product-card">
         <mat-card-header>
-          <mat-card-title class="add-product-title">Create a New product</mat-card-title>
+          <mat-card-title class="add-product-title">Create a New Product</mat-card-title>
         </mat-card-header>
         <mat-card-content fxLayout="column">
 
@@ -46,16 +46,21 @@
           <mat-form-field>
             <mat-label>Product Category</mat-label>
             <mat-select required formControlName="category">
-              <mat-option value="bakery">Bakery</mat-option>
-              <mat-option value="produce">Produce</mat-option>
-              <mat-option value="meat">Meat</mat-option>
+              <mat-option value="baked goods">Baked Goods</mat-option>
+              <mat-option value="baking supplies">Baking Supplies</mat-option>
+              <mat-option value="beverages">Beverages</mat-option>
+              <mat-option value="cleaning products">Cleaning Products</mat-option>
               <mat-option value="dairy">Dairy</mat-option>
+              <mat-option value="deli">Deli</mat-option>
               <mat-option value="frozen foods">Frozen Foods</mat-option>
-              <mat-option value="canned goods">Canned Goods</mat-option>
-              <mat-option value="drinks">Drinks</mat-option>
-              <mat-option value="general grocery">General Grocery</mat-option>
+              <mat-option value="herbs/spices">Herbs/Spices</mat-option>
+              <mat-option value="meat">Meat</mat-option>
               <mat-option value="miscellaneous">Miscellaneous</mat-option>
-              <mat-option value="seasonal">Seasonal</mat-option>
+              <mat-option value="paper products">Paper Products</mat-option>
+              <mat-option value="pet supplies">Pet Supplies</mat-option>
+              <mat-option value="produce">Produce</mat-option>
+              <mat-option value="staples">Staples</mat-option>
+              <mat-option value="toiletries">Toiletries</mat-option>
             </mat-select>
             <mat-error *ngIf="addProductForm.get('category').hasError('required')">You must make a selection</mat-error>
             <mat-error *ngIf="addProductForm.get('category').hasError('pattern') && !addProductForm.get('category').hasError('required')">

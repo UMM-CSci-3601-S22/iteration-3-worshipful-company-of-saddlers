@@ -125,28 +125,70 @@ describe('Delete From ProductList', () => {
     });
   }));
 
-  it('should call openDeleteDialog and call removeProduct', () => {
+  it('should call openDeleteDialog and call removeProduct on milk', () => {
     productList.allProducts = productList.serverFilteredProducts;
     productList.filteredProducts = productList.serverFilteredProducts;
     productList.bakedGoodsProducts = productList.serverFilteredProducts;
     productList.bakingSuppliesProducts = productList.serverFilteredProducts;
-    productList.produceProducts = productList.serverFilteredProducts;
-    productList.meatProducts = productList.serverFilteredProducts;
-    productList.dairyProducts = productList.serverFilteredProducts;
-    productList.frozenProducts = productList.serverFilteredProducts;
-    productList.deliProducts = productList.serverFilteredProducts;
-    productList.beverageProducts = productList.serverFilteredProducts;
-    productList.herbProducts = productList.serverFilteredProducts;
-    productList.miscellaneousProducts = productList.serverFilteredProducts;
-    productList.stapleProducts = productList.serverFilteredProducts;
-    productList.stapleProducts = productList.serverFilteredProducts;
-    productList.paperProducts = productList.serverFilteredProducts;
     productList.cleaningProducts = productList.serverFilteredProducts;
+    productList.dairyProducts = productList.serverFilteredProducts;
+    productList.deliProducts = productList.serverFilteredProducts;
+    productList.frozenProducts = productList.serverFilteredProducts;
+    productList.herbProducts = productList.serverFilteredProducts;
+    productList.meatProducts = productList.serverFilteredProducts;
+    productList.miscellaneousProducts = productList.serverFilteredProducts;
+    productList.paperProducts = productList.serverFilteredProducts;
     productList.petSuppliesProducts = productList.serverFilteredProducts;
+    productList.produceProducts = productList.serverFilteredProducts;
+    productList.stapleProducts = productList.serverFilteredProducts;
+    productList.toiletriesProducts = productList.serverFilteredProducts;
+    productList.openDeleteDialog('Whole Milk', 'milk_id');
+    fixture.detectChanges();
+    productList.removeProduct('milk_id');
+    expect(productList.produceProducts.length).toBe(2);
+  });
+
+  it('should call openDeleteDialog and call removeProduct on bread', () => {
+    productList.filteredProducts = productList.serverFilteredProducts;
+    productList.bakedGoodsProducts = productList.serverFilteredProducts;
+    productList.bakingSuppliesProducts = productList.serverFilteredProducts;
+    productList.cleaningProducts = productList.serverFilteredProducts;
+    productList.dairyProducts = productList.serverFilteredProducts;
+    productList.deliProducts = productList.serverFilteredProducts;
+    productList.frozenProducts = productList.serverFilteredProducts;
+    productList.herbProducts = productList.serverFilteredProducts;
+    productList.meatProducts = productList.serverFilteredProducts;
+    productList.miscellaneousProducts = productList.serverFilteredProducts;
+    productList.paperProducts = productList.serverFilteredProducts;
+    productList.petSuppliesProducts = productList.serverFilteredProducts;
+    productList.produceProducts = productList.serverFilteredProducts;
+    productList.stapleProducts = productList.serverFilteredProducts;
+    productList.toiletriesProducts = productList.serverFilteredProducts;
+    productList.openDeleteDialog('Wheat Bread', 'bread_id');
+    fixture.detectChanges();
+    productList.removeProduct('bread_id');
+    expect(productList.produceProducts.length).toBe(2);
+  });
+
+  it('should call openDeleteDialog and call removeProduct on banana', () => {
+    productList.filteredProducts = productList.serverFilteredProducts;
+    productList.bakedGoodsProducts = productList.serverFilteredProducts;
+    productList.bakingSuppliesProducts = productList.serverFilteredProducts;
+    productList.cleaningProducts = productList.serverFilteredProducts;
+    productList.dairyProducts = productList.serverFilteredProducts;
+    productList.deliProducts = productList.serverFilteredProducts;
+    productList.frozenProducts = productList.serverFilteredProducts;
+    productList.herbProducts = productList.serverFilteredProducts;
+    productList.meatProducts = productList.serverFilteredProducts;
+    productList.miscellaneousProducts = productList.serverFilteredProducts;
+    productList.paperProducts = productList.serverFilteredProducts;
+    productList.petSuppliesProducts = productList.serverFilteredProducts;
+    productList.produceProducts = productList.serverFilteredProducts;
+    productList.stapleProducts = productList.serverFilteredProducts;
+    productList.toiletriesProducts = productList.serverFilteredProducts;
     productList.openDeleteDialog('banana', 'banana_id');
     fixture.detectChanges();
     productList.removeProduct('banana_id');
     expect(productList.produceProducts.length).toBe(2);
   });
-
 });

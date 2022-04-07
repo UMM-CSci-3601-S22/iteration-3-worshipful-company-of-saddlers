@@ -21,11 +21,11 @@ export class AddProductComponent implements OnInit {
     product_name: [
       {type: 'required', message: 'Product\'s name is required'},
       {type: 'minlength', message: 'Product name must be at least 1 character'},
-      {type: 'maxlength', message: 'Product name must be at less than 200 characters'}
+      {type: 'maxlength', message: 'Product name must be at less than 100 characters'}
     ],
     description: [
       {type: 'minlength', message: 'Product description must be at least 1 character'},
-      {type: 'maxlength', message: 'Product description must be at less than 500 characters'}
+      {type: 'maxlength', message: 'Product description must be at less than 200 characters'}
     ],
     brand: [
       {type: 'required', message: 'Product brand is required'},
@@ -48,7 +48,7 @@ export class AddProductComponent implements OnInit {
     ],
     notes: [
       {type: 'minlength', message: 'Product notes must be at least 1 character'},
-      {type: 'maxlength', message: 'Product notes must be at less than 350 characters'}
+      {type: 'maxlength', message: 'Product notes must be at less than 200 characters'}
     ],
     tags: [
       {type: 'minlength', message: 'Product notes must be at least 1 character'},
@@ -72,17 +72,18 @@ export class AddProductComponent implements OnInit {
   createForms() {
     this.addProductForm = this.fb.group({
       product_name: new FormControl('', Validators.compose([
-        Validators.required, Validators.minLength(1), Validators.maxLength(200),
+        Validators.required, Validators.minLength(1), Validators.maxLength(100),
       ])),
       description: new FormControl('', Validators.compose([
-        Validators.minLength(1), Validators.maxLength(500),
+        Validators.minLength(1), Validators.maxLength(200),
       ])),
       brand: new FormControl('', Validators.compose([
         Validators.required, Validators.minLength(1), Validators.maxLength(100),
       ])),
       category: new FormControl('', Validators.compose([
         Validators.required,
-        Validators.pattern('^(bakery|produce|meat|dairy|frozen foods|canned goods|drinks|general grocery|miscellaneous|seasonal)$')
+        Validators.pattern('^(baked goods|baking supplies|beverages|cleaning products|dairy|deli|' +
+          'frozen foods|herbs/spices|meat|miscellaneous|paper products|pet supplies|produce|staples|toiletries)$')
       ])),
       store: new FormControl('', Validators.compose([
         Validators.required, Validators.minLength(1), Validators.maxLength(100),
@@ -91,7 +92,7 @@ export class AddProductComponent implements OnInit {
         Validators.minLength(1), Validators.maxLength(100),
       ])),
       notes: new FormControl('', Validators.compose([
-        Validators.minLength(1), Validators.maxLength(350),
+        Validators.minLength(1), Validators.maxLength(200),
       ])),
       tags: null
       ,

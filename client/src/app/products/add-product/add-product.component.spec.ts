@@ -192,8 +192,8 @@ describe('AddProductComponent', () => {
       expect(categoryControl.hasError('required')).toBeTruthy();
     });
 
-    it('should allow "bakery"', () => {
-      categoryControl.setValue('bakery');
+    it('should allow "baked goods"', () => {
+      categoryControl.setValue('baked goods');
       expect(categoryControl.valid).toBeTruthy();
     });
 
