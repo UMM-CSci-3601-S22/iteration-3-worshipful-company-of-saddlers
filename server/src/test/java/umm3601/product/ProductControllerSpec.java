@@ -298,6 +298,21 @@ public class ProductControllerSpec {
   }
 
   @Test
+  public void canGetProductsByName() throws IOException {
+    mockReq.setQueryString("product_name=Milk");
+    Context ctx = mockContext("api/products");
+
+    productController.getAllProducts(ctx);
+    Product[] resultProducts = returnedProducts(ctx);
+
+    assertEquals(HttpCode.OK.getStatus(), mockRes.getStatus());
+    assertEquals(1, resultProducts.length); // There should be one product returned
+    for (Product product : resultProducts) {
+      assertEquals("Milk", product.product_name);
+    }
+  }
+
+  @Test
   public void canGetProductsByBrand() throws IOException {
     mockReq.setQueryString("brand=Dole");
     Context ctx = mockContext("api/products");

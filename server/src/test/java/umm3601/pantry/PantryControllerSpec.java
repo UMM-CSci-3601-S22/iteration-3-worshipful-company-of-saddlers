@@ -455,11 +455,95 @@ public class PantryControllerSpec {
   }
 
   @Test
+  public void addItemWithNullProduct() throws IOException {
+
+    String testNewEntry = "{"
+        + "\"product\": null,"
+        + "\"purchase_date\": \"2023-01-27\","
+        + "\"notes\": \"check on gerbils every 3 days\""
+        + "\"name\": \"Banana Phone\""
+        + "\"category\": \"produce\""
+        + "}";
+
+    mockReq.setBodyContent(testNewEntry);
+    mockReq.setMethod("POST");
+
+    Context ctx = mockContext("api/pantry");
+
+    assertThrows(ValidationException.class, () -> {
+      pantryController.addNewPantryItem(ctx);
+    });
+  }
+
+  @Test
+  public void addItemWithEmptyProduct() throws IOException {
+
+    String testNewEntry = "{"
+        + "\"product\": \"\","
+        + "\"purchase_date\": \"2023-01-27\","
+        + "\"notes\": \"check on gerbils every 3 days\""
+        + "\"name\": \"Banana Phone\""
+        + "\"category\": \"produce\""
+        + "}";
+
+    mockReq.setBodyContent(testNewEntry);
+    mockReq.setMethod("POST");
+
+    Context ctx = mockContext("api/pantry");
+
+    assertThrows(ValidationException.class, () -> {
+      pantryController.addNewPantryItem(ctx);
+    });
+  }
+
+  @Test
   public void addItemWithBadDate() throws IOException {
 
     String testNewEntry = "{"
         + "\"product\": \"" + bananaEntryId.toHexString() + "\","
         + "\"purchase_date\": \"01272023\","
+        + "\"notes\": \"check on gerbils every 3 days\""
+        + "\"name\": \"Banana Phone\""
+        + "\"category\": \"produce\""
+        + "}";
+
+    mockReq.setBodyContent(testNewEntry);
+    mockReq.setMethod("POST");
+
+    Context ctx = mockContext("api/pantry");
+
+    assertThrows(ValidationException.class, () -> {
+      pantryController.addNewPantryItem(ctx);
+    });
+  }
+
+  @Test
+  public void addItemWithNullDate() throws IOException {
+
+    String testNewEntry = "{"
+        + "\"product\": \"" + bananaEntryId.toHexString() + "\","
+        + "\"purchase_date\": null,"
+        + "\"notes\": \"check on gerbils every 3 days\""
+        + "\"name\": \"Banana Phone\""
+        + "\"category\": \"produce\""
+        + "}";
+
+    mockReq.setBodyContent(testNewEntry);
+    mockReq.setMethod("POST");
+
+    Context ctx = mockContext("api/pantry");
+
+    assertThrows(ValidationException.class, () -> {
+      pantryController.addNewPantryItem(ctx);
+    });
+  }
+
+  @Test
+  public void addItemWithEmptyDate() throws IOException {
+
+    String testNewEntry = "{"
+        + "\"product\": \"" + bananaEntryId.toHexString() + "\","
+        + "\"purchase_date\": \"\","
         + "\"notes\": \"check on gerbils every 3 days\""
         + "\"name\": \"Banana Phone\""
         + "\"category\": \"produce\""
@@ -497,6 +581,27 @@ public class PantryControllerSpec {
   }
 
   @Test
+  public void addItemWithEmptyNote() throws IOException {
+
+    String testNewEntry = "{"
+        + "\"product\": \"" + bananaEntryId.toHexString() + "\","
+        + "\"purchase_date\": \"2023-01-27\","
+        + "\"notes\": \"\""
+        + "\"name\": \"Banana Phone\""
+        + "\"category\": \"produce\""
+        + "}";
+
+    mockReq.setBodyContent(testNewEntry);
+    mockReq.setMethod("POST");
+
+    Context ctx = mockContext("api/pantry");
+
+    assertThrows(ValidationException.class, () -> {
+      pantryController.addNewPantryItem(ctx);
+    });
+  }
+
+  @Test
   public void addItemWithBadName() throws IOException {
 
     String testNewEntry = "{"
@@ -504,6 +609,27 @@ public class PantryControllerSpec {
         + "\"purchase_date\": \"2023-01-27\","
         + "\"notes\": \"check on gerbils every 3 days\""
         + "\"name\": null"
+        + "\"category\": \"produce\""
+        + "}";
+
+    mockReq.setBodyContent(testNewEntry);
+    mockReq.setMethod("POST");
+
+    Context ctx = mockContext("api/pantry");
+
+    assertThrows(ValidationException.class, () -> {
+      pantryController.addNewPantryItem(ctx);
+    });
+  }
+
+  @Test
+  public void addItemWithEmptyName() throws IOException {
+
+    String testNewEntry = "{"
+        + "\"product\": \"" + bananaEntryId.toHexString() + "\","
+        + "\"purchase_date\": \"2023-01-27\","
+        + "\"notes\": \"check on gerbils every 3 days\""
+        + "\"name\": \"\""
         + "\"category\": \"produce\""
         + "}";
 
@@ -526,6 +652,27 @@ public class PantryControllerSpec {
         + "\"notes\": \"check on gerbils every 3 days\""
         + "\"name\": \"Banana Phone\""
         + "\"category\": \"forklift\""
+        + "}";
+
+    mockReq.setBodyContent(testNewEntry);
+    mockReq.setMethod("POST");
+
+    Context ctx = mockContext("api/pantry");
+
+    assertThrows(ValidationException.class, () -> {
+      pantryController.addNewPantryItem(ctx);
+    });
+  }
+
+  @Test
+  public void addItemWithEmptyCategory() throws IOException {
+
+    String testNewEntry = "{"
+        + "\"product\": \"" + bananaEntryId.toHexString() + "\","
+        + "\"purchase_date\": \"2023-01-27\","
+        + "\"notes\": \"check on gerbils every 3 days\""
+        + "\"name\": \"Banana Phone\""
+        + "\"category\": \"\""
         + "}";
 
     mockReq.setBodyContent(testNewEntry);
@@ -613,4 +760,16 @@ public class PantryControllerSpec {
     assertEquals(2, returnedItems.length);
   }
 
+  @Test
+  public void filterByNameAndCategory() throws IOException {
+    mockReq.setQueryString("name=Beans&category=staples");
+    String path = "api/pantry";
+    Context ctx = mockContext(path);
+
+    pantryController.getAllItems(ctx);
+    PantryItem[] returnedItems = returnedPantryItems(ctx);
+
+    assertEquals(HttpCode.OK.getStatus(), mockRes.getStatus());
+    assertEquals(2, returnedItems.length);
+  }
 }
