@@ -3,41 +3,47 @@
     <div class="product-search" fxFlex fxFlex.gt-sm="80" fxFlexOffset.gt-sm="10"
       *ngIf="getUnfilteredProducts; else productError">
       <mat-card>
-        <mat-card-content>
-          <mat-nav-list class="add-product-nav-list">
-            <h3 mat-subheader>Search for a product</h3>
-            <div>
-              <mat-form-field class="input-field">
-                <mat-label>Product Name</mat-label>
-                <input matInput data-test="product_nameInput" placeholder="Search for a product" [(ngModel)]="name"
-                  (input)="updateFilter()">
-              </mat-form-field>
-            </div>
+        <mat-card-content class="top-card" fxLayout="row">
+          <div id="filter-card">
+              <!-- YO ZEKE PUT THE FILTER STUFF HERE! -->
+          </div>
 
-            <div *ngIf="activeFilters">
-              <!--
+          <div id="search-card">
+            <mat-nav-list class="add-product-nav-list">
+              <h3 mat-header>Search for a Product to Add to Pantry</h3>
+              <div>
+                <mat-form-field class="input-field">
+                  <mat-label>Product Name</mat-label>
+                  <input matInput data-test="product_nameInput" placeholder="Search for a product" [(ngModel)]="name"
+                    (input)="updateFilter()">
+                </mat-form-field>
+              </div>
+
+              <div *ngIf="activeFilters">
+                <!--
               We need to add a router link to the pop-up message for adding a product to the pantry that
               Collin made.
             -->
-              <mat-list-item *ngFor="let product of this.filteredProducts" class="add-product-list-item"
-                data-test="addProductListItem">
-                <p matLine class="add-product-list-name">{{product.product_name}}</p>
-                <div *ngIf="!popup" class="addContainer" style="position: absolute; margin-left: 400px">
-                  <button mat-raised-button class="add-product-button" matTooltip="Add Product"
-                    matTooltipPosition="left" (click)="popup = true" data-test="addProductButton">
-                    <mat-icon aria-label="Add Product">add</mat-icon>
-                  </button>
-                </div>
-                <div class="overlay" *ngIf="popup">
-                  <div class="popup">
-                    <h2>Add This Product to Your Pantry</h2>
-                    <a class="close" (click)="popup = false">&times;</a>
-                    <app-add-product-to-pantry [product]="this.product"></app-add-product-to-pantry>
+                <mat-list-item *ngFor="let product of this.filteredProducts" class="add-product-list-item"
+                  data-test="addProductListItem">
+                  <p matLine class="add-product-list-name">{{product.product_name}}</p>
+                  <div *ngIf="!popup" class="addContainer" style="position: absolute; margin-left: 400px">
+                    <button mat-raised-button class="add-product-button" matTooltip="Add Product"
+                      matTooltipPosition="left" (click)="popup = true" data-test="addProductButton">
+                      <mat-icon aria-label="Add Product">add</mat-icon>
+                    </button>
                   </div>
-                </div>
-              </mat-list-item>
-            </div>
-          </mat-nav-list>
+                  <div class="overlay" *ngIf="popup">
+                    <div class="popup">
+                      <h2>Add This Product to Your Pantry</h2>
+                      <a class="close" (click)="popup = false">&times;</a>
+                      <app-add-product-to-pantry [product]="this.product"></app-add-product-to-pantry>
+                    </div>
+                  </div>
+                </mat-list-item>
+              </div>
+            </mat-nav-list>
+          </div>
         </mat-card-content>
       </mat-card>
     </div>
