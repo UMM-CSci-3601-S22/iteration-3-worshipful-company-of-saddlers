@@ -136,10 +136,10 @@ export class PantryProductsListComponent implements OnInit, OnDestroy {
   }
 
   reloadComponent() {
-    const currentUrl = this.router.url;
+    const pantryPageUrl = '';
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.router.onSameUrlNavigation = 'reload';
-    this.router.navigate([currentUrl]);
+    this.router.navigate([pantryPageUrl]);
   }
 
   ngOnDestroy(): void {

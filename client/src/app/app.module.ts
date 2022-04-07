@@ -83,7 +83,8 @@ const MATERIAL_MODULES: any[] = [
   ],
   providers: [
     ProductService,
-    PantryService
+    PantryService,
+    PantryProductsListComponent
   ],
   bootstrap: [AppComponent]
 })
