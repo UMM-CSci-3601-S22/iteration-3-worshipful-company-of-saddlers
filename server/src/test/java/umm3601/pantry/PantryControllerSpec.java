@@ -266,6 +266,24 @@ public class PantryControllerSpec {
     return products;
   }
 
+  @Test
+  public void canGetAllPantryItems() throws IOException {
+    // Create our fake Javalin context
+    String path = "api/pantry";
+    Context ctx = mockContext(path);
+
+    pantryController.getAllItems(ctx);
+    PantryItem[] returnedPantryItems = returnedPantryItems(ctx);
+
+    // The response status should be 200, i.e., our request.append("_id", milksId)
+    // was handled successfully (was OK). This is a named constant in
+    // the class HttpCode.
+    assertEquals(HttpCode.OK.getStatus(), mockRes.getStatus());
+    assertEquals(
+        db.getCollection("pantry").countDocuments(),
+        returnedPantryItems.length);
+  }
+
   /**
    * A little helper method that assumes that the given context
    * body contains a *single* PantryItem, and extracts and returns
@@ -479,6 +497,48 @@ public class PantryControllerSpec {
   }
 
   @Test
+  public void addItemWithBadName() throws IOException {
+
+    String testNewEntry = "{"
+        + "\"product\": \"" + bananaEntryId.toHexString() + "\","
+        + "\"purchase_date\": \"2023-01-27\","
+        + "\"notes\": \"check on gerbils every 3 days\""
+        + "\"name\": null"
+        + "\"category\": \"produce\""
+        + "}";
+
+    mockReq.setBodyContent(testNewEntry);
+    mockReq.setMethod("POST");
+
+    Context ctx = mockContext("api/pantry");
+
+    assertThrows(ValidationException.class, () -> {
+      pantryController.addNewPantryItem(ctx);
+    });
+  }
+
+  @Test
+  public void addItemWithBadCategory() throws IOException {
+
+    String testNewEntry = "{"
+        + "\"product\": \"" + bananaEntryId.toHexString() + "\","
+        + "\"purchase_date\": \"2023-01-27\","
+        + "\"notes\": \"check on gerbils every 3 days\""
+        + "\"name\": \"Banana Phone\""
+        + "\"category\": \"forklift\""
+        + "}";
+
+    mockReq.setBodyContent(testNewEntry);
+    mockReq.setMethod("POST");
+
+    Context ctx = mockContext("api/pantry");
+
+    assertThrows(ValidationException.class, () -> {
+      pantryController.addNewPantryItem(ctx);
+    });
+  }
+
+  @Test
   public void deletePantryItem() throws IOException {
     String testID = appleEntryId.toHexString();
 
@@ -493,6 +553,20 @@ public class PantryControllerSpec {
 
     // Product is no longer in the database
     assertEquals(0, db.getCollection("pantry").countDocuments(eq("_id", new ObjectId(testID))));
+  }
+
+  @Test
+  public void deletePantryItemNotFoundResponse() throws IOException {
+    String testID = "588935f57546a2daea44de7c";
+
+    // Product exists before deletion
+    assertEquals(0, db.getCollection("pantry").countDocuments(eq("_id", new ObjectId(testID))));
+
+    Context ctx = mockContext("api/pantry/{id}", Map.of("id", testID));
+
+    assertThrows(NotFoundResponse.class, () -> {
+      pantryController.deletePantryItem(ctx);
+    });
   }
 
   @Test
@@ -516,6 +590,19 @@ public class PantryControllerSpec {
   @Test
   public void filterByCategory() throws IOException {
     mockReq.setQueryString("category=staples");
+    String path = "api/pantry";
+    Context ctx = mockContext(path);
+
+    pantryController.getAllItems(ctx);
+    PantryItem[] returnedItems = returnedPantryItems(ctx);
+
+    assertEquals(HttpCode.OK.getStatus(), mockRes.getStatus());
+    assertEquals(2, returnedItems.length);
+  }
+
+  @Test
+  public void filterByName() throws IOException {
+    mockReq.setQueryString("name=Beans");
     String path = "api/pantry";
     Context ctx = mockContext(path);
 
