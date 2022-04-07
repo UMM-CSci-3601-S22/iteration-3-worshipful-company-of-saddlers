@@ -14,4 +14,6 @@ public class PantryItem {
   public String product;
   public String purchase_date;
   public String notes;
+  public String name;
+  public String category;
 }

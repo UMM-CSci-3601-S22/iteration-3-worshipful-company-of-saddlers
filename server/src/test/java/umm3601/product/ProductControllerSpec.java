@@ -142,7 +142,7 @@ public class ProductControllerSpec {
             .append("product_name", "Canned Pinto Beans")
             .append("description", "A can of pinto beans")
             .append("brand", "Our Family")
-            .append("category", "canned goods")
+            .append("category", "beverages")
             .append("store", "Willies")
             .append("location", "They're In the Walls")
             .append("lifespan", 2000)
@@ -160,7 +160,7 @@ public class ProductControllerSpec {
             .append("product_name", "Bread")
             .append("description", "You know what this is.")
             .append("brand", "Richard's Castle")
-            .append("category", "bakery")
+            .append("category", "baked goods")
             .append("store", "Willies")
             .append("location", "They're In the Walls")
             .append("lifespan", 14)
@@ -295,6 +295,21 @@ public class ProductControllerSpec {
     assertEquals(
         db.getCollection("products").countDocuments(),
         returnedProducts.length);
+  }
+
+  @Test
+  public void canGetProductsByName() throws IOException {
+    mockReq.setQueryString("product_name=Milk");
+    Context ctx = mockContext("api/products");
+
+    productController.getAllProducts(ctx);
+    Product[] resultProducts = returnedProducts(ctx);
+
+    assertEquals(HttpCode.OK.getStatus(), mockRes.getStatus());
+    assertEquals(1, resultProducts.length); // There should be one product returned
+    for (Product product : resultProducts) {
+      assertEquals("Milk", product.product_name);
+    }
   }
 
   @Test

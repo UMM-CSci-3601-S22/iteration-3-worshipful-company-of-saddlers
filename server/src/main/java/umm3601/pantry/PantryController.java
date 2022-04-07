@@ -21,6 +21,15 @@ import io.javalin.http.BadRequestResponse;
 import io.javalin.http.Context;
 import io.javalin.http.HttpCode;
 import io.javalin.http.NotFoundResponse;
+import static com.mongodb.client.model.Filters.and;
+import static com.mongodb.client.model.Filters.regex;
+
+import java.util.regex.Pattern;
+
+import com.mongodb.client.model.Sorts;
+
+import org.bson.Document;
+import org.bson.conversions.Bson;
 import umm3601.product.Product;
 
 public class PantryController {
@@ -28,6 +37,9 @@ public class PantryController {
   // private static final String PRODUCT_KEY = "product";
   // private static final String PURCHASE_DATE_KEY = "purchase_date";
   // private static final String NOTES_KEY = "notes";
+
+  private static final String NAME_KEY = "name";
+  private static final String CATEGORY_KEY = "category";
 
   private final JacksonMongoCollection<PantryItem> pantryCollection;
   private final JacksonMongoCollection<Product> productCollection;
@@ -89,9 +101,59 @@ public class PantryController {
     if (products.stream().anyMatch(Objects::isNull)) {
       throw new NotFoundResponse("There are products(s) in the pantry could not be found.");
     } else {
-      ctx.json(products);
+      ctx.json(pantryItems);
     }
 
+  }
+
+  /**
+   * Get a JSON response with a list of all the products.
+   *
+   * @param ctx a Javalin HTTP context
+   */
+  public void getAllItems(Context ctx) {
+    Bson combinedFilter = constructFilter(ctx);
+    Bson sortingOrder = constructSortingOrder(ctx);
+
+    // All three of the find, sort, and into steps happen "in parallel" inside the
+    // database system. So MongoDB is going to find the products with the specified
+    // properties, return those sorted in the specified manner, and put the
+    // results into an initially empty ArrayList.
+    ArrayList<PantryItem> matchingItems = pantryCollection
+        .find(combinedFilter)
+        .sort(sortingOrder)
+        .into(new ArrayList<>());
+
+    // Set the JSON body of the response to be the list of products returned by
+    // the database.
+    ctx.json(matchingItems);
+  }
+
+  private Bson constructFilter(Context ctx) {
+    List<Bson> filters = new ArrayList<>(); // start with a blank document
+
+    if (ctx.queryParamMap().containsKey(NAME_KEY)) {
+      filters.add(regex(NAME_KEY,  Pattern.quote(ctx.queryParam(NAME_KEY)), "i"));
+    }
+
+    if (ctx.queryParamMap().containsKey(CATEGORY_KEY)) {
+      filters.add(regex(CATEGORY_KEY, Pattern.quote(ctx.queryParam(CATEGORY_KEY)), "i"));
+    }
+
+    // Combine the list of filters into a single filtering document.
+    Bson combinedFilter = filters.isEmpty() ? new Document() : and(filters);
+
+    return combinedFilter;
+  }
+
+  private Bson constructSortingOrder(Context ctx) {
+    // Sort the results. Use the `sortby` query param (default "NAME_KEY")
+    // as the field to sort by, and the query param `sortorder` (default
+    // "asc") to specify the sort order.
+    String sortBy = Objects.requireNonNullElse(ctx.queryParam("sortby"), NAME_KEY);
+    String sortOrder = Objects.requireNonNullElse(ctx.queryParam("sortorder"), "asc");
+    Bson sortingOrder = sortOrder.equals("desc") ? Sorts.descending(sortBy) : Sorts.ascending(sortBy);
+    return sortingOrder;
   }
 
   // Helper function to check if a string is a valid date

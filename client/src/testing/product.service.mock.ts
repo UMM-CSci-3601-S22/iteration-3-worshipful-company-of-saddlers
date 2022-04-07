@@ -44,7 +44,7 @@ import { ProductService } from '../app/products/product.service';
       product_name: 'Wheat Bread',
       description: '',
       brand: 'Country Hearth',
-      category: 'bakery',
+      category: 'baked goods',
       store: 'Walmart',
       location: '',
       notes: '',

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -17,8 +18,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MockPantryService } from 'src/testing/pantry.service.mock';
 import { PantryService } from '../pantry.service';
+import { ProductService } from '../../products/product.service';
+import { HttpClient } from '@angular/common/http';
+import { HttpHandler } from '@angular/common/http';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 
 import { PantryProductsListComponent } from './pantry-products-list.component';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 
 
 const COMMON_IMPORTS: any[] = [
@@ -38,6 +44,8 @@ const COMMON_IMPORTS: any[] = [
   MatIconModule,
   BrowserAnimationsModule,
   RouterTestingModule,
+  MatDialogModule,
+  HttpClientTestingModule
 ];
 
 describe('PantryProductsListComponent', () => {
@@ -48,8 +56,14 @@ describe('PantryProductsListComponent', () => {
     TestBed.configureTestingModule({
       imports: [COMMON_IMPORTS],
       declarations: [PantryProductsListComponent],
-      providers: [{ provide: PantryService, useValue: new MockPantryService() }]
+      providers: [{ provide: PantryService, ProductService, useValue: new MockPantryService() },
+        ProductService,
+        MatDialog]
     });
+  });
+
+  afterEach(() => {
+    fixture.destroy();
   });
 
   beforeEach(waitForAsync(() => {
