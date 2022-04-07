@@ -173,7 +173,7 @@
           </mat-expansion-panel>
 
           <mat-expansion-panel>
-            <mat-expansion-panel-header class="baking-supplies-product-nav-list">
+            <mat-expansion-panel-header class="baking-supplies-product-expansion-panel">
               <mat-panel-title>
                 Baking Supplies
               </mat-panel-title>
@@ -253,7 +253,7 @@
           </mat-expansion-panel>
 
           <mat-expansion-panel>
-            <mat-expansion-panel-header class="cleaning-product-expansion-panel">
+            <mat-expansion-panel-header class="cleaning-supplies-product-expansion-panel">
               <mat-panel-title>
                 Cleaning Products
               </mat-panel-title>
@@ -261,7 +261,7 @@
 
               </mat-panel-description>
             </mat-expansion-panel-header>
-            <mat-nav-list class="cleaning-product-nav-list">
+            <mat-nav-list class="cleaning-supplies-product-nav-list">
               <span fxLayout="row" *ngFor="let product of this.cleaningProducts">
                 <a mat-list-item [routerLink]="['/products', product._id]" class="product-list-item">
                   <p matLine class="product-list-name"> {{product.product_name}} </p>
@@ -413,7 +413,7 @@
           </mat-expansion-panel>
 
           <mat-expansion-panel>
-            <mat-expansion-panel-header class="herbs-product-expansion-panel">
+            <mat-expansion-panel-header class="herb-product-expansion-panel">
               <mat-panel-title>
                 Herbs and Spices
               </mat-panel-title>
@@ -421,7 +421,7 @@
 
               </mat-panel-description>
             </mat-expansion-panel-header>
-            <mat-nav-list class="herbs-product-nav-list">
+            <mat-nav-list class="herb-product-nav-list">
               <span fxLayout="row" *ngFor="let product of this.herbProducts">
                 <a mat-list-item [routerLink]="['/products', product._id]" class="product-list-item">
                   <p matLine class="product-list-name"> {{product.product_name}} </p>
@@ -653,7 +653,7 @@
           </mat-expansion-panel>
 
           <mat-expansion-panel>
-            <mat-expansion-panel-header class="staples-product-expansion-panel">
+            <mat-expansion-panel-header class="staple-product-expansion-panel">
               <mat-panel-title>
                 Staples
               </mat-panel-title>
@@ -661,7 +661,7 @@
 
               </mat-panel-description>
             </mat-expansion-panel-header>
-            <mat-nav-list class="staples-product-nav-list">
+            <mat-nav-list class="staple-product-nav-list">
               <span fxLayout="row" *ngFor="let product of this.stapleProducts">
                 <a mat-list-item [routerLink]="['/products', product._id]" class="product-list-item">
                   <p matLine class="product-list-name"> {{product.product_name}} </p>

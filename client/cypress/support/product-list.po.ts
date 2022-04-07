@@ -33,20 +33,20 @@ export class ProductListPage {
     return cy.get('.baking-supplies-product-nav-list .product-list-item');
   }
 
-  getBakingSuppliesDelete() {
+  getFirstBakingSuppliesDelete() {
     return cy.get('.baking-supplies-product-nav-list .deleteContainer').first();
   }
 
   getBeverageProductDropdown() {
-    return cy.get('.beverage-supplies-product-expansion-panel');
+    return cy.get('.beverage-product-expansion-panel');
   }
 
   getBeverageProductListItems() {
-    return cy.get('.beverage-supplies-product-nav-list .product-list-item');
+    return cy.get('.beverage-product-nav-list .product-list-item');
   }
 
-  getBeverageDelete() {
-    return cy.get('.beverage-supplies-product-nav-list .deleteContainer').first();
+  getFirstBeverageProductDelete() {
+    return cy.get('.beverage-product-nav-list .deleteContainer').first();
   }
 
   getCleaningProductDropdown() {
@@ -57,7 +57,7 @@ export class ProductListPage {
     return cy.get('.cleaning-supplies-product-nav-list .product-list-item');
   }
 
-  getCleaningDelete() {
+  getFirstCleaningProductDelete() {
     return cy.get('.cleaning-supplies-product-nav-list .deleteContainer').first();
   }
 
@@ -69,7 +69,7 @@ export class ProductListPage {
     return cy.get('.dairy-product-nav-list .product-list-item');
   }
 
-  getFirstDairyDelete() {
+  getFirstDairyProductDelete() {
     return cy.get('.dairy-product-nav-list .deleteContainer').first();
   }
 
@@ -81,7 +81,7 @@ export class ProductListPage {
     return cy.get('.deli-product-nav-list .product-list-item');
   }
 
-  getFirstDeliDelete() {
+  getFirstDeliProductDelete() {
     return cy.get('.deli-product-nav-list .deleteContainer').first();
   }
 
@@ -93,7 +93,7 @@ export class ProductListPage {
     return cy.get('.frozen-product-nav-list .product-list-item');
   }
 
-  getFirstFrozenDelete() {
+  getFirstFrozenProductDelete() {
     return cy.get('.frozen-product-nav-list .deleteContainer').first();
   }
 
@@ -105,7 +105,7 @@ export class ProductListPage {
     return cy.get('.herb-product-nav-list .product-list-item');
   }
 
-  getFirstHerbDelete() {
+  getFirstHerbProductDelete() {
     return cy.get('.herb-product-nav-list .deleteContainer').first();
   }
 
@@ -117,7 +117,7 @@ export class ProductListPage {
     return cy.get('.meat-product-nav-list .product-list-item');
   }
 
-  getFirstMeatDelete() {
+  getFirstMeatProductDelete() {
     return cy.get('.meat-product-nav-list .deleteContainer').first();
   }
 
@@ -129,7 +129,7 @@ export class ProductListPage {
     return cy.get('.miscellaneous-product-nav-list .product-list-item');
   }
 
-  getFirstMiscellaneousDelete() {
+  getFirstMiscellaneousProductDelete() {
     return cy.get('.miscellaneous-product-nav-list .deleteContainer').first();
   }
 
@@ -141,7 +141,7 @@ export class ProductListPage {
     return cy.get('.paper-product-nav-list .product-list-item');
   }
 
-  getFirstPaperDelete() {
+  getFirstPaperProductDelete() {
     return cy.get('.paper-product-nav-list .deleteContainer').first();
   }
 
@@ -153,7 +153,7 @@ export class ProductListPage {
     return cy.get('.pet-supplies-product-nav-list .product-list-item');
   }
 
-  getFirstPetDelete() {
+  getFirstPetProductDelete() {
     return cy.get('.pet-supplies-product-nav-list .deleteContainer').first();
   }
 
@@ -165,7 +165,7 @@ export class ProductListPage {
     return cy.get('.produce-product-nav-list .product-list-item');
   }
 
-  getFirstProduceDelete() {
+  getFirstProduceProductDelete() {
     return cy.get('.produce-product-nav-list .deleteContainer').first();
   }
 
@@ -177,7 +177,7 @@ export class ProductListPage {
     return cy.get('.staple-product-nav-list .product-list-item');
   }
 
-  getStapleProduceDelete() {
+  getFirstStapleProductDelete() {
     return cy.get('.staple-product-nav-list .deleteContainer').first();
   }
 
@@ -189,7 +189,7 @@ export class ProductListPage {
     return cy.get('.toiletries-product-nav-list .product-list-item');
   }
 
-  getFirstToiletriesDelete() {
+  getFirstToiletriesProductDelete() {
     return cy.get('.toiletries-product-nav-list .deleteContainer').first();
   }
 
