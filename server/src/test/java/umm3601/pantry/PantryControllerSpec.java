@@ -402,8 +402,10 @@ public class PantryControllerSpec {
 
     String testNewEntry = "{"
         + "\"product\": \"" + bananaEntryId.toHexString() + "\","
+        + "\"name\": \"Banana\","
         + "\"purchase_date\": \"2023-01-27\","
-        + "\"notes\": \"check on gerbils every 3 days\""
+        + "\"notes\": \"check on gerbils every 3 days\","
+        + "\"category\": \"produce\""
         + "}";
 
     mockReq.setBodyContent(testNewEntry);
@@ -429,8 +431,10 @@ public class PantryControllerSpec {
 
     assertNotNull(addedProduct);
     assertEquals(bananaEntryId.toHexString(), addedProduct.getString("product"));
+    assertEquals("Banana", addedProduct.getString("name"));
     assertEquals("2023-01-27", addedProduct.getString("purchase_date"));
     assertEquals("check on gerbils every 3 days", addedProduct.getString("notes"));
+    assertEquals("produce", addedProduct.getString("category"));
   }
 
   @Test
