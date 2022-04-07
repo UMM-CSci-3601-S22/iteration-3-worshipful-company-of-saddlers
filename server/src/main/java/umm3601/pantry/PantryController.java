@@ -204,6 +204,8 @@ public class PantryController {
     PantryItem newPantryItem = ctx.bodyValidator(PantryItem.class)
         .check(item -> productExists(item.product), "error: product does not exist")
         .check(item -> ObjectId.isValid(item.product), "The product id is not a legal Mongo Object ID.")
+        /* .check(item -> item.category != null && item.category.length() > 0,
+            "Pantry item must have a non-empty category") */
         .check(item -> item.notes != null && item.notes.length() <= notesCharacterLimit,
             "Pantry item notes cannot be null")
         .check(item -> isValidDate(item.purchase_date), "The date is not in the correct format")
