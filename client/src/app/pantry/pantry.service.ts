@@ -76,4 +76,7 @@ export class PantryService {
     return this.httpClient.get<Product>(this.productUrl + '/' + id);
   }
 
+  deleteItem(id: string): Observable<PantryItem> {
+    return this.httpClient.delete<PantryItem>(this.pantryUrl + '/' + id);
+  }
 }

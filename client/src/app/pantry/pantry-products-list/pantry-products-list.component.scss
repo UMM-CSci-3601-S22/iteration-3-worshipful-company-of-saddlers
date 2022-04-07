@@ -59,3 +59,35 @@ element.style {
 #underlay {
   background: rgba(0, 0, 0, 0.7);
 }
+
+.search-card {
+  margin-bottom: 10px;
+  padding: 16px 16px 16px 16px;
+  justify-content: space-between;
+}
+
+.limitContainer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.add-item-fab {
+}
+
+.conditional-item-list {
+  margin-bottom: 10px;
+}
+
+span {
+  text-align: left;
+  justify-content: right;
+  align-items: right;
+}
+
+.delete-item-button {
+  color: red;
+}
+
+.delete-item-button:hover {
+  color: lightsalmon;
+}

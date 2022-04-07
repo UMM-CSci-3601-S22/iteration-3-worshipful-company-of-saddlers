@@ -38,7 +38,8 @@ export class PantryProductsListComponent implements OnInit, OnDestroy {
 
   public tempId: string;
   public tempDialog: any;
-  public tempDeleted: Product;
+  public tempDeleted: PantryItem;
+  public tempName: string;
 
   public bakingSuppliesItems: PantryItem[] = [];
   public bakedGoodsItems: PantryItem[] = [];
@@ -200,6 +201,35 @@ export class PantryProductsListComponent implements OnInit, OnDestroy {
       this.pantryProducts, { category: 'baking supplies'});
     this.petSuppliesItems = this.pantryService.filterItems(
       this.pantryProducts, { category: 'pet supplies'});
+  }
+
+  removeItem(id: string): PantryItem {
+    this.pantryService.deleteItem(id).subscribe(
+      item => {
+        this.pantryProducts = this.pantryProducts.filter(pitem => pitem._id !== id);
+        this.bakedGoodsItems = this.bakedGoodsItems.filter(pitem => pitem._id !== id);
+        this.produceItems = this.produceItems.filter(pitem => pitem._id !== id);
+        this.meatItems = this.meatItems.filter(pitem => pitem._id !== id);
+        this.dairyItems = this.dairyItems.filter(pitem => pitem._id !== id);
+        this.frozenItems = this.frozenItems.filter(pitem => pitem._id !== id);
+        this.herbItems = this.herbItems.filter(pitem => pitem._id !== id);
+        this.beverageItems = this.beverageItems.filter(pitem => pitem._id !== id);
+        this.paperItems = this.paperItems.filter(pitem => pitem._id !== id);
+        this.petSuppliesItems = this.petSuppliesItems.filter(pitem => pitem._id !== id);
+        this.miscellaneousItems = this.miscellaneousItems.filter(pitem => pitem._id !== id);
+        this.stapleItems = this.stapleItems.filter(pitem => pitem._id !== id);
+        this.deliItems = this.deliItems.filter(pitem => pitem._id !== id);
+        this.toiletriesItems = this.toiletriesItems.filter(pitem => pitem._id !== id);
+        this.bakingSuppliesItems = this.bakingSuppliesItems.filter(pitem => pitem._id !== id);
+
+        this.tempDeleted = item;
+     }
+    );
+    this.tempDialog.close();
+    this.snackBar.open('Product deleted', 'OK', {
+      duration: 5000,
+    });
+    return this.tempDeleted;
   }
 
 }
