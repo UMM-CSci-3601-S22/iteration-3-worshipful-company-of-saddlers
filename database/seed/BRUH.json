@@ -1,0 +1,168 @@
+[
+  {
+    "product_name": "Lettuce",
+    "description": "This is lettuce",
+    "brand": "Iceberg Present",
+    "category": "produce",
+    "store": "Willlies",
+    "location": "Aisle 4",
+    "notes": "They stay good for a long time",
+    "lifespan": 20,
+    "threshold": 2,
+    "image": "http://dummyimage.com/164x100.png/5fa2dd/ffffff"
+  },
+  {
+    "product_name": "Cheese Pizza",
+    "description": "This is pizza",
+    "brand": "Red Baron",
+    "category": "frozen foods",
+    "store": "Willies",
+    "location": "Aisle 12",
+    "notes": "Yummy in my tummy!",
+    "lifespan": 50,
+    "threshold": 3
+  },
+  {
+    "product_name": "Vegetarian Baked Beans",
+    "description": "28oz/794g",
+    "brand": "Bush's",
+    "category": "staples",
+    "store": "Willie's",
+    "location": "Aisle 2",
+    "notes": "Tangy sauce with brown sugar and spices",
+    "lifespan": 0,
+    "threshold": 3
+  },
+  {
+    "product_name": "Organic Coconut Milk",
+    "description": "Unsweetened, 13.5 fl oz/398 ml",
+    "brand": "Native Forest",
+    "category": "staples",
+    "store": "PdT/Willie's",
+    "location": "",
+    "notes": "Product of Thailand",
+    "lifespan": 0,
+    "threshold": 8
+  },
+  {
+    "product_name": "Tomato Paste",
+    "description": "4.5oz/127g",
+    "brand": "Amore",
+    "category": "staples",
+    "store": "PdT/Willie's",
+    "location": "Aisle 3",
+    "notes": "Product of Italy",
+    "lifespan": 0,
+    "threshold": 3
+  },
+  {
+    "product_name": "Eggs",
+    "description": "12 eggs",
+    "brand": "local farmers",
+    "category": "dairy",
+    "store": "PdT",
+    "location": "Fridge section",
+    "notes": "locally raised",
+    "lifespan": 30,
+    "threshold": 3
+  },
+  {
+    "product_name": "Mandarin Oranges",
+    "description": "",
+    "brand": "",
+    "category": "produce",
+    "store": "RealFoodHub",
+    "location": "",
+    "notes": "",
+    "lifespan": 14,
+    "threshold": 0
+  },
+  {
+    "product_name": "Chicken Bouillon",
+    "description": "6 extra large cubes, 2.5oz/71g",
+    "brand": "Knorr",
+    "category": "staples",
+    "store": "PdT",
+    "location": "Centre Aisle",
+    "notes": "",
+    "lifespan": 0,
+    "threshold": 1
+  },
+  {
+    "product_name": "Unscented Scoopable Cat litter",
+    "description": "14lbs",
+    "brand": "Essential Everyday",
+    "category": "pet supplies",
+    "store": "Willie's",
+    "location": "By check out",
+    "notes": "heavy to carry but cheaper",
+    "lifespan": 0,
+    "threshold": 3
+  },
+  {
+    "product_name": "Distilled Water",
+    "description": "1 gallon",
+    "brand": "North Star",
+    "category": "miscellaneous",
+    "store": "Willie's",
+    "location": "beverages",
+    "notes": "",
+    "lifespan": 0,
+    "threshold": 3
+  },
+  {
+    "product_name": "Premium Bread Flour",
+    "description": "10lbs",
+    "brand": "Dakota Maid",
+    "category": "baking supplies",
+    "store": "Willie's",
+    "location": "Aisle 4",
+    "notes": "",
+    "lifespan": 0,
+    "threshold": 2
+  },
+  {
+    "product_name": "Diced Tomatoes",
+    "description": "14.5oz",
+    "brand": "Muir Glen",
+    "category": "staples",
+    "store": "PdT",
+    "location": "Aisle 2",
+    "notes": "",
+    "lifespan": 0,
+    "threshold": 4
+  },
+  {
+    "product_name": "Softasilk",
+    "description": "enriched cake flour, 32oz/907g",
+    "brand": "Pillsbury",
+    "category": "Baking Suplies",
+    "store": "Willie's",
+    "location": "Aisle 4",
+    "notes": "wheat product",
+    "lifespan": 365,
+    "threshold": 0
+  },
+  {
+    "product_name": "Honey Maid Graham Crackers",
+    "description": "family size",
+    "brand": "Nabisco",
+    "category": "staples",
+    "store": "Willie's",
+    "location": "Aisle 5",
+    "notes": "for Nic",
+    "lifespan": 0,
+    "threshold": 1
+  },
+  {
+    "product_name": "Herring Fillets in wine sauce",
+    "description": "12oz",
+    "brand": "Elf",
+    "category": "meat",
+    "store": "Willie's",
+    "location": "meat Section",
+    "notes": "",
+    "lifespan": 0,
+    "threshold": 1
+  }
+]
