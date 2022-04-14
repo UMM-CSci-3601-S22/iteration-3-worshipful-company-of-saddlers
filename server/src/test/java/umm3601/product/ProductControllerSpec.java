@@ -130,11 +130,7 @@ public class ProductControllerSpec {
             .append("lifespan", 14)
             .append("image", "https://gravatar.com/avatar/8c9616d6cc5de638ea6920fb5d65fc6c?d=identicon")
             .append("notes", "I eat these with toothpaste, yum-yum.")
-            .append("tags", new ArrayList<String>() {
-              {
-                addAll(Arrays.asList(new String[] { "yellow fruit", "potassium" }));
-              }
-            })
+
             .append("lifespan", 4)
             .append("threshold", 40));
     testProducts.add(
@@ -148,11 +144,6 @@ public class ProductControllerSpec {
             .append("lifespan", 2000)
             .append("image", "https://gravatar.com/avatar/8c9616d6cc5de638ea6920fb5d65fc6c?d=identicon")
             .append("notes", "I eat these with toothpaste, yum-yum.")
-            .append("tags", new ArrayList<String>() {
-              {
-                addAll(Arrays.asList(new String[] { "canned food", "non-perishable", "beans" }));
-              }
-            })
             .append("lifespan", 4)
             .append("threshold", 4));
     testProducts.add(
@@ -166,11 +157,6 @@ public class ProductControllerSpec {
             .append("lifespan", 14)
             .append("image", "https://gravatar.com/avatar/8c9616d6cc5de638ea6920fb5d65fc6c?d=identicon")
             .append("notes", "I eat these with toothpaste, yum-yum.")
-            .append("tags", new ArrayList<String>() {
-              {
-                addAll(Arrays.asList(new String[] { "Yeast", "contains gluten", "toast" }));
-              }
-            })
             .append("lifespan", 2)
             .append("threshold", 3));
     testProducts.add(
@@ -184,8 +170,6 @@ public class ProductControllerSpec {
             .append("lifespan", "")
             .append("image", "")
             .append("notes", "")
-            .append("tags", new ArrayList<String>() {
-            })
             .append("lifespan", 6)
             .append("threshold", 0));
 
@@ -201,11 +185,6 @@ public class ProductControllerSpec {
         .append("lifespan", 14)
         .append("image", "https://gravatar.com/avatar/8c9616d6cc5de638ea6920fb5d65fc6c?d=identicon")
         .append("notes", "check on gerbils every 3 days")
-        .append("tags", new ArrayList<String>() {
-          {
-            addAll(Arrays.asList(new String[] { "dairy", "perishable", "cold storage" }));
-          }
-        })
         .append("lifespan", 4)
         .append("threshold", 2);
 
@@ -399,7 +378,6 @@ public class ProductControllerSpec {
         + "\"store\": \"test store\","
         + "\"location\": \"test location\","
         + "\"notes\": \"tastes like test\","
-        + "\"tags\": [\"test tag\"],"
         + "\"lifespan\": 100,"
         + "\"threshold\": 84,"
         + "\"image\": \"https://gravatar.com/avatar/8c9616d6cc5de638ea6920fb5d65fc6c?d=identicon\""
@@ -449,7 +427,6 @@ public class ProductControllerSpec {
         + "\"store\": \"test store\","
         + "\"location\": \"test location\","
         + "\"notes\": \"tastes like test\","
-        + "\"tags\": [\"test tag\"],"
         + "\"lifespan\": 10,"
         + "\"threshold\": 84,"
         + "\"image\": \"https://gravatar.com/avatar/8c9616d6cc5de638ea6920fb5d65fc6c?d=identicon\""
@@ -474,7 +451,6 @@ public class ProductControllerSpec {
         + "\"store\": \"test store\","
         + "\"location\": \"test location\","
         + "\"notes\": \"tastes like test\","
-        + "\"tags\": [\"test tag\"],"
         + "\"lifespan\": 100,"
         + "\"threshold\": 0," // Invalid threshold
         + "\"image\": \"https://gravatar.com/avatar/8c9616d6cc5de638ea6920fb5d65fc6c?d=identicon\""
@@ -499,7 +475,6 @@ public class ProductControllerSpec {
         + "\"store\": \"test store\","
         + "\"location\": \"test location\","
         + "\"notes\": \"tastes like test\","
-        + "\"tags\": [\"test tag\"],"
         + "\"lifespan\": null," // empty lifespan
         + "\"threshold\": 84,"
         + "\"image\": \"https://gravatar.com/avatar/8c9616d6cc5de638ea6920fb5d65fc6c?d=identicon\""
@@ -524,7 +499,6 @@ public class ProductControllerSpec {
         + "\"store\": \"test store\","
         + "\"location\": \"test location\","
         + "\"notes\": \"tastes like test\","
-        + "\"tags\": [\"test tag\"],"
         + "\"lifespan\": 100,"
         + "\"threshold\": 84,"
         + "\"image\": \"https://gravatar.com/avatar/8c9616d6cc5de638ea6920fb5d65fc6c?d=identicon\""
@@ -549,7 +523,6 @@ public class ProductControllerSpec {
         + "\"store\": \"test store\","
         + "\"location\": \"test location\","
         + "\"notes\": \"tastes like test\","
-        + "\"tags\": [\"test tag\"],"
         + "\"lifespan\": 100,"
         + "\"threshold\": 84,"
         + "\"image\": \"https://gravatar.com/avatar/8c9616d6cc5de638ea6920fb5d65fc6c?d=identicon\""
@@ -574,7 +547,6 @@ public class ProductControllerSpec {
         + "\"store\": \"test store\","
         + "\"location\": \"test location\","
         + "\"notes\": \"tastes like test\","
-        + "\"tags\": [\"test tag\"],"
         + "\"lifespan\": 100,"
         + "\"threshold\": 84,"
         + "\"image\": \"https://gravatar.com/avatar/8c9616d6cc5de638ea6920fb5d65fc6c?d=identicon\""
@@ -599,7 +571,6 @@ public class ProductControllerSpec {
         + "\"store\": \"test store\","
         + "\"location\": \"test location\","
         + "\"notes\": \"tastes like test\","
-        + "\"tags\": [\"test tag\"],"
         + "\"lifespan\": 100,"
         + "\"threshold\": 84,"
         + "\"image\": \"https://gravatar.com/avatar/8c9616d6cc5de638ea6920fb5d65fc6c?d=identicon\""
@@ -638,7 +609,6 @@ public class ProductControllerSpec {
         + "\"store\": \"test store\","
         + "\"location\": \"test location\","
         + "\"notes\": \"tastes like test\","
-        + "\"tags\": [\"test tag\"],"
         + "\"lifespan\": 100,"
         + "\"threshold\": 84,"
         + "\"image\": \"https://gravatar.com/avatar/8c9616d6cc5de638ea6920fb5d65fc6c?d=identicon\""
@@ -663,7 +633,6 @@ public class ProductControllerSpec {
         + "\"store\": \"test store\","
         + "\"location\": \"test location\","
         + "\"notes\": \"tastes like test\","
-        + "\"tags\": \"test tag\""
         + "\"lifespan\": 100"
         + "\"threshold\": 84"
         + "\"image\": \"https://gravatar.com/avatar/8c9616d6cc5de638ea6920fb5d65fc6c?d=identicon\""
@@ -688,7 +657,6 @@ public class ProductControllerSpec {
         + "\"store\": null," // empty store
         + "\"location\": \"test location\","
         + "\"notes\": \"tastes like test\","
-        + "\"tags\": [\"test tag\"],"
         + "\"lifespan\": 100,"
         + "\"threshold\": 84,"
         + "\"image\": \"https://gravatar.com/avatar/8c9616d6cc5de638ea6920fb5d65fc6c?d=identicon\""

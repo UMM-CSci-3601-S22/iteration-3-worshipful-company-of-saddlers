@@ -139,11 +139,6 @@ public class PantryControllerSpec {
             .append("lifespan", 14)
             .append("image", "https://gravatar.com/avatar/8c9616d6cc5de638ea6920fb5d65fc6c?d=identicon")
             .append("notes", "I eat these with toothpaste, yum-yum.")
-            .append("tags", new ArrayList<String>() {
-              {
-                addAll(Arrays.asList(new String[] { "yellow fruit", "potassium" }));
-              }
-            })
             .append("lifespan", 4)
             .append("threshold", 40));
     beansEntryId = new ObjectId();
@@ -159,11 +154,6 @@ public class PantryControllerSpec {
             .append("lifespan", 2000)
             .append("image", "https://gravatar.com/avatar/8c9616d6cc5de638ea6920fb5d65fc6c?d=identicon")
             .append("notes", "I eat these with toothpaste, yum-yum.")
-            .append("tags", new ArrayList<String>() {
-              {
-                addAll(Arrays.asList(new String[] { "canned food", "non-perishable", "beans" }));
-              }
-            })
             .append("lifespan", 4)
             .append("threshold", 4));
 
