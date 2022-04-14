@@ -1,31 +1,57 @@
-<mat-card class="product-card" style="margin: 16px" *ngIf="this.product">
-  <div fxLayout="row">
-    <div style="padding: 16px;">
-      <mat-card-header>
-        <mat-card-title class="product-card-name">{{ this.product.product_name }}</mat-card-title>
-        <mat-card-subtitle class="product-card-brand">{{ this.product.brand }}</mat-card-subtitle>
-      </mat-card-header>
-      <img mat-card-md-image [src]="this.product.image" class="product-image" *ngIf="this.product.image">
-      <mat-card-header>
-        <mat-card-subtitle class="product-card-store">{{ this.product.store }}</mat-card-subtitle>
-        <mat-card-subtitle class="product-card-location">{{ this.product.location }}</mat-card-subtitle>
-      </mat-card-header>
+<mat-card class="product-card" *ngIf="this.product">
+  <div>
+    <mat-card-header>
+      <mat-card-title class="product-card-name">{{this.product.product_name}}</mat-card-title>
+    </mat-card-header>
+    <hr>
+  </div>
+  <mat-card-content  class="cardInfo">
+    <b>Brand:</b>
+    <p class="product-card-brand">{{this.product.brand}}</p>
+    <b>Store:</b>
+    <p class="product-card-store">{{this.product.store}}</p>
+    <b>Category:</b>
+    <p class="product-card-category">{{this.product.category}}</p>
+    <b>Location:</b>
+    <p class="product-card-location">{{this.product.location}}</p>
+    <b>Lifespan:</b>
+    <p class="product-card-lifespan">{{this.product.lifespan}}</p>
+    <b>Threshold:</b>
+    <p class="product-card-threshold">{{this.product.threshold}}</p>
+    <div>
+      <mat-form-field>
+        <mat-label>Threshold</mat-label>
+        <input matInput placeholder="Threshold" formControlName="threshold" data-test="thresholdInput">
+        <mat-error *ngFor="let validation of changeProductFormMessages.threshold">
+          <mat-error class="error-message" data-test="thresholdError"
+            *ngIf="changeProductForm.get('threshold').hasError(validation.type) && (changeProductForm.get('threshold').dirty || changeProductForm.get('threshold').touched)">
+            {{validation.message}}
+          </mat-error>
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div>
+      <b>Description:</b>
+      <p class="product-card-description">{{this.product.description}}</p>
+    </div>
+    <div>
+      <b>Notes:</b>
+      <p class="product-card-notes">{{this.product.notes}}</p>
     </div>
 
-    <mat-card-content style="margin: 16px">
-      <p> Category: <span class="product-card-category">{{ this.product.category }}</span></p>
-      <p> Description: <span class="product-card-description">{{ this.product.description }}</span></p>
-      <p> Notes: <span class="product-card-notes">{{ this.product.notes }}</span></p>
-      <p> Tags: <span class="product-card-tags">{{ this.product.tags }}</span></p>
-      <p> Lifespan: <span class="product-card-lifespan">{{ this.product.lifespan }}</span></p>
-      <p> Threshold: <span class="product-card-threshold">{{ this.product.threshold }}</span></p>
-    </mat-card-content>
-  </div>
+  </mat-card-content>
   <mat-card-actions class="add-to-pantry">
     <button color="primary" mat-raised-button type="button" (click)="popup = true" data-test="addToPantryButton"> Add
       Product To Pantry</button>
   </mat-card-actions>
 </mat-card>
+
+<mat-card-actions align="start">
+  <button mat-button type="button" color="primary" [disabled]="!changeProductForm.valid" type="submit"
+    data-test="confirmChange">
+    Change Product
+  </button>
+</mat-card-actions>
 
 <div class="overlay" *ngIf="popup">
   <div class="popup">
