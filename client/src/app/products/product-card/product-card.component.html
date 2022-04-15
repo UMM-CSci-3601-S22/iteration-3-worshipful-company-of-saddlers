@@ -18,6 +18,8 @@
     <p class="product-card-lifespan">{{this.product.lifespan}}</p>
     <b>Threshold:</b>
     <p class="product-card-threshold">{{this.product.threshold}}</p>
+
+    <form [formGroup]="changeProductForm" (ngSubmit)="submitForm();">
     <div>
       <mat-form-field>
         <mat-label>Threshold</mat-label>
@@ -30,6 +32,15 @@
         </mat-error>
       </mat-form-field>
     </div>
+
+    <mat-card-actions align="start">
+      <button mat-button type="button" color="primary" [disabled]="!changeProductForm.valid" type="submit"
+        data-test="confirmChange">
+        Change Product
+      </button>
+    </mat-card-actions>
+  </form>
+
     <div>
       <b>Description:</b>
       <p class="product-card-description">{{this.product.description}}</p>
@@ -45,13 +56,6 @@
       Product To Pantry</button>
   </mat-card-actions>
 </mat-card>
-
-<mat-card-actions align="start">
-  <button mat-button type="button" color="primary" [disabled]="!changeProductForm.valid" type="submit"
-    data-test="confirmChange">
-    Change Product
-  </button>
-</mat-card-actions>
 
 <div class="overlay" *ngIf="popup">
   <div class="popup">
