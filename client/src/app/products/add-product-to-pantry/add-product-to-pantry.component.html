@@ -2,16 +2,18 @@
     <form [formGroup]="addToPantryForm" (ngSubmit)="submitForm();">
       <mat-card class="add-to-pantry-card">
         <mat-card-content fxLayout="column">
+          <mat-label>Date Added to Pantry</mat-label>
           <mat-form-field>
-            <mat-label>Date Added to Pantry</mat-label>
-            <input matInput placeholder="dd-mm-yyyy" formControlName="purchase_date"
+            <input matInput [matDatepicker]="picker" formControlName="purchase_date"
                   required>
+                  <mat-hint>MM/DD/YYYY</mat-hint>
+                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
           </mat-form-field>
 
           <mat-form-field>
             <mat-label>Pantry Item Notes</mat-label>
-            <input matInput placeholder="Pantry Item Notes" formControlName="notes"
-                  required>
+            <input matInput placeholder="Pantry Item Notes" formControlName="notes">
           </mat-form-field>
         </mat-card-content>
 

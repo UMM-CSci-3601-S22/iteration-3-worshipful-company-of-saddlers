@@ -70,8 +70,8 @@
                 <span fxLayout="row" *ngFor="let item of this.pantryProducts">
                   <a mat-list-item class="product-list-item">
                     <p matLine class="product-list-name"> {{item.name}} </p>
-                    <p matLine class="pantryItem-list-date">{{item.purchase_date}}</p>
-                    <p matLine class="product-list-category"> {{item.category}} </p>
+                    <p matLine class="product-list-category"> Category: {{item.category}} </p>
+                    <p matLine class="pantryItem-list-date">Purchase Date: {{item.purchase_date | date: 'dd/MM/yyyy'}}</p>
                     <mat-divider></mat-divider>
                   </a>
                   <div class="deleteContainer" style="position: absolute;">
@@ -121,8 +121,8 @@
                 <span fxLayout="row" *ngFor="let item of this.bakedGoodsItems">
                   <a mat-list-item class="product-list-item">
                     <p matLine class="product-list-name"> {{item.name}} </p>
-                    <p matLine class="pantryItem-list-date">{{item.purchase_date}}</p>
-                    <p matLine class="product-list-category"> {{item.category}} </p>
+                    <p matLine class="product-list-category"> Category: {{item.category}} </p>
+                    <p matLine class="pantryItem-list-date">Purchase Date: {{item.purchase_date | date: 'dd/MM/yyyy'}}</p>
                     <mat-divider></mat-divider>
                   </a>
                   <div class="deleteContainer" style="position: absolute;">
@@ -160,8 +160,8 @@
                 <span fxLayout="row" *ngFor="let item of this.bakingSuppliesItems">
                   <a mat-list-item class="product-list-item">
                     <p matLine class="product-list-name"> {{item.name}} </p>
-                    <p matLine class="product-list-category"> {{item.category}} </p>
-                    <p matLine class="product-list-store"> {{item.purchase_date}} </p>
+                    <p matLine class="product-list-category"> Category: {{item.category}} </p>
+                    <p matLine class="product-list-store"> Purchase Date: {{item.purchase_date | date: 'dd/MM/yyyy'}} </p>
                     <mat-divider></mat-divider>
                   </a>
                   <div class="deleteContainer" style="position: absolute;">
@@ -199,8 +199,8 @@
                 <span fxLayout="row" *ngFor="let item of this.beverageItems">
                   <a mat-list-item class="product-list-item">
                     <p matLine class="product-list-name"> {{item.name}} </p>
-                    <p matLine class="product-list-category"> {{item.category}} </p>
-                    <p matLine class="product-list-store"> {{item.purchase_date}} </p>
+                    <p matLine class="product-list-category"> Category: {{item.category}} </p>
+                    <p matLine class="product-list-store"> Purchase Date: {{item.purchase_date | date: 'dd/MM/yyyy'}} </p>
                     <mat-divider></mat-divider>
                   </a>
                   <div class="deleteContainer" style="position: absolute;">
@@ -238,8 +238,8 @@
                 <span fxLayout="row" *ngFor="let item of this.cleaningItems">
                   <a mat-list-item class="product-list-item">
                     <p matLine class="product-list-name"> {{item.name}} </p>
-                    <p matLine class="product-list-category"> {{item.category}} </p>
-                    <p matLine class="product-list-store"> {{item.purchase_date}} </p>
+                    <p matLine class="product-list-category"> Category: {{item.category}} </p>
+                    <p matLine class="product-list-store"> Purchase Date: {{item.purchase_date | date: 'dd/MM/yyyy'}} </p>
                     <mat-divider></mat-divider>
                   </a>
                   <div class="deleteContainer" style="position: absolute;">
@@ -277,8 +277,8 @@
                 <span fxLayout="row" *ngFor="let item of this.dairyItems">
                   <a mat-list-item class="product-list-item">
                     <p matLine class="product-list-name"> {{item.name}} </p>
-                    <p matLine class="product-list-category"> {{item.category}} </p>
-                    <p matLine class="product-list-store"> {{item.purchase_date}} </p>
+                    <p matLine class="product-list-category"> Category: {{item.category}} </p>
+                    <p matLine class="product-list-store"> Purchase Date: {{item.purchase_date | date: 'dd/MM/yyyy'}} </p>
                     <mat-divider></mat-divider>
                   </a>
                   <div class="deleteContainer" style="position: absolute;">
@@ -316,8 +316,8 @@
                 <span fxLayout="row" *ngFor="let item of this.deliItems">
                   <a mat-list-item class="product-list-item">
                     <p matLine class="product-list-name"> {{item.name}} </p>
-                    <p matLine class="product-list-category"> {{item.category}} </p>
-                    <p matLine class="product-list-store"> {{item.purchase_date}} </p>
+                    <p matLine class="product-list-category"> Category: {{item.category}} </p>
+                    <p matLine class="product-list-store"> Purchase Date: {{item.purchase_date | date: 'dd/MM/yyyy'}} </p>
                     <mat-divider></mat-divider>
                   </a>
                   <div class="deleteContainer" style="position: absolute;">
@@ -355,8 +355,8 @@
                 <span fxLayout="row" *ngFor="let item of this.frozenItems">
                   <a mat-list-item class="product-list-item">
                     <p matLine class="product-list-name"> {{item.name}} </p>
-                    <p matLine class="product-list-category"> {{item.category}} </p>
-                    <p matLine class="product-list-store"> {{item.purchase_date}} </p>
+                    <p matLine class="product-list-category"> Category: {{item.category}} </p>
+                    <p matLine class="product-list-store"> Purchase Date: {{item.purchase_date | date: 'dd/MM/yyyy'}} </p>
                     <mat-divider></mat-divider>
                   </a>
                   <div class="deleteContainer" style="position: absolute;">
@@ -394,8 +394,8 @@
                 <span fxLayout="row" *ngFor="let item of this.herbItems">
                   <a mat-list-item class="product-list-item">
                     <p matLine class="product-list-name"> {{item.name}} </p>
-                    <p matLine class="product-list-category"> {{item.category}} </p>
-                    <p matLine class="product-list-store"> {{item.purchase_date}} </p>
+                    <p matLine class="product-list-category"> Category: {{item.category}} </p>
+                    <p matLine class="product-list-store"> Purchase Date: {{item.purchase_date | date: 'dd/MM/yyyy'}} </p>
                     <mat-divider></mat-divider>
                   </a>
                   <div class="deleteContainer" style="position: absolute;">
@@ -433,8 +433,8 @@
                 <span fxLayout="row" *ngFor="let item of this.meatItems">
                   <a mat-list-item class="product-list-item">
                     <p matLine class="product-list-name"> {{item.name}} </p>
-                    <p matLine class="product-list-category"> {{item.category}} </p>
-                    <p matLine class="product-list-store"> {{item.purchase_date}} </p>
+                    <p matLine class="product-list-category"> Category: {{item.category}} </p>
+                    <p matLine class="product-list-store"> Purchase Date: {{item.purchase_date | date: 'dd/MM/yyyy'}} </p>
                     <mat-divider></mat-divider>
                   </a>
                   <div class="deleteContainer" style="position: absolute;">
@@ -472,8 +472,8 @@
                 <span fxLayout="row" *ngFor="let item of this.miscellaneousItems">
                   <a mat-list-item class="product-list-item">
                     <p matLine class="product-list-name"> {{item.name}} </p>
-                    <p matLine class="product-list-category"> {{item.category}} </p>
-                    <p matLine class="product-list-store"> {{item.purchase_date}} </p>
+                    <p matLine class="product-list-category"> Category: {{item.category}} </p>
+                    <p matLine class="product-list-store"> Purchase Date: {{item.purchase_date | date: 'dd/MM/yyyy'}} </p>
                     <mat-divider></mat-divider>
                   </a>
                   <div class="deleteContainer" style="position: absolute;">
@@ -511,8 +511,8 @@
                 <span fxLayout="row" *ngFor="let item of this.paperItems">
                   <a mat-list-item class="product-list-item">
                     <p matLine class="product-list-name"> {{item.name}} </p>
-                    <p matLine class="product-list-category"> {{item.category}} </p>
-                    <p matLine class="product-list-store"> {{item.purchase_date}} </p>
+                    <p matLine class="product-list-category"> Category: {{item.category}} </p>
+                    <p matLine class="product-list-store"> Purchase Date: {{item.purchase_date | date: 'dd/MM/yyyy'}} </p>
                     <mat-divider></mat-divider>
                   </a>
                   <div class="deleteContainer" style="position: absolute;">
@@ -550,8 +550,8 @@
                 <span fxLayout="row" *ngFor="let item of this.petSuppliesItems">
                   <a mat-list-item class="product-list-item">
                     <p matLine class="product-list-name"> {{item.name}} </p>
-                    <p matLine class="product-list-category"> {{item.category}} </p>
-                    <p matLine class="product-list-store"> {{item.purchase_date}} </p>
+                    <p matLine class="product-list-category"> Category: {{item.category}} </p>
+                    <p matLine class="product-list-store"> Purchase Date: {{item.purchase_date | date: 'dd/MM/yyyy'}} </p>
                     <mat-divider></mat-divider>
                   </a>
                   <div class="deleteContainer" style="position: absolute;">
@@ -589,8 +589,8 @@
                 <span fxLayout="row" *ngFor="let item of this.produceItems">
                   <a mat-list-item class="product-list-item">
                     <p matLine class="product-list-name"> {{item.name}} </p>
-                    <p matLine class="product-list-category"> {{item.category}} </p>
-                    <p matLine class="product-list-store"> {{item.purchase_date}} </p>
+                    <p matLine class="product-list-category"> Category: {{item.category}} </p>
+                    <p matLine class="product-list-store"> Purchase Date: {{item.purchase_date | date: 'dd/MM/yyyy'}} </p>
                     <mat-divider></mat-divider>
                   </a>
                   <div class="deleteContainer" style="position: absolute;">
@@ -628,8 +628,8 @@
                 <span fxLayout="row" *ngFor="let item of this.stapleItems">
                   <a mat-list-item class="product-list-item">
                     <p matLine class="product-list-name"> {{item.name}} </p>
-                    <p matLine class="product-list-category"> {{item.category}} </p>
-                    <p matLine class="product-list-store"> {{item.purchase_date}} </p>
+                    <p matLine class="product-list-category"> Category: {{item.category}} </p>
+                    <p matLine class="product-list-store"> Purchase Date: {{item.purchase_date | date: 'dd/MM/yyyy'}} </p>
                     <mat-divider></mat-divider>
                   </a>
                   <div class="deleteContainer" style="position: absolute;">
@@ -667,8 +667,8 @@
                 <span fxLayout="row" *ngFor="let item of this.toiletriesItems">
                   <a mat-list-item class="product-list-item">
                     <p matLine class="product-list-name"> {{item.name}} </p>
-                    <p matLine class="product-list-category"> {{item.category}} </p>
-                    <p matLine class="product-list-store"> {{item.purchase_date}} </p>
+                    <p matLine class="product-list-category"> Category: {{item.category}} </p>
+                    <p matLine class="product-list-store"> Purchase Date: {{item.purchase_date | date: 'dd/MM/yyyy'}} </p>
                     <mat-divider></mat-divider>
                   </a>
                   <div class="deleteContainer" style="position: absolute;">
