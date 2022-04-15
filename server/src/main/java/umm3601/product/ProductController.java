@@ -12,7 +12,9 @@ import java.util.regex.Pattern;
 
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Sorts;
+import com.mongodb.client.model.Updates;
 import com.mongodb.client.result.DeleteResult;
+import com.mongodb.client.model.Filters;
 
 import org.bson.Document;
 import org.bson.UuidRepresentation;
@@ -214,6 +216,23 @@ public class ProductController {
               + id
               + "; perhaps illegal ID or an ID for an item not in the system?");
     }
+  }
+
+  public void changeProduct(Context ctx) {
+Product newProduct = ctx.bodyValidator(Product.class)
+    .check(pdr -> pdr.threshold >= 0, "Products threshold can't be negative")
+    .get();
+
+    Bson filter = Filters.eq("_id", newProduct._id);
+    productCollection.findOneAndUpdate(filter, Updates.set("name", newProduct.product_name));
+    productCollection.findOneAndUpdate(filter, Updates.set("brand", newProduct.brand));
+    productCollection.findOneAndUpdate(filter, Updates.set("category", newProduct.category));
+    productCollection.findOneAndUpdate(filter, Updates.set("store", newProduct.store));
+    productCollection.findOneAndUpdate(filter, Updates.set("location", newProduct.location));
+    productCollection.findOneAndUpdate(filter, Updates.set("lifespan", newProduct.lifespan));
+    productCollection.findOneAndUpdate(filter, Updates.set("threshold", newProduct.threshold));
+    productCollection.findOneAndUpdate(filter, Updates.set("description", newProduct.description));
+    productCollection.findOneAndUpdate(filter, Updates.set("notes", newProduct.notes));
   }
 
 }
