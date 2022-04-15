@@ -20,7 +20,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSelectModule } from '@angular/material/select';
-import { MatOptionModule } from '@angular/material/core';
+import { MatNativeDateModule, MatOptionModule, MAT_DATE_FORMATS } from '@angular/material/core';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
@@ -38,6 +38,8 @@ import { ProductCardComponent } from './products/product-card/product-card.compo
 import { PantryService } from './pantry/pantry.service';
 import { AddPantryItemComponent } from './pantry/add-pantry-item/add-pantry-item.component';
 import { AddProductToPantryComponent } from './products/add-product-to-pantry/add-product-to-pantry.component';
+// import { MY_DATE_FORMATS } from './my-date-fomats';
+import { MatMomentDateModule} from '@angular/material-moment-adapter';
 
 const MATERIAL_MODULES: any[] = [
   MatListModule,
@@ -59,6 +61,17 @@ const MATERIAL_MODULES: any[] = [
   MatPaginatorModule,
   MatDialogModule
 ];
+const MY_DATE_FORMATS = {
+  parse: {
+    dateInput: 'DD/MM/YYYY',
+  },
+  display: {
+    dateInput: 'DD/MM/YYYY',
+    monthYearLabel: 'MMMM YYYY',
+    dateA11Label: 'LL',
+    monthYearA11Label: 'MMMM YYYY'
+  },
+};
 
 @NgModule({
   declarations: [
@@ -81,11 +94,20 @@ const MATERIAL_MODULES: any[] = [
     HttpClientModule,
     MATERIAL_MODULES,
     LayoutModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatMomentDateModule,
   ],
   providers: [
     ProductService,
     PantryService,
-    PantryProductsListComponent
+    PantryProductsListComponent,
+    MatDatepickerModule,
+    { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS}
+  ],
+  exports: [
+    MatDatepickerModule,
+    MatNativeDateModule,
   ],
   bootstrap: [AppComponent]
 })
