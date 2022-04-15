@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Product } from '../product';
 import { ProductService } from '../product.service';
 import { Subscription } from 'rxjs';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-single-product-page',
@@ -12,18 +13,22 @@ import { Subscription } from 'rxjs';
 export class SingleProductPageComponent implements OnInit, OnDestroy {
 
   product: Product;
+  changeProductForm: FormGroup;
+
   id: string;
   getProductSub: Subscription;
 
-  constructor(private route: ActivatedRoute, private productService: ProductService) { }
+  constructor( private route: ActivatedRoute, private productService: ProductService, private fb: FormBuilder ) { }
 
   ngOnInit(): void {
+    this.dontCreateForms();
     this.route.paramMap.subscribe((pmap) => {
       this.id = pmap.get('id');
       if (this.getProductSub) {
         this.getProductSub.unsubscribe();
       }
-      this.getProductSub = this.productService.getProductById(this.id).subscribe(product => this.product = product);
+      this.getProductSub = this.productService.getProductById(this.id).subscribe(product => this.product = product,
+         product => this.createForms());
     });
   }
 
@@ -31,6 +36,70 @@ export class SingleProductPageComponent implements OnInit, OnDestroy {
     if (this.getProductSub) {
       this.getProductSub.unsubscribe();
     }
+  }
+
+  createForms() {
+    this.changeProductForm = this.fb.group({
+      _id: new FormControl(this.product._id),
+      name: new FormControl(this.product.product_name, Validators.compose([
+        Validators.minLength(0),
+        // In the real world you'd want to be very careful about having
+        // an upper limit like this because people can sometimes have
+        // very long names. This demonstrates that it's possible, though,
+        // to have maximum length limits.
+        Validators.maxLength(50),
+        (fc) => {
+          if (fc.value.toLowerCase() === 'abc123' || fc.value.toLowerCase() === '123abc') {
+            return ({ existingName: true });
+          } else {
+            return null;
+          }
+        },
+      ])),
+      brand: new FormControl(this.product.brand),
+      store: new FormControl(this.product.store),
+      lifespan: new FormControl(this.product.lifespan),
+      description: new FormControl(this.product.description),
+      category: new FormControl(this.product.category),
+      location: new FormControl(this.product.location),
+      notes: new FormControl(this.product.notes),
+      threshold: new FormControl(this.product.threshold, Validators.compose([
+        Validators.min(0),
+        Validators.pattern('^[0-9]+$')
+      ]))
+    });
+  }
+
+  dontCreateForms() {
+    this.changeProductForm = this.fb.group({
+      _id: new FormControl(),
+      name: new FormControl('', Validators.compose([
+        Validators.minLength(0),
+        // In the real world you'd want to be very careful about having
+        // an upper limit like this because people can sometimes have
+        // very long names. This demonstrates that it's possible, though,
+        // to have maximum length limits.
+        Validators.maxLength(50),
+        (fc) => {
+          if (fc.value.toLowerCase() === 'abc123' || fc.value.toLowerCase() === '123abc') {
+            return ({ existingName: true });
+          } else {
+            return null;
+          }
+        },
+      ])),
+      brand: new FormControl(),
+      store: new FormControl(),
+      lifespan: new FormControl(),
+      description: new FormControl(),
+      category: new FormControl(),
+      location: new FormControl(),
+      notes: new FormControl(),
+      threshold: new FormControl('', Validators.compose([
+        Validators.min(0),
+        Validators.pattern('^[0-9]+$')
+      ]))
+    });
   }
 
 }
