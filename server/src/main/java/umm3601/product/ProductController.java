@@ -224,7 +224,7 @@ Product newProduct = ctx.bodyValidator(Product.class)
     .get();
 
     Bson filter = Filters.eq("_id", newProduct._id);
-    productCollection.findOneAndUpdate(filter, Updates.set("name", newProduct.product_name));
+    productCollection.findOneAndUpdate(filter, Updates.set("product_name", newProduct.product_name));
     productCollection.findOneAndUpdate(filter, Updates.set("brand", newProduct.brand));
     productCollection.findOneAndUpdate(filter, Updates.set("category", newProduct.category));
     productCollection.findOneAndUpdate(filter, Updates.set("store", newProduct.store));
