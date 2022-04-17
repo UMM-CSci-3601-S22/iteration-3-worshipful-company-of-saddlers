@@ -4,17 +4,21 @@
       *ngIf="getUnfilteredProducts; else productError">
       <mat-card>
         <h1 mat-header>My Pantry!</h1>
-        <mat-card-content>
+        <mat-card-content fxLayout="row">
           <div fxLayout="row wrap" fxLayoutGap="15px" style="margin-right: 15px;">
-            <mat-form-field class="Pantry-name-input-field">
-              <mat-label>Item Name</mat-label>
-              <input matInput data-test="pantry_nameInput" placeholder="Filter items by name" [(ngModel)]="ItemName"
-                (input)="updateItemFilter()">
-              <mat-hint>Filtered on client</mat-hint>
-            </mat-form-field>
+            <div>
+              <h3 style="padding-top: 10px;">Filter Your Pantry</h3>
+              <mat-form-field class="Pantry-name-input-field">
+                <mat-label>Item Name</mat-label>
+                <input matInput data-test="pantry_nameInput" placeholder="Filter items by name" [(ngModel)]="ItemName"
+                  (input)="updateItemFilter()">
+                <mat-hint>Filtered on client</mat-hint>
+              </mat-form-field>
+            </div>
           </div>
-          <mat-nav-list class="add-product-nav-list">
-            <h3 mat-subheader>Add a product to the pantry</h3>
+
+          <mat-nav-list class="add-product-nav-list" style="padding-left: 200px;">
+            <h3>Add a product to the pantry</h3>
             <div>
               <mat-form-field class="input-field">
                 <mat-label>Product Name</mat-label>
