@@ -2,6 +2,10 @@
   margin-bottom: 10px;
 }
 
+.add-product-list {
+  justify-content: space-between;
+}
+
 .pantry-list {
   margin-bottom: 10px;
 }
@@ -69,9 +73,6 @@ element.style {
 .limitContainer {
   display: flex;
   justify-content: flex-end;
-}
-
-.add-item-fab {
 }
 
 .conditional-item-list {
