@@ -40,6 +40,21 @@ export class SingleProductPageComponent implements OnInit, OnDestroy {
       this.getProductSub.unsubscribe();
     }
   }
+  // dontCreateForms() {
+  //   this.changeProductForm = this.fb.group({
+  //     _id: new FormControl(),
+  //     // eslint-disable-next-line @typescript-eslint/naming-convention
+  //     product_name: new FormControl(),
+  //     brand: new FormControl(),
+  //     store: new FormControl(),
+  //     lifespan: new FormControl(),
+  //     description: new FormControl(),
+  //     category: new FormControl(),
+  //     location: new FormControl(),
+  //     notes: new FormControl(),
+  //     threshold: new FormControl()
+  //   });
+  // }
 
   createForms() {
     this.changeProductForm = this.fb.group({

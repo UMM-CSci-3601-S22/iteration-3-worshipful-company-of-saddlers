@@ -67,15 +67,16 @@ import { ProductService } from '../app/products/product.service';
    }
 
    getProductById(id: string): Observable<Product> {
-     // If the specified ID is for the first test product,
-     // return that product, otherwise return `null` so
-     // we can test illegal user requests.
-     if (id === MockProductService.testProducts[0]._id) {
-       return of(MockProductService.testProducts[0]);
-     } else {
-       return of(null);
-     }
-   }
+    // If the specified ID is for the first test product,
+    // return that product, otherwise return `null` so
+
+    for (let i = 0; i < 3; i++) {
+      if (id === MockProductService.testProducts[i]._id) {
+        return of(MockProductService.testProducts[i]);
+      }
+    }
+    return of(null);
+  }
 
    deleteProduct(id: string): Observable<Product> {
     if (id === MockProductService.testProducts[0]._id) {this.deletedProduct = MockProductService.testProducts[0];}
