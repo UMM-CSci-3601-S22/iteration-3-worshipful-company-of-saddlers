@@ -4,7 +4,7 @@
       *ngIf="getUnfilteredProducts; else productError">
       <mat-card>
         <h1 mat-header>My Pantry!</h1>
-        <mat-card-content fxLayout="row">
+        <mat-card-content fxLayout="row" style="justify-content: space-between;">
           <div fxLayout="row wrap" fxLayoutGap="15px" style="margin-right: 15px;">
             <div>
               <h3 style="padding-top: 10px;">Filter Your Pantry</h3>
@@ -17,7 +17,7 @@
             </div>
           </div>
 
-          <mat-nav-list class="add-product-nav-list" style="padding-left: 200px;">
+          <mat-nav-list class="add-product-nav-list" style="width: 355px">
             <h3>Add a product to the pantry</h3>
             <div>
               <mat-form-field class="input-field">
