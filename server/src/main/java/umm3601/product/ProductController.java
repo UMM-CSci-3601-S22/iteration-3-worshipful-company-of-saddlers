@@ -219,7 +219,7 @@ public class ProductController {
   }
 
   public void changeProduct(Context ctx) {
-Product newProduct = ctx.bodyValidator(Product.class)
+    Product newProduct = ctx.bodyValidator(Product.class)
     .check(pdr -> pdr.threshold >= 0, "Products threshold can't be negative")
     .get();
 
@@ -233,6 +233,9 @@ Product newProduct = ctx.bodyValidator(Product.class)
     productCollection.findOneAndUpdate(filter, Updates.set("threshold", newProduct.threshold));
     productCollection.findOneAndUpdate(filter, Updates.set("description", newProduct.description));
     productCollection.findOneAndUpdate(filter, Updates.set("notes", newProduct.notes));
+
+    ctx.status(HttpCode.CREATED);
+    ctx.json(Map.of("id", newProduct._id));
   }
 
 }
