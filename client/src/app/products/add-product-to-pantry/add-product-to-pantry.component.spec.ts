@@ -83,8 +83,8 @@ describe('AddProductToPantryComponent', () => {
     expect(addProductToPantryForm).toBeTruthy();
   });
 
-  it('form should be invalid when empty', () => {
-    expect(addProductToPantryForm.valid).toBeFalsy();
+  it('form should be valid on init (because datepicker defaults to todays date)', () => {
+    expect(addProductToPantryForm.valid).toBeTruthy();
   });
 
   describe('Pantry Item Date field', () => {
@@ -98,7 +98,7 @@ describe('AddProductToPantryComponent', () => {
       pantry_dateControl.setValue('');
       expect(pantry_dateControl.valid).toBeFalsy();
     });
-
+    /*Should not need these tests now that a datepicker is used and user cannot manually enter date text
     it('Should allow "01-02-2222"', () => {
       pantry_dateControl.setValue('01-02-2222');
       expect(pantry_dateControl.valid).toBeTruthy();
@@ -108,6 +108,7 @@ describe('AddProductToPantryComponent', () => {
       pantry_dateControl.setValue('011-02-2222');
       expect(pantry_dateControl.valid).toBeFalsy();
     });
+    */
   });
 
   describe('Pantry Item Notes Field', () => {
@@ -117,9 +118,9 @@ describe('AddProductToPantryComponent', () => {
       pantry_notesControl = addProductToPantryComponent.addToPantryForm.controls.notes;
     });
 
-    it('should not allow empty notes', () => {
+    it('should allow empty notes', () => {
       pantry_notesControl.setValue('');
-      expect(pantry_notesControl.valid).toBeFalsy();
+      expect(pantry_notesControl.valid).toBeTruthy();
     });
 
     it('should not allow notes with more than 500 characters', () => {
