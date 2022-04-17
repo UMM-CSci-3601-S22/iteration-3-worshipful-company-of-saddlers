@@ -19,13 +19,12 @@ export class ProductCardComponent implements OnInit {
   @Input() product: Product;
   @Input() changeProductForm: FormGroup;
   id: string;
-  threshold: number;
   getProductSub: Subscription;
   popup = false;
   panelOpenState = false; //Unsure what this is
 
   changeProductFormMessages = {
-    name: [
+    product_name: [
       { type: 'required', message: 'Must provide a product name.' },
       { type: 'maxlength', message: 'Name cannot be more than 50 characters long' },
       {
@@ -65,11 +64,12 @@ export class ProductCardComponent implements OnInit {
 
 
   submitForm() {
+    console.log(this.changeProductForm.value);
     this.productService.changeProduct(this.changeProductForm.value).subscribe(newID => {
       this.snackBar.open('Updated Product Fields', null, { duration: 2000, });
       this.reloadComponent();
     }, err => {
-      this.snackBar.open('Failed to add the product', 'OK', {
+      this.snackBar.open('Failed to edit the product', 'OK', {
         duration: 5000,
       });
     });

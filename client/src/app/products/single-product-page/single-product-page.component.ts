@@ -21,14 +21,13 @@ export class SingleProductPageComponent implements OnInit, OnDestroy {
   constructor( private route: ActivatedRoute, private productService: ProductService, private fb: FormBuilder ) { }
 
   ngOnInit(): void {
-    this.dontCreateForms();
     this.route.paramMap.subscribe((pmap) => {
       this.id = pmap.get('id');
+      this.dontCreateForms();
       if (this.getProductSub) {
         this.getProductSub.unsubscribe();
       }
-      this.getProductSub = this.productService.getProductById(this.id).subscribe(product => this.product = product,
-         product => this.createForms());
+      this.getProductSub = this.productService.getProductById(this.id).subscribe(product => this.product = product);
     });
   }
 
@@ -41,7 +40,8 @@ export class SingleProductPageComponent implements OnInit, OnDestroy {
   createForms() {
     this.changeProductForm = this.fb.group({
       _id: new FormControl(this.product._id),
-      name: new FormControl(this.product.product_name, Validators.compose([
+      // eslint-disable-next-line @typescript-eslint/naming-convention
+      product_name: new FormControl(this.product.product_name, Validators.compose([
         Validators.minLength(0),
         // In the real world you'd want to be very careful about having
         // an upper limit like this because people can sometimes have
@@ -72,8 +72,9 @@ export class SingleProductPageComponent implements OnInit, OnDestroy {
 
   dontCreateForms() {
     this.changeProductForm = this.fb.group({
-      _id: new FormControl(),
-      name: new FormControl('', Validators.compose([
+      _id: new FormControl(this.id),
+      // eslint-disable-next-line @typescript-eslint/naming-convention
+      product_name: new FormControl('', Validators.compose([
         Validators.minLength(0),
         // In the real world you'd want to be very careful about having
         // an upper limit like this because people can sometimes have
