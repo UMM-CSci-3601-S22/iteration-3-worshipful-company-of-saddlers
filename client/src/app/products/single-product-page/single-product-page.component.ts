@@ -14,20 +14,24 @@ export class SingleProductPageComponent implements OnInit, OnDestroy {
 
   product: Product;
   changeProductForm: FormGroup;
-
+  formExists: boolean;
   id: string;
   getProductSub: Subscription;
 
   constructor( private route: ActivatedRoute, private productService: ProductService, private fb: FormBuilder ) { }
 
   ngOnInit(): void {
+    this.formExists = false;
     this.route.paramMap.subscribe((pmap) => {
       this.id = pmap.get('id');
-      this.dontCreateForms();
+      //this.dontCreateForms();
       if (this.getProductSub) {
         this.getProductSub.unsubscribe();
       }
-      this.getProductSub = this.productService.getProductById(this.id).subscribe(product => this.product = product);
+      this.getProductSub = this.productService.getProductById(this.id).subscribe(product => {
+        this.product = product;
+        this.createForms();
+      });
     });
   }
 
@@ -68,39 +72,7 @@ export class SingleProductPageComponent implements OnInit, OnDestroy {
         Validators.pattern('^[0-9]+$')
       ]))
     });
-  }
-
-  dontCreateForms() {
-    this.changeProductForm = this.fb.group({
-      _id: new FormControl(this.id),
-      // eslint-disable-next-line @typescript-eslint/naming-convention
-      product_name: new FormControl('', Validators.compose([
-        Validators.minLength(0),
-        // In the real world you'd want to be very careful about having
-        // an upper limit like this because people can sometimes have
-        // very long names. This demonstrates that it's possible, though,
-        // to have maximum length limits.
-        Validators.maxLength(50),
-        (fc) => {
-          if (fc.value.toLowerCase() === 'abc123' || fc.value.toLowerCase() === '123abc') {
-            return ({ existingName: true });
-          } else {
-            return null;
-          }
-        },
-      ])),
-      brand: new FormControl(),
-      store: new FormControl(),
-      lifespan: new FormControl(),
-      description: new FormControl(),
-      category: new FormControl(),
-      location: new FormControl(),
-      notes: new FormControl(),
-      threshold: new FormControl('', Validators.compose([
-        Validators.min(0),
-        Validators.pattern('^[0-9]+$')
-      ]))
-    });
+    this.formExists = true;
   }
 
 }

@@ -18,6 +18,7 @@ export class ProductCardComponent implements OnInit {
 
   @Input() product: Product;
   @Input() changeProductForm: FormGroup;
+  @Input() formExists: boolean;
   id: string;
   getProductSub: Subscription;
   popup = false;

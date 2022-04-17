@@ -19,7 +19,7 @@
     <b>Threshold:</b>
     <p class="product-card-threshold">{{this.product.threshold}}</p>
 
-    <form [formGroup]="changeProductForm" (ngSubmit)="submitForm();">
+    <form *ngIf="formExists"[formGroup]="changeProductForm" (ngSubmit)="submitForm();">
     <div>
       <mat-form-field>
         <mat-label>Threshold</mat-label>
