@@ -44,9 +44,6 @@ export class AddProductPage {
     if (newProduct.threshold) {
       this.getFormField('threshold').type(newProduct.threshold.toString());
     }
-    if (newProduct.image) {
-      this.getFormField('image').type(newProduct.image);
-    }
     return this.addProductButton().click();
   }
 }

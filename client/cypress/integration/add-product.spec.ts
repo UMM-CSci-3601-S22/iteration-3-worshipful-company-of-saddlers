@@ -27,7 +27,6 @@ describe('Add product', () => {
         notes: 'Product Notes',
         lifespan: 30,
         threshold: 45,
-        image: 'Image',
       };
 
       page.addProduct(product);
@@ -57,7 +56,6 @@ describe('Add product', () => {
         notes: 'Product Notes',
         lifespan: 30,
         threshold: 45,
-        image: 'Image',
       };
 
       page.addProduct(product);
@@ -77,38 +75,6 @@ describe('Add product', () => {
       page.getFormField('category').should('contain', 'Produce');
     });
 
-    it('Should fail with no image', () => {
-      const product: Product = {
-        _id: null,
-        // eslint-disable-next-line @typescript-eslint/naming-convention
-        product_name: 'Test Product',
-        description: 'description',
-        brand: 'Test Brand',
-        category: 'produce',
-        store: 'Willies',
-        location: 'Aisle 34',
-        notes: 'Product Notes',
-        lifespan: 30,
-        threshold: 45,
-        image: null,
-      };
-
-      page.addProduct(product);
-
-      // We should get an error message
-      cy.get('.mat-simple-snackbar').should('contain', `Failed to add the product`);
-
-      // New URL should end in the 24 hex character Mongo ID of the newly added product
-      cy.url()
-        .should('not.match', /\/products\/[0-9a-fA-F]{24}$/)
-        .should('match', /\/products\/new$/);
-
-      // The things we entered in the form should still be there
-      page.getFormField('product_name').should('have.value', product.product_name);
-      page.getFormField('brand').should('have.value', product.brand);
-      page.getFormField('store').should('have.value', product.store);
-      page.getFormField('category').should('contain', 'Produce');
-    });
   });
 
   it('Should have the correct title', () => {
