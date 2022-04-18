@@ -26,7 +26,7 @@ export class PantryProductsListComponent implements OnInit, OnDestroy {
   public allProducts: Product[] = [];
   public pantryProducts: PantryItem[] = [];
   public serverFilteredItems: PantryItem[];
-  public filteredItems: PantryItem[];
+  public filteredItems: PantryItem[] = [];
   public filteredProducts: Product[];
 
   public name: string;
@@ -44,6 +44,7 @@ export class PantryProductsListComponent implements OnInit, OnDestroy {
   public tempDialog: any;
   public tempDeleted: PantryItem;
   public tempName: string;
+  public ItemName: string;
 
   public bakingSuppliesItems: PantryItem[] = [];
   public bakedGoodsItems: PantryItem[] = [];
@@ -106,13 +107,13 @@ export class PantryProductsListComponent implements OnInit, OnDestroy {
     this.unsub();
     this.getItemsSub = this.pantryService.getPantryItems({
       category: this.productCategory,
-      name: this.name
+      name: this.ItemName
     }).subscribe(returnedItems => {
       this.serverFilteredItems = returnedItems;
     }, err => {
       console.log(err);
     });
-    if (this.productCategory || this.name) {
+    if (this.productCategory || this.ItemName) {
       this.activeFilters = true;
     }
     else {
@@ -132,6 +133,7 @@ export class PantryProductsListComponent implements OnInit, OnDestroy {
     this.unsubItemsUnfiltered();
     this.getUnfilteredItemsSub = this.pantryService.getPantryItems().subscribe(returnedItems => {
       this.pantryProducts = returnedItems;
+      this.filteredItems = returnedItems;
       this.makeCategoryLists();
     });
   }
@@ -150,9 +152,9 @@ export class PantryProductsListComponent implements OnInit, OnDestroy {
 
   updateItemFilter(): void {
     this.filteredItems = this.pantryService.filterItems(
-      this.serverFilteredItems, {category: this.productCategory, name: this.name}
+      this.serverFilteredItems, {category: this.productCategory, name: this.ItemName}
     );
-    if (this.name || this.productCategory) {
+    if (this.ItemName || this.productCategory) {
       this.activeFilters = true;
     }
     else {
