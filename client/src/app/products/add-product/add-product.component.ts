@@ -39,8 +39,7 @@ export class AddProductComponent implements OnInit {
     ],
     store: [
       {type: 'required', message: 'Product store is required'},
-      {type: 'minlength', message: 'Product store must be at least 1 character'},
-      {type: 'maxlength', message: 'Product store must be at less than 100 characters'}
+      {type: 'pattern', message: 'Store must be Willies, Pomme De Terre, Both, or Other'}
     ],
     location: [
       {type: 'minlength', message: 'Product location must be at least 1 character'},
@@ -86,7 +85,7 @@ export class AddProductComponent implements OnInit {
           'frozen foods|herbs/spices|meat|miscellaneous|paper products|pet supplies|produce|staples|toiletries)$')
       ])),
       store: new FormControl('', Validators.compose([
-        Validators.required, Validators.minLength(1), Validators.maxLength(100),
+        Validators.required, Validators.pattern('^(Willies|Pomme De Terre|Both|Other)$')
       ])),
       location: new FormControl('', Validators.compose([
         Validators.minLength(1), Validators.maxLength(100),

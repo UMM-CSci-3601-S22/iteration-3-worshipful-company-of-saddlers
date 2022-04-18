@@ -1,7 +1,7 @@
 <div fxLayout="row">
   <div fxFlex fxFlex.gt-sm="80" fxFlexOffset.gt-sm="10">
     <form [formGroup]="addProductForm" (ngSubmit)="submitForm();">
-    <mat-card class="add-product-card">
+      <mat-card class="add-product-card">
         <mat-card-header>
           <mat-card-title class="add-product-title">Create a New Product</mat-card-title>
         </mat-card-header>
@@ -9,11 +9,10 @@
 
           <mat-form-field>
             <mat-label>Product Name</mat-label>
-            <input matInput placeholder="Product Name" formControlName="product_name"
-                  required>
+            <input matInput placeholder="Product Name" formControlName="product_name" required>
             <mat-error *ngFor="let validation of addProductValidationMessages.product_name">
               <mat-error class="error-message" data-test="product_nameError"
-                        *ngIf="addProductForm.get('product_name').hasError(validation.type) && (addProductForm.get('product_name').dirty || addProductForm.get('product_name').touched)">
+                *ngIf="addProductForm.get('product_name').hasError(validation.type) && (addProductForm.get('product_name').dirty || addProductForm.get('product_name').touched)">
                 {{validation.message}}
               </mat-error>
             </mat-error>
@@ -21,11 +20,10 @@
 
           <mat-form-field>
             <mat-label>Description</mat-label>
-            <input matInput placeholder="product description"
-                  formControlName="description">
+            <input matInput placeholder="product description" formControlName="description">
             <mat-error *ngFor="let validation of addProductValidationMessages.description">
               <mat-error class="error-message" data-test="descriptionError"
-                        *ngIf="addProductForm.get('description').hasError(validation.type) && (addProductForm.get('description').dirty || addProductForm.get('description').touched)">
+                *ngIf="addProductForm.get('description').hasError(validation.type) && (addProductForm.get('description').dirty || addProductForm.get('description').touched)">
                 {{validation.message}}
               </mat-error>
             </mat-error>
@@ -33,11 +31,10 @@
 
           <mat-form-field>
             <mat-label>Product Brand</mat-label>
-            <input matInput placeholder="Product Brand" formControlName="brand"
-                  required>
+            <input matInput placeholder="Product Brand" formControlName="brand" required>
             <mat-error *ngFor="let validation of addProductValidationMessages.brand">
               <mat-error class="error-message" data-test="brandError"
-                        *ngIf="addProductForm.get('brand').hasError(validation.type) && (addProductForm.get('brand').dirty || addProductForm.get('brand').touched)">
+                *ngIf="addProductForm.get('brand').hasError(validation.type) && (addProductForm.get('brand').dirty || addProductForm.get('brand').touched)">
                 {{validation.message}}
               </mat-error>
             </mat-error>
@@ -63,18 +60,23 @@
               <mat-option value="toiletries">Toiletries</mat-option>
             </mat-select>
             <mat-error *ngIf="addProductForm.get('category').hasError('required')">You must make a selection</mat-error>
-            <mat-error *ngIf="addProductForm.get('category').hasError('pattern') && !addProductForm.get('category').hasError('required')">
+            <mat-error
+              *ngIf="addProductForm.get('category').hasError('pattern') && !addProductForm.get('category').hasError('required')">
               Your selection is invalid
             </mat-error>
           </mat-form-field>
 
           <mat-form-field>
             <mat-label>Product Store</mat-label>
-            <input matInput placeholder="Product Store" formControlName="store"
-                  required>
+            <mat-select formControlName="store" required>
+              <mat-option value="Willies">Willies</mat-option>
+              <mat-option value="Pomme De Terre">Pomme De Terre</mat-option>
+              <mat-option value="Both">Both</mat-option>
+              <mat-option value="Other">Other</mat-option>
+            </mat-select>
             <mat-error *ngFor="let validation of addProductValidationMessages.store">
               <mat-error class="error-message" data-test="storeError"
-                        *ngIf="addProductForm.get('store').hasError(validation.type) && (addProductForm.get('store').dirty || addProductForm.get('store').touched)">
+                *ngIf="addProductForm.get('store').hasError(validation.type) && (addProductForm.get('store').dirty || addProductForm.get('store').touched)">
                 {{validation.message}}
               </mat-error>
             </mat-error>
@@ -82,11 +84,10 @@
 
           <mat-form-field>
             <mat-label>Product Location</mat-label>
-            <input matInput placeholder="Product Location" formControlName="location"
-                    >
+            <input matInput placeholder="Product Location" formControlName="location">
             <mat-error *ngFor="let validation of addProductValidationMessages.location">
               <mat-error class="error-message" data-test="locationError"
-                        *ngIf="addProductForm.get('location').hasError(validation.type) && (addProductForm.get('location').dirty || addProductForm.get('location').touched)">
+                *ngIf="addProductForm.get('location').hasError(validation.type) && (addProductForm.get('location').dirty || addProductForm.get('location').touched)">
                 {{validation.message}}
               </mat-error>
             </mat-error>
@@ -94,11 +95,10 @@
 
           <mat-form-field>
             <mat-label>Product Notes</mat-label>
-            <input matInput placeholder="Product Notes" formControlName="notes"
-                    >
+            <input matInput placeholder="Product Notes" formControlName="notes">
             <mat-error *ngFor="let validation of addProductValidationMessages.notes">
               <mat-error class="error-message" data-test="notesError"
-                        *ngIf="addProductForm.get('notes').hasError(validation.type) && (addProductForm.get('notes').dirty || addProductForm.get('notes').touched)">
+                *ngIf="addProductForm.get('notes').hasError(validation.type) && (addProductForm.get('notes').dirty || addProductForm.get('notes').touched)">
                 {{validation.message}}
               </mat-error>
             </mat-error>
@@ -112,12 +112,10 @@
 
           <mat-form-field>
             <mat-label>Product Lifespan</mat-label>
-            <input matInput type="number" placeholder="Product Lifespan"
-                  formControlName="lifespan"
-                  >
+            <input matInput type="number" placeholder="Product Lifespan" formControlName="lifespan">
             <mat-error *ngFor="let validation of addProductValidationMessages.lifespan">
               <mat-error class="error-message" data-test="lifespanError"
-                        *ngIf="addProductForm.get('lifespan').hasError(validation.type) && (addProductForm.get('lifespan').dirty || addProductForm.get('lifespan').touched)">
+                *ngIf="addProductForm.get('lifespan').hasError(validation.type) && (addProductForm.get('lifespan').dirty || addProductForm.get('lifespan').touched)">
                 {{validation.message}}
               </mat-error>
             </mat-error>
@@ -125,12 +123,10 @@
 
           <mat-form-field>
             <mat-label>Product Threshold</mat-label>
-            <input matInput type="number" placeholder="Product Threshold"
-                  formControlName="threshold"
-                  >
+            <input matInput type="number" placeholder="Product Threshold" formControlName="threshold">
             <mat-error *ngFor="let validation of addProductValidationMessages.threshold">
               <mat-error class="error-message" data-test="thresholdError"
-                        *ngIf="addProductForm.get('threshold').hasError(validation.type) && (addProductForm.get('threshold').dirty || addProductForm.get('threshold').touched)">
+                *ngIf="addProductForm.get('threshold').hasError(validation.type) && (addProductForm.get('threshold').dirty || addProductForm.get('threshold').touched)">
                 {{validation.message}}
               </mat-error>
             </mat-error>
@@ -138,25 +134,18 @@
 
           <mat-form-field>
             <mat-label>Image - Feature Coming Soon</mat-label>
-            <input matInput placeholder="Image"
-                  formControlName="image">
+            <input matInput placeholder="Image" formControlName="image">
             <mat-hint>Feature coming soon</mat-hint>
           </mat-form-field>
 
         </mat-card-content>
         <mat-card-actions align="end">
-          <button
-            mat-button
-            type="button"
-            color="primary"
-            [disabled]="!addProductForm.valid"
-            type="submit"
-            data-test="confirmAddProductButton"
-          >
+          <button mat-button type="button" color="primary" [disabled]="!addProductForm.valid" type="submit"
+            data-test="confirmAddProductButton">
             ADD PRODUCT
           </button>
         </mat-card-actions>
-    </mat-card>
-  </form>
+      </mat-card>
+    </form>
   </div>
 </div>

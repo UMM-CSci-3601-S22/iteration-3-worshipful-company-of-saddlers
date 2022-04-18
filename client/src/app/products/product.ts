@@ -5,7 +5,7 @@ export interface Product {
   description?: string; // Client filter
   brand: string; // client filter
   category: ProductCategory; // server filter
-  store: string; // server filter
+  store: ProductStore; // server filter
   location?: string; // client filter
   notes?: string; // server filter
   tags?: string[]; // client filter
@@ -18,3 +18,5 @@ export interface Product {
 export type ProductCategory = 'baked goods' | 'produce' | 'meat' | 'dairy' | 'frozen foods' | 'baking supplies'
 | 'beverages' | 'cleaning products' | 'miscellaneous' | 'deli'
 |'herbs and spices' | 'paper products' | 'pet supplies' | 'staples' | 'toiletries';
+
+export type ProductStore = 'Willies' | 'Pomme De Terre' | 'Both' | 'Other';

@@ -28,8 +28,9 @@
         <mat-label>Store</mat-label>
         <mat-select formControlName="store" data-test="storeDropDown">
           <mat-option data-test="clickWillies" value="Willies">Willies</mat-option>
-          <mat-option data-test="clickCoop" value="Pomme de Terre Food Coop">Pomme de Terre Food Coop
+          <mat-option data-test="clickCoop" value="Pomme De Terre">Pomme De Terre
           </mat-option>
+          <mat-option data-test="clickBoth" value="Both">Both</mat-option>
           <mat-option data-test="clickOther" value="Other">Other</mat-option>
         </mat-select>
         <mat-error data-test="storeError" *ngIf="changeProductForm.get('store').hasError('required')">You must
