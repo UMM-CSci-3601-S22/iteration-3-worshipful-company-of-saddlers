@@ -69,7 +69,7 @@ public class Server {
     server.put("/api/products", productController::changeProduct);
 
     // Get the specified product
-    server.get("/api/products/{id}",productController::getProductByID);
+    server.get("/api/products/{id}", productController::getProductByID);
 
     // List products, filtered using query params
     server.get("/api/pantry", pantryController::getAllItems);
