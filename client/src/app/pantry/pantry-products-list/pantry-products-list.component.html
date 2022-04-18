@@ -4,9 +4,21 @@
       *ngIf="getUnfilteredProducts; else productError">
       <mat-card>
         <h1 mat-header>My Pantry!</h1>
-        <mat-card-content>
-          <mat-nav-list class="add-product-nav-list">
-            <h3 mat-subheader>Add a product to the pantry</h3>
+        <mat-card-content fxLayout="row" style="justify-content: space-between;">
+          <div fxLayout="row wrap" fxLayoutGap="15px" style="margin-right: 15px;">
+            <div>
+              <h3 style="padding-top: 10px;">Filter Your Pantry</h3>
+              <mat-form-field class="Pantry-name-input-field">
+                <mat-label>Item Name</mat-label>
+                <input matInput data-test="pantry_nameInput" placeholder="Filter items by name" [(ngModel)]="ItemName"
+                  (input)="updateItemFilter()">
+                <mat-hint>Filtered on client</mat-hint>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <mat-nav-list class="add-product-nav-list" style="width: 355px">
+            <h3>Add a product to the pantry</h3>
             <div>
               <mat-form-field class="input-field">
                 <mat-label>Product Name</mat-label>
@@ -22,8 +34,8 @@
             -->
               <mat-list-item *ngFor="let product of this.filteredProducts" class="add-product-list-item"
                 data-test="addProductListItem">
-                <p matLine class="add-product-list-name">{{product.product_name}}</p>
-                <div *ngIf="!popup" class="addContainer" style="position: absolute; margin-left: 400px">
+                <p matLine class="add-product-list-name" style="padding-right: 20px;">{{product.product_name}}</p>
+                <div *ngIf="!popup" class="addContainer">
                   <button mat-raised-button class="add-product-button" matTooltip="Add Product"
                     matTooltipPosition="left" (click)="popup = true" data-test="addProductButton">
                     <mat-icon aria-label="Add Product">add</mat-icon>
@@ -60,18 +72,19 @@
             <mat-expansion-panel>
               <mat-expansion-panel-header class="pantry-items-expansion-panel">
                 <mat-panel-title>
-                  Pantry Items ({{this.pantryProducts.length}})
+                  Pantry Items ({{this.filteredItems.length}})
                 </mat-panel-title>
                 <mat-panel-description>
 
                 </mat-panel-description>
               </mat-expansion-panel-header>
               <mat-nav-list class="baked-goods-pantry-nav-list">
-                <span fxLayout="row" *ngFor="let item of this.pantryProducts">
+                <span fxLayout="row" *ngFor="let item of this.filteredItems">
                   <a mat-list-item class="product-list-item">
                     <p matLine class="product-list-name"> {{item.name}} </p>
                     <p matLine class="product-list-category"> Category: {{item.category}} </p>
-                    <p matLine class="pantryItem-list-date">Purchase Date: {{item.purchase_date | date: 'dd/MM/yyyy'}}</p>
+                    <p matLine class="pantryItem-list-date">Purchase Date: {{item.purchase_date | date: 'dd/MM/yyyy'}}
+                    </p>
                     <mat-divider></mat-divider>
                   </a>
                   <div class="deleteContainer" style="position: absolute;">
@@ -82,15 +95,15 @@
                     </button>
 
                     <ng-template #dialogRef let-mydata>
-                    <h1 mat-dialog-title>Delete Product?</h1>
-                    <div mat-dialog-content>
-                      <h4>Are you sure you want to delete <i>{{tempName}}</i>? This action cannot be undone</h4>
-                    </div>
-                    <div mat-dialog-actions>
-                      <button mat-button color="warn" (click)="removeItem(tempId)">Delete</button>
-                      <button mat-button [mat-dialog-close]="" cdkFocusInitial>Cancel</button>
-                    </div>
-                  </ng-template>
+                      <h1 mat-dialog-title>Delete Product?</h1>
+                      <div mat-dialog-content>
+                        <h4>Are you sure you want to delete <i>{{tempName}}</i>? This action cannot be undone</h4>
+                      </div>
+                      <div mat-dialog-actions>
+                        <button mat-button color="warn" (click)="removeItem(tempId)">Delete</button>
+                        <button mat-button [mat-dialog-close]="" cdkFocusInitial>Cancel</button>
+                      </div>
+                    </ng-template>
                   </div>
                 </span>
               </mat-nav-list>
@@ -122,7 +135,8 @@
                   <a mat-list-item class="product-list-item">
                     <p matLine class="product-list-name"> {{item.name}} </p>
                     <p matLine class="product-list-category"> Category: {{item.category}} </p>
-                    <p matLine class="pantryItem-list-date">Purchase Date: {{item.purchase_date | date: 'dd/MM/yyyy'}}</p>
+                    <p matLine class="pantryItem-list-date">Purchase Date: {{item.purchase_date | date: 'dd/MM/yyyy'}}
+                    </p>
                     <mat-divider></mat-divider>
                   </a>
                   <div class="deleteContainer" style="position: absolute;">
@@ -133,15 +147,15 @@
                     </button>
 
                     <ng-template #dialogRef let-mydata>
-                    <h1 mat-dialog-title>Delete Product?</h1>
-                    <div mat-dialog-content>
-                      <h4>Are you sure you want to delete <i>{{tempName}}</i>? This action cannot be undone</h4>
-                    </div>
-                    <div mat-dialog-actions>
-                      <button mat-button color="warn" (click)="removeItem(tempId)">Delete</button>
-                      <button mat-button [mat-dialog-close]="" cdkFocusInitial>Cancel</button>
-                    </div>
-                  </ng-template>
+                      <h1 mat-dialog-title>Delete Product?</h1>
+                      <div mat-dialog-content>
+                        <h4>Are you sure you want to delete <i>{{tempName}}</i>? This action cannot be undone</h4>
+                      </div>
+                      <div mat-dialog-actions>
+                        <button mat-button color="warn" (click)="removeItem(tempId)">Delete</button>
+                        <button mat-button [mat-dialog-close]="" cdkFocusInitial>Cancel</button>
+                      </div>
+                    </ng-template>
                   </div>
                 </span>
               </mat-nav-list>
@@ -161,7 +175,8 @@
                   <a mat-list-item class="product-list-item">
                     <p matLine class="product-list-name"> {{item.name}} </p>
                     <p matLine class="product-list-category"> Category: {{item.category}} </p>
-                    <p matLine class="product-list-store"> Purchase Date: {{item.purchase_date | date: 'dd/MM/yyyy'}} </p>
+                    <p matLine class="product-list-store"> Purchase Date: {{item.purchase_date | date: 'dd/MM/yyyy'}}
+                    </p>
                     <mat-divider></mat-divider>
                   </a>
                   <div class="deleteContainer" style="position: absolute;">
@@ -200,7 +215,8 @@
                   <a mat-list-item class="product-list-item">
                     <p matLine class="product-list-name"> {{item.name}} </p>
                     <p matLine class="product-list-category"> Category: {{item.category}} </p>
-                    <p matLine class="product-list-store"> Purchase Date: {{item.purchase_date | date: 'dd/MM/yyyy'}} </p>
+                    <p matLine class="product-list-store"> Purchase Date: {{item.purchase_date | date: 'dd/MM/yyyy'}}
+                    </p>
                     <mat-divider></mat-divider>
                   </a>
                   <div class="deleteContainer" style="position: absolute;">
@@ -239,7 +255,8 @@
                   <a mat-list-item class="product-list-item">
                     <p matLine class="product-list-name"> {{item.name}} </p>
                     <p matLine class="product-list-category"> Category: {{item.category}} </p>
-                    <p matLine class="product-list-store"> Purchase Date: {{item.purchase_date | date: 'dd/MM/yyyy'}} </p>
+                    <p matLine class="product-list-store"> Purchase Date: {{item.purchase_date | date: 'dd/MM/yyyy'}}
+                    </p>
                     <mat-divider></mat-divider>
                   </a>
                   <div class="deleteContainer" style="position: absolute;">
@@ -278,7 +295,8 @@
                   <a mat-list-item class="product-list-item">
                     <p matLine class="product-list-name"> {{item.name}} </p>
                     <p matLine class="product-list-category"> Category: {{item.category}} </p>
-                    <p matLine class="product-list-store"> Purchase Date: {{item.purchase_date | date: 'dd/MM/yyyy'}} </p>
+                    <p matLine class="product-list-store"> Purchase Date: {{item.purchase_date | date: 'dd/MM/yyyy'}}
+                    </p>
                     <mat-divider></mat-divider>
                   </a>
                   <div class="deleteContainer" style="position: absolute;">
@@ -317,7 +335,8 @@
                   <a mat-list-item class="product-list-item">
                     <p matLine class="product-list-name"> {{item.name}} </p>
                     <p matLine class="product-list-category"> Category: {{item.category}} </p>
-                    <p matLine class="product-list-store"> Purchase Date: {{item.purchase_date | date: 'dd/MM/yyyy'}} </p>
+                    <p matLine class="product-list-store"> Purchase Date: {{item.purchase_date | date: 'dd/MM/yyyy'}}
+                    </p>
                     <mat-divider></mat-divider>
                   </a>
                   <div class="deleteContainer" style="position: absolute;">
@@ -356,7 +375,8 @@
                   <a mat-list-item class="product-list-item">
                     <p matLine class="product-list-name"> {{item.name}} </p>
                     <p matLine class="product-list-category"> Category: {{item.category}} </p>
-                    <p matLine class="product-list-store"> Purchase Date: {{item.purchase_date | date: 'dd/MM/yyyy'}} </p>
+                    <p matLine class="product-list-store"> Purchase Date: {{item.purchase_date | date: 'dd/MM/yyyy'}}
+                    </p>
                     <mat-divider></mat-divider>
                   </a>
                   <div class="deleteContainer" style="position: absolute;">
@@ -395,7 +415,8 @@
                   <a mat-list-item class="product-list-item">
                     <p matLine class="product-list-name"> {{item.name}} </p>
                     <p matLine class="product-list-category"> Category: {{item.category}} </p>
-                    <p matLine class="product-list-store"> Purchase Date: {{item.purchase_date | date: 'dd/MM/yyyy'}} </p>
+                    <p matLine class="product-list-store"> Purchase Date: {{item.purchase_date | date: 'dd/MM/yyyy'}}
+                    </p>
                     <mat-divider></mat-divider>
                   </a>
                   <div class="deleteContainer" style="position: absolute;">
@@ -434,7 +455,8 @@
                   <a mat-list-item class="product-list-item">
                     <p matLine class="product-list-name"> {{item.name}} </p>
                     <p matLine class="product-list-category"> Category: {{item.category}} </p>
-                    <p matLine class="product-list-store"> Purchase Date: {{item.purchase_date | date: 'dd/MM/yyyy'}} </p>
+                    <p matLine class="product-list-store"> Purchase Date: {{item.purchase_date | date: 'dd/MM/yyyy'}}
+                    </p>
                     <mat-divider></mat-divider>
                   </a>
                   <div class="deleteContainer" style="position: absolute;">
@@ -473,7 +495,8 @@
                   <a mat-list-item class="product-list-item">
                     <p matLine class="product-list-name"> {{item.name}} </p>
                     <p matLine class="product-list-category"> Category: {{item.category}} </p>
-                    <p matLine class="product-list-store"> Purchase Date: {{item.purchase_date | date: 'dd/MM/yyyy'}} </p>
+                    <p matLine class="product-list-store"> Purchase Date: {{item.purchase_date | date: 'dd/MM/yyyy'}}
+                    </p>
                     <mat-divider></mat-divider>
                   </a>
                   <div class="deleteContainer" style="position: absolute;">
@@ -512,7 +535,8 @@
                   <a mat-list-item class="product-list-item">
                     <p matLine class="product-list-name"> {{item.name}} </p>
                     <p matLine class="product-list-category"> Category: {{item.category}} </p>
-                    <p matLine class="product-list-store"> Purchase Date: {{item.purchase_date | date: 'dd/MM/yyyy'}} </p>
+                    <p matLine class="product-list-store"> Purchase Date: {{item.purchase_date | date: 'dd/MM/yyyy'}}
+                    </p>
                     <mat-divider></mat-divider>
                   </a>
                   <div class="deleteContainer" style="position: absolute;">
@@ -551,7 +575,8 @@
                   <a mat-list-item class="product-list-item">
                     <p matLine class="product-list-name"> {{item.name}} </p>
                     <p matLine class="product-list-category"> Category: {{item.category}} </p>
-                    <p matLine class="product-list-store"> Purchase Date: {{item.purchase_date | date: 'dd/MM/yyyy'}} </p>
+                    <p matLine class="product-list-store"> Purchase Date: {{item.purchase_date | date: 'dd/MM/yyyy'}}
+                    </p>
                     <mat-divider></mat-divider>
                   </a>
                   <div class="deleteContainer" style="position: absolute;">
@@ -590,7 +615,8 @@
                   <a mat-list-item class="product-list-item">
                     <p matLine class="product-list-name"> {{item.name}} </p>
                     <p matLine class="product-list-category"> Category: {{item.category}} </p>
-                    <p matLine class="product-list-store"> Purchase Date: {{item.purchase_date | date: 'dd/MM/yyyy'}} </p>
+                    <p matLine class="product-list-store"> Purchase Date: {{item.purchase_date | date: 'dd/MM/yyyy'}}
+                    </p>
                     <mat-divider></mat-divider>
                   </a>
                   <div class="deleteContainer" style="position: absolute;">
@@ -629,7 +655,8 @@
                   <a mat-list-item class="product-list-item">
                     <p matLine class="product-list-name"> {{item.name}} </p>
                     <p matLine class="product-list-category"> Category: {{item.category}} </p>
-                    <p matLine class="product-list-store"> Purchase Date: {{item.purchase_date | date: 'dd/MM/yyyy'}} </p>
+                    <p matLine class="product-list-store"> Purchase Date: {{item.purchase_date | date: 'dd/MM/yyyy'}}
+                    </p>
                     <mat-divider></mat-divider>
                   </a>
                   <div class="deleteContainer" style="position: absolute;">
@@ -668,7 +695,8 @@
                   <a mat-list-item class="product-list-item">
                     <p matLine class="product-list-name"> {{item.name}} </p>
                     <p matLine class="product-list-category"> Category: {{item.category}} </p>
-                    <p matLine class="product-list-store"> Purchase Date: {{item.purchase_date | date: 'dd/MM/yyyy'}} </p>
+                    <p matLine class="product-list-store"> Purchase Date: {{item.purchase_date | date: 'dd/MM/yyyy'}}
+                    </p>
                     <mat-divider></mat-divider>
                   </a>
                   <div class="deleteContainer" style="position: absolute;">
