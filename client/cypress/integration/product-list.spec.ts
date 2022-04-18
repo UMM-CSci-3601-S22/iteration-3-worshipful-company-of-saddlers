@@ -132,7 +132,6 @@ describe('Product list', () => {
       // On this profile page we were sent to, the name and category should be correct
       cy.get('.product-card-name').should('have.text', firstProductName);
       cy.get('.product-card-category').first().should('have.text', firstProductCategory);
-
     });
   });
 
@@ -200,7 +199,6 @@ describe('Product list', () => {
         // On this profile page we were sent to, the name and category should be correct
         cy.get('.product-card-name').should('have.text', firstProductName);
         cy.get('.product-card-category').first().should('have.text', 'baked goods');
-
       });
     });
 
@@ -270,7 +268,6 @@ describe('Product list', () => {
         // On this profile page we were sent to, the name and category should be correct
         cy.get('.product-card-name').should('have.text', firstProductName);
         cy.get('.product-card-category').first().should('have.text', 'baking supplies');
-
       });
     });
 
@@ -340,7 +337,6 @@ describe('Product list', () => {
         // On this profile page we were sent to, the name and category should be correct
         cy.get('.product-card-name').should('have.text', firstProductName);
         cy.get('.product-card-category').first().should('have.text', 'beverages');
-
       });
     });
 
@@ -410,7 +406,6 @@ describe('Product list', () => {
         // On this profile page we were sent to, the name and category should be correct
         cy.get('.product-card-name').should('have.text', firstProductName);
         cy.get('.product-card-category').first().should('have.text', 'cleaning products');
-
       });
     });
 
@@ -480,7 +475,6 @@ describe('Product list', () => {
         // On this profile page we were sent to, the name and category should be correct
         cy.get('.product-card-name').should('have.text', firstProductName);
         cy.get('.product-card-category').first().should('have.text', 'dairy');
-
       });
     });
 
@@ -550,7 +544,6 @@ describe('Product list', () => {
         // On this profile page we were sent to, the name and category should be correct
         cy.get('.product-card-name').should('have.text', firstProductName);
         cy.get('.product-card-category').first().should('have.text', 'deli');
-
       });
     });
 
@@ -620,7 +613,6 @@ describe('Product list', () => {
         // On this profile page we were sent to, the name and category should be correct
         cy.get('.product-card-name').should('have.text', firstProductName);
         cy.get('.product-card-category').first().should('have.text', 'frozen foods');
-
       });
     });
 
@@ -690,7 +682,6 @@ describe('Product list', () => {
         // On this profile page we were sent to, the name and category should be correct
         cy.get('.product-card-name').should('have.text', firstProductName);
         cy.get('.product-card-category').first().should('have.text', 'herbs and spices');
-
       });
     });
 
@@ -760,7 +751,6 @@ describe('Product list', () => {
         // On this profile page we were sent to, the name and category should be correct
         cy.get('.product-card-name').should('have.text', firstProductName);
         cy.get('.product-card-category').first().should('have.text', 'meat');
-
       });
     });
 
@@ -830,7 +820,6 @@ describe('Product list', () => {
         // On this profile page we were sent to, the name and category should be correct
         cy.get('.product-card-name').should('have.text', firstProductName);
         cy.get('.product-card-category').first().should('have.text', 'miscellaneous');
-
       });
     });
 
@@ -900,7 +889,6 @@ describe('Product list', () => {
         // On this profile page we were sent to, the name and category should be correct
         cy.get('.product-card-name').should('have.text', firstProductName);
         cy.get('.product-card-category').first().should('have.text', 'paper products');
-
       });
     });
 
@@ -970,7 +958,6 @@ describe('Product list', () => {
         // On this profile page we were sent to, the name and category should be correct
         cy.get('.product-card-name').should('have.text', firstProductName);
         cy.get('.product-card-category').first().should('have.text', 'pet supplies');
-
       });
     });
 
@@ -1040,7 +1027,6 @@ describe('Product list', () => {
         // On this profile page we were sent to, the name and category should be correct
         cy.get('.product-card-name').should('have.text', firstProductName);
         cy.get('.product-card-category').first().should('have.text', 'produce');
-
       });
     });
 
@@ -1110,7 +1096,6 @@ describe('Product list', () => {
         // On this profile page we were sent to, the name and category should be correct
         cy.get('.product-card-name').should('have.text', firstProductName);
         cy.get('.product-card-category').first().should('have.text', 'staples');
-
       });
     });
 
@@ -1180,7 +1165,6 @@ describe('Product list', () => {
         // On this profile page we were sent to, the name and category should be correct
         cy.get('.product-card-name').should('have.text', firstProductName);
         cy.get('.product-card-category').first().should('have.text', 'toiletries');
-
       });
     });
 
