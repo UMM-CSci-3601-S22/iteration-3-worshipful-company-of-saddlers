@@ -26,23 +26,32 @@ describe('Product list', () => {
     // Test inputs are not in the fields yet
     singlePage.getFormField('brand').should('not.have.value', 'test brand');
     singlePage.getFormField('location').should('not.have.value', 'test location');
-    singlePage.getFormField('description').should('not.have.value', 'test description');
-    singlePage.getFormField('notes').should('not.have.value', 'test notes');
+    singlePage.getFormField('lifespan').should('not.have.value', '69');
+    singlePage.getFormField('threshold').should('not.have.value', '69');
+    cy.get('[data-test="descriptionInput"]').should('not.have.value', 'test description');
+    cy.get('[data-test="notesInput"]').should('not.have.value', 'test notes');
 
     // Put test input into the fields
     singlePage.getFormField('brand').clear().type('test brand');
+    singlePage.selectEditCategory('Produce');
+    singlePage.selectEditStore('Willies');
     singlePage.getFormField('location').clear().type('test location');
-    singlePage.getFormField('description').clear().type('test description');
-    singlePage.getFormField('notes').clear().type('test notes');
+    singlePage.getFormField('lifespan').clear().type('69');
+    singlePage.getFormField('threshold').clear().type('69');
+    cy.get('[data-test="descriptionInput"]').clear().type('test description');
+    cy.get('[data-test="notesInput"]').clear().type('test notes');
 
     // Confirm changes
     cy.get('[data-test="confirmChange"]').click();
 
     // Assert that test inputs are indeed in the fields
     singlePage.getFormField('brand').should('have.value', 'test brand');
+    singlePage.getFormField('category').should('contain', 'Produce');
+    singlePage.getFormField('store').should('contain', 'Willies');
     singlePage.getFormField('location').should('have.value', 'test location');
-    singlePage.getFormField('description').should('have.value', 'test description');
-    singlePage.getFormField('notes').should('have.value', 'test notes');
+    singlePage.getFormField('lifespan').should('have.value', '69');
+    singlePage.getFormField('threshold').should('have.value', '69');
+    cy.get('[data-test="descriptionInput"]').should('have.value', 'test description');
+    cy.get('[data-test="notesInput"]').should('have.value', 'test notes');
   });
-
 });
