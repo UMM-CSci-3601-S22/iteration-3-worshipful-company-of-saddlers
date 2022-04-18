@@ -122,17 +122,14 @@ describe('Product list', () => {
     cy.get('[data-test=product_nameInput]').type('Bread - White, Unsliced');
     page.getFilteredProductListItems().first().then((list) => {
       const firstProductName = list.find('.product-list-name').text().trim();
-      const firstProductCategory = list.find('.product-list-category').text().trim();
 
       page.getFilteredProductListItems().first().click();
 
       // The URL should be '/products/' followed by a mongo ID
       cy.url().should('match', /products\/[0-9a-fA-F]{24}$/);
 
-      // On this profile page we were sent to, the name and category should be correct
+      // On this profile page we were sent to, the name should be correct
       cy.get('.product-card-name').should('have.text', firstProductName);
-      cy.get('.product-card-category').first().should('have.text', firstProductCategory);
-
     });
   });
 
@@ -190,17 +187,14 @@ describe('Product list', () => {
       page.getBakedGoodsProductDropdown().click();
       page.getBakedGoodsProductListItems().first().then((list) => {
         const firstProductName = list.find('.product-list-name').text().trim();
-        const firstProductCategory = list.find('.product-list-category').text().trim();
 
         page.getBakedGoodsProductListItems().first().click();
 
         // The URL should be '/products/' followed by a mongo ID
         cy.url().should('match', /products\/[0-9a-fA-F]{24}$/);
 
-        // On this profile page we were sent to, the name and category should be correct
+        // On this profile page we were sent to, the name should be correct
         cy.get('.product-card-name').should('have.text', firstProductName);
-        cy.get('.product-card-category').first().should('have.text', 'baked goods');
-
       });
     });
 
@@ -260,17 +254,14 @@ describe('Product list', () => {
       page.getBakingSuppliesProductDropdown().click();
       page.getBakingSuppliesProductListItems().first().then((list) => {
         const firstProductName = list.find('.product-list-name').text().trim();
-        const firstProductCategory = list.find('.product-list-category').text().trim();
 
         page.getBakingSuppliesProductListItems().first().click();
 
         // The URL should be '/products/' followed by a mongo ID
         cy.url().should('match', /products\/[0-9a-fA-F]{24}$/);
 
-        // On this profile page we were sent to, the name and category should be correct
+        // On this profile page we were sent to, the name should be correct
         cy.get('.product-card-name').should('have.text', firstProductName);
-        cy.get('.product-card-category').first().should('have.text', 'baking supplies');
-
       });
     });
 
@@ -330,17 +321,14 @@ describe('Product list', () => {
       page.getBeverageProductDropdown().click();
       page.getBeverageProductListItems().first().then((list) => {
         const firstProductName = list.find('.product-list-name').text().trim();
-        const firstProductCategory = list.find('.product-list-category').text().trim();
 
         page.getBeverageProductListItems().first().click();
 
         // The URL should be '/products/' followed by a mongo ID
         cy.url().should('match', /products\/[0-9a-fA-F]{24}$/);
 
-        // On this profile page we were sent to, the name and category should be correct
+        // On this profile page we were sent to, the name should be correct
         cy.get('.product-card-name').should('have.text', firstProductName);
-        cy.get('.product-card-category').first().should('have.text', 'beverages');
-
       });
     });
 
@@ -400,17 +388,14 @@ describe('Product list', () => {
       page.getCleaningProductDropdown().click();
       page.getCleaningProductListItems().first().then((list) => {
         const firstProductName = list.find('.product-list-name').text().trim();
-        const firstProductCategory = list.find('.product-list-category').text().trim();
 
         page.getCleaningProductListItems().first().click();
 
         // The URL should be '/products/' followed by a mongo ID
         cy.url().should('match', /products\/[0-9a-fA-F]{24}$/);
 
-        // On this profile page we were sent to, the name and category should be correct
+        // On this profile page we were sent to, the name should be correct
         cy.get('.product-card-name').should('have.text', firstProductName);
-        cy.get('.product-card-category').first().should('have.text', 'cleaning products');
-
       });
     });
 
@@ -470,17 +455,14 @@ describe('Product list', () => {
       page.getDairyProductDropdown().click();
       page.getDairyProductListItems().first().then((list) => {
         const firstProductName = list.find('.product-list-name').text().trim();
-        const firstProductCategory = list.find('.product-list-category').text().trim();
 
         page.getDairyProductListItems().first().click();
 
         // The URL should be '/products/' followed by a mongo ID
         cy.url().should('match', /products\/[0-9a-fA-F]{24}$/);
 
-        // On this profile page we were sent to, the name and category should be correct
+        // On this profile page we were sent to, the name should be correct
         cy.get('.product-card-name').should('have.text', firstProductName);
-        cy.get('.product-card-category').first().should('have.text', 'dairy');
-
       });
     });
 
@@ -540,17 +522,14 @@ describe('Product list', () => {
       page.getDeliProductDropdown().click();
       page.getDeliProductListItems().first().then((list) => {
         const firstProductName = list.find('.product-list-name').text().trim();
-        const firstProductCategory = list.find('.product-list-category').text().trim();
 
         page.getDeliProductListItems().first().click();
 
         // The URL should be '/products/' followed by a mongo ID
         cy.url().should('match', /products\/[0-9a-fA-F]{24}$/);
 
-        // On this profile page we were sent to, the name and category should be correct
+        // On this profile page we were sent to, the name should be correct
         cy.get('.product-card-name').should('have.text', firstProductName);
-        cy.get('.product-card-category').first().should('have.text', 'deli');
-
       });
     });
 
@@ -610,17 +589,14 @@ describe('Product list', () => {
       page.getFrozenProductDropdown().click();
       page.getFrozenProductListItems().first().then((list) => {
         const firstProductName = list.find('.product-list-name').text().trim();
-        const firstProductCategory = list.find('.product-list-category').text().trim();
 
         page.getFrozenProductListItems().first().click();
 
         // The URL should be '/products/' followed by a mongo ID
         cy.url().should('match', /products\/[0-9a-fA-F]{24}$/);
 
-        // On this profile page we were sent to, the name and category should be correct
+        // On this profile page we were sent to, the name should be correct
         cy.get('.product-card-name').should('have.text', firstProductName);
-        cy.get('.product-card-category').first().should('have.text', 'frozen foods');
-
       });
     });
 
@@ -680,17 +656,14 @@ describe('Product list', () => {
       page.getHerbProductDropdown().click();
       page.getHerbProductListItems().first().then((list) => {
         const firstProductName = list.find('.product-list-name').text().trim();
-        const firstProductCategory = list.find('.product-list-category').text().trim();
 
         page.getHerbProductListItems().first().click();
 
         // The URL should be '/products/' followed by a mongo ID
         cy.url().should('match', /products\/[0-9a-fA-F]{24}$/);
 
-        // On this profile page we were sent to, the name and category should be correct
+        // On this profile page we were sent to, the name should be correct
         cy.get('.product-card-name').should('have.text', firstProductName);
-        cy.get('.product-card-category').first().should('have.text', 'herbs and spices');
-
       });
     });
 
@@ -750,17 +723,14 @@ describe('Product list', () => {
       page.getMeatProductDropdown().click();
       page.getMeatProductListItems().first().then((list) => {
         const firstProductName = list.find('.product-list-name').text().trim();
-        const firstProductCategory = list.find('.product-list-category').text().trim();
 
         page.getMeatProductListItems().first().click();
 
         // The URL should be '/products/' followed by a mongo ID
         cy.url().should('match', /products\/[0-9a-fA-F]{24}$/);
 
-        // On this profile page we were sent to, the name and category should be correct
+        // On this profile page we were sent to, the name should be correct
         cy.get('.product-card-name').should('have.text', firstProductName);
-        cy.get('.product-card-category').first().should('have.text', 'meat');
-
       });
     });
 
@@ -820,17 +790,14 @@ describe('Product list', () => {
       page.getMiscellaneousProductDropdown().click();
       page.getMiscellaneousProductListItems().first().then((list) => {
         const firstProductName = list.find('.product-list-name').text().trim();
-        const firstProductCategory = list.find('.product-list-category').text().trim();
 
         page.getMiscellaneousProductListItems().first().click();
 
         // The URL should be '/products/' followed by a mongo ID
         cy.url().should('match', /products\/[0-9a-fA-F]{24}$/);
 
-        // On this profile page we were sent to, the name and category should be correct
+        // On this profile page we were sent to, the name should be correct
         cy.get('.product-card-name').should('have.text', firstProductName);
-        cy.get('.product-card-category').first().should('have.text', 'miscellaneous');
-
       });
     });
 
@@ -890,17 +857,14 @@ describe('Product list', () => {
       page.getPaperProductDropdown().click();
       page.getPaperProductListItems().first().then((list) => {
         const firstProductName = list.find('.product-list-name').text().trim();
-        const firstProductCategory = list.find('.product-list-category').text().trim();
 
         page.getPaperProductListItems().first().click();
 
         // The URL should be '/products/' followed by a mongo ID
         cy.url().should('match', /products\/[0-9a-fA-F]{24}$/);
 
-        // On this profile page we were sent to, the name and category should be correct
+        // On this profile page we were sent to, the name should be correct
         cy.get('.product-card-name').should('have.text', firstProductName);
-        cy.get('.product-card-category').first().should('have.text', 'paper products');
-
       });
     });
 
@@ -960,17 +924,14 @@ describe('Product list', () => {
       page.getPetProductDropdown().click();
       page.getPetProductListItems().first().then((list) => {
         const firstProductName = list.find('.product-list-name').text().trim();
-        const firstProductCategory = list.find('.product-list-category').text().trim();
 
         page.getPetProductListItems().first().click();
 
         // The URL should be '/products/' followed by a mongo ID
         cy.url().should('match', /products\/[0-9a-fA-F]{24}$/);
 
-        // On this profile page we were sent to, the name and category should be correct
+        // On this profile page we were sent to, the name should be correct
         cy.get('.product-card-name').should('have.text', firstProductName);
-        cy.get('.product-card-category').first().should('have.text', 'pet supplies');
-
       });
     });
 
@@ -1030,17 +991,14 @@ describe('Product list', () => {
       page.getProduceProductDropdown().click();
       page.getProduceProductListItems().first().then((list) => {
         const firstProductName = list.find('.product-list-name').text().trim();
-        const firstProductCategory = list.find('.product-list-category').text().trim();
 
         page.getProduceProductListItems().first().click();
 
         // The URL should be '/products/' followed by a mongo ID
         cy.url().should('match', /products\/[0-9a-fA-F]{24}$/);
 
-        // On this profile page we were sent to, the name and category should be correct
+        // On this profile page we were sent to, the name should be correct
         cy.get('.product-card-name').should('have.text', firstProductName);
-        cy.get('.product-card-category').first().should('have.text', 'produce');
-
       });
     });
 
@@ -1100,17 +1058,14 @@ describe('Product list', () => {
       page.getStapleProductDropdown().click();
       page.getStapleProductListItems().first().then((list) => {
         const firstProductName = list.find('.product-list-name').text().trim();
-        const firstProductCategory = list.find('.product-list-category').text().trim();
 
         page.getStapleProductListItems().first().click();
 
         // The URL should be '/products/' followed by a mongo ID
         cy.url().should('match', /products\/[0-9a-fA-F]{24}$/);
 
-        // On this profile page we were sent to, the name and category should be correct
+        // On this profile page we were sent to, the name should be correct
         cy.get('.product-card-name').should('have.text', firstProductName);
-        cy.get('.product-card-category').first().should('have.text', 'staples');
-
       });
     });
 
@@ -1170,17 +1125,14 @@ describe('Product list', () => {
       page.getToiletriesProductDropdown().click();
       page.getToiletriesProductListItems().first().then((list) => {
         const firstProductName = list.find('.product-list-name').text().trim();
-        const firstProductCategory = list.find('.product-list-category').text().trim();
 
         page.getToiletriesProductListItems().first().click();
 
         // The URL should be '/products/' followed by a mongo ID
         cy.url().should('match', /products\/[0-9a-fA-F]{24}$/);
 
-        // On this profile page we were sent to, the name and category should be correct
+        // On this profile page we were sent to, the name should be correct
         cy.get('.product-card-name').should('have.text', firstProductName);
-        cy.get('.product-card-category').first().should('have.text', 'toiletries');
-
       });
     });
 
