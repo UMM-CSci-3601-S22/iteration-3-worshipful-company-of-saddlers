@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { Component, OnInit, Input } from '@angular/core';
 import { Product } from '../product';
-import { AddProductToPantryComponent } from '../add-product-to-pantry/add-product-to-pantry.component';
 
 @Component({
   selector: 'app-product-card',

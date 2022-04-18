@@ -5,7 +5,6 @@ import { environment } from 'src/environments/environment';
 import { Product, ProductCategory } from '../products/product';
 import { map } from 'rxjs/operators';
 import { PantryItem } from './pantryItem';
-import { isDate } from 'lodash';
 
 @Injectable()
 export class PantryService {

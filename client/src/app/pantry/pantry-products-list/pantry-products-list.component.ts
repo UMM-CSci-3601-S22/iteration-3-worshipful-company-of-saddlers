@@ -1,11 +1,10 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { Component, OnInit, OnDestroy, TemplateRef, ViewChild, Input } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { finalize, Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { Product } from 'src/app/products/product';
 import { ProductService } from 'src/app/products/product.service';
 import { PantryService } from '../pantry.service';
-import { AddProductToPantryComponent } from 'src/app/products/add-product-to-pantry/add-product-to-pantry.component';
 import { PantryItem, ProductCategory } from '../pantryItem';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
