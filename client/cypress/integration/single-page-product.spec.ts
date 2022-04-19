@@ -29,7 +29,6 @@ describe('Product list', () => {
 
   it('Tests that fields can be altered', () => {
     // Test inputs are not in the fields yet
-    singlePage.getTitle().should('not.have.text', 'test name');
     singlePage.getFormField('product_name').should('not.have.value', 'test name');
     singlePage.getFormField('brand').should('not.have.value', 'test brand');
     singlePage.getFormField('location').should('not.have.value', 'test location');
@@ -53,7 +52,6 @@ describe('Product list', () => {
     cy.get('[data-test="confirmChange"]').click();
 
     // Assert that test inputs are indeed in the fields
-    singlePage.getTitle().should('have.text', 'test name');
     singlePage.getFormField('product_name').should('have.value', 'test name');
     singlePage.getFormField('brand').should('have.value', 'test brand');
     singlePage.getFormField('category').should('contain', 'Produce');
