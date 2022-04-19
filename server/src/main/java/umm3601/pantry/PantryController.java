@@ -158,7 +158,7 @@ public class PantryController {
 
   // Helper function to check if a string is a valid date
   // Format of the date string: yyyy-MM-dd
-  private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+  private SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy");
 
   boolean isValidDate(String input) {
     try {

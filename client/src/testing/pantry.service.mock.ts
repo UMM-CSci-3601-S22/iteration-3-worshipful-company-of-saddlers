@@ -17,7 +17,7 @@ import { Product, ProductCategory } from '../app/products/product';
       product: 'banana product id',
       name: 'banana',
       category: 'produce',
-      purchase_date: '01-02-2022',
+      purchase_date: new Date('2037-05-12T05:00:00.000Z'),
       notes: 'notes for banana pantry item'
     },
     {
@@ -25,7 +25,7 @@ import { Product, ProductCategory } from '../app/products/product';
       product: 'milk product id',
       name: 'milk',
       category: 'dairy',
-      purchase_date: '02-02-2022',
+      purchase_date: new Date('2037-05-12T05:00:00.000Z'),
       notes: 'notes for milk pantry item'
     },
     {
@@ -33,7 +33,7 @@ import { Product, ProductCategory } from '../app/products/product';
       product: 'bread product id',
       name: 'bread',
       category: 'baked goods',
-      purchase_date: '03-02-2022',
+      purchase_date: new Date('2037-05-12T05:00:00.000Z'),
       notes: 'notes for bread pantry item'
     }
    ];

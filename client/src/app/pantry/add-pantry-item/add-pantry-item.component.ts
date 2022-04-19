@@ -2,10 +2,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Product } from 'src/app/products/product';
 import { ProductService } from 'src/app/products/product.service';
-import { PantryItem } from '../pantryItem';
 import { PantryService } from '../pantry.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Subscription, Observable } from 'rxjs';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-add-pantry-item',

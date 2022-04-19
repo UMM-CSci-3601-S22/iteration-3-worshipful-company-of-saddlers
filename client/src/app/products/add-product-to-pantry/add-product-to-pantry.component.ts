@@ -4,16 +4,13 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Product } from '../product';
-import { ProductService } from '../product.service';
 import { PantryProductsListComponent } from 'src/app/pantry/pantry-products-list/pantry-products-list.component';
 import { PantryService } from 'src/app/pantry/pantry.service';
 import { PantryItem } from 'src/app/pantry/pantryItem';
-
-
 @Component({
   selector: 'app-add-product-to-pantry',
   templateUrl: './add-product-to-pantry.component.html',
-  styleUrls: ['./add-product-to-pantry.component.scss']
+  styleUrls: ['./add-product-to-pantry.component.scss'],
 })
 
 export class AddProductToPantryComponent implements OnInit {
@@ -23,6 +20,9 @@ export class AddProductToPantryComponent implements OnInit {
   addToPantryForm: FormGroup;
 
   pantryItem: PantryItem;
+
+
+
 
   addPantryValidationMessages = {
     purchase_date: [
@@ -47,10 +47,9 @@ export class AddProductToPantryComponent implements OnInit {
 
       category: this.product.category,
 
-      purchase_date: new FormControl('', Validators.compose([
-        Validators.required,
-        Validators.maxLength(10),
-        Validators.minLength(10)
+      purchase_date: new FormControl(new Date(),
+      Validators.compose([
+        Validators.required
       ])),
 
       notes: new FormControl('', Validators.compose([

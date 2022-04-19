@@ -1,4 +1,3 @@
-import { ProductCategory } from 'src/app/products/product';
 
 export class ProductListPage {
   navigateTo() {
