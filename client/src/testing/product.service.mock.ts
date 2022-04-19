@@ -20,7 +20,6 @@ import { ProductService } from '../app/products/product.service';
       store: 'Walmart',
       location: '',
       notes: '',
-      tags: [],
       lifespan: 0,
       threshold: 0,
       image: ''
@@ -34,7 +33,6 @@ import { ProductService } from '../app/products/product.service';
       store: 'SuperValu',
       location: '',
       notes: '',
-      tags: [],
       lifespan: 0,
       threshold: 0,
       image: ''
@@ -48,7 +46,6 @@ import { ProductService } from '../app/products/product.service';
       store: 'Walmart',
       location: '',
       notes: '',
-      tags: [],
       lifespan: 0,
       threshold: 0,
       image: ''

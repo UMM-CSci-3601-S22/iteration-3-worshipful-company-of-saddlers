@@ -17,7 +17,6 @@ describe('ProductService', () => {
       store: 'Walmart',
       location: '',
       notes: '',
-      tags: [],
       lifespan: 0,
       threshold: 0,
       image: ''
@@ -31,7 +30,6 @@ describe('ProductService', () => {
       store: 'SuperValu',
       location: '',
       notes: '',
-      tags: [],
       lifespan: 0,
       threshold: 0,
       image: ''
@@ -45,7 +43,6 @@ describe('ProductService', () => {
       store: 'Walmart',
       location: '',
       notes: '',
-      tags: [],
       lifespan: 0,
       threshold: 0,
       image: ''

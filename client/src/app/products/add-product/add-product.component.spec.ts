@@ -335,37 +335,6 @@ describe('AddProductComponent', () => {
       expect(notesControl.valid).toBeTruthy();
     });
   });
-
-  describe('The product tags field', () => {
-    let tagsControl: AbstractControl;
-
-    beforeEach(() => {
-      tagsControl = addProductComponent.addProductForm.controls.tags;
-    });
-
-    it('should allow empty tags', () => {
-      tagsControl.setValue('');
-      expect(tagsControl.valid).toBeTruthy();
-    });
-
-    it('should be fine with "tag of item"', () => {
-      tagsControl.setValue('tag of item');
-      expect(tagsControl.valid).toBeTruthy();
-    });
-
-    it('should allow single character product tag', () => {
-      tagsControl.setValue('x');
-      expect(tagsControl.valid).toBeTruthy();
-      // Annoyingly, Angular uses lowercase 'l' here
-      // when it's an upper case 'L' in `Validators.minLength(2)`.
-    });
-
-    it('should allow digits in the tags', () => {
-      tagsControl.setValue('tag5');
-      expect(tagsControl.valid).toBeTruthy();
-    });
-  });
-
   describe('The lifespan field', () => {
     let lifespanControl: AbstractControl;
 

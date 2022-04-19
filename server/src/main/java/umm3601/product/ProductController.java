@@ -188,8 +188,6 @@ public class ProductController {
         // tags cannot be null")
         .check(product -> product.lifespan > 0, "Products's lifespan must be greater than zero")
         .check(product -> product.threshold > 0, "Products's threshold must be greater than zero")
-        .check(product -> product.image != null && product.image.length() > 0,
-            "Product must have a non-empty image URL")
         .get();
 
     productCollection.insertOne(newProduct);
