@@ -50,10 +50,6 @@ export class AddProductComponent implements OnInit {
       {type: 'minlength', message: 'Product notes must be at least 1 character'},
       {type: 'maxlength', message: 'Product notes must be at less than 200 characters'}
     ],
-    tags: [
-      {type: 'minlength', message: 'Product notes must be at least 1 character'},
-      {type: 'maxlength', message: 'Product notes must be at less than 50 characters'}
-    ],
     lifespan: [
       {type: 'min', message: 'Product lifespan must be at least 1'},
       {type: 'max', message: 'Product lifespan must be at less than 1000000'},
