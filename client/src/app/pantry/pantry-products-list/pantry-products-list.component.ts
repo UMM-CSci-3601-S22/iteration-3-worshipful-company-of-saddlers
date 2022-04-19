@@ -1,12 +1,11 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { Component, OnInit, OnDestroy, TemplateRef, ViewChild, Input } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { finalize, Observable, Subscription } from 'rxjs';
-import { Product } from 'src/app/products/product';
+import { Subscription } from 'rxjs';
+import { Product, ProductCategory, categories, categoryCamelCase } from 'src/app/products/product';
 import { ProductService } from 'src/app/products/product.service';
 import { PantryService } from '../pantry.service';
-import { AddProductToPantryComponent } from 'src/app/products/add-product-to-pantry/add-product-to-pantry.component';
-import { PantryItem, ProductCategory } from '../pantryItem';
+import { PantryItem } from '../pantryItem';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 
@@ -213,57 +212,19 @@ export class PantryProductsListComponent implements OnInit, OnDestroy {
   }
 
   public makeCategoryLists(): void {
-    this.bakedGoodsItems = this.pantryService.filterItems(
-      this.pantryProducts, { category: 'baked goods'});
-    this.produceItems = this.pantryService.filterItems(
-      this.pantryProducts, { category: 'produce'});
-    this.meatItems = this.pantryService.filterItems(
-      this.pantryProducts, { category: 'meat'});
-    this.dairyItems = this.pantryService.filterItems(
-      this.pantryProducts, { category: 'dairy'});
-    this.frozenItems = this.pantryService.filterItems(
-      this.pantryProducts, { category: 'frozen foods'});
-    this.herbItems = this.pantryService.filterItems(
-      this.pantryProducts, { category: 'herbs and spices'});
-    this.beverageItems = this.pantryService.filterItems(
-      this.pantryProducts, { category: 'beverages'});
-    this.cleaningItems = this.pantryService.filterItems(
-      this.pantryProducts, { category: 'cleaning products'});
-    this.paperItems = this.pantryService.filterItems(
-      this.pantryProducts, { category: 'paper products'});
-    this.miscellaneousItems = this.pantryService.filterItems(
-      this.pantryProducts, { category: 'miscellaneous'});
-    this.deliItems = this.pantryService.filterItems(
-      this.pantryProducts, { category: 'deli'});
-    this.stapleItems = this.pantryService.filterItems(
-      this.pantryProducts, { category: 'staples'});
-    this.toiletriesItems = this.pantryService.filterItems(
-      this.pantryProducts, { category: 'toiletries'});
-    this.bakingSuppliesItems = this.pantryService.filterItems(
-      this.pantryProducts, { category: 'baking supplies'});
-    this.petSuppliesItems = this.pantryService.filterItems(
-      this.pantryProducts, { category: 'pet supplies'});
+    categories.forEach((cat: ProductCategory) => {
+      const categoryAsField = categoryCamelCase(cat);
+      this[categoryAsField] = this.pantryService.filterItems(
+        this.pantryProducts, { category: cat }
+      );
+    });
   }
 
   removeItem(id: string): PantryItem {
     this.pantryService.deleteItem(id).subscribe(
       item => {
-        this.pantryProducts = this.pantryProducts.filter(pitem => pitem._id !== id);
-        this.bakedGoodsItems = this.bakedGoodsItems.filter(pitem => pitem._id !== id);
-        this.produceItems = this.produceItems.filter(pitem => pitem._id !== id);
-        this.meatItems = this.meatItems.filter(pitem => pitem._id !== id);
-        this.dairyItems = this.dairyItems.filter(pitem => pitem._id !== id);
-        this.frozenItems = this.frozenItems.filter(pitem => pitem._id !== id);
-        this.herbItems = this.herbItems.filter(pitem => pitem._id !== id);
-        this.beverageItems = this.beverageItems.filter(pitem => pitem._id !== id);
-        this.paperItems = this.paperItems.filter(pitem => pitem._id !== id);
-        this.petSuppliesItems = this.petSuppliesItems.filter(pitem => pitem._id !== id);
-        this.miscellaneousItems = this.miscellaneousItems.filter(pitem => pitem._id !== id);
-        this.stapleItems = this.stapleItems.filter(pitem => pitem._id !== id);
-        this.deliItems = this.deliItems.filter(pitem => pitem._id !== id);
-        this.toiletriesItems = this.toiletriesItems.filter(pitem => pitem._id !== id);
-        this.bakingSuppliesItems = this.bakingSuppliesItems.filter(pitem => pitem._id !== id);
-
+        const categoryAsField = categoryCamelCase(item.category);
+        this[categoryAsField] = this[categoryAsField].filter(pitem => pitem._id !== id);
         this.tempDeleted = item;
      }
     );
