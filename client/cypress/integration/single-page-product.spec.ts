@@ -11,11 +11,16 @@ describe('Product list', () => {
   });
 
   beforeEach(() => {
+    // Navigate to products page
     page.navigateTo();
 
+    // type 'r' into the name filter
     cy.get('[data-test=product_nameInput]').type('r');
 
+    // Click the first thing that comes up
     page.getFilteredProductListItems().first().click();
+    singlePage.selectEditStore('Willies');
+    singlePage.selectEditCategory('Produce');
   });
 
   it('Should be on right kind of page', () => {
@@ -24,6 +29,8 @@ describe('Product list', () => {
 
   it('Tests that fields can be altered', () => {
     // Test inputs are not in the fields yet
+    singlePage.getTitle().should('not.have.text', 'test name');
+    singlePage.getFormField('product_name').should('not.have.value', 'test name');
     singlePage.getFormField('brand').should('not.have.value', 'test brand');
     singlePage.getFormField('location').should('not.have.value', 'test location');
     singlePage.getFormField('lifespan').should('not.have.value', '69');
@@ -32,6 +39,7 @@ describe('Product list', () => {
     cy.get('[data-test="notesInput"]').should('not.have.value', 'test notes');
 
     // Put test input into the fields
+    singlePage.getFormField('product_name').clear().type('test name');
     singlePage.getFormField('brand').clear().type('test brand');
     singlePage.selectEditCategory('Produce');
     singlePage.selectEditStore('Willies');
@@ -45,6 +53,8 @@ describe('Product list', () => {
     cy.get('[data-test="confirmChange"]').click();
 
     // Assert that test inputs are indeed in the fields
+    singlePage.getTitle().should('have.text', 'test name');
+    singlePage.getFormField('product_name').should('have.value', 'test name');
     singlePage.getFormField('brand').should('have.value', 'test brand');
     singlePage.getFormField('category').should('contain', 'Produce');
     singlePage.getFormField('store').should('contain', 'Willies');
@@ -57,6 +67,7 @@ describe('Product list', () => {
 
   it('Should enable button and disable product button based on empty fields', () => {
     // Should be disabled when name and brand are empty
+    singlePage.selectEditCategory('Produce');
     singlePage.getFormField('product_name').clear();
     singlePage.getFormField('brand').clear();
     singlePage.editProductButton().should('be.disabled');
