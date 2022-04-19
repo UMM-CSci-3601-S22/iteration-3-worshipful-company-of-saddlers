@@ -50,10 +50,6 @@ export class AddProductComponent implements OnInit {
       {type: 'minlength', message: 'Product notes must be at least 1 character'},
       {type: 'maxlength', message: 'Product notes must be at less than 200 characters'}
     ],
-    tags: [
-      {type: 'minlength', message: 'Product notes must be at least 1 character'},
-      {type: 'maxlength', message: 'Product notes must be at less than 50 characters'}
-    ],
     lifespan: [
       {type: 'min', message: 'Product lifespan must be at least 1'},
       {type: 'max', message: 'Product lifespan must be at less than 1000000'},
@@ -94,15 +90,12 @@ export class AddProductComponent implements OnInit {
       notes: new FormControl('', Validators.compose([
         Validators.minLength(1), Validators.maxLength(200),
       ])),
-      tags: null
-      ,
       lifespan: new FormControl('', Validators.compose([
         Validators.min(1), Validators.max(1000000), Validators.pattern('^[0-9]+$')
       ])),
       threshold: new FormControl('', Validators.compose([
         Validators.min(1), Validators.max(1000000), Validators.pattern('^[0-9]+$')
       ])),
-      image: null,
     });
   }
 

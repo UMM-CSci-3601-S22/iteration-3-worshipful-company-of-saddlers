@@ -8,7 +8,6 @@ export interface Product {
   store: string; // server filter
   location?: string; // client filter
   notes?: string; // server filter
-  tags?: string[]; // client filter
   lifespan?: number; // server filter
   threshold?: number; // server filter
   image?: string; // server filter
