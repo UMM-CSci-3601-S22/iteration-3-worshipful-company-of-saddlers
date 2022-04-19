@@ -12,21 +12,8 @@
 - [Deployment](#deployment)
 - [Resources](#resources)
 - [Contributors](#contributors)
-- [Changing the name](#changing-the-name)
 
-This is your starter code for Iteration 1.
-
-There are a number of elements of this production template that you don't need
-(or even want down the road), but are provided as examples to help you get started.
-As you work on your project, you should replace some of these pieces with
-elements of your project and _remove whatever you don't need_ (e.g., markdown
-files, JSON data files, or any remnants of the labs). We include, for example,
-the `User` parts of the previous labs. These are almost certainly not relevant
-to your project and should be removed once you've started.
-
-:exclamation: You should remove this sentence and the text above, and
-replace them with least an elevator pitch description of your project so that
-if someone comes to this repo they'll know what the project is about.
+For shoppers who want an organized pantry and shopping experience, Handy Pantry is a home pantry inventory system that tracks consumption and storage. Unlike pen and paper, our product uses your grocery usage information to automatically generate an up-to-date shopping list.
 
 ## [Development](DEVELOPMENT.md)
 
@@ -81,18 +68,3 @@ This contributors to this project can be seen [here](../../graphs/contributors).
 <!-- prettier-ignore-end -->
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
-
-## Changing the name
-
-The project by default has the name "CSCI 3601 Iteration Template". There are a few places you need to change to make this the name you want:
-
-- The title in this README.md
-- [`client/src/app/app.component.ts`](client/src/app/app.component.ts)
-  - The `title` variable
-  - Also the associated unit and E2E tests will need to be changed.
-- [`client/src/app/app.component.html`](client/src/app/app.component.html)
-  - The `mat-toolbar` element for the navigation drawer is just "Client" by default.
-- [`client/src/index.html`](client/src/index.html)
-  - The `title` element
-
-You can go ahead and remove this section of the README once you have changed the name.

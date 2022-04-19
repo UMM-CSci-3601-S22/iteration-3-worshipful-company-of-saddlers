@@ -105,12 +105,6 @@
           </mat-form-field>
 
           <mat-form-field>
-            <mat-label>Product Tags - Feature Coming Soon</mat-label>
-            <input matInput placeholder="Image">
-            <mat-hint>Feature coming soon</mat-hint>
-          </mat-form-field>
-
-          <mat-form-field>
             <mat-label>Product Lifespan</mat-label>
             <input matInput type="number" placeholder="Product Lifespan" formControlName="lifespan">
             <mat-error *ngFor="let validation of addProductValidationMessages.lifespan">
@@ -130,12 +124,6 @@
                 {{validation.message}}
               </mat-error>
             </mat-error>
-          </mat-form-field>
-
-          <mat-form-field>
-            <mat-label>Image - Feature Coming Soon</mat-label>
-            <input matInput placeholder="Image" formControlName="image">
-            <mat-hint>Feature coming soon</mat-hint>
           </mat-form-field>
 
         </mat-card-content>

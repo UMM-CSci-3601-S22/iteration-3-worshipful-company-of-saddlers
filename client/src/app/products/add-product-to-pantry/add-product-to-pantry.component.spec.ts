@@ -60,7 +60,6 @@ describe('AddProductToPantryComponent', () => {
       store: 'Willies',
       location: '',
       notes: '',
-      tags: [],
       lifespan: 0,
       threshold: 0,
       image: ''

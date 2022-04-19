@@ -47,7 +47,6 @@ describe('PantryService', () => {
       store: 'Willies',
       location: '',
       notes: '',
-      tags: [],
       lifespan: 0,
       threshold: 0,
       image: ''
@@ -61,7 +60,6 @@ describe('PantryService', () => {
       store: 'Willies',
       location: '',
       notes: '',
-      tags: [],
       lifespan: 0,
       threshold: 0,
       image: ''
@@ -75,7 +73,6 @@ describe('PantryService', () => {
       store: 'Pomme De Terre',
       location: '',
       notes: '',
-      tags: [],
       lifespan: 0,
       threshold: 0,
       image: ''

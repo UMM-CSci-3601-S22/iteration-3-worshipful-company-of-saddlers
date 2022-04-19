@@ -20,7 +20,6 @@ import { ProductService } from '../app/products/product.service';
       store: 'Willies',
       location: '',
       notes: '',
-      tags: [],
       lifespan: 0,
       threshold: 0,
       image: ''
@@ -34,7 +33,6 @@ import { ProductService } from '../app/products/product.service';
       store: 'Pomme De Terre',
       location: '',
       notes: '',
-      tags: [],
       lifespan: 0,
       threshold: 0,
       image: ''
@@ -48,7 +46,6 @@ import { ProductService } from '../app/products/product.service';
       store: 'Both',
       location: '',
       notes: '',
-      tags: [],
       lifespan: 0,
       threshold: 0,
       image: ''
