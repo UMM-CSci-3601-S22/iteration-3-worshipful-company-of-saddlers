@@ -144,7 +144,7 @@ describe('Add product', () => {
   page.getFormField('brand').type('test');
   page.addProductButton().should('be.disabled');
 
-  // Input: name, store
+  // Input: All
   page.getFormField('product_name').type('test');
   page.addProductButton().should('be.enabled');
   });

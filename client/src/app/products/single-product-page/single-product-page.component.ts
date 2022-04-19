@@ -24,7 +24,6 @@ export class SingleProductPageComponent implements OnInit, OnDestroy {
     this.formExists = false;
     this.route.paramMap.subscribe((pmap) => {
       this.id = pmap.get('id');
-      //this.dontCreateForms();
       if (this.getProductSub) {
         this.getProductSub.unsubscribe();
       }
@@ -40,33 +39,19 @@ export class SingleProductPageComponent implements OnInit, OnDestroy {
       this.getProductSub.unsubscribe();
     }
   }
-  // dontCreateForms() {
-  //   this.changeProductForm = this.fb.group({
-  //     _id: new FormControl(),
-  //     // eslint-disable-next-line @typescript-eslint/naming-convention
-  //     product_name: new FormControl(),
-  //     brand: new FormControl(),
-  //     store: new FormControl(),
-  //     lifespan: new FormControl(),
-  //     description: new FormControl(),
-  //     category: new FormControl(),
-  //     location: new FormControl(),
-  //     notes: new FormControl(),
-  //     threshold: new FormControl()
-  //   });
-  // }
 
   createForms() {
     this.changeProductForm = this.fb.group({
       _id: new FormControl(this.product._id),
       // eslint-disable-next-line @typescript-eslint/naming-convention
       product_name: new FormControl(this.product.product_name, Validators.compose([
+        Validators.required,
         Validators.minLength(0),
         // In the real world you'd want to be very careful about having
         // an upper limit like this because people can sometimes have
         // very long names. This demonstrates that it's possible, though,
         // to have maximum length limits.
-        Validators.maxLength(50),
+        Validators.maxLength(100),
         (fc) => {
           if (fc.value.toLowerCase() === 'abc123' || fc.value.toLowerCase() === '123abc') {
             return ({ existingName: true });
@@ -75,16 +60,31 @@ export class SingleProductPageComponent implements OnInit, OnDestroy {
           }
         },
       ])),
-      brand: new FormControl(this.product.brand),
-      store: new FormControl(this.product.store),
-      lifespan: new FormControl(this.product.lifespan),
-      description: new FormControl(this.product.description),
-      category: new FormControl(this.product.category),
-      location: new FormControl(this.product.location),
-      notes: new FormControl(this.product.notes),
+      description: new FormControl(this.product.description, Validators.compose([
+        Validators.minLength(1), Validators.maxLength(200),
+      ])),
+      brand: new FormControl(this.product.brand, Validators.compose([
+        Validators.required, Validators.minLength(1), Validators.maxLength(100),
+      ])),
+      category: new FormControl(this.product.category, Validators.compose([
+        Validators.required,
+        Validators.pattern('^(Baked Goods|Baking Supplies|Beverages|Cleaning Products|Dairy|Deli|' +
+          'Frozen Foods|Herbs and Spices|Meat|Miscellaneous|Paper Products|Pet Supplies|Produce|Staples|Toiletries)$')
+      ])),
+      store: new FormControl(this.product.store, Validators.compose([
+        Validators.required, Validators.minLength(1), Validators.maxLength(100),
+      ])),
+      location: new FormControl(this.product.location, Validators.compose([
+        Validators.minLength(1), Validators.maxLength(100),
+      ])),
+      notes: new FormControl(this.product.notes, Validators.compose([
+        Validators.minLength(1), Validators.maxLength(200),
+      ])),
+      lifespan: new FormControl(this.product.lifespan, Validators.compose([
+        Validators.min(0), Validators.max(1000000), Validators.pattern('^[0-9]+$')
+      ])),
       threshold: new FormControl(this.product.threshold, Validators.compose([
-        Validators.min(0),
-        Validators.pattern('^[0-9]+$')
+        Validators.min(0), Validators.max(1000000), Validators.pattern('^[0-9]+$')
       ]))
     });
     this.formExists = true;
