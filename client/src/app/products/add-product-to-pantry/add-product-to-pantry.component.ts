@@ -2,15 +2,11 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatDatepickerModule, MatDatepicker } from '@angular/material/datepicker';
 import { Router } from '@angular/router';
 import { Product } from '../product';
-import { ProductService } from '../product.service';
 import { PantryProductsListComponent } from 'src/app/pantry/pantry-products-list/pantry-products-list.component';
 import { PantryService } from 'src/app/pantry/pantry.service';
 import { PantryItem } from 'src/app/pantry/pantryItem';
-import { MAT_DATE_FORMATS } from '@angular/material/core';
-
 @Component({
   selector: 'app-add-product-to-pantry',
   templateUrl: './add-product-to-pantry.component.html',
