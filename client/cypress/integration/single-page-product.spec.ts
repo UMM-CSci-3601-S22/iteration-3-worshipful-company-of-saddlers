@@ -55,25 +55,43 @@ describe('Product list', () => {
     cy.get('[data-test="notesInput"]').should('have.value', 'test notes');
   });
 
-  describe('Should show error messages for invalid inputs', () => {
-    /*
+  it('Should enable button and disable product button based on empty fields', () => {
+    // Should be disabled when name and brand are empty
+    singlePage.getFormField('product_name').clear();
+    singlePage.getFormField('brand').clear();
+    singlePage.editProductButton().should('be.disabled');
+
+    // Input: name
+    singlePage.getFormField('product_name').type('test');
+    singlePage.editProductButton().should('be.disabled');
+
+    // Input: brand
+    singlePage.getFormField('product_name').clear();
+    singlePage.getFormField('brand').type('test');
+    singlePage.editProductButton().should('be.disabled');
+
+    // Input: name and brand
+    singlePage.getFormField('product_name').type('test');
+    singlePage.editProductButton().should('be.enabled');
+  });
+
+  describe('Should show error messages and disabled button for invalid inputs', () => {
     it('Error messages for invalid product names', () => {
       // Before doing anything there should not be an error
       cy.get('[data-test=product_nameError]').should('not.exist');
 
       // Clicking the product_name field without entering anything should cause an error message
-      singlePage.getFormField('product_name').click().blur();
+      singlePage.getFormField('product_name').clear().click().blur();
       cy.get('[data-test=product_nameError]').should('exist').and('be.visible');
 
       // Entering too large inputs in product_name field causes error
-      singlePage.getFormField('product_name').type('The fitnessgram pacer test is a multi-stage aerobic capacity test that incr'.repeat(3));
+      singlePage.getFormField('product_name').type('The fitnessgram pacer test is a multi-stage aerobic capacity test that incr'.repeat(2));
       cy.get('[data-test=product_nameError]').should('exist').and('be.visible');
 
       // Entering a valid product_name should remove the error
       singlePage.getFormField('product_name').clear().type('Heartburn Medication');
       cy.get('[data-test=product_nameError]').should('not.exist');
     });
-    */
 
     it('Error messages for invalid descriptions', () => {
       // Before doing anything there should not be an error

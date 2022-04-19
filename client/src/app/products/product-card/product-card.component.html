@@ -8,6 +8,20 @@
   <form *ngIf="formExists"[formGroup]="changeProductForm" (ngSubmit)="submitForm();">
   <mat-card-content  class="cardInfo">
 
+    <b>Name:</b>
+    <div>
+      <mat-form-field>
+        <mat-label>Name</mat-label>
+        <input matInput placeholder="Product Name" required formControlName="product_name" data-test="product_nameInput">
+        <mat-error *ngFor="let validation of changeProductFormMessages.product_name">
+          <mat-error class="error-message" data-test="product_nameError"
+            *ngIf="changeProductForm.get('product_name').hasError(validation.type) && (changeProductForm.get('product_name').dirty || changeProductForm.get('product_name').touched)">
+            {{validation.message}}
+          </mat-error>
+        </mat-error>
+      </mat-form-field>
+    </div>
+
     <b>Brand:</b>
     <div>
       <mat-form-field>
