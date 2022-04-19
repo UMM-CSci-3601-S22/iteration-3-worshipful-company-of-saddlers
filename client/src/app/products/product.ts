@@ -47,4 +47,4 @@ export const categoryCamelCase = (category: ProductCategory) => {
   return categoryPrefix + 'Items';
 };
 
-export type ProductStore = 'Willies' | 'Pomme De Terre' | 'Both' | 'Other';
+export type ProductStore = 'Willies' | 'Pomme de Terre' | 'Pomme de Terre/Willies' | 'Other';

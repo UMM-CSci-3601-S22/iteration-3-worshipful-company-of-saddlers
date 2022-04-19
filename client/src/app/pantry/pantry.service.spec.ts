@@ -70,7 +70,7 @@ describe('PantryService', () => {
       description: '',
       brand: 'Country Hearth',
       category: 'baked goods',
-      store: 'Pomme De Terre',
+      store: 'Pomme de Terre',
       location: '',
       notes: '',
       lifespan: 0,
