@@ -702,4 +702,131 @@ public class ProductControllerSpec {
     });
   }
 
+  @Test
+  public void changeThresholdTest() throws IOException {
+    String id = milksId.toHexString();
+    String testNewProduct = "{"
+        + "\"_id\": \"" + id + "\","
+        + "\"threshold\": 100,"
+        + "\"product_name\": \"Test Product\""
+        + "}";
+    mockReq.setBodyContent(testNewProduct);
+    mockReq.setMethod("PUT");
+    Context ctx = mockContext("api/products");
+    Context ctx2 = mockContext("api/products", Map.of("id", id));
+    productController.getProductByID(ctx2);
+    Product resultProduct1 = returnedSingleProduct(ctx2);
+    assertEquals(2, resultProduct1.threshold);
+    productController.changeProduct(ctx);
+    productController.getProductByID(ctx2);
+    Product resultProduct = returnedSingleProduct(ctx2);
+    assertEquals(100, resultProduct.threshold);
+  }
+
+  @Test
+  public void changeNameTest() throws IOException {
+    String id = milksId.toHexString();
+    String testNewProduct = "{"
+        + "\"_id\": \"" + id + "\","
+        + "\"product_name\": \"SpoiledMilk\""
+        + "}";
+    mockReq.setBodyContent(testNewProduct);
+    mockReq.setMethod("PUT");
+    Context ctx = mockContext("api/products");
+    Context ctx2 = mockContext("api/products", Map.of("id", id));
+    productController.getProductByID(ctx2);
+    Product resultProduct1 = returnedSingleProduct(ctx2);
+    assertEquals("Milk", resultProduct1.product_name);
+    productController.changeProduct(ctx);
+    productController.getProductByID(ctx2);
+    Product resultProduct = returnedSingleProduct(ctx2);
+    assertEquals("SpoiledMilk", resultProduct.product_name);
+  }
+
+  @Test
+  public void changeDescriptionTest() throws IOException {
+    String id = milksId.toHexString();
+    String testNewProduct = "{"
+        + "\"_id\": \"" + id + "\","
+        + "\"description\": \"gross\""
+        + "}";
+    mockReq.setBodyContent(testNewProduct);
+    mockReq.setMethod("PUT");
+    Context ctx = mockContext("api/products");
+    Context ctx2 = mockContext("api/products", Map.of("id", id));
+    productController.getProductByID(ctx2);
+    Product resultProduct1 = returnedSingleProduct(ctx2);
+    assertEquals("A dairy liquid obtained from the teat of an unsuspecting animal", resultProduct1.description);
+    productController.changeProduct(ctx);
+    productController.getProductByID(ctx2);
+    Product resultProduct = returnedSingleProduct(ctx2);
+    assertEquals("gross", resultProduct.description);
+  }
+
+  @Test
+  public void changeDescriptionAndNameTest() throws IOException {
+    String id = milksId.toHexString();
+    String testNewProduct = "{"
+        + "\"_id\": \"" + id + "\","
+        + "\"product_name\": \"Test Product name\","
+        + "\"description\": \"gross\""
+        + "}";
+    mockReq.setBodyContent(testNewProduct);
+    mockReq.setMethod("PUT");
+    Context ctx = mockContext("api/products");
+    Context ctx2 = mockContext("api/products", Map.of("id", id));
+    productController.getProductByID(ctx2);
+    Product resultProduct1 = returnedSingleProduct(ctx2);
+    assertEquals("Milk", resultProduct1.product_name);
+    assertEquals("A dairy liquid obtained from the teat of an unsuspecting animal", resultProduct1.description);
+    productController.changeProduct(ctx);
+    productController.getProductByID(ctx2);
+    Product resultProduct = returnedSingleProduct(ctx2);
+    assertEquals("Test Product name", resultProduct.product_name);
+    assertEquals("gross", resultProduct.description);
+  }
+
+  @Test
+  public void changeFieldsTest() throws IOException {
+    String id = milksId.toHexString();
+    String testNewProduct = "{"
+        + "\"_id\": \"" + id + "\","
+        + "\"product_name\": \"Test Product name\","
+        + "\"description\": \"A test product description\","
+        + "\"brand\": \"test brand\","
+        + "\"category\": \"test category\","
+        + "\"store\": \"test store\","
+        + "\"location\": \"test location\","
+        + "\"notes\": \"tastes like test\","
+        + "\"lifespan\": 100,"
+        + "\"threshold\": 84"
+        + "}";
+    mockReq.setBodyContent(testNewProduct);
+    mockReq.setMethod("PUT");
+    Context ctx = mockContext("api/products");
+    Context ctx2 = mockContext("api/products", Map.of("id", id));
+    productController.getProductByID(ctx2);
+    Product resultProduct1 = returnedSingleProduct(ctx2);
+    assertEquals(2, resultProduct1.threshold);
+    assertEquals("Milk", resultProduct1.product_name);
+    assertEquals("A dairy liquid obtained from the teat of an unsuspecting animal", resultProduct1.description);
+    assertEquals("Gerbil Goods", resultProduct1.brand);
+    assertEquals("dairy", resultProduct1.category);
+    assertEquals("Co-op", resultProduct1.store);
+    assertEquals("They're In the Walls", resultProduct1.location);
+    assertEquals(4, resultProduct1.lifespan);
+    assertEquals("check on gerbils every 3 days", resultProduct1.notes);
+    productController.changeProduct(ctx);
+    productController.getProductByID(ctx2);
+    Product resultProduct = returnedSingleProduct(ctx2);
+    assertEquals(84, resultProduct.threshold);
+    assertEquals("Test Product name", resultProduct.product_name);
+    assertEquals("A test product description", resultProduct.description);
+    assertEquals("test brand", resultProduct.brand);
+    assertEquals("test category", resultProduct.category);
+    assertEquals("test store", resultProduct.store);
+    assertEquals("test location", resultProduct.location);
+    assertEquals(100, resultProduct.lifespan);
+    assertEquals("tastes like test", resultProduct.notes);
+  }
 }

@@ -37,10 +37,9 @@ describe('Add product', () => {
         .should('not.match', /\/products\/new$/);
 
       // The new product should have all the same attributes as we entered
-      cy.get('.product-card-name').should('have.text', product.product_name);
-      cy.get('.product-card-brand').should('have.text', product.brand);
-      cy.get('.product-card-category').should('have.text', product.category);
-      cy.get('.product-card-store').should('have.text', product.store);
+      cy.get('[data-test="product_nameInput"]').should('have.value', product.product_name);
+      cy.get('[data-test="brandInput"]').should('have.value', product.brand);
+      cy.get('#mat-select-value-3').should('have.text', product.store);
     });
 
     it('Should fail with no location', () => {
@@ -111,7 +110,7 @@ describe('Add product', () => {
   page.getFormField('brand').type('test');
   page.addProductButton().should('be.disabled');
 
-  // Input: name, store
+  // Input: All
   page.getFormField('product_name').type('test');
   page.addProductButton().should('be.enabled');
   });
