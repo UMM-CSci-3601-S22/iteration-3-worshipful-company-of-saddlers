@@ -23,4 +23,8 @@ export class SingleProductPage {
       // Select and click the desired value from the resulting menu
       .get(`mat-option[value="${value}"]`).click();
   }
+
+  editProductButton() {
+    return cy.get('[data-test=confirmChange]');
+  }
 }
