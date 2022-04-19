@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { ProductService } from '../product.service';
 import { Subscription } from 'rxjs';
+import { AddProductComponent } from '../add-product/add-product.component';
 
 @Component({
   selector: 'app-product-card',
@@ -23,60 +24,13 @@ export class ProductCardComponent implements OnInit {
   getProductSub: Subscription;
   popup = false;
   panelOpenState = false; //Unsure what this is
-
-  changeProductFormMessages = {
-    product_name: [
-      {type: 'required', message: 'Product\'s name is required'},
-      {type: 'minlength', message: 'Product name must be at least 1 character'},
-      {type: 'maxlength', message: 'Product name must be at less than 100 characters'},
-      {
-        type: 'existingName', message: 'There is already a product with the same name' +
-          ' in the pantry'
-      }
-    ],
-    description: [
-      {type: 'minlength', message: 'Product description must be at least 1 character'},
-      {type: 'maxlength', message: 'Product description must be at less than 200 characters'}
-    ],
-    brand: [
-      {type: 'required', message: 'Product brand is required'},
-      {type: 'minlength', message: 'Product brand must be at least 1 character'},
-      {type: 'maxlength', message: 'Product brand must be at less than 100 characters'}
-    ],
-    category: [
-      {type: 'required', message: 'Product category is required'},
-      {type: 'pattern', message: 'Category must be, bakery, produce, meat, dairy, frozen foods, ' +
-        'canned goods, drinks, general grocery, miscellaneous, or seasonal'},
-    ],
-    store: [
-      {type: 'required', message: 'Product store is required'},
-      {type: 'minlength', message: 'Product store must be at least 1 character'},
-      {type: 'maxlength', message: 'Product store must be at less than 100 characters'}
-    ],
-    location: [
-      {type: 'minlength', message: 'Product location must be at least 1 character'},
-      {type: 'maxlength', message: 'Product location must be at less than 100 characters'}
-    ],
-    notes: [
-      {type: 'minlength', message: 'Product notes must be at least 1 character'},
-      {type: 'maxlength', message: 'Product notes must be at less than 200 characters'}
-    ],
-    lifespan: [
-      {type: 'min', message: 'Product lifespan must be at least 1'},
-      {type: 'max', message: 'Product lifespan must be at less than 1000000'},
-      {type: 'pattern', message: 'Lifespan must be a whole number'}
-    ],
-    threshold: [
-      {type: 'min', message: 'Product threshold must be at least 1'},
-      {type: 'max', message: 'Product threshold must be at less than 1000000'},
-      {type: 'pattern', message: 'Threshold must be a whole number'}
-    ]
-  };
+  changeProductFormMessages;
 
   constructor(private route: ActivatedRoute, private productService: ProductService, private fb: FormBuilder, private snackBar: MatSnackBar,
     private router: Router) { }
 
   ngOnInit(): void {
+    this.changeProductFormMessages = AddProductComponent.createValidationForm();
   }
 
 

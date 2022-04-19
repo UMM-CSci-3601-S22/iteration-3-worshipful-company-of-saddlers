@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Product } from '../product';
 import { ProductService } from '../product.service';
+import { AddProductComponent } from '../add-product/add-product.component';
 import { Subscription } from 'rxjs';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
@@ -61,7 +62,7 @@ export class SingleProductPageComponent implements OnInit, OnDestroy {
         },
       ])),
       description: new FormControl(this.product.description, Validators.compose([
-        Validators.minLength(1), Validators.maxLength(200),
+         Validators.maxLength(200),
       ])),
       brand: new FormControl(this.product.brand, Validators.compose([
         Validators.required, Validators.minLength(1), Validators.maxLength(100),
@@ -75,10 +76,10 @@ export class SingleProductPageComponent implements OnInit, OnDestroy {
         Validators.required, Validators.minLength(1), Validators.maxLength(100),
       ])),
       location: new FormControl(this.product.location, Validators.compose([
-        Validators.minLength(1), Validators.maxLength(100),
+        Validators.maxLength(100),
       ])),
       notes: new FormControl(this.product.notes, Validators.compose([
-        Validators.minLength(1), Validators.maxLength(200),
+       Validators.maxLength(200),
       ])),
       lifespan: new FormControl(this.product.lifespan, Validators.compose([
         Validators.min(0), Validators.max(1000000), Validators.pattern('^[0-9]+$')
