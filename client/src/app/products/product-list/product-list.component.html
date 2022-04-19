@@ -173,7 +173,7 @@
           </mat-expansion-panel>
 
           <mat-expansion-panel>
-            <mat-expansion-panel-header class="Produce-supplies-product-expansion-panel">
+            <mat-expansion-panel-header class="produce-product-expansion-panel">
               <mat-panel-title>
                 Produce ({{this.produceProducts.length}})
               </mat-panel-title>
@@ -181,7 +181,7 @@
 
               </mat-panel-description>
             </mat-expansion-panel-header>
-            <mat-nav-list class="Produce-supplies-product-nav-list">
+            <mat-nav-list class="produce-product-nav-list">
               <span fxLayout="row" *ngFor="let product of this.produceProducts">
                 <a mat-list-item [routerLink]="['/products', product._id]" class="product-list-item">
                   <p matLine class="product-list-name"> {{product.product_name}} </p>
