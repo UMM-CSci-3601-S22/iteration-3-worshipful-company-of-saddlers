@@ -1,26 +1,25 @@
 <mat-card class="product-card" *ngIf="this.product">
-  <div>
-    <mat-card-header>
-      <mat-card-title class="product-card-name">{{this.product.product_name}}</mat-card-title>
-    </mat-card-header>
-    <hr>
-  </div>
   <form *ngIf="formExists"[formGroup]="changeProductForm" (ngSubmit)="submitForm();">
-  <mat-card-content  class="cardInfo">
+  <div>
 
-    <b>Name:</b>
-    <div>
-      <mat-form-field>
-        <mat-label>Name</mat-label>
-        <input matInput placeholder="Product Name" required formControlName="product_name" data-test="product_nameInput">
-        <mat-error *ngFor="let validation of changeProductFormMessages.product_name">
-          <mat-error class="error-message" data-test="product_nameError"
-            *ngIf="changeProductForm.get('product_name').hasError(validation.type) && (changeProductForm.get('product_name').dirty || changeProductForm.get('product_name').touched)">
-            {{validation.message}}
-          </mat-error>
-        </mat-error>
-      </mat-form-field>
-    </div>
+      <mat-card-title class="product-card-name">
+        <div>
+          <mat-form-field>
+            <mat-label>Name</mat-label>
+            <input matInput placeholder="Product Name" required formControlName="product_name" data-test="product_nameInput">
+            <mat-error *ngFor="let validation of changeProductFormMessages.product_name">
+              <mat-error class="error-message" data-test="product_nameError"
+                *ngIf="changeProductForm.get('product_name').hasError(validation.type) && (changeProductForm.get('product_name').dirty || changeProductForm.get('product_name').touched)">
+                {{validation.message}}
+              </mat-error>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </mat-card-title>
+
+
+  </div>
+  <mat-card-content  class="cardInfo">
 
     <b>Brand:</b>
     <div>
