@@ -13,4 +13,14 @@ public class ShoppingList {
   public String _id;
   public String productID;
   public String name;
+  public int quantity;
+
+  ShoppingList(){
+  }
+
+  ShoppingList(String id, String name, int quantity){
+    this.productID = id;
+    this.name = name;
+    this.quantity = quantity;
+  }
 }

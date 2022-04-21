@@ -205,8 +205,32 @@ public class ShoppingListController {
         ArrayList<Product> products = productCollection
         .find()
         .into(new ArrayList<>());
-
-        System.out.println(products.get(0));
+        Product[] prodArr = products.toArray(new Product[products.size()]);
+        PantryItem[] pantryArr = pantryItems.toArray(new PantryItem[pantryItems.size()]);
+        Product[] underThresh = new Product[products.size()];
+        int[] quants = new int[products.size()];
+        int z = 0;
+        for (int i = 0; i < prodArr.length; i++) {
+          int tempThresh = prodArr[i].threshold;
+          String tempID = prodArr[i]._id;
+          int count = 0;
+          for (int j = 0; j < pantryArr.length; j++) {
+            if(pantryArr[j].product.equals(tempID) ){
+              count++;
+              System.out.println(count);
+            }
+          }
+          if (count < tempThresh){
+            underThresh[z] = prodArr[i];
+            quants[z] = tempThresh-count;
+            z++;
+          }
+        }
+        shoppingListCollection.deleteMany(new Document());
+        for (int i = 0; i < z; i++) {
+          ShoppingList listItem = new ShoppingList(underThresh[i]._id, underThresh[i].product_name, quants[i]);
+          shoppingListCollection.insertOne(listItem);
+        }
   }
 
 }
