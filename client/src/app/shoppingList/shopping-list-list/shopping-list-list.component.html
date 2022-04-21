@@ -1,0 +1,29 @@
+<div fxLayout="row">
+    <div fxFlex fxFlex.gt-sm="80" fxFlexOffset.gt-sm="10">
+
+      <mat-card class="search-card">
+        <mat-card-title class="shoppingList-list-title">Shopping List</mat-card-title>
+        <mat-card-content fxLayout="column" >
+
+          <div fxLayout="row wrap" fxLayoutGap="10px">
+
+            <mat-form-field class="input-field">
+              <mat-label>Name</mat-label>
+              <input matInput data-test="shoppingListNameInput" placeholder="Filter by item name"
+              [(ngModel)]="itemName" (input)="getItemsFromServer()">
+              <mat-hint>Search for an item by name</mat-hint>
+            </mat-form-field>
+
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+
+  <mat-list class="shoppingList-list">
+    <h3 mat-subheader>Items</h3>
+    <a mat-list-item *ngFor="let shoppingList of this.filteredShoppingList" class="shoppingList-list-item">
+      <h3 matLine class="shoppingList-list-name">{{shoppingList.name}}</h3>
+      <p matLine class="shoppingList-list-description">Need to buy {{shoppingList.quantity}}</p>
+    </a>
+  </mat-list>
