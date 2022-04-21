@@ -98,6 +98,8 @@ public class Server {
 
     server.get("/api/generateTest", shoppingListController::generateShoppingList);
 
+    server.get("/api/shoppingList/{id}", shoppingListController::getShoppingListItemByID);
+
     // This catches any uncaught exceptions thrown in the server
     // code and turns them into a 500 response ("Internal Server
     // Error Response"). In general you'll like to *never* actually

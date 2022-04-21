@@ -195,7 +195,6 @@ public class ShoppingListController {
       for (int j = 0; j < pantryArr.length; j++) {
         if (pantryArr[j].product.equals(tempID)) {
           count++;
-          System.out.println(count);
         }
       }
       if (count < tempThresh) {
