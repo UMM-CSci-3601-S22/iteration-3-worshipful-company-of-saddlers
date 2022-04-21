@@ -43,3 +43,7 @@ visibility: visible;
   max-height: 30%;
   overflow: auto;
 }
+
+::ng-deep .mat-form-field-underline {
+  display: none;
+}

@@ -87,7 +87,7 @@ export class AddProductComponent implements OnInit {
           'frozen foods|herbs and spices|meat|paper products|pet supplies|produce|staples|toiletries|miscellaneous)$')
       ])),
       store: new FormControl('', Validators.compose([
-        Validators.required, Validators.pattern('^(Willies|Pomme De Terre|Both|Real Food Hub|Other)$')
+        Validators.required, Validators.pattern('^(Willies|Pomme de Terre|Pomme de Terre/Willies|Real Food Hub|Other)$')
       ])),
       location: new FormControl('', Validators.compose([
         Validators.minLength(1), Validators.maxLength(100),
