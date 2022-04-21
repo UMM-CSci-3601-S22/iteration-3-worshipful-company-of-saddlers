@@ -146,28 +146,6 @@ public class ShoppingListController {
   }
 
   /**
-   * Checks if the given entry exists with a given id. if no such entry exists
-   * returns false. Returns true for one or more entry with a matching
-   * id.
-   *
-   * @param id
-   * @return boolean - true if one or more functions with matching names exit.
-   */
-  private boolean productExists(String id) {
-    Product product;
-
-    try {
-      product = productCollection.find(eq("_id", new ObjectId(id))).first();
-    } catch (IllegalArgumentException e) {
-      return false;
-    }
-    if (product == null) {
-      return false;
-    }
-    return true;
-  }
-
-  /**
    * Delete the shoppinglist item specified by the `id` parameter in the request.
    *
    * @param ctx a Javalin HTTP context
