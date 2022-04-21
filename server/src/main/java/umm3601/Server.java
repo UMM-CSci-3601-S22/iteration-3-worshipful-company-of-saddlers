@@ -15,6 +15,7 @@ import io.javalin.core.util.RouteOverviewPlugin;
 import io.javalin.http.InternalServerErrorResponse;
 import umm3601.pantry.PantryController;
 import umm3601.product.ProductController;
+import umm3601.shoppingList.ShoppingListController;
 
 public class Server {
 
@@ -44,6 +45,7 @@ public class Server {
 
     // Initialize dependencies
     ProductController productController = new ProductController(database);
+    ShoppingListController shoppingListController = new ShoppingListController(database);
     PantryController pantryController = new PantryController(database);
 
     Javalin server = Javalin.create(config -> config.registerPlugin(new RouteOverviewPlugin("/api")));
@@ -91,6 +93,12 @@ public class Server {
 
     // Add new pantry item with info from JSON body of HTTP request
     server.post("/api/pantry", pantryController::addNewPantryItem);
+
+    // Gets information for the shopping list
+    server.get("/api/shoppingList", shoppingListController::getShoppingLists);
+
+    // Add new item to the shopping list
+    server.post("/api/shoppingList", shoppingListController::addNewShoppingList);
 
     // This catches any uncaught exceptions thrown in the server
     // code and turns them into a 500 response ("Internal Server
