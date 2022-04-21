@@ -43,21 +43,21 @@
           <mat-form-field>
             <mat-label>Product Category</mat-label>
             <mat-select required formControlName="category">
-              <mat-option value="baked goods">Baked Goods</mat-option>
-              <mat-option value="baking supplies">Baking Supplies</mat-option>
-              <mat-option value="beverages">Beverages</mat-option>
-              <mat-option value="cleaning products">Cleaning Products</mat-option>
-              <mat-option value="dairy">Dairy</mat-option>
-              <mat-option value="deli">Deli</mat-option>
-              <mat-option value="frozen foods">Frozen Foods</mat-option>
-              <mat-option value="herbs/spices">Herbs/Spices</mat-option>
-              <mat-option value="meat">Meat</mat-option>
-              <mat-option value="miscellaneous">Miscellaneous</mat-option>
-              <mat-option value="paper products">Paper Products</mat-option>
-              <mat-option value="pet supplies">Pet Supplies</mat-option>
-              <mat-option value="produce">Produce</mat-option>
-              <mat-option value="staples">Staples</mat-option>
-              <mat-option value="toiletries">Toiletries</mat-option>
+              <mat-option value="baked goods">baked goods</mat-option>
+              <mat-option value="baking supplies">baking supplies</mat-option>
+              <mat-option value="beverages">beverages</mat-option>
+              <mat-option value="cleaning products">cleaning products</mat-option>
+              <mat-option value="dairy">dairy</mat-option>
+              <mat-option value="deli">deli</mat-option>
+              <mat-option value="frozen foods">frozen foods</mat-option>
+              <mat-option value="herbs and spices">herbs and spices</mat-option>
+              <mat-option value="meat">meat</mat-option>
+              <mat-option value="miscellaneous">miscellaneous</mat-option>
+              <mat-option value="paper products">paper products</mat-option>
+              <mat-option value="pet supplies">pet supplies</mat-option>
+              <mat-option value="produce">produce</mat-option>
+              <mat-option value="staples">staples</mat-option>
+              <mat-option value="toiletries">toiletries</mat-option>
             </mat-select>
             <mat-error *ngIf="addProductForm.get('category').hasError('required')">You must make a selection</mat-error>
             <mat-error
@@ -71,7 +71,8 @@
             <mat-select formControlName="store" required>
               <mat-option value="Willies">Willies</mat-option>
               <mat-option value="Pomme de Terre">Pomme de Terre</mat-option>
-              <mat-option value="Pomme de Terre/Willies">Both</mat-option>
+              <mat-option value="Pomme de Terre/Willies">Pomme de Terre/Willies</mat-option>
+              <mat-option value="Real Food Hub">Real Food Hub</mat-option>
               <mat-option value="Other">Other</mat-option>
             </mat-select>
             <mat-error *ngFor="let validation of addProductValidationMessages.store">

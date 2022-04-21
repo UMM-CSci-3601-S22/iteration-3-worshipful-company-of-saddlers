@@ -44,6 +44,7 @@
           <mat-option data-test="clickCoop" value="Pomme De Terre">Pomme De Terre
           </mat-option>
           <mat-option data-test="clickBoth" value="Both">Both</mat-option>
+          <mat-option data-test="clickBoth" value="Real Food Hub">Real Food Hub</mat-option>
           <mat-option data-test="clickOther" value="Other">Other</mat-option>
         </mat-select>
         <mat-error data-test="storeError" *ngIf="changeProductForm.get('store').hasError('required')">You must
@@ -60,21 +61,21 @@
       <mat-form-field>
         <mat-label>Category</mat-label>
         <mat-select formControlName="category" data-test="categoryDropDown">
-          <mat-option data-test="clickGoods" value="baked goods">Baked Goods</mat-option>
-          <mat-option data-test="clickBake" value="baking supplies">Baking Supplies</mat-option>
-          <mat-option data-test="clickBev" value="beverages">Beverages</mat-option>
-          <mat-option data-test="clickCleaning" value="cleaning products">Cleaning Products</mat-option>
-          <mat-option data-test="clickDairy" value="dairy">Dairy</mat-option>
-          <mat-option data-test="clickDeli" value="deli">Deli</mat-option>
-          <mat-option data-test="clickFrozen" value="frozen foods">Frozen Foods</mat-option>
-          <mat-option data-test="clickHerbs" value="herbs and spices">Herbs and Spices</mat-option>
-          <mat-option data-test="clickMeat" value="meat">Meat</mat-option>
-          <mat-option data-test="clickPaper" value="paper products">Paper Products</mat-option>
-          <mat-option data-test="clickPet" value="pet supplies">Pet Supplies</mat-option>
-          <mat-option data-test="clickProduce" value="produce">Produce</mat-option>
-          <mat-option data-test="clickStaples" value="staples">Staples</mat-option>
-          <mat-option data-test="clickToilet" value="toiletries">Toiletries</mat-option>
-          <mat-option data-test="clickMisc" value="miscellaneous>">Miscellaneous</mat-option>
+          <mat-option data-test="clickGoods" value="baked goods">baked goods</mat-option>
+          <mat-option data-test="clickBake" value="baking supplies">baking supplies</mat-option>
+          <mat-option data-test="clickBev" value="beverages">beverages</mat-option>
+          <mat-option data-test="clickCleaning" value="cleaning products">cleaning products</mat-option>
+          <mat-option data-test="clickDairy" value="dairy">dairy</mat-option>
+          <mat-option data-test="clickDeli" value="deli">deli</mat-option>
+          <mat-option data-test="clickFrozen" value="frozen foods">frozen foods</mat-option>
+          <mat-option data-test="clickHerbs" value="herbs and spices">herbs and spices</mat-option>
+          <mat-option data-test="clickMeat" value="meat">meat</mat-option>
+          <mat-option data-test="clickPaper" value="paper products">paper products</mat-option>
+          <mat-option data-test="clickPet" value="pet supplies">pet supplies</mat-option>
+          <mat-option data-test="clickProduce" value="produce">produce</mat-option>
+          <mat-option data-test="clickStaples" value="staples">staples</mat-option>
+          <mat-option data-test="clickToilet" value="toiletries">toiletries</mat-option>
+          <mat-option data-test="clickMisc" value="miscellaneous>">miscellaneous</mat-option>
         </mat-select>
         <mat-error data-test="categoryError" *ngIf="changeProductForm.get('category').hasError('required')">
           You must make a

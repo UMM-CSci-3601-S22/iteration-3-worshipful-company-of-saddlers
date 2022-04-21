@@ -41,8 +41,8 @@ export class AddProductComponent implements OnInit {
       ],
       category: [
         {type: 'required', message: 'Product category is required'},
-        {type: 'pattern', message: 'Category must be, bakery, produce, meat, dairy, frozen foods, ' +
-          'canned goods, drinks, general grocery, miscellaneous, or seasonal'},
+        {type: 'pattern', message: 'Category must be, baked goods, produce, meat, dairy, frozen foods, baking supplies,'
+        + 'beverages, cleaning products, miscellaneous, deli, herbs and spices, paper products, pet supplies, staples, toiletries'},
       ],
       store: [
         {type: 'required', message: 'Product store is required'},
@@ -84,10 +84,10 @@ export class AddProductComponent implements OnInit {
       category: new FormControl('', Validators.compose([
         Validators.required,
         Validators.pattern('^(baked goods|baking supplies|beverages|cleaning products|dairy|deli|' +
-          'frozen foods|herbs/spices|meat|miscellaneous|paper products|pet supplies|produce|staples|toiletries)$')
+          'frozen foods|herbs and spices|meat|paper products|pet supplies|produce|staples|toiletries|miscellaneous)$')
       ])),
       store: new FormControl('', Validators.compose([
-        Validators.required, Validators.pattern('^(Willies|Pomme De Terre|Both|Other)$')
+        Validators.required, Validators.pattern('^(Willies|Pomme De Terre|Both|Real Food Hub|Other)$')
       ])),
       location: new FormControl('', Validators.compose([
         Validators.minLength(1), Validators.maxLength(100),
