@@ -8,17 +8,17 @@
       <a mat-list-item routerLink="/" routerLinkActive="drawer-list-item-active"
         #routerLinkActiveInstance="routerLinkActive" [attr.tabindex]="routerLinkActiveInstance.isActive ? 0 : -1"
         [routerLinkActiveOptions]="{exact: true}" (click)="drawer.close()">
-        <mat-icon matListIcon>home</mat-icon>
+        <mat-icon matListIcon>local_dining</mat-icon>
         My Pantry
       </a>
 
       <a mat-list-item routerLink="/products" routerLinkActive="drawer-list-item-active" (click)="drawer.close()">
-        <mat-icon matListIcon>local_dining</mat-icon>
+        <mat-icon matListIcon>fastfood</mat-icon>
         Products
       </a>
 
       <a mat-list-item routerLink="/shoppingList" routerLinkActive="drawer-list-item-active" (click)="drawer.close()">
-        <mat-icon matListIcon>local_dining</mat-icon>
+        <mat-icon matListIcon>shopping_cart</mat-icon>
         Shopping List
       </a>
 
