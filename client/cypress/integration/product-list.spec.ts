@@ -120,16 +120,14 @@ describe('Product list', () => {
     cy.get('[data-test=product_nameInput]').type('lettuce');
     page.getFilteredProductListItems().first().then((list) => {
       const firstProductName = list.find('.product-list-name').text().trim();
-      const firstProductCategory = list.find('.product-list-category').text().trim();
 
       page.getFilteredProductListItems().first().click();
 
       // The URL should be '/products/' followed by a mongo ID
       cy.url().should('match', /products\/[0-9a-fA-F]{24}$/);
 
-      // On this profile page we were sent to, the name and category should be correct
-      cy.get('.product-card-name').should('have.text', firstProductName);
-      cy.get('.product-card-category').first().should('have.text', firstProductCategory);
+      // On this profile page we were sent to, the name should be correct
+      cy.get('[data-test="product_nameInput"]').should('have.value', firstProductName);
     });
   });
 

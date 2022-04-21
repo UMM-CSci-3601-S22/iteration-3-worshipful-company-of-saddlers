@@ -67,6 +67,9 @@ public class Server {
     // List products, filtered using query params
     server.get("/api/products", productController::getAllProducts);
 
+    // Change product, should change product info to the new info given by ctx
+    server.put("/api/products", productController::changeProduct);
+
     // Get the specified product
     server.get("/api/products/{id}", productController::getProductByID);
 

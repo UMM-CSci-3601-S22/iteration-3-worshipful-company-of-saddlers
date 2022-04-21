@@ -213,4 +213,16 @@ describe('ProductService', () => {
     expect(res).toBeTruthy();
   });
 
+  it('changeProduct posts to api/products', () => {
+
+    productService.changeProduct(testProducts[1]).subscribe(
+      id => expect(id).toBe('testid')
+    );
+    const req = httpTestingController.expectOne(productService.productUrl);
+
+    expect(req.request.method).toEqual('PUT');
+    expect(req.request.body).toEqual(testProducts[1]);
+
+    req.flush({ id: 'testid' });
+  });
 });
