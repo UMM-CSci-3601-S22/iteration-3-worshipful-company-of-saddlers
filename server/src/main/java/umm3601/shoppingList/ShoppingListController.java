@@ -45,10 +45,10 @@ public class ShoppingListController {
 
   public ShoppingListController(MongoDatabase database) {
     shoppingListCollection = JacksonMongoCollection.builder().build(
-      database,
-      "shoppingList",
-      ShoppingList.class,
-      UuidRepresentation.STANDARD);
+        database,
+        "shoppingList",
+        ShoppingList.class,
+        UuidRepresentation.STANDARD);
     pantryCollection = JacksonMongoCollection.builder().build(
         database,
         "pantry",
@@ -109,7 +109,7 @@ public class ShoppingListController {
     List<Bson> filters = new ArrayList<>(); // start with a blank document
 
     if (ctx.queryParamMap().containsKey(NAME_KEY)) {
-      filters.add(regex(NAME_KEY,  Pattern.quote(ctx.queryParam(NAME_KEY)), "i"));
+      filters.add(regex(NAME_KEY, Pattern.quote(ctx.queryParam(NAME_KEY)), "i"));
     }
 
     if (ctx.queryParamMap().containsKey(CATEGORY_KEY)) {
@@ -202,35 +202,35 @@ public class ShoppingListController {
     ArrayList<PantryItem> pantryItems = pantryCollection
         .find()
         .into(new ArrayList<>());
-        ArrayList<Product> products = productCollection
+    ArrayList<Product> products = productCollection
         .find()
         .into(new ArrayList<>());
-        Product[] prodArr = products.toArray(new Product[products.size()]);
-        PantryItem[] pantryArr = pantryItems.toArray(new PantryItem[pantryItems.size()]);
-        Product[] underThresh = new Product[products.size()];
-        int[] quants = new int[products.size()];
-        int z = 0;
-        for (int i = 0; i < prodArr.length; i++) {
-          int tempThresh = prodArr[i].threshold;
-          String tempID = prodArr[i]._id;
-          int count = 0;
-          for (int j = 0; j < pantryArr.length; j++) {
-            if(pantryArr[j].product.equals(tempID) ){
-              count++;
-              System.out.println(count);
-            }
-          }
-          if (count < tempThresh){
-            underThresh[z] = prodArr[i];
-            quants[z] = tempThresh-count;
-            z++;
-          }
+    Product[] prodArr = products.toArray(new Product[products.size()]);
+    PantryItem[] pantryArr = pantryItems.toArray(new PantryItem[pantryItems.size()]);
+    Product[] underThresh = new Product[products.size()];
+    int[] quants = new int[products.size()];
+    int z = 0;
+    for (int i = 0; i < prodArr.length; i++) {
+      int tempThresh = prodArr[i].threshold;
+      String tempID = prodArr[i]._id;
+      int count = 0;
+      for (int j = 0; j < pantryArr.length; j++) {
+        if (pantryArr[j].product.equals(tempID)) {
+          count++;
+          System.out.println(count);
         }
-        shoppingListCollection.deleteMany(new Document());
-        for (int i = 0; i < z; i++) {
-          ShoppingList listItem = new ShoppingList(underThresh[i]._id, underThresh[i].product_name, quants[i]);
-          shoppingListCollection.insertOne(listItem);
-        }
+      }
+      if (count < tempThresh) {
+        underThresh[z] = prodArr[i];
+        quants[z] = tempThresh - count;
+        z++;
+      }
+    }
+    shoppingListCollection.deleteMany(new Document());
+    for (int i = 0; i < z; i++) {
+      ShoppingList listItem = new ShoppingList(underThresh[i]._id, underThresh[i].product_name, quants[i]);
+      shoppingListCollection.insertOne(listItem);
+    }
   }
 
 }

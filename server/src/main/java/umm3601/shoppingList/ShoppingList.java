@@ -15,10 +15,10 @@ public class ShoppingList {
   public String name;
   public int quantity;
 
-  ShoppingList(){
+  ShoppingList() {
   }
 
-  ShoppingList(String id, String name, int quantity){
+  ShoppingList(String id, String name, int quantity) {
     this.productID = id;
     this.name = name;
     this.quantity = quantity;
