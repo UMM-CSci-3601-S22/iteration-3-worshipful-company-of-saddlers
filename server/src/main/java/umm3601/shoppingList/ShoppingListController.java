@@ -6,7 +6,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.result.DeleteResult;
@@ -19,11 +18,9 @@ import io.javalin.http.BadRequestResponse;
 import io.javalin.http.Context;
 import io.javalin.http.NotFoundResponse;
 import static com.mongodb.client.model.Filters.and;
-import static com.mongodb.client.model.Filters.regex;
+// import static com.mongodb.client.model.Filters.regex;
 
-import java.util.regex.Pattern;
-
-import com.mongodb.client.model.Sorts;
+// import java.util.regex.Pattern;
 
 import org.bson.Document;
 import org.bson.conversions.Bson;
@@ -89,7 +86,6 @@ public class ShoppingListController {
    */
   public void getAllItems(Context ctx) {
     Bson combinedFilter = constructFilter(ctx);
-    Bson sortingOrder = constructSortingOrder(ctx);
 
     // All three of the find, sort, and into steps happen "in parallel" inside the
     // database system. So MongoDB is going to find the products with the specified
@@ -97,7 +93,6 @@ public class ShoppingListController {
     // results into an initially empty ArrayList.
     ArrayList<ShoppingList> matchingItems = shoppingListCollection
         .find(combinedFilter)
-        .sort(sortingOrder)
         .into(new ArrayList<>());
 
     // Set the JSON body of the response to be the list of products returned by
@@ -108,13 +103,13 @@ public class ShoppingListController {
   private Bson constructFilter(Context ctx) {
     List<Bson> filters = new ArrayList<>(); // start with a blank document
 
-    if (ctx.queryParamMap().containsKey(NAME_KEY)) {
-      filters.add(regex(NAME_KEY, Pattern.quote(ctx.queryParam(NAME_KEY)), "i"));
-    }
+    // if (ctx.queryParamMap().containsKey(NAME_KEY)) {
+    //   filters.add(regex(NAME_KEY, Pattern.quote(ctx.queryParam(NAME_KEY)), "i"));
+    // }
 
-    if (ctx.queryParamMap().containsKey(CATEGORY_KEY)) {
-      filters.add(regex(CATEGORY_KEY, Pattern.quote(ctx.queryParam(CATEGORY_KEY)), "i"));
-    }
+    // if (ctx.queryParamMap().containsKey(CATEGORY_KEY)) {
+    //   filters.add(regex(CATEGORY_KEY, Pattern.quote(ctx.queryParam(CATEGORY_KEY)), "i"));
+    // }
 
     // Combine the list of filters into a single filtering document.
     Bson combinedFilter = filters.isEmpty() ? new Document() : and(filters);
@@ -122,15 +117,15 @@ public class ShoppingListController {
     return combinedFilter;
   }
 
-  private Bson constructSortingOrder(Context ctx) {
-    // Sort the results. Use the `sortby` query param (default "NAME_KEY")
-    // as the field to sort by, and the query param `sortorder` (default
-    // "asc") to specify the sort order.
-    String sortBy = Objects.requireNonNullElse(ctx.queryParam("sortby"), NAME_KEY);
-    String sortOrder = Objects.requireNonNullElse(ctx.queryParam("sortorder"), "asc");
-    Bson sortingOrder = sortOrder.equals("desc") ? Sorts.descending(sortBy) : Sorts.ascending(sortBy);
-    return sortingOrder;
-  }
+  // private Bson constructSortingOrder(Context ctx) {
+  //   // Sort the results. Use the `sortby` query param (default "NAME_KEY")
+  //   // as the field to sort by, and the query param `sortorder` (default
+  //   // "asc") to specify the sort order.
+  //   String sortBy = Objects.requireNonNullElse(ctx.queryParam("sortby"), NAME_KEY);
+  //   String sortOrder = Objects.requireNonNullElse(ctx.queryParam("sortorder"), "asc");
+  //   Bson sortingOrder = sortOrder.equals("desc") ? Sorts.descending(sortBy) : Sorts.ascending(sortBy);
+  //   return sortingOrder;
+  // }
 
   // Helper function to check if a string is a valid date
   // Format of the date string: yyyy-MM-dd

@@ -1,5 +1,6 @@
 package umm3601.shoppinglisttest;
 
+import static com.mongodb.client.model.Filters.eq;
 import static io.javalin.plugin.json.JsonMapperKt.JSON_MAPPER_KEY;
 import static java.util.Map.entry;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -278,28 +279,28 @@ public class ShoppingListControllerSpec {
     });
   }
 
-  // @Test
-  // public void deleteShoppingList() throws IOException {
-  //   testID = new ObjectId();
-  //   testID2 = new ObjectId();
-  //   Document salad = new Document()
-  //   .append("_id", testID)
-  //   .append("name", "salad")
-  //   .append("productID", testID2)
-  //   .append("quantity", 3);
-  //   shoppingListDocuments.insertOne(salad);
-  //   String testid = testID.toHexString();
+  @Test
+  public void deleteShoppingList() throws IOException {
+    testID = new ObjectId();
+    testID2 = new ObjectId();
+    Document salad = new Document()
+    .append("_id", testID)
+    .append("name", "salad")
+    .append("productID", testID2)
+    .append("quantity", 3);
+    shoppingListDocuments.insertOne(salad);
+    String testid = testID.toHexString();
 
-  //   // Product exists before deletion
-  //   assertEquals(1, db.getCollection("shoppingList").countDocuments(eq("_id",testID)));
+    // Product exists before deletion
+    assertEquals(1, db.getCollection("shoppingList").countDocuments(eq("_id", testID)));
 
-  //   Context ctx = mockContext("api/products/{id}", Map.of("id", testID));
+    Context ctx = mockContext("api/shoppingList/{id}", Map.of("id", testid));
 
-  //   productController.deleteProduct(ctx);
+    shoppingListController.deleteShoppingList(ctx);
 
-  //   assertEquals(HttpURLConnection.HTTP_OK, mockRes.getStatus());
+    assertEquals(HttpURLConnection.HTTP_OK, mockRes.getStatus());
 
-  //   // Product is no longer in the database
-  //   assertEquals(0, db.getCollection("products").countDocuments(eq("_id", new ObjectId(testID))));
-  // }
+    // Product is no longer in the database
+    assertEquals(0, db.getCollection("shoppingList").countDocuments(eq("_id", testID)));
+  }
 }
