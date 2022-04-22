@@ -1,40 +1,46 @@
 package umm3601.shoppingList;
 
+// import static com.mongodb.client.model.Filters.and;
 import static com.mongodb.client.model.Filters.eq;
+// import static com.mongodb.client.model.Filters.regex;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+// import java.util.Objects;
+// import java.util.regex.Pattern;
 
 import com.mongodb.client.MongoDatabase;
+// import com.mongodb.client.model.Sorts;
 import com.mongodb.client.result.DeleteResult;
 
+import org.bson.Document;
 import org.bson.UuidRepresentation;
+import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
 import org.mongojack.JacksonMongoCollection;
 
 import io.javalin.http.BadRequestResponse;
 import io.javalin.http.Context;
+import io.javalin.http.HttpCode;
 import io.javalin.http.NotFoundResponse;
-import static com.mongodb.client.model.Filters.and;
-// import static com.mongodb.client.model.Filters.regex;
-
-// import java.util.regex.Pattern;
-
-import org.bson.Document;
-import org.bson.conversions.Bson;
-import umm3601.product.Product;
 import umm3601.pantry.PantryItem;
+import umm3601.product.Product;
 
+/**
+ * Controller that manages requests for info about shoppingLists.
+ */
 public class ShoppingListController {
 
-  // private static final String PRODUCT_KEY = "product";
-  // private static final String PURCHASE_DATE_KEY = "purchase_date";
-  // private static final String NOTES_KEY = "notes";
-
+  private static final String QUANTITY_KEY = "quantity";
   private static final String NAME_KEY = "name";
-  private static final String CATEGORY_KEY = "category";
+  private static final String PROD_KEY = "prodID";
+
+  /**
+   * Construct a controller for shoppingLists.
+   *
+   * @param database the database containing shoppingList data
+   */
 
   private final JacksonMongoCollection<PantryItem> pantryCollection;
   private final JacksonMongoCollection<Product> productCollection;
@@ -59,89 +65,95 @@ public class ShoppingListController {
   }
 
   /**
-   * Get the single product specified by the `id` parameter in the request.
+   * Get the single shoppingList specified by the `id` parameter in the request.
    *
    * @param ctx a Javalin HTTP context
    */
-  public void getShoppingListItemByID(Context ctx) {
+  public void getShoppingList(Context ctx) {
     String id = ctx.pathParam("id");
     ShoppingList shoppingList;
 
     try {
       shoppingList = shoppingListCollection.find(eq("_id", new ObjectId(id))).first();
     } catch (IllegalArgumentException e) {
-      throw new BadRequestResponse("The requested product id wasn't a legal Mongo Object ID.");
+      throw new BadRequestResponse("The requested shoppingList id wasn't a legal Mongo Object ID.");
     }
     if (shoppingList == null) {
-      throw new NotFoundResponse("The requested shoppinglist item(s) could not be found");
+      throw new NotFoundResponse("The requested shoppingList was not found");
     } else {
       ctx.json(shoppingList);
     }
   }
 
   /**
-   * Get a JSON response with a list of all the products.
+   * Get a JSON response with a list of all the shoppingLists.
    *
    * @param ctx a Javalin HTTP context
    */
-  public void getAllItems(Context ctx) {
+  public void getShoppingLists(Context ctx) {
     Bson combinedFilter = constructFilter(ctx);
 
     // All three of the find, sort, and into steps happen "in parallel" inside the
-    // database system. So MongoDB is going to find the products with the specified
+    // database system. So MongoDB is going to find the shoppingLists with the
+    // specified
     // properties, return those sorted in the specified manner, and put the
     // results into an initially empty ArrayList.
-    ArrayList<ShoppingList> matchingItems = shoppingListCollection
+    ArrayList<ShoppingList> matchingShoppingLists = shoppingListCollection
         .find(combinedFilter)
         .into(new ArrayList<>());
 
-    // Set the JSON body of the response to be the list of products returned by
+    // Set the JSON body of the response to be the list of shoppingLists returned by
     // the database.
-    ctx.json(matchingItems);
+    ctx.json(matchingShoppingLists);
   }
 
   private Bson constructFilter(Context ctx) {
     List<Bson> filters = new ArrayList<>(); // start with a blank document
 
-    // if (ctx.queryParamMap().containsKey(NAME_KEY)) {
-    //   filters.add(regex(NAME_KEY, Pattern.quote(ctx.queryParam(NAME_KEY)), "i"));
-    // }
-
-    // if (ctx.queryParamMap().containsKey(CATEGORY_KEY)) {
-    //   filters.add(regex(CATEGORY_KEY, Pattern.quote(ctx.queryParam(CATEGORY_KEY)), "i"));
-    // }
-
     // Combine the list of filters into a single filtering document.
-    Bson combinedFilter = filters.isEmpty() ? new Document() : and(filters);
-
+    //Bson combinedFilter = filters.isEmpty() ? new Document() : and(filters);
+    Bson combinedFilter = new Document();
     return combinedFilter;
   }
 
-  // private Bson constructSortingOrder(Context ctx) {
-  //   // Sort the results. Use the `sortby` query param (default "NAME_KEY")
-  //   // as the field to sort by, and the query param `sortorder` (default
-  //   // "asc") to specify the sort order.
-  //   String sortBy = Objects.requireNonNullElse(ctx.queryParam("sortby"), NAME_KEY);
-  //   String sortOrder = Objects.requireNonNullElse(ctx.queryParam("sortorder"), "asc");
-  //   Bson sortingOrder = sortOrder.equals("desc") ? Sorts.descending(sortBy) : Sorts.ascending(sortBy);
-  //   return sortingOrder;
-  // }
+  /**
+   * Get a JSON response with a list of all the shoppingLists.
+   *
+   * @param ctx a Javalin HTTP context
+   */
+  public void addNewShoppingList(Context ctx) {
+    /*
+     * The follow chain of statements uses the Javalin validator system
+     * to verify that instance of `ShoppingList` provided in this context is
+     * a "legal" shoppingList. It checks the following things (in order):
+     * - The shoppingList has a value for the name (`usr.name != null`)
+     * - The shoppingList name is not blank (`usr.name.length > 0`)
+     * - The provided email is valid (matches EMAIL_REGEX)
+     * - The provided age is > 0
+     * - The provided role is valid (one of "admin", "editor", or "viewer")
+     * - A non-blank company is provided
+     */
+    ShoppingList newShoppingList = ctx.bodyValidator(ShoppingList.class)
+        .check(usr -> usr.name != null && usr.name.length() > 0,
+            "ShoppingList must have a non-empty shoppingList name")
+        .check(usr -> usr.quantity > 0,
+            "ShoppingList Quantity must be greater than zero")
+        .check(usr -> usr.productID != null && usr.productID.length() > 0,
+            "ShoppingList must have a non-empty product ID")
+        .get();
 
-  // Helper function to check if a string is a valid date
-  // Format of the date string: yyyy-MM-dd
-  private SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy");
+    shoppingListCollection.insertOne(newShoppingList);
 
-  boolean isValidDate(String input) {
-    try {
-      dateFormat.parse(input);
-      return true;
-    } catch (ParseException e) {
-      return false;
-    }
+    // 201 is the HTTP code for when we successfully
+    // create a new resource (a shoppingList in this case).
+    // See, e.g., https://developer.mozilla.org/en-US/docs/Web/HTTP/Status
+    // for a description of the various response codes.
+    ctx.status(HttpCode.CREATED);
+    ctx.json(Map.of("id", newShoppingList._id));
   }
 
   /**
-   * Delete the shoppinglist item specified by the `id` parameter in the request.
+   * Delete the shoppingList specified by the `id` parameter in the request.
    *
    * @param ctx a Javalin HTTP context
    */
@@ -152,25 +164,19 @@ public class ShoppingListController {
       throw new NotFoundResponse(
           "Was unable to delete ID "
               + id
-              + "; perhaps illegal ID or an ID for an item not in the shoppinglist?");
+              + "; perhaps illegal ID or an ID for an item not in the system?");
     }
   }
 
-  /**
-   * Returns a JSON list of all the shoppinglist entries in the database
-   *
-   * @param ctx a Javalin HTTP context
-   */
   public void getShoppingListInfo(Context ctx) {
     ArrayList<ShoppingList> matchingProducts = shoppingListCollection
         .find()
         .into(new ArrayList<>());
-
     // Set the JSON body of the response to be the list of products returned by
-    // the database.
     ctx.json(matchingProducts);
   }
 
+  // the database.
   public void generateShoppingList(Context ctx) {
     ArrayList<PantryItem> pantryItems = pantryCollection
         .find()
@@ -204,5 +210,4 @@ public class ShoppingListController {
       shoppingListCollection.insertOne(listItem);
     }
   }
-
 }

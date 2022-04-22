@@ -1,5 +1,7 @@
 package umm3601.shoppinglisttest;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static com.mongodb.client.model.Filters.eq;
 import static io.javalin.plugin.json.JsonMapperKt.JSON_MAPPER_KEY;
 import static java.util.Map.entry;
@@ -14,6 +16,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.mockrunner.mock.web.MockHttpServletRequest;
 import com.mockrunner.mock.web.MockHttpServletResponse;
 import com.mongodb.MongoClientSettings;
@@ -31,6 +34,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import io.javalin.core.JavalinConfig;
+import io.javalin.core.validation.ValidationException;
 import io.javalin.http.Context;
 import io.javalin.http.HandlerType;
 import io.javalin.http.NotFoundResponse;
@@ -239,7 +243,7 @@ public class ShoppingListControllerSpec {
   public void generateTest() throws IOException {
     Context ctx = mockContext("api/generateTest");
     shoppingListController.generateShoppingList(ctx);
-    shoppingListController.getAllItems(ctx);
+    shoppingListController.getShoppingLists(ctx);
     ShoppingList[] returnedShoppingList = returnedShoppingList(ctx);
     assertEquals(
         db.getCollection("shoppingList").countDocuments(),
@@ -253,15 +257,15 @@ public class ShoppingListControllerSpec {
     testID = new ObjectId();
     testID2 = new ObjectId();
     Document salad = new Document()
-    .append("_id", testID)
-    .append("name", "salad")
-    .append("productID", testID2)
-    .append("quantity", 3);
+        .append("_id", testID)
+        .append("name", "salad")
+        .append("productID", testID2)
+        .append("quantity", 3);
     shoppingListDocuments.insertOne(salad);
     String testid = testID.toHexString();
     Context ctx = mockContext("api/shoppingList/{id}", Map.of("id", testid));
 
-    shoppingListController.getShoppingListItemByID(ctx);
+    shoppingListController.getShoppingList(ctx);
     ShoppingList resultProduct = returnedSingleShoppingList(ctx);
 
     assertEquals(HttpURLConnection.HTTP_OK, mockRes.getStatus());
@@ -275,7 +279,7 @@ public class ShoppingListControllerSpec {
     String testid = testID.toHexString();
     Context ctx = mockContext("api/shoppingList/{id}", Map.of("id", testid));
     assertThrows(NotFoundResponse.class, () -> {
-      shoppingListController.getShoppingListItemByID(ctx);
+      shoppingListController.getShoppingList(ctx);
     });
   }
 
@@ -284,10 +288,10 @@ public class ShoppingListControllerSpec {
     testID = new ObjectId();
     testID2 = new ObjectId();
     Document salad = new Document()
-    .append("_id", testID)
-    .append("name", "salad")
-    .append("productID", testID2)
-    .append("quantity", 3);
+        .append("_id", testID)
+        .append("name", "salad")
+        .append("productID", testID2)
+        .append("quantity", 3);
     shoppingListDocuments.insertOne(salad);
     String testid = testID.toHexString();
 
@@ -302,5 +306,92 @@ public class ShoppingListControllerSpec {
 
     // Product is no longer in the database
     assertEquals(0, db.getCollection("shoppingList").countDocuments(eq("_id", testID)));
+  }
+
+  @Test
+  public void addNullProductNameShoppingList() throws IOException {
+    String testNewShoppingList = "{"
+        + "\"quantity\": 69,"
+        + "\"prodID\": 45432323"
+        + "}";
+    mockReq.setBodyContent(testNewShoppingList);
+    mockReq.setMethod("POST");
+
+    Context ctx = mockContext("api/shoppingList");
+
+    assertThrows(ValidationException.class, () -> {
+      shoppingListController.addNewShoppingList(ctx);
+    });
+  }
+
+  @Test
+  public void addInvalidProductNameShoppingList() throws IOException {
+    String testNewShoppingList = "{"
+        + "\"name\": \"\","
+        + "\"quantity\": 69,"
+        + "\"prodID\": 45432323"
+        + "}";
+    mockReq.setBodyContent(testNewShoppingList);
+    mockReq.setMethod("POST");
+
+    Context ctx = mockContext("api/shoppingList");
+
+    assertThrows(ValidationException.class, () -> {
+      shoppingListController.addNewShoppingList(ctx);
+    });
+  }
+
+  @Test
+  public void addInvalidQuantityProduct() throws IOException {
+    String testNewProduct = "{"
+        + "\"name\": \"chips\","
+        + "\"quantity\": -96,"
+        + "\"prodID\": 45432323"
+        + "}";
+    mockReq.setBodyContent(testNewProduct);
+    mockReq.setMethod("POST");
+
+    Context ctx = mockContext("api/products");
+
+    assertThrows(ValidationException.class, () -> {
+      shoppingListController.addNewShoppingList(ctx);
+    });
+  }
+
+  @Test
+  public void addShoppingList() throws IOException {
+
+    String testNewShoppingList = "{"
+        + "\"name\": \"chips\","
+        + "\"quantity\": 69,"
+        + "\"productID\": 45432323"
+        + "}";
+    mockReq.setBodyContent(testNewShoppingList);
+    mockReq.setMethod("POST");
+
+    Context ctx = mockContext("api/shoppingList");
+
+    shoppingListController.addNewShoppingList(ctx);
+    String result = ctx.resultString();
+    String id = javalinJackson.fromJsonString(result, ObjectNode.class).get("id").asText();
+
+    // Our status should be 201, i.e., our new shoppdeleteingList was successfully
+    // created. This is a named constant in the class HttpURLConnection.
+    assertEquals(HttpURLConnection.HTTP_CREATED, mockRes.getStatus());
+
+    // Successfully adding the shoppingList should return the newly generated
+    // MongoDB ID
+    // for that shoppingList.
+    assertNotEquals("", id);
+    assertEquals(1, db.getCollection("shoppingList").countDocuments(eq("_id", new ObjectId(id))));
+
+    // Verify that the shoppingList was added to the database with the correct ID
+    Document addedShoppingList = db.getCollection("shoppingList").find(eq("_id", new ObjectId(id))).first();
+
+    assertNotNull(addedShoppingList);
+    assertEquals("chips", addedShoppingList.getString("name"));
+    assertEquals(69, addedShoppingList.getInteger("quantity"));
+    assertEquals("45432323", addedShoppingList.getString("productID"));
+
   }
 }
