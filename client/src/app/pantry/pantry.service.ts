@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 import { Product, ProductCategory } from '../products/product';
 import { map } from 'rxjs/operators';
 import { PantryItem } from './pantryItem';
+import { PantryProduct } from './pantryProduct';
 
 @Injectable()
 export class PantryService {
@@ -17,7 +18,7 @@ export class PantryService {
 
   constructor(private httpClient: HttpClient) {}
 
-  getPantryItems(filters?: {category?: ProductCategory; name?: string}): Observable<PantryItem[]> {
+  getPantryItems(filters?: {category?: ProductCategory; name?: string}): Observable<PantryProduct[]> {
     let httpParams: HttpParams = new HttpParams();
     if (filters) {
       if (filters.category) {
@@ -27,28 +28,28 @@ export class PantryService {
         httpParams = httpParams.set('name', filters.name);
       }
     }
-    return this.httpClient.get<PantryItem[]>(this.pantryUrl, {
+    return this.httpClient.get<PantryProduct[]>(this.pantryUrl, {
       params: httpParams,
     });
   }
 
-  filterItems(items: PantryItem[], filters: { category?: ProductCategory; name?: string }): PantryItem[] {
+  filterPantryProducts(products: PantryProduct[], filters: { category?: ProductCategory; name?: string }): PantryProduct[] {
 
-    let filteredItems = items;
+    let filteredPantryProducts = products;
 
     // Filter by name
     if (filters.name) {
       filters.name = filters.name.toLowerCase();
 
-      filteredItems = filteredItems.filter(item => item.name.toLowerCase().indexOf(filters.name) !== -1);
+      filteredPantryProducts = filteredPantryProducts.filter(product => product.name.toLowerCase().indexOf(filters.name) !== -1);
     }
 
     // Filter by category
     if (filters.category) {
-      filteredItems = filteredItems.filter(item => item.category.indexOf(filters.category) !== -1);
+      filteredPantryProducts = filteredPantryProducts.filter(product => product.category.indexOf(filters.category) !== -1);
     }
 
-    return filteredItems;
+    return filteredPantryProducts;
   }
 
   addPantryItem(newPantryItem: PantryItem): Observable<string> {

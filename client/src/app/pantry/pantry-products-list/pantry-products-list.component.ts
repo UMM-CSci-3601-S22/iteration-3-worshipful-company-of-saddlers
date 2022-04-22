@@ -6,6 +6,7 @@ import { Product, ProductCategory, categories, categoryCamelCase } from 'src/app
 import { ProductService } from 'src/app/products/product.service';
 import { PantryService } from '../pantry.service';
 import { PantryItem } from '../pantryItem';
+import { PantryProduct } from '../pantryProduct';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 
@@ -23,9 +24,9 @@ export class PantryProductsListComponent implements OnInit, OnDestroy {
 
   // Unfiltered product list
   public allProducts: Product[] = [];
-  public pantryProducts: PantryItem[] = [];
-  public serverFilteredItems: PantryItem[];
-  public filteredItems: PantryItem[] = [];
+  public pantryProducts: PantryProduct[] = [];
+  public serverFilteredPantryProducts: PantryProduct[];
+  public filteredPantryProducts: PantryProduct[] = [];
   public filteredProducts: Product[];
 
   public name: string;
@@ -45,21 +46,21 @@ export class PantryProductsListComponent implements OnInit, OnDestroy {
   public tempName: string;
   public ItemName: string;
 
-  public bakingSuppliesItems: PantryItem[] = [];
-  public bakedGoodsItems: PantryItem[] = [];
-  public deliItems: PantryItem[] = [];
-  public cleaningItems: PantryItem[] = [];
-  public petSuppliesItems: PantryItem[] = [];
-  public produceItems: PantryItem[] = [];
-  public meatItems: PantryItem[] = [];
-  public dairyItems: PantryItem[] = [];
-  public frozenItems: PantryItem[] = [];
-  public paperItems: PantryItem[] = [];
-  public beverageItems: PantryItem[] = [];
-  public herbItems: PantryItem[] = [];
-  public stapleItems: PantryItem[] = [];
-  public toiletriesItems: PantryItem[] = [];
-  public miscellaneousItems: PantryItem[] = [];
+  public bakingSuppliesItems: PantryProduct[] = [];
+  public bakedGoodsItems: PantryProduct[] = [];
+  public deliItems: PantryProduct[] = [];
+  public cleaningItems: PantryProduct[] = [];
+  public petSuppliesItems: PantryProduct[] = [];
+  public produceItems: PantryProduct[] = [];
+  public meatItems: PantryProduct[] = [];
+  public dairyItems: PantryProduct[] = [];
+  public frozenItems: PantryProduct[] = [];
+  public paperItems: PantryProduct[] = [];
+  public beverageItems: PantryProduct[] = [];
+  public herbItems: PantryProduct[] = [];
+  public stapleItems: PantryProduct[] = [];
+  public toiletriesItems: PantryProduct[] = [];
+  public miscellaneousItems: PantryProduct[] = [];
 
   i: number;
   j: number;
@@ -108,7 +109,7 @@ export class PantryProductsListComponent implements OnInit, OnDestroy {
       category: this.productCategory,
       name: this.ItemName
     }).subscribe(returnedItems => {
-      this.serverFilteredItems = returnedItems;
+      this.serverFilteredPantryProducts = returnedItems;
     }, err => {
       console.log(err);
     });
@@ -132,7 +133,7 @@ export class PantryProductsListComponent implements OnInit, OnDestroy {
     this.unsubItemsUnfiltered();
     this.getUnfilteredItemsSub = this.pantryService.getPantryItems().subscribe(returnedItems => {
       this.pantryProducts = returnedItems;
-      this.filteredItems = returnedItems;
+      this.filteredPantryProducts = returnedItems;
       this.makeCategoryLists();
     });
   }
@@ -150,8 +151,8 @@ export class PantryProductsListComponent implements OnInit, OnDestroy {
   }
 
   updateItemFilter(): void {
-    this.filteredItems = this.pantryService.filterItems(
-      this.serverFilteredItems, {category: this.productCategory, name: this.ItemName}
+    this.filteredPantryProducts = this.pantryService.filterPantryProducts(
+      this.serverFilteredPantryProducts, {category: this.productCategory, name: this.ItemName}
     );
     if (this.ItemName || this.productCategory) {
       this.activeFilters = true;
@@ -214,7 +215,7 @@ export class PantryProductsListComponent implements OnInit, OnDestroy {
   public makeCategoryLists(): void {
     categories.forEach((cat: ProductCategory) => {
       const categoryAsField = categoryCamelCase(cat);
-      this[categoryAsField] = this.pantryService.filterItems(
+      this[categoryAsField] = this.pantryService.filterPantryProducts(
         this.pantryProducts, { category: cat }
       );
     });
