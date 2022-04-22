@@ -31,7 +31,7 @@ export class AddProductPage {
     }
     this.getFormField('brand').type(newProduct.brand);
     this.selectMatSelectValue(this.getFormField('category'), newProduct.category);
-    this.getFormField('store').type(newProduct.store);
+    this.selectMatSelectValue(this.getFormField('store'),newProduct.store);
     if (newProduct.location) {
       this.getFormField('location').type(newProduct.location);
     }
