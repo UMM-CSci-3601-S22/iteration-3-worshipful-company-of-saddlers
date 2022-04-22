@@ -94,12 +94,13 @@ public class Server {
     // Add new pantry item with info from JSON body of HTTP request
     server.post("/api/pantry", pantryController::addNewPantryItem);
 
-    // Gets information for the shopping list
     server.get("/api/shoppingList", shoppingListController::getShoppingLists);
 
+    server.get("/api/generateTest", shoppingListController::generateShoppingList);
+
+    server.get("/api/shoppingList/{id}", shoppingListController::getShoppingList);
     // Add new item to the shopping list
     server.post("/api/shoppingList", shoppingListController::addNewShoppingList);
-
     // This catches any uncaught exceptions thrown in the server
     // code and turns them into a 500 response ("Internal Server
     // Error Response"). In general you'll like to *never* actually
@@ -110,7 +111,7 @@ public class Server {
     // caught here so you'd know about them and could try to address
     // them.
     server.exception(Exception.class, (e, ctx) -> {
-      throw new InternalServerErrorResponse(e.toString());
+    throw new InternalServerErrorResponse(e.toString());
     });
   }
 }
