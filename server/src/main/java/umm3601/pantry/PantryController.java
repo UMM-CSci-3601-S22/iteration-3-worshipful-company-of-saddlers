@@ -10,6 +10,8 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import java.io.*;
+import java.lang.Thread;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.result.DeleteResult;
 
@@ -270,36 +272,34 @@ public class PantryController {
     int foundCounter = 1;
     reflection[0] = pantryArr[0];
     tracker[0] = 1;
-    int counterForPrint = 0;
     for (int i = 1; i < pantryArr.length; i++) {
-      System.out.println("first loop = " + i + "\n"+pantryArr[i].name+"\n");
       for (int j = 0; j < reflection.length; j++) {
-        if(reflection[j] != null && reflection[j].product.equals(pantryArr[i].product)){
-          tracker[j] = tracker[j]+1;
+        if (reflection[j] != null && reflection[j].product.equals(pantryArr[i].product)) {
+          tracker[j] = tracker[j] + 1;
           break;
-        }
-        else if(j==reflection.length-1){
-          System.out.println("ADDING");
-          counterForPrint++;
-          System.out.println("ADDING COUNTER = " +counterForPrint + "\n");
+        } else if (j == reflection.length - 1) {
           reflection[foundCounter] = pantryArr[i];
           tracker[foundCounter] = 1;
           foundCounter++;
         }
-        else{
-          System.out.println("SKIPPING STUFF");
-        }
       }
 
     }
+    // try {
+    //   Thread.sleep(2000);
+    // } catch (Exception e) {
+
+    //   // catching the exception
+    //   System.out.println(e);
+    // }
+
     ppCollection.deleteMany(new Document());
     for (int i = 0; i < foundCounter; i++) {
-      System.out.println(reflection[i].name + " QUANTITY: " + tracker[i] + "\n");
-      PantryProduct product = new PantryProduct(reflection[i].product, reflection[i].name, tracker[i], reflection[i].category);
+      PantryProduct product = new PantryProduct(reflection[i].product, reflection[i].name, tracker[i],
+          reflection[i].category);
       ppCollection.insertOne(product);
     }
   }
-
 
   /**
    * Get a JSON response with a list of all the products.
@@ -307,6 +307,7 @@ public class PantryController {
    * @param ctx a Javalin HTTP context
    */
   public void getAllPantryProducts(Context ctx) {
+    ppCollection.deleteMany(new Document());
     aggregateNewDatabase(ctx);
     Bson combinedFilter = constructFilter(ctx);
 

@@ -85,7 +85,7 @@ export class PantryProductsListComponent implements OnInit, OnDestroy {
   /*
   * Get the products in the pantry from the server,
   */
-  // getPantryItemsFromServer() {
+  // getItemsFromServer() {
   //   this.pantryService.getPantryItems().subscribe(returnedPantryProducts => {
 
   //     this.pantryProducts = returnedPantryProducts;
