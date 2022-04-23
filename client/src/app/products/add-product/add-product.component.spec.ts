@@ -230,13 +230,13 @@ describe('AddProductComponent', () => {
       expect(storeControl.valid).toBeTruthy();
     });
 
-    it('should be fine with "Pomme De Terre"', () => {
-      storeControl.setValue('Pomme De Terre');
+    it('should be fine with "Pomme de Terre"', () => {
+      storeControl.setValue('Pomme de Terre');
       expect(storeControl.valid).toBeTruthy();
     });
 
-    it('should be fine with "Both"', () => {
-      storeControl.setValue('Both');
+    it('should be fine with "Pomme de Terre/Willies"', () => {
+      storeControl.setValue('Pomme de Terre/Willies');
       expect(storeControl.valid).toBeTruthy();
     });
 
