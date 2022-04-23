@@ -88,6 +88,8 @@ public class Server {
     // Delete the specified pantry item
     server.delete("/api/pantry/{id}", pantryController::deletePantryItem);
 
+    server.delete("/api/shoppingList/{id}", shoppingListController::deleteShoppingList);
+
     // Add new product with info from JSON body of HTTP request
     server.post("/api/products", productController::addNewProduct);
 

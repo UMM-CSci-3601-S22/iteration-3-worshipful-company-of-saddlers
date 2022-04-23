@@ -170,7 +170,7 @@ export class PantryProductsListComponent implements OnInit, OnDestroy {
     this.getUnfilteredItems();
   }
 
-  reloadComponent() {
+  public reloadComponent() {
     const pantryPageUrl = '';
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.router.onSameUrlNavigation = 'reload';
@@ -232,6 +232,8 @@ export class PantryProductsListComponent implements OnInit, OnDestroy {
     this.snackBar.open('Product deleted', 'OK', {
       duration: 5000,
     });
+    this.getItemsFromServer();
+    this.getUnfilteredItems();
     return this.tempDeleted;
   }
 
