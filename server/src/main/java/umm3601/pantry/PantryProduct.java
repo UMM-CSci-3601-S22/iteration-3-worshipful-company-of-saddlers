@@ -5,6 +5,18 @@ import org.mongojack.ObjectId;
 
 @SuppressWarnings({ "VisibilityModifier", "MemberName" })
 public class PantryProduct {
+
+  PantryProduct(){
+  }
+
+  PantryProduct(String product, String name, int quantity, String category){
+    this.product = product;
+    this.name = name;
+    this.quantity = quantity;
+    this.category = category;
+  }
+
+
   @ObjectId
   @Id
   // By default Java field names shouldn't start with underscores.

@@ -74,7 +74,7 @@ public class Server {
     server.get("/api/products/{id}", productController::getProductByID);
 
     // List products, filtered using query params
-    server.get("/api/pantry", pantryController::getAllItems);
+    server.get("/api/pantry", pantryController::getAllPantryProducts);
 
     // List products, filtered using query params
     server.get("/api/pantry/info", pantryController::getPantryInfo);
@@ -110,8 +110,8 @@ public class Server {
     // certainly want to use a logging library to log all errors
     // caught here so you'd know about them and could try to address
     // them.
-    server.exception(Exception.class, (e, ctx) -> {
-    throw new InternalServerErrorResponse(e.toString());
-    });
+    // server.exception(Exception.class, (e, ctx) -> {
+    // throw new InternalServerErrorResponse(e.toString());
+    // });
   }
 }
