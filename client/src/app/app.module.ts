@@ -38,6 +38,9 @@ import { ProductCardComponent } from './products/product-card/product-card.compo
 import { PantryService } from './pantry/pantry.service';
 import { AddPantryItemComponent } from './pantry/add-pantry-item/add-pantry-item.component';
 import { AddProductToPantryComponent } from './products/add-product-to-pantry/add-product-to-pantry.component';
+import { ShoppingListListComponent } from './shoppingList/shopping-list-list/shopping-list-list.component';
+import { ShoppingListService } from './shoppingList/shopping-list-list/shoppingList.service';
+
 // import { MY_DATE_FORMATS } from './my-date-fomats';
 import { MatMomentDateModule} from '@angular/material-moment-adapter';
 
@@ -80,6 +83,7 @@ const MY_DATE_FORMATS = {
     SingleProductPageComponent,
     AddProductComponent,
     PantryProductsListComponent,
+    ShoppingListListComponent,
     ProductCardComponent,
     AddPantryItemComponent,
     AddProductToPantryComponent,
@@ -101,6 +105,7 @@ const MY_DATE_FORMATS = {
   providers: [
     ProductService,
     PantryService,
+    ShoppingListService,
     PantryProductsListComponent,
     MatDatepickerModule,
     { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS}

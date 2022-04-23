@@ -1,5 +1,8 @@
 [
   {
+    "_id": {
+      "$oid": "624df743fc13ae394e000019"
+    },
     "product_name": "Lettuce",
     "description": "This is lettuce",
     "brand": "Iceberg Present",
@@ -12,6 +15,9 @@
     "image": "http://dummyimage.com/164x100.png/5fa2dd/ffffff"
   },
   {
+    "_id": {
+      "$oid": "624df743fc13ae394e00001a"
+    },
     "product_name": "Cheese Pizza",
     "description": "This is pizza",
     "brand": "Red Baron",
