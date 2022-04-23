@@ -1,8 +1,7 @@
 export interface ShoppingList {
 
 _id: string;
-
-prodID: string;
+productID: string;
 name: string;
 quantity: number;
 }

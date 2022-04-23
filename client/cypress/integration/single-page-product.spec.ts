@@ -193,4 +193,7 @@ describe('Single Product Page', () => {
       cy.get('[data-test=thresholdError]').should('not.exist');
     });
   });
+
+
+
 });
