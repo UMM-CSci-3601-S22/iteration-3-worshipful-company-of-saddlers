@@ -39,7 +39,7 @@ describe('Add product', () => {
       // The new product should have all the same attributes as we entered
       cy.get('[data-test="product_nameInput"]').should('have.value', product.product_name);
       cy.get('[data-test="brandInput"]').should('have.value', product.brand);
-      cy.get('#mat-select-value-3').should('have.text', product.store);
+      cy.get('#mat-select-value-5').should('have.text', product.store);
     });
 
     it('Should fail with no location', () => {
@@ -70,7 +70,7 @@ describe('Add product', () => {
       // The things we entered in the form should still be there
       page.getFormField('product_name').should('have.value', product.product_name);
       page.getFormField('brand').should('have.value', product.brand);
-      page.getFormField('store').should('have.value', product.store);
+      page.getFormField('store').should('contain', product.store);
       page.getFormField('category').should('contain', 'Produce');
     });
 
@@ -92,17 +92,16 @@ describe('Add product', () => {
   // Input: name, brand, category
   page.getFormField('product_name').type('test');
   page.getFormField('brand').type('test');
-  page.getFormField('store').type('Willies');
+  page.getFormField('store').click().get('#mat-option-15 > .mat-option-text').click();
   page.addProductButton().should('be.disabled');
 
   // Input: name, brand, store
-  page.getFormField('store').clear();
   page.getFormField('category').click().get('#mat-option-1 > .mat-option-text').click();
-  page.addProductButton().should('be.disabled');
+  page.addProductButton().should('be.enabled');
 
   // Input: name, store, category
   page.getFormField('brand').clear();
-  page.getFormField('store').type('Willies');
+  page.getFormField('store').click().get('#mat-option-15 > .mat-option-text').click();
   page.addProductButton().should('be.disabled');
 
   // Input: brand, category, store
@@ -170,14 +169,11 @@ describe('Add product', () => {
 
       // Clicking the store field without entering anything should cause an error message
       page.getFormField('store').click().blur();
-      cy.get('[data-test=storeError]').should('exist').and('be.visible');
-
-      // Entering too large inputs in store field causes error
-      page.getFormField('store').type('The fitnessgram pacer test is a multi-stage aerobic capacity test that increases'.repeat(3));
+      cy.get('body').click(300, 0);
       cy.get('[data-test=storeError]').should('exist').and('be.visible');
 
       // Entering a valid store should remove the error
-      page.getFormField('store').clear().type('Wally World');
+      page.selectMatSelectValue(page.getFormField('store'), 'Willies');
       cy.get('[data-test=storeError]').should('not.exist');
     });
 

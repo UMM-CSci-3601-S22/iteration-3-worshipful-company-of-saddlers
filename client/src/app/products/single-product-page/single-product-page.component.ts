@@ -69,8 +69,8 @@ export class SingleProductPageComponent implements OnInit, OnDestroy {
       ])),
       category: new FormControl(this.product.category, Validators.compose([
         Validators.required,
-        Validators.pattern('^(Baked Goods|Baking Supplies|Beverages|Cleaning Products|Dairy|Deli|' +
-          'Frozen Foods|Herbs and Spices|Meat|Miscellaneous|Paper Products|Pet Supplies|Produce|Staples|Toiletries)$')
+        Validators.pattern('^(baked goods|baking supplies|beverages|cleaning products|dairy|deli|' +
+          'frozen foods|herbs and spices|meat|paper products|pet supplies|produce|staples|toiletries|miscellaneous)$')
       ])),
       store: new FormControl(this.product.store, Validators.compose([
         Validators.required, Validators.minLength(1), Validators.maxLength(100),
