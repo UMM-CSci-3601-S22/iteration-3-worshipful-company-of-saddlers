@@ -310,6 +310,7 @@ public class PantryController {
     ppCollection.deleteMany(new Document());
     aggregateNewDatabase(ctx);
     Bson combinedFilter = constructFilter(ctx);
+    Bson sortingOrder = constructSortingOrder(ctx);
 
     // All three of the find, sort, and into steps happen "in parallel" inside the
     // database system. So MongoDB is going to find the products with the specified
@@ -317,6 +318,7 @@ public class PantryController {
     // results into an initially empty ArrayList.
     ArrayList<PantryProduct> matchingItems = ppCollection
         .find(combinedFilter)
+        .sort(sortingOrder)
         .into(new ArrayList<>());
 
     // Set the JSON body of the response to be the list of products returned by
