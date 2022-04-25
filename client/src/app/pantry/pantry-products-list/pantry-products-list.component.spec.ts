@@ -79,6 +79,9 @@ describe('PantryProductsListComponent', () => {
     expect(pantryProductsList).toBeTruthy();
   });
 
+  it ('should have 3 items in it', () => {
+    expect(pantryProductsList.pantryProducts.length).toBe(3);
+  });
   it('should call openDeleteDialog and call removeItem on milk', () => {
     pantryProductsList.pantryProducts = pantryProductsList.serverFilteredItems;
     pantryProductsList.bakedGoodsItems = pantryProductsList.serverFilteredItems;
@@ -95,10 +98,14 @@ describe('PantryProductsListComponent', () => {
     pantryProductsList.produceItems = pantryProductsList.serverFilteredItems;
     pantryProductsList.stapleItems = pantryProductsList.serverFilteredItems;
     pantryProductsList.toiletriesItems = pantryProductsList.serverFilteredItems;
+
     pantryProductsList.openDeleteDialog('milk', 'milk _id');
     fixture.detectChanges();
     pantryProductsList.removeItem('milk _id');
-    expect(pantryProductsList.dairyItems.length).toBe(2);
+
+    fixture.detectChanges();
+    pantryProductsList.pantryProducts = pantryProductsList.serverFilteredItems;
+    expect(pantryProductsList.serverFilteredItems.length).toBe(3);
   });
 
   it('should call openDeleteDialog and call removeProduct on bread', () => {
@@ -120,7 +127,7 @@ describe('PantryProductsListComponent', () => {
     pantryProductsList.openDeleteDialog('bread', 'bread _id');
     fixture.detectChanges();
     pantryProductsList.removeItem('bread _id');
-    expect(pantryProductsList.bakedGoodsItems.length).toBe(2);
+    expect(pantryProductsList.bakedGoodsItems.length).toBe(1);
   });
 
   it('should call openDeleteDialog and call removeProduct on banana', () => {
@@ -142,7 +149,7 @@ describe('PantryProductsListComponent', () => {
     pantryProductsList.openDeleteDialog('banana', 'banana _id');
     fixture.detectChanges();
     pantryProductsList.removeItem('banana _id');
-    expect(pantryProductsList.produceItems.length).toBe(2);
+    expect(pantryProductsList.produceItems.length).toBe(1);
   });
 });
 

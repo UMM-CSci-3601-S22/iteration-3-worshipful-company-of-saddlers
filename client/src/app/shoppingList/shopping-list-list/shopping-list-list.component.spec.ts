@@ -19,6 +19,8 @@ import { ShoppingList } from '../shoppingList';
 import { ShoppingListListComponent } from './shopping-list-list.component';
 import { ShoppingListService } from './shoppingList.service';
 import { MatIconModule } from '@angular/material/icon';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 const COMMON_IMPORTS: any[] = [
   FormsModule,
@@ -36,6 +38,8 @@ const COMMON_IMPORTS: any[] = [
   MatIconModule,
   BrowserAnimationsModule,
   RouterTestingModule,
+  MatDialogModule,
+  MatSnackBarModule
 ];
 
 describe('ShoppingListListComponent', () => {
@@ -46,7 +50,7 @@ describe('ShoppingListListComponent', () => {
     TestBed.configureTestingModule({
       imports: [COMMON_IMPORTS],
       declarations: [ ShoppingListListComponent],
-      providers: [{ provide: ShoppingListService, useValue: new MockShoppingListService() }]
+      providers: [{ provide: ShoppingListService, useValue: new MockShoppingListService() }, ]
     })
     .compileComponents();
   });
