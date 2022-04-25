@@ -76,7 +76,34 @@ describe('AddToShoppingListComponent', () => {
     expect(addProductToShoppingListForm.controls).toBeDefined();
   });
 
-  it('should create', () => {
+  it('should create the component', () => {
     expect(addToShoppingListComponent).toBeTruthy();
   });
+
+  it('The form should start with an empty quantity and be invalid', () => {
+    expect(addProductToShoppingListForm.valid).toBeFalsy();
+  });
+
+  describe('Shopping item quantity field', () => {
+    let pantryQuantityControl: AbstractControl;
+
+    beforeEach(() => {
+      pantryQuantityControl = addToShoppingListComponent.addToShoppingListForm.controls.quantity;
+    });
+
+  it('Should be able to add a quantity and be valid', () => {
+    pantryQuantityControl.setValue(3);
+    expect(addProductToShoppingListForm.valid).toBeTruthy();
+  });
+
+  it('Should not be able to add really large numbers', () => {
+    pantryQuantityControl.setValue(999999999);
+    expect(addProductToShoppingListForm.valid).toBeFalsy();
+  });
+
+  it('Should not be able to add non-integer characters', () => {
+    pantryQuantityControl.setValue('BeaneBurrito');
+    expect(addProductToShoppingListForm.valid).toBeFalsy();
+  });
+});
 });

@@ -39,6 +39,7 @@ export class AddToShoppingListComponent implements OnInit {
         name: this.product.product_name,
 
         quantity: new FormControl('', Validators.compose([
+          Validators.pattern('^[0-9]+$'),
           Validators.max(10000),
           Validators.min(0),
           Validators.required,
