@@ -124,9 +124,13 @@ public class PantryControllerSpec {
     MongoCollection<Document> pantryDocuments = db.getCollection("pantry");
     pantryDocuments.drop();
 
+    MongoCollection<Document> ppDocuments = db.getCollection("pantryProducts");
+    ppDocuments.drop();
+
     // Add test products to the database
     List<Document> testProducts = new ArrayList<>();
     bananaEntryId = new ObjectId();
+    ObjectId potatObjectId = new ObjectId();
     testProducts.add(
         new Document()
             .append("_id", bananaEntryId)
@@ -185,6 +189,29 @@ public class PantryControllerSpec {
             .append("category", "staples"));
 
     pantryDocuments.insertMany(testPantryEntries);
+
+    List<Document> testPPEntries = new ArrayList<>();
+    testPPEntries.add(
+        new Document()
+            .append("product", bananaEntryId.toHexString()) // oid of banana
+            .append("name", "1")
+            .append("category", "produce")
+            .append("quantity", 100));
+    // Set up two instances beans entered at different dates
+    testPPEntries.add(
+        new Document()
+            .append("product", beansEntryId.toHexString()) // oid of beans
+            .append("name", "2")
+            .append("category", "staples")
+            .append("quantity", 8));
+    testPPEntries.add(
+        new Document()
+            .append("product", beansEntryId.toHexString()) // oid of beans
+            .append("name", "3")
+            .append("category", "staples")
+            .append("quantity", 4));
+
+    ppDocuments.insertMany(testPPEntries);
 
     // Entry just to test getById()
     appleEntryId = new ObjectId();
@@ -248,6 +275,12 @@ public class PantryControllerSpec {
     String result = ctx.resultString();
     PantryItem[] pantryItems = javalinJackson.fromJsonString(result, PantryItem[].class);
     return pantryItems;
+  }
+
+  private PantryProduct[] returnedPantryProducts(Context ctx) {
+    String result = ctx.resultString();
+    PantryProduct[] pantryProducts = javalinJackson.fromJsonString(result, PantryProduct[].class);
+    return pantryProducts;
   }
 
   public Product[] returnedProducts(Context ctx) {
@@ -765,5 +798,23 @@ public class PantryControllerSpec {
 
     assertEquals(HttpCode.OK.getStatus(), mockRes.getStatus());
     assertEquals(2, returnedItems.length);
+  }
+
+  @Test
+  public void canGetAllPantryProducts() throws IOException {
+    // Create our fake Javalin context
+    String path = "api/pantry";
+    Context ctx = mockContext(path);
+
+    pantryController.getAllPantryProducts(ctx);
+    PantryProduct[] returnedPantryItems = returnedPantryProducts(ctx);
+
+    // The response status should be 200, i.e., our request.append("_id", milksId)
+    // was handled successfully (was OK). This is a named constant in
+    // the class HttpCode.
+    assertEquals(HttpCode.OK.getStatus(), mockRes.getStatus());
+    assertEquals(
+        db.getCollection("pantryProducts").countDocuments() - 1,
+        returnedPantryItems.length);
   }
 }

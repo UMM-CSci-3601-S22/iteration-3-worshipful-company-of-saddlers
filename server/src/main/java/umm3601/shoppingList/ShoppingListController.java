@@ -10,8 +10,6 @@ import java.util.Map;
 // import java.util.Objects;
 // import java.util.regex.Pattern;
 
-import javax.swing.plaf.synth.SynthTabbedPaneUI;
-
 import com.mongodb.client.MongoDatabase;
 // import com.mongodb.client.model.Sorts;
 import com.mongodb.client.result.DeleteResult;
@@ -113,7 +111,7 @@ public class ShoppingListController {
     List<Bson> filters = new ArrayList<>(); // start with a blank document
 
     // Combine the list of filters into a single filtering document.
-    //Bson combinedFilter = filters.isEmpty() ? new Document() : and(filters);
+    // Bson combinedFilter = filters.isEmpty() ? new Document() : and(filters);
     Bson combinedFilter = new Document();
     return combinedFilter;
   }
