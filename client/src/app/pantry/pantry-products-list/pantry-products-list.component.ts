@@ -48,16 +48,16 @@ export class PantryProductsListComponent implements OnInit, OnDestroy {
   public bakingSuppliesItems: PantryItem[] = [];
   public bakedGoodsItems: PantryItem[] = [];
   public deliItems: PantryItem[] = [];
-  public cleaningItems: PantryItem[] = [];
+  public cleaningProductsItems: PantryItem[] = [];
   public petSuppliesItems: PantryItem[] = [];
   public produceItems: PantryItem[] = [];
   public meatItems: PantryItem[] = [];
   public dairyItems: PantryItem[] = [];
-  public frozenItems: PantryItem[] = [];
-  public paperItems: PantryItem[] = [];
-  public beverageItems: PantryItem[] = [];
-  public herbItems: PantryItem[] = [];
-  public stapleItems: PantryItem[] = [];
+  public frozenFoodsItems: PantryItem[] = [];
+  public paperProductsItems: PantryItem[] = [];
+  public beveragesItems: PantryItem[] = [];
+  public herbsAndSpicesItems: PantryItem[] = [];
+  public staplesItems: PantryItem[] = [];
   public toiletriesItems: PantryItem[] = [];
   public miscellaneousItems: PantryItem[] = [];
 
@@ -223,8 +223,6 @@ export class PantryProductsListComponent implements OnInit, OnDestroy {
   removeItem(id: string): PantryItem {
     this.pantryService.deleteItem(id).subscribe(
       item => {
-        const categoryAsField = categoryCamelCase(item.category);
-        this[categoryAsField] = this[categoryAsField].filter(pitem => pitem._id !== id);
         this.tempDeleted = item;
      }
     );

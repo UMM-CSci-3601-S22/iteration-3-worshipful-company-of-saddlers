@@ -5,7 +5,7 @@
         <mat-card-title class="product-card-name">
           <div>
             <mat-form-field fxLayout="column">
-              <mat-label>Name</mat-label>
+              <b>Name:</b>
               <input matInput required formControlName="product_name"
                 data-test="product_nameInput">
               <mat-error *ngFor="let validation of changeProductFormMessages.product_name">
@@ -24,7 +24,7 @@
 
         <b>Brand:</b>
           <mat-form-field>
-            <input matInput required formControlName="brand" data-test="brandInput">
+            <input matInput formControlName="brand" data-test="brandInput">
             <mat-error *ngFor="let validation of changeProductFormMessages.brand">
               <mat-error class="error-message" data-test="brandError"
                 *ngIf="changeProductForm.get('brand').hasError(validation.type) && (changeProductForm.get('brand').dirty || changeProductForm.get('brand').touched)">
