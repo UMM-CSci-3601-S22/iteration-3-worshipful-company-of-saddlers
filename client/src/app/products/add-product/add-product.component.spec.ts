@@ -225,14 +225,29 @@ describe('AddProductComponent', () => {
       expect(storeControl.valid).toBeFalsy();
     });
 
-    it('should be fine with "store of item"', () => {
-      storeControl.setValue('store of item');
+    it('should be fine with "Willies"', () => {
+      storeControl.setValue('Willies');
       expect(storeControl.valid).toBeTruthy();
     });
 
-    it('should allow single character product store', () => {
-      storeControl.setValue('x');
+    it('should be fine with "Pomme de Terre"', () => {
+      storeControl.setValue('Pomme de Terre');
       expect(storeControl.valid).toBeTruthy();
+    });
+
+    it('should be fine with "Pomme de Terre/Willies"', () => {
+      storeControl.setValue('Pomme de Terre/Willies');
+      expect(storeControl.valid).toBeTruthy();
+    });
+
+    it('should be fine with "Other"', () => {
+      storeControl.setValue('Other');
+      expect(storeControl.valid).toBeTruthy();
+    });
+
+    it('should not allow single character product store', () => {
+      storeControl.setValue('x');
+      expect(storeControl.valid).toBeFalsy();
       // Annoyingly, Angular uses lowercase 'l' here
       // when it's an upper case 'L' in `Validators.minLength(2)`.
     });
@@ -240,17 +255,10 @@ describe('AddProductComponent', () => {
     // In the real world, you'd want to be pretty careful about
     // setting upper limits on things like name lengths just
     // because there are people with really long names.
-    it('should fail on really long store', () => {
-      storeControl.setValue('x'.repeat(2000));
-      expect(storeControl.valid).toBeFalsy();
-      // Annoyingly, Angular uses lowercase 'l' here
-      // when it's an upper case 'L' in `Validators.maxLength(2)`.
-      expect(storeControl.hasError('maxlength')).toBeTruthy();
-    });
 
-    it('should allow digits in the store', () => {
+    it('should not allow digits in the store', () => {
       storeControl.setValue('st0r3');
-      expect(storeControl.valid).toBeTruthy();
+      expect(storeControl.valid).toBeFalsy();
     });
   });
 

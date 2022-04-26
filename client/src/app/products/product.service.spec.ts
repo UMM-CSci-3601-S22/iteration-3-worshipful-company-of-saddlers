@@ -14,7 +14,7 @@ describe('ProductService', () => {
       description: '',
       brand: 'Dole',
       category: 'produce',
-      store: 'Walmart',
+      store: 'Willies',
       location: '',
       notes: '',
       lifespan: 0,
@@ -27,7 +27,7 @@ describe('ProductService', () => {
       description: '',
       brand: 'Land O Lakes',
       category: 'dairy',
-      store: 'SuperValu',
+      store: 'Pomme de Terre',
       location: '',
       notes: '',
       lifespan: 0,
@@ -40,7 +40,7 @@ describe('ProductService', () => {
       description: '',
       brand: 'Country Hearth',
       category: 'baked goods',
-      store: 'Walmart',
+      store: 'Pomme de Terre/Willies',
       location: '',
       notes: '',
       lifespan: 0,
@@ -213,4 +213,16 @@ describe('ProductService', () => {
     expect(res).toBeTruthy();
   });
 
+  it('changeProduct posts to api/products', () => {
+
+    productService.changeProduct(testProducts[1]).subscribe(
+      id => expect(id).toBe('testid')
+    );
+    const req = httpTestingController.expectOne(productService.productUrl);
+
+    expect(req.request.method).toEqual('PUT');
+    expect(req.request.body).toEqual(testProducts[1]);
+
+    req.flush({ id: 'testid' });
+  });
 });

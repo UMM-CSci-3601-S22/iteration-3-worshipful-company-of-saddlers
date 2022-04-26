@@ -57,7 +57,7 @@ describe('AddProductToPantryComponent', () => {
       description: '',
       brand: 'Dole',
       category: 'produce',
-      store: 'Walmart',
+      store: 'Willies',
       location: '',
       notes: '',
       lifespan: 0,

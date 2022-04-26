@@ -17,52 +17,57 @@ export class AddProductComponent implements OnInit {
 
   product: Product;
 
-  addProductValidationMessages = {
-    product_name: [
-      {type: 'required', message: 'Product\'s name is required'},
-      {type: 'minlength', message: 'Product name must be at least 1 character'},
-      {type: 'maxlength', message: 'Product name must be at less than 100 characters'}
-    ],
-    description: [
-      {type: 'minlength', message: 'Product description must be at least 1 character'},
-      {type: 'maxlength', message: 'Product description must be at less than 200 characters'}
-    ],
-    brand: [
-      {type: 'required', message: 'Product brand is required'},
-      {type: 'minlength', message: 'Product brand must be at least 1 character'},
-      {type: 'maxlength', message: 'Product brand must be at less than 100 characters'}
-    ],
-    category: [
-      {type: 'required', message: 'Product category is required'},
-      {type: 'pattern', message: 'Category must be, bakery, produce, meat, dairy, frozen foods, ' +
-        'canned goods, drinks, general grocery, miscellaneous, or seasonal'},
-    ],
-    store: [
-      {type: 'required', message: 'Product store is required'},
-      {type: 'minlength', message: 'Product store must be at least 1 character'},
-      {type: 'maxlength', message: 'Product store must be at less than 100 characters'}
-    ],
-    location: [
-      {type: 'minlength', message: 'Product location must be at least 1 character'},
-      {type: 'maxlength', message: 'Product location must be at less than 100 characters'}
-    ],
-    notes: [
-      {type: 'minlength', message: 'Product notes must be at least 1 character'},
-      {type: 'maxlength', message: 'Product notes must be at less than 200 characters'}
-    ],
-    lifespan: [
-      {type: 'min', message: 'Product lifespan must be at least 1'},
-      {type: 'max', message: 'Product lifespan must be at less than 1000000'},
-      {type: 'pattern', message: 'Lifespan must be a whole number'}
-    ],
-    threshold: [
-      {type: 'min', message: 'Product threshold must be at least 1'},
-      {type: 'max', message: 'Product threshold must be at less than 1000000'},
-      {type: 'pattern', message: 'Threshold must be a whole number'}
-    ]
-  };
+  addProductValidationMessages;
+
   constructor(private fb: FormBuilder, private productService: ProductService,
      private snackBar: MatSnackBar, private router: Router) {
+  }
+
+  public static createValidationForm() {
+    return {
+      product_name: [
+        {type: 'required', message: 'Product\'s name is required'},
+        {type: 'minlength', message: 'Product name must be at least 1 character'},
+        {type: 'maxlength', message: 'Product name must be at less than 100 characters'}
+      ],
+      description: [
+        {type: 'minlength', message: 'Product description must be at least 1 character'},
+        {type: 'maxlength', message: 'Product description must be at less than 200 characters'}
+      ],
+      brand: [
+        {type: 'required', message: 'Product brand is required'},
+        {type: 'minlength', message: 'Product brand must be at least 1 character'},
+        {type: 'maxlength', message: 'Product brand must be at less than 100 characters'}
+      ],
+      category: [
+        {type: 'required', message: 'Product category is required'},
+        {type: 'pattern', message: 'Category must be, baked goods, produce, meat, dairy, frozen foods, baking supplies,'
+        + 'beverages, cleaning products, miscellaneous, deli, herbs and spices, paper products, pet supplies, staples, toiletries'},
+      ],
+      store: [
+        {type: 'required', message: 'Product store is required'},
+        {type: 'minlength', message: 'Product store must be at least 1 character'},
+        {type: 'maxlength', message: 'Product store must be at less than 100 characters'}
+      ],
+      location: [
+        {type: 'minlength', message: 'Product location must be at least 1 character'},
+        {type: 'maxlength', message: 'Product location must be at less than 100 characters'}
+      ],
+      notes: [
+        {type: 'minlength', message: 'Product notes must be at least 1 character'},
+        {type: 'maxlength', message: 'Product notes must be at less than 200 characters'}
+      ],
+      lifespan: [
+        {type: 'min', message: 'Product lifespan must be at least 1'},
+        {type: 'max', message: 'Product lifespan must be at less than 1000000'},
+        {type: 'pattern', message: 'Lifespan must be a whole number'}
+      ],
+      threshold: [
+        {type: 'min', message: 'Product threshold must be at least 1'},
+        {type: 'max', message: 'Product threshold must be at less than 1000000'},
+        {type: 'pattern', message: 'Threshold must be a whole number'}
+      ]
+    };
   }
 
   createForms() {
@@ -79,10 +84,10 @@ export class AddProductComponent implements OnInit {
       category: new FormControl('', Validators.compose([
         Validators.required,
         Validators.pattern('^(baked goods|baking supplies|beverages|cleaning products|dairy|deli|' +
-          'frozen foods|herbs/spices|meat|miscellaneous|paper products|pet supplies|produce|staples|toiletries)$')
+          'frozen foods|herbs and spices|meat|paper products|pet supplies|produce|staples|toiletries|miscellaneous)$')
       ])),
       store: new FormControl('', Validators.compose([
-        Validators.required, Validators.minLength(1), Validators.maxLength(100),
+        Validators.required, Validators.pattern('^(Willies|Pomme de Terre|Pomme de Terre/Willies|Real Food Hub|Other)$')
       ])),
       location: new FormControl('', Validators.compose([
         Validators.minLength(1), Validators.maxLength(100),
@@ -100,6 +105,7 @@ export class AddProductComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.addProductValidationMessages = AddProductComponent.createValidationForm();
     this.createForms();
   }
 
@@ -116,5 +122,6 @@ export class AddProductComponent implements OnInit {
       });
     });
   }
+
 
 }
