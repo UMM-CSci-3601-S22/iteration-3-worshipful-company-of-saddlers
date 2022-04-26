@@ -9,6 +9,8 @@ import { ActivatedRoute } from '@angular/router';
 import { ProductService } from '../product.service';
 import { Subscription } from 'rxjs';
 import { AddProductComponent } from '../add-product/add-product.component';
+import { PantryService } from 'src/app/pantry/pantry.service';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-product-card',
@@ -26,11 +28,25 @@ export class ProductCardComponent implements OnInit {
   panelOpenState = false; //Unsure what this is
   changeProductFormMessages;
 
-  constructor(private route: ActivatedRoute, private productService: ProductService, private fb: FormBuilder, private snackBar: MatSnackBar,
-    private router: Router) { }
+  constructor(private route: ActivatedRoute, private productService: ProductService, private pantryService: PantryService,
+    private dialog: MatDialog, private fb: FormBuilder, private snackBar: MatSnackBar, private router: Router) { }
 
   ngOnInit(): void {
     this.changeProductFormMessages = AddProductComponent.createValidationForm();
+  }
+
+  openAddDialog(givenProduct: Product) {
+    const dialogRef = this.dialog.open(AddProductToPantryComponent, {data: givenProduct});
+    dialogRef.afterClosed().subscribe(result => {
+      this.pantryService.addPantryItem(result).subscribe(newPantryId => {
+        if(newPantryId) {
+          this.snackBar.open('Product successfully added to your pantry.');
+        }
+        else {
+          this.snackBar.open('Something went wrong.  The product was not added to the pantry.');
+        }
+      });
+    });
   }
 
 

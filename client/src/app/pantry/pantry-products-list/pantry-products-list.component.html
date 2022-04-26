@@ -35,18 +35,11 @@
               <mat-list-item *ngFor="let product of this.filteredProducts" class="add-product-list-item"
                 data-test="addProductListItem">
                 <p matLine class="add-product-list-name" style="padding-right: 20px;">{{product.product_name}}</p>
-                <div *ngIf="!popup" class="addContainer">
-                  <button mat-raised-button class="add-product-button" matTooltip="Add Product"
-                    matTooltipPosition="left" (click)="popup = true" data-test="addProductButton">
+                <div matLine>
+                  <button mat-mini-fab class="add-product-button" matTooltip="Add Product" matTooltipPosition="left"
+                    (click)="openAddDialog(this.product)" data-test="addProductButton">
                     <mat-icon aria-label="Add Product">add</mat-icon>
                   </button>
-                </div>
-                <div class="overlay" *ngIf="popup">
-                  <div class="popup">
-                    <h2>Add This Product to Your Pantry</h2>
-                    <a class="close" (click)="popup = false">&times;</a>
-                    <app-add-product-to-pantry [product]="this.product"></app-add-product-to-pantry>
-                  </div>
                 </div>
               </mat-list-item>
             </div>
