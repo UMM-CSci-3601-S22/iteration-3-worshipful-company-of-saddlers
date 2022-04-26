@@ -4,7 +4,7 @@ import { SingleProductPage } from '../support/single-page-product.po';
 const page = new ProductListPage();
 const singlePage = new SingleProductPage();
 
-describe('Product list', () => {
+describe('Single Product Page', () => {
 
   before(() => {
     cy.task('seed:database');
@@ -20,7 +20,7 @@ describe('Product list', () => {
     // Click the first thing that comes up
     page.getFilteredProductListItems().first().click();
     singlePage.selectEditStore('Willies');
-    singlePage.selectEditCategory('Produce');
+    singlePage.selectEditCategory('produce');
   });
 
   it('Should be on right kind of page', () => {
@@ -40,7 +40,7 @@ describe('Product list', () => {
     // Put test input into the fields
     singlePage.getFormField('product_name').clear().type('test name');
     singlePage.getFormField('brand').clear().type('test brand');
-    singlePage.selectEditCategory('Produce');
+    singlePage.selectEditCategory('produce');
     singlePage.selectEditStore('Willies');
     singlePage.getFormField('location').clear().type('test location');
     singlePage.getFormField('lifespan').clear().type('69');
@@ -65,7 +65,7 @@ describe('Product list', () => {
 
   it('Should enable button and disable product button based on empty fields', () => {
     // Should be disabled when name and brand are empty
-    singlePage.selectEditCategory('Produce');
+    singlePage.selectEditCategory('produce');
     singlePage.getFormField('product_name').clear();
     singlePage.getFormField('brand').clear();
     singlePage.editProductButton().should('be.disabled');

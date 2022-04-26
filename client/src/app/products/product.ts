@@ -5,7 +5,7 @@ export interface Product {
   description?: string; // Client filter
   brand: string; // client filter
   category: ProductCategory; // server filter
-  store: string; // server filter
+  store: ProductStore; // server filter
   location?: string; // client filter
   notes?: string; // server filter
   lifespan?: number; // server filter
@@ -46,3 +46,5 @@ export const categoryCamelCase = (category: ProductCategory) => {
   // instead of having it here.
   return categoryPrefix + 'Items';
 };
+
+export type ProductStore = 'Willies' | 'Pomme de Terre' | 'Pomme de Terre/Willies' | 'Real Food Hub' | 'Other';
