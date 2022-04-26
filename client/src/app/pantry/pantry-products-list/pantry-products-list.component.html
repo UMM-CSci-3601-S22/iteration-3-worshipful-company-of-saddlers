@@ -96,7 +96,22 @@
                     <ng-template #dialogRef let-mydata>
                       <h1 mat-dialog-title>Delete Product?</h1>
                       <div mat-dialog-content>
-                        <h4>Are you sure you want to delete <i>{{tempName}}</i>? This action cannot be undone</h4>
+                        <h4>which <i>{{tempName}}</i> do you want to delete? This action cannot be undone</h4>
+                        <p><mat-nav-list class="baked-goods-pantry-nav-list">
+                          <span fxLayout="row" *ngFor="let item of this.filteredPantryProducts">
+                            <a mat-list-item class="product-list-item">
+                              <p matLine class="pantry-item-date"> {{item.date}} </p>
+
+                              <mat-divider></mat-divider>
+                            </a>
+                            <div class="deleteContainer" style="position: absolute;">
+                              <button mat-icon-button class="delete-item-button" matTooltip="Delete Item"
+                                matTooltipPosition="left" (click)="openDeleteDialog(item.name, item._id)"
+                                data-test="deleteItemButton">
+                                <mat-icon aria-label="Delete Item">close</mat-icon>
+                              </button>
+                            </mat-nav-list>
+                            </p>
                       </div>
                       <div mat-dialog-actions>
                         <button mat-button color="warn" (click)="removeItem(tempId)">Delete</button>

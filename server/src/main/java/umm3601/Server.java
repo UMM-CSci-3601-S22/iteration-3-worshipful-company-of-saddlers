@@ -101,6 +101,8 @@ public class Server {
     server.get("/api/shoppingList/{id}", shoppingListController::getShoppingList);
     // Add new item to the shopping list
     server.post("/api/shoppingList", shoppingListController::addNewShoppingList);
+
+    server.get("/api/deleteTest", pantryController::getDeleteDates);
     // This catches any uncaught exceptions thrown in the server
     // code and turns them into a 500 response ("Internal Server
     // Error Response"). In general you'll like to *never* actually

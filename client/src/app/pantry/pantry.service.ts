@@ -6,6 +6,7 @@ import { Product, ProductCategory } from '../products/product';
 import { map } from 'rxjs/operators';
 import { PantryItem } from './pantryItem';
 import { PantryProduct } from './pantryProduct';
+import { observableToBeFn } from 'rxjs/internal/testing/TestScheduler';
 
 @Injectable()
 export class PantryService {
@@ -75,7 +76,9 @@ export class PantryService {
   getProductById(id: string): Observable<Product> {
     return this.httpClient.get<Product>(this.productUrl + '/' + id);
   }
-
+  getDeleteDates(product: string): Observable<PantryProduct>{
+return this.httpClient.get<PantryProduct>(environment.apiUrl + 'deleteTest');
+  }
   deleteItem(id: string): Observable<PantryItem> {
     return this.httpClient.delete<PantryItem>(this.pantryUrl + '/' + id);
   }

@@ -28,6 +28,7 @@ export class PantryProductsListComponent implements OnInit, OnDestroy {
   public serverFilteredPantryProducts: PantryProduct[];
   public filteredPantryProducts: PantryProduct[] = [];
   public filteredProducts: Product[];
+  public filteredPantryItems: PantryItem[];
 
   public name: string;
   public productCategory: ProductCategory;
@@ -44,6 +45,7 @@ export class PantryProductsListComponent implements OnInit, OnDestroy {
   public tempDialog: any;
   public tempDeleted: PantryItem;
   public tempName: string;
+  public tempDates: Date[]=[];
   public ItemName: string;
 
   public bakingSuppliesItems: PantryProduct[] = [];
@@ -236,4 +238,13 @@ export class PantryProductsListComponent implements OnInit, OnDestroy {
     return this.tempDeleted;
   }
 
+  pantryItemdates(product: string): PantryProduct{
+    this.unsubItemsUnfiltered();
+    this.getUnfilteredItemsSub = this.pantryService.getDeleteDates().subscribe(returnedItems => {
+      this.pantryItem = returnedItems;
+      this.filteredPantryProducts = returnedItems;
+      this.makeCategoryLists();
+    });
+
+  }
 }
