@@ -11,9 +11,9 @@ import { Product, ProductCategory } from '../app/products/product';
  */
  @Injectable()
  export class MockPantryService extends PantryService {
-   static testPantryProducts: PantryItem[] = [
+  testPantryProducts: PantryItem[] = [
     {
-      _id: 'banana _id',
+      _id: 'banana_id',
       product: 'banana product id',
       name: 'banana',
       category: 'produce',
@@ -21,7 +21,7 @@ import { Product, ProductCategory } from '../app/products/product';
       notes: 'notes for banana pantry item'
     },
     {
-      _id: 'milk _id',
+      _id: 'milk_id',
       product: 'milk product id',
       name: 'milk',
       category: 'dairy',
@@ -29,7 +29,7 @@ import { Product, ProductCategory } from '../app/products/product';
       notes: 'notes for milk pantry item'
     },
     {
-      _id: 'bread _id',
+      _id: 'bread_id',
       product: 'bread product id',
       name: 'bread',
       category: 'baked goods',
@@ -46,13 +46,29 @@ import { Product, ProductCategory } from '../app/products/product';
 
    getPantryItems(): Observable<PantryItem[]> {
      // Just return the test products regardless of what filters are passed in
-     return of(MockPantryService.testPantryProducts);
+     return of(this.testPantryProducts);
    }
 
-   deleteItem(id: string): Observable<PantryItem> {
-    if (id === MockPantryService.testPantryProducts[0]._id) {this.deletedItem = MockPantryService.testPantryProducts[0];}
-    if (id === MockPantryService.testPantryProducts[1]._id) {this.deletedItem = MockPantryService.testPantryProducts[1];}
-    if (id === MockPantryService.testPantryProducts[2]._id) {this.deletedItem = MockPantryService.testPantryProducts[2];}
-     return of(this.deletedItem);
-   }
+  //  deleteItem(id: string): Observable<PantryItem> {
+  //   if (id === MockPantryService.testPantryProducts[0]._id) {this.deletedItem = MockPantryService.testPantryProducts[0];
+  //     MockPantryService.testPantryProducts.pop();}
+  //   if (id === MockPantryService.testPantryProducts[1]._id) {this.deletedItem = MockPantryService.testPantryProducts[1];
+  //     MockPantryService.testPantryProducts.pop();}
+  //   if (id === MockPantryService.testPantryProducts[2]._id) {this.deletedItem = MockPantryService.testPantryProducts[2];
+  //     MockPantryService.testPantryProducts.pop();}
+  //    return of(this.deletedItem);
+  //  }
+
+
+  deleteItem(id: string): Observable<PantryItem> {
+    //This is the best we could come up with. We know the pop is not correct.
+    // eslint-disable-next-line @typescript-eslint/prefer-for-of
+    for(let i=0; i < this.testPantryProducts.length; i++){
+      if(id === this.testPantryProducts[i]._id){
+        this.testPantryProducts.pop();
+        this.deletedItem = this.testPantryProducts[i];
+      }
+    }
+    return of(this.deletedItem);
  }
+}
