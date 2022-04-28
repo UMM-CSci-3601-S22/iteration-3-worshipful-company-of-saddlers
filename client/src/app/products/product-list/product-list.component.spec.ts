@@ -19,7 +19,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Observable } from 'rxjs';
 import { MockProductService } from '../../../testing/product.service.mock';
-import { Product } from '../product';
+import { Product, ProductCategory, categories, categoryCamelCase } from '../product';
 import { ProductListComponent } from './product-list.component';
 import { ProductService } from '../product.service';
 
@@ -126,22 +126,10 @@ describe('Delete From ProductList', () => {
   }));
 
   it('should call openDeleteDialog and call removeProduct on milk', () => {
-    productList.allProducts = productList.serverFilteredProducts;
-    productList.filteredProducts = productList.serverFilteredProducts;
-    productList.bakedGoodsProducts = productList.serverFilteredProducts;
-    productList.bakingSuppliesProducts = productList.serverFilteredProducts;
-    productList.cleaningProducts = productList.serverFilteredProducts;
-    productList.dairyProducts = productList.serverFilteredProducts;
-    productList.deliProducts = productList.serverFilteredProducts;
-    productList.frozenProducts = productList.serverFilteredProducts;
-    productList.herbProducts = productList.serverFilteredProducts;
-    productList.meatProducts = productList.serverFilteredProducts;
-    productList.miscellaneousProducts = productList.serverFilteredProducts;
-    productList.paperProducts = productList.serverFilteredProducts;
-    productList.petSuppliesProducts = productList.serverFilteredProducts;
-    productList.produceProducts = productList.serverFilteredProducts;
-    productList.stapleProducts = productList.serverFilteredProducts;
-    productList.toiletriesProducts = productList.serverFilteredProducts;
+    categories.forEach((cat: ProductCategory) => {
+      const categoryAsField = categoryCamelCase(cat);
+      productList[categoryAsField] = productList.serverFilteredProducts;
+    });
     productList.openDeleteDialog('Whole Milk', 'milk_id');
     fixture.detectChanges();
     productList.removeProduct('milk_id');
@@ -149,21 +137,10 @@ describe('Delete From ProductList', () => {
   });
 
   it('should call openDeleteDialog and call removeProduct on bread', () => {
-    productList.filteredProducts = productList.serverFilteredProducts;
-    productList.bakedGoodsProducts = productList.serverFilteredProducts;
-    productList.bakingSuppliesProducts = productList.serverFilteredProducts;
-    productList.cleaningProducts = productList.serverFilteredProducts;
-    productList.dairyProducts = productList.serverFilteredProducts;
-    productList.deliProducts = productList.serverFilteredProducts;
-    productList.frozenProducts = productList.serverFilteredProducts;
-    productList.herbProducts = productList.serverFilteredProducts;
-    productList.meatProducts = productList.serverFilteredProducts;
-    productList.miscellaneousProducts = productList.serverFilteredProducts;
-    productList.paperProducts = productList.serverFilteredProducts;
-    productList.petSuppliesProducts = productList.serverFilteredProducts;
-    productList.produceProducts = productList.serverFilteredProducts;
-    productList.stapleProducts = productList.serverFilteredProducts;
-    productList.toiletriesProducts = productList.serverFilteredProducts;
+    categories.forEach((cat: ProductCategory) => {
+      const categoryAsField = categoryCamelCase(cat);
+      productList[categoryAsField] = productList.serverFilteredProducts;
+    });
     productList.openDeleteDialog('Wheat Bread', 'bread_id');
     fixture.detectChanges();
     productList.removeProduct('bread_id');
@@ -171,21 +148,10 @@ describe('Delete From ProductList', () => {
   });
 
   it('should call openDeleteDialog and call removeProduct on banana', () => {
-    productList.filteredProducts = productList.serverFilteredProducts;
-    productList.bakedGoodsProducts = productList.serverFilteredProducts;
-    productList.bakingSuppliesProducts = productList.serverFilteredProducts;
-    productList.cleaningProducts = productList.serverFilteredProducts;
-    productList.dairyProducts = productList.serverFilteredProducts;
-    productList.deliProducts = productList.serverFilteredProducts;
-    productList.frozenProducts = productList.serverFilteredProducts;
-    productList.herbProducts = productList.serverFilteredProducts;
-    productList.meatProducts = productList.serverFilteredProducts;
-    productList.miscellaneousProducts = productList.serverFilteredProducts;
-    productList.paperProducts = productList.serverFilteredProducts;
-    productList.petSuppliesProducts = productList.serverFilteredProducts;
-    productList.produceProducts = productList.serverFilteredProducts;
-    productList.stapleProducts = productList.serverFilteredProducts;
-    productList.toiletriesProducts = productList.serverFilteredProducts;
+    categories.forEach((cat: ProductCategory) => {
+      const categoryAsField = categoryCamelCase(cat);
+      productList[categoryAsField] = productList.serverFilteredProducts;
+    });
     productList.openDeleteDialog('banana', 'banana_id');
     fixture.detectChanges();
     productList.removeProduct('banana_id');
