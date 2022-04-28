@@ -43,21 +43,7 @@
             <mat-select (selectionChange)="getProductsFromServer()" [(ngModel)]="productCategory"
               data-test="productCategorySelect">
               <mat-option>--</mat-option>
-              <mat-option value="baked goods">Baked Goods</mat-option>
-              <mat-option value="baking supplies">Baking Supplies</mat-option>
-              <mat-option value="beverages">Beverages</mat-option>
-              <mat-option value="cleaning products">Cleaning Products</mat-option>
-              <mat-option value="dairy">Dairy</mat-option>
-              <mat-option value="deli">Deli</mat-option>
-              <mat-option value="frozen foods">Frozen Foods</mat-option>
-              <mat-option value="herbs and spices">Herbs and Spices</mat-option>
-              <mat-option value="meat">Meat</mat-option>
-              <mat-option value="paper products">Paper Products</mat-option>
-              <mat-option value="pet supplies">Pet Supplies</mat-option>
-              <mat-option value="produce">Produce</mat-option>
-              <mat-option value="staples">Staples</mat-option>
-              <mat-option value="toiletries">Toiletries</mat-option>
-              <mat-option value="miscellaneous">Miscellaneous</mat-option>
+              <mat-option *ngFor="let category of categoriesList" [value]="category">{{category | titlecase }}</mat-option>
             </mat-select>
             <mat-hint>Filtered on server</mat-hint>
           </mat-form-field>

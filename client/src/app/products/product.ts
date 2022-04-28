@@ -47,32 +47,4 @@ export const categoryCamelCase = (category: ProductCategory) => {
   return categoryPrefix + 'Products';
 };
 
-export const categoryTitleCase = (category: ProductCategory) => {
-
-  const categoryMap = {
-    'baked goods': 'Baked Goods',
-    produce: 'Produce',
-    meat: 'Meat',
-    dairy: 'Dairy',
-    'frozen foods': 'Frozen Foods',
-    'baking supplies': 'Baking Supplies',
-    beverages: 'Beverages',
-    'cleaning products': 'Cleaning Products',
-    miscellaneous: 'Miscellaneous',
-    deli: 'Deli',
-    'herbs and spices': 'Herbs And Spices',
-    'paper products': 'Paper Products',
-    'pet supplies': 'Pet Supplies',
-    staples: 'Staples',
-    toiletries: 'Toiletries'
-  };
-  let categoryPrefix: string;
-  if (categoryMap[category]) {
-    categoryPrefix = categoryMap[category];
-  } else {
-    categoryPrefix = category;
-  }
-  return categoryPrefix;
-};
-
 export type ProductStore = 'Willies' | 'Pomme de Terre' | 'Pomme de Terre/Willies' | 'Real Food Hub' | 'Other';
