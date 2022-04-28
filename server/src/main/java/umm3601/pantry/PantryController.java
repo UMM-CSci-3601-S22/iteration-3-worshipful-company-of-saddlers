@@ -325,6 +325,9 @@ public class PantryController {
   }
 
   public void getDeleteDates(Context ctx) {
+    System.out.println("bruh");
+    String prodID = ctx.queryParam("product");
+    System.out.println(prodID);
     ArrayList<PantryItem> pantryItems = pantryCollection
         .find()
         .into(new ArrayList<>());
@@ -332,7 +335,6 @@ public class PantryController {
     PantryItem[] reflection = new PantryItem[pantryArr.length];
     int index = 0;
     // String prodID = ctx.pathParam("product");
-    String prodID = "624df743fc13ae394e00001a";
     for (int i = 0; i < pantryArr.length; i++) {
       if(pantryArr[i].product.equals(prodID)){
         reflection[index] = pantryArr[i];
@@ -342,6 +344,7 @@ public class PantryController {
     PantryItem[] finalList = new PantryItem[index];
     for (int i = 0; i < finalList.length; i++) {
       finalList[i] = reflection[i];
+      System.out.println(finalList[i].name);
     }
     ctx.json(finalList);
   }
