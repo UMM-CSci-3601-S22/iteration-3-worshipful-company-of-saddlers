@@ -4,7 +4,7 @@
       *ngIf="getUnfilteredProducts; else productError">
       <mat-card>
         <h1 mat-header>My Pantry!</h1>
-        <mat-card-content fxLayout="row" style="justify-content: space-between;">
+        <mat-card-content fxLayout="row wrap" style="justify-content: space-between;">
           <div fxLayout="row wrap" fxLayoutGap="15px" style="margin-right: 15px;">
             <div>
               <h3 style="padding-top: 10px;">Filter Your Pantry</h3>
@@ -31,16 +31,16 @@
               <!--
               We need to add a router link to the pop-up message for adding a product to the pantry that
               Collin made.
-            -->
+              -->
               <mat-list-item *ngFor="let product of this.filteredProducts" class="add-product-list-item"
                 data-test="addProductListItem">
-                <p matLine class="add-product-list-name" style="padding-right: 20px;">{{product.product_name}}</p>
-                <div matLine>
-                  <button mat-mini-fab class="add-product-button" matTooltip="Add Product" matTooltipPosition="left"
+                <div style="padding-right: 20px;">
+                  <button mat-raised-button color="accent" class="add-product-button" matTooltip="Add Product" matTooltipPosition="left"
                     (click)="openAddDialog(this.product)" data-test="addProductButton">
                     <mat-icon aria-label="Add Product">add</mat-icon>
                   </button>
                 </div>
+                  <p class="add-product-list-name" style="padding-right: 20px;">{{product.product_name}}</p>
               </mat-list-item>
             </div>
           </mat-nav-list>
