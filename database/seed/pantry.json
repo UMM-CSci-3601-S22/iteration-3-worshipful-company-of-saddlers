@@ -5,34 +5,16 @@
     },
     "purchase_date": "2022-10-25",
     "notes": "Cras non velit nec nisi vulputate nonummy. Maecenas tincidunt lacus at velit. Vivamus vel nulla eget eros elementum pellentesque.\n\nQuisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla. Nunc purus.",
-    "name": "Lettuce",
+    "name": "Higashimaru Usukuchi Soy",
     "category": "baking supplies"
   },
   {
     "product": {
-      "$oid": "624df743fc13ae394e00001a"
+      "$oid": "624df743fc13ae394e00002e"
     },
     "purchase_date": "2023-05-20",
     "notes": "Nullam sit amet turpis elementum ligula vehicula consequat. Morbi a ipsum. Integer a nibh.\n\nIn quis justo. Maecenas rhoncus aliquam lacus. Morbi quis tortor id nulla ultrices aliquet.",
-    "name": "Cheese Pizza",
-    "category": "beverages"
-  },
-  {
-    "product": {
-      "$oid": "624df743fc13ae394e00001a"
-    },
-    "purchase_date": "2023-05-20",
-    "notes": "Nullam sit amet turpis elementum ligula vehicula consequat. Morbi a ipsum. Integer a nibh.\n\nIn quis justo. Maecenas rhoncus aliquam lacus. Morbi quis tortor id nulla ultrices aliquet.",
-    "name": "Cheese Pizza",
-    "category": "beverages"
-  },
-  {
-    "product": {
-      "$oid": "624df743fc13ae394e00001a"
-    },
-    "purchase_date": "2023-05-20",
-    "notes": "Nullam sit amet turpis elementum ligula vehicula consequat. Morbi a ipsum. Integer a nibh.\n\nIn quis justo. Maecenas rhoncus aliquam lacus. Morbi quis tortor id nulla ultrices aliquet.",
-    "name": "Cheese Pizza",
+    "name": "Soup - Chicken And Wild Rice",
     "category": "beverages"
   },
   {
@@ -70,6 +52,15 @@
     "notes": "Quisque id justo sit amet sapien dignissim vestibulum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla dapibus dolor vel est. Donec odio justo, sollicitudin ut, suscipit a, feugiat et, eros.",
     "name": "Oil - Sesame",
     "category": "pet supplies"
+  },
+  {
+    "product": {
+      "$oid": "624df743fc13ae394e00001f"
+    },
+    "purchase_date": "2023-05-06",
+    "notes": "Duis aliquam convallis nunc. Proin at turpis a pede posuere nonummy. Integer non velit.",
+    "name": "Eggplant - Regular",
+    "category": "deli"
   },
   {
     "product": {

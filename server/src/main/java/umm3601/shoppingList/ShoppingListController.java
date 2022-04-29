@@ -111,7 +111,7 @@ public class ShoppingListController {
     List<Bson> filters = new ArrayList<>(); // start with a blank document
 
     // Combine the list of filters into a single filtering document.
-    //Bson combinedFilter = filters.isEmpty() ? new Document() : and(filters);
+    // Bson combinedFilter = filters.isEmpty() ? new Document() : and(filters);
     Bson combinedFilter = new Document();
     return combinedFilter;
   }

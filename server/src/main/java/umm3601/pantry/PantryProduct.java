@@ -4,12 +4,16 @@ import org.mongojack.Id;
 import org.mongojack.ObjectId;
 
 @SuppressWarnings({ "VisibilityModifier", "MemberName" })
+public class PantryProduct {
 
-public class PantryItem {
+  PantryProduct() {
+  }
 
-  PantryItem() {
-    this.product = null;
-    this.name = null;
+  PantryProduct(String product, String name, int quantity, String category) {
+    this.product = product;
+    this.name = name;
+    this.quantity = quantity;
+    this.category = category;
   }
 
   @ObjectId
@@ -19,8 +23,7 @@ public class PantryItem {
   // name of the field as used by MongoDB.
   public String _id;
   public String product;
-  public String purchase_date;
-  public String notes;
   public String name;
   public String category;
+  public int quantity;
 }
