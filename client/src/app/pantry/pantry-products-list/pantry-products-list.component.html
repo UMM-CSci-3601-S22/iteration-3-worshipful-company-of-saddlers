@@ -72,19 +72,18 @@
             <mat-expansion-panel>
               <mat-expansion-panel-header class="pantry-items-expansion-panel">
                 <mat-panel-title>
-                  Pantry Items ({{this.filteredItems.length}})
+                  Pantry Items ({{this.filteredPantryProducts.length}})
                 </mat-panel-title>
                 <mat-panel-description>
 
                 </mat-panel-description>
               </mat-expansion-panel-header>
               <mat-nav-list class="baked-goods-pantry-nav-list">
-                <span fxLayout="row" *ngFor="let item of this.filteredItems">
+                <span fxLayout="row" *ngFor="let item of this.filteredPantryProducts">
                   <a mat-list-item class="product-list-item">
                     <p matLine class="product-list-name"> {{item.name}} </p>
                     <p matLine class="product-list-category"> Category: {{item.category}} </p>
-                    <p matLine class="pantryItem-list-date">Purchase Date: {{item.purchase_date | date: 'dd/MM/yyyy'}}
-                    </p>
+                    <p matLine class="pantryItem-list-quantity">Quantity: {{item.quantity }}  </p>
                     <mat-divider></mat-divider>
                   </a>
                   <div class="deleteContainer" style="position: absolute;">
@@ -135,7 +134,7 @@
                   <a mat-list-item class="product-list-item">
                     <p matLine class="product-list-name"> {{item.name}} </p>
                     <p matLine class="product-list-category"> Category: {{item.category}} </p>
-                    <p matLine class="pantryItem-list-date">Purchase Date: {{item.purchase_date | date: 'dd/MM/yyyy'}}
+                    <p matLine class="pantryItem-list-quantity">Quantity: {{item.quantity }}
                     </p>
                     <mat-divider></mat-divider>
                   </a>
@@ -175,7 +174,7 @@
                   <a mat-list-item class="product-list-item">
                     <p matLine class="product-list-name"> {{item.name}} </p>
                     <p matLine class="product-list-category"> Category: {{item.category}} </p>
-                    <p matLine class="product-list-store"> Purchase Date: {{item.purchase_date | date: 'dd/MM/yyyy'}}
+                    <p matLine class="pantryItem-list-quantity">Quantity: {{item.quantity }}
                     </p>
                     <mat-divider></mat-divider>
                   </a>
@@ -215,7 +214,7 @@
                   <a mat-list-item class="product-list-item">
                     <p matLine class="product-list-name"> {{item.name}} </p>
                     <p matLine class="product-list-category"> Category: {{item.category}} </p>
-                    <p matLine class="product-list-store"> Purchase Date: {{item.purchase_date | date: 'dd/MM/yyyy'}}
+                    <p matLine class="pantryItem-list-quantity">Quantity: {{item.quantity }}
                     </p>
                     <mat-divider></mat-divider>
                   </a>
@@ -255,7 +254,7 @@
                   <a mat-list-item class="product-list-item">
                     <p matLine class="product-list-name"> {{item.name}} </p>
                     <p matLine class="product-list-category"> Category: {{item.category}} </p>
-                    <p matLine class="product-list-store"> Purchase Date: {{item.purchase_date | date: 'dd/MM/yyyy'}}
+                    <p matLine class="pantryItem-list-quantity">Quantity: {{item.quantity }}
                     </p>
                     <mat-divider></mat-divider>
                   </a>
@@ -295,7 +294,7 @@
                   <a mat-list-item class="product-list-item">
                     <p matLine class="product-list-name"> {{item.name}} </p>
                     <p matLine class="product-list-category"> Category: {{item.category}} </p>
-                    <p matLine class="product-list-store"> Purchase Date: {{item.purchase_date | date: 'dd/MM/yyyy'}}
+                    <p matLine class="pantryItem-list-quantity">Quantity: {{item.quantity }}
                     </p>
                     <mat-divider></mat-divider>
                   </a>
@@ -335,7 +334,7 @@
                   <a mat-list-item class="product-list-item">
                     <p matLine class="product-list-name"> {{item.name}} </p>
                     <p matLine class="product-list-category"> Category: {{item.category}} </p>
-                    <p matLine class="product-list-store"> Purchase Date: {{item.purchase_date | date: 'dd/MM/yyyy'}}
+                    <p matLine class="pantryItem-list-quantity">Quantity: {{item.quantity }}
                     </p>
                     <mat-divider></mat-divider>
                   </a>
@@ -375,7 +374,7 @@
                   <a mat-list-item class="product-list-item">
                     <p matLine class="product-list-name"> {{item.name}} </p>
                     <p matLine class="product-list-category"> Category: {{item.category}} </p>
-                    <p matLine class="product-list-store"> Purchase Date: {{item.purchase_date | date: 'dd/MM/yyyy'}}
+                    <p matLine class="pantryItem-list-quantity">Quantity: {{item.quantity }}
                     </p>
                     <mat-divider></mat-divider>
                   </a>
@@ -415,7 +414,7 @@
                   <a mat-list-item class="product-list-item">
                     <p matLine class="product-list-name"> {{item.name}} </p>
                     <p matLine class="product-list-category"> Category: {{item.category}} </p>
-                    <p matLine class="product-list-store"> Purchase Date: {{item.purchase_date | date: 'dd/MM/yyyy'}}
+                    <p matLine class="pantryItem-list-quantity">Quantity: {{item.quantity }}
                     </p>
                     <mat-divider></mat-divider>
                   </a>
@@ -455,7 +454,7 @@
                   <a mat-list-item class="product-list-item">
                     <p matLine class="product-list-name"> {{item.name}} </p>
                     <p matLine class="product-list-category"> Category: {{item.category}} </p>
-                    <p matLine class="product-list-store"> Purchase Date: {{item.purchase_date | date: 'dd/MM/yyyy'}}
+                    <p matLine class="pantryItem-list-quantity">Quantity: {{item.quantity }}
                     </p>
                     <mat-divider></mat-divider>
                   </a>
@@ -495,7 +494,7 @@
                   <a mat-list-item class="product-list-item">
                     <p matLine class="product-list-name"> {{item.name}} </p>
                     <p matLine class="product-list-category"> Category: {{item.category}} </p>
-                    <p matLine class="product-list-store"> Purchase Date: {{item.purchase_date | date: 'dd/MM/yyyy'}}
+                    <p matLine class="pantryItem-list-quantity">Quantity: {{item.quantity }}
                     </p>
                     <mat-divider></mat-divider>
                   </a>
@@ -535,7 +534,7 @@
                   <a mat-list-item class="product-list-item">
                     <p matLine class="product-list-name"> {{item.name}} </p>
                     <p matLine class="product-list-category"> Category: {{item.category}} </p>
-                    <p matLine class="product-list-store"> Purchase Date: {{item.purchase_date | date: 'dd/MM/yyyy'}}
+                    <p matLine class="pantryItem-list-quantity">Quantity: {{item.quantity }}
                     </p>
                     <mat-divider></mat-divider>
                   </a>
@@ -575,7 +574,7 @@
                   <a mat-list-item class="product-list-item">
                     <p matLine class="product-list-name"> {{item.name}} </p>
                     <p matLine class="product-list-category"> Category: {{item.category}} </p>
-                    <p matLine class="product-list-store"> Purchase Date: {{item.purchase_date | date: 'dd/MM/yyyy'}}
+                    <p matLine class="pantryItem-list-quantity">Quantity: {{item.quantity }}
                     </p>
                     <mat-divider></mat-divider>
                   </a>
@@ -615,7 +614,7 @@
                   <a mat-list-item class="product-list-item">
                     <p matLine class="product-list-name"> {{item.name}} </p>
                     <p matLine class="product-list-category"> Category: {{item.category}} </p>
-                    <p matLine class="product-list-store"> Purchase Date: {{item.purchase_date | date: 'dd/MM/yyyy'}}
+                    <p matLine class="pantryItem-list-quantity">Quantity: {{item.quantity }}
                     </p>
                     <mat-divider></mat-divider>
                   </a>
@@ -655,7 +654,7 @@
                   <a mat-list-item class="product-list-item">
                     <p matLine class="product-list-name"> {{item.name}} </p>
                     <p matLine class="product-list-category"> Category: {{item.category}} </p>
-                    <p matLine class="product-list-store"> Purchase Date: {{item.purchase_date | date: 'dd/MM/yyyy'}}
+                    <p matLine class="pantryItem-list-quantity">Quantity: {{item.quantity }}
                     </p>
                     <mat-divider></mat-divider>
                   </a>
@@ -695,7 +694,7 @@
                   <a mat-list-item class="product-list-item">
                     <p matLine class="product-list-name"> {{item.name}} </p>
                     <p matLine class="product-list-category"> Category: {{item.category}} </p>
-                    <p matLine class="product-list-store"> Purchase Date: {{item.purchase_date | date: 'dd/MM/yyyy'}}
+                    <p matLine class="pantryItem-list-quantity">Quantity: {{item.quantity }}
                     </p>
                     <mat-divider></mat-divider>
                   </a>

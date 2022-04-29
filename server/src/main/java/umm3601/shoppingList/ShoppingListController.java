@@ -104,7 +104,7 @@ public class ShoppingListController {
 
   private Bson constructFilter(Context ctx) {
     // Combine the list of filters into a single filtering document.
-    //Bson combinedFilter = filters.isEmpty() ? new Document() : and(filters);
+    // Bson combinedFilter = filters.isEmpty() ? new Document() : and(filters);
     Bson combinedFilter = new Document();
     return combinedFilter;
   }

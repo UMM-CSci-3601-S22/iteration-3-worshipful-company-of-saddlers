@@ -43,6 +43,7 @@ public class PantryController {
 
   private final JacksonMongoCollection<PantryItem> pantryCollection;
   private final JacksonMongoCollection<Product> productCollection;
+  private final JacksonMongoCollection<PantryProduct> ppCollection;
 
   public PantryController(MongoDatabase database) {
     pantryCollection = JacksonMongoCollection.builder().build(
@@ -54,6 +55,11 @@ public class PantryController {
         database,
         "products",
         Product.class,
+        UuidRepresentation.STANDARD);
+    ppCollection = JacksonMongoCollection.builder().build(
+        database,
+        "pantryProduct",
+        PantryProduct.class,
         UuidRepresentation.STANDARD);
   }
 
@@ -133,7 +139,7 @@ public class PantryController {
     List<Bson> filters = new ArrayList<>(); // start with a blank document
 
     if (ctx.queryParamMap().containsKey(NAME_KEY)) {
-      filters.add(regex(NAME_KEY,  Pattern.quote(ctx.queryParam(NAME_KEY)), "i"));
+      filters.add(regex(NAME_KEY, Pattern.quote(ctx.queryParam(NAME_KEY)), "i"));
     }
 
     if (ctx.queryParamMap().containsKey(CATEGORY_KEY)) {
@@ -204,8 +210,10 @@ public class PantryController {
     PantryItem newPantryItem = ctx.bodyValidator(PantryItem.class)
         .check(item -> productExists(item.product), "error: product does not exist")
         .check(item -> ObjectId.isValid(item.product), "The product id is not a legal Mongo Object ID.")
-        /* .check(item -> item.category != null && item.category.length() > 0,
-            "Pantry item must have a non-empty category") */
+        /*
+         * .check(item -> item.category != null && item.category.length() > 0,
+         * "Pantry item must have a non-empty category")
+         */
         .check(item -> item.notes != null && item.notes.length() <= notesCharacterLimit,
             "Pantry item notes cannot be null")
         .check(item -> isValidDate(item.purchase_date), "The date is not in the correct format")
@@ -252,4 +260,67 @@ public class PantryController {
     ctx.json(matchingProducts);
   }
 
+  public void aggregateNewDatabase(Context ctx) {
+    ArrayList<PantryItem> pantryItems = pantryCollection
+        .find()
+        .into(new ArrayList<>());
+    PantryItem[] pantryArr = pantryItems.toArray(new PantryItem[pantryItems.size()]);
+    PantryItem[] reflection = new PantryItem[pantryArr.length];
+    int[] tracker = new int[pantryArr.length];
+    int foundCounter = 1;
+    reflection[0] = pantryArr[0];
+    tracker[0] = 1;
+    for (int i = 1; i < pantryArr.length; i++) {
+      for (int j = 0; j < reflection.length; j++) {
+        if (reflection[j] != null && reflection[j].product.equals(pantryArr[i].product)) {
+          tracker[j] = tracker[j] + 1;
+          break;
+        } else if (j == reflection.length - 1) {
+          reflection[foundCounter] = pantryArr[i];
+          tracker[foundCounter] = 1;
+          foundCounter++;
+        }
+      }
+
+    }
+    // try {
+    //   Thread.sleep(2000);
+    // } catch (Exception e) {
+
+    //   // catching the exception
+    //   System.out.println(e);
+    // }
+
+    ppCollection.deleteMany(new Document());
+    for (int i = 0; i < foundCounter; i++) {
+      PantryProduct product = new PantryProduct(reflection[i].product, reflection[i].name, tracker[i],
+          reflection[i].category);
+      ppCollection.insertOne(product);
+    }
+  }
+
+  /**
+   * Get a JSON response with a list of all the products.
+   *
+   * @param ctx a Javalin HTTP context
+   */
+  public void getAllPantryProducts(Context ctx) {
+    ppCollection.deleteMany(new Document());
+    aggregateNewDatabase(ctx);
+    Bson combinedFilter = constructFilter(ctx);
+    Bson sortingOrder = constructSortingOrder(ctx);
+
+    // All three of the find, sort, and into steps happen "in parallel" inside the
+    // database system. So MongoDB is going to find the products with the specified
+    // properties, return those sorted in the specified manner, and put the
+    // results into an initially empty ArrayList.
+    ArrayList<PantryProduct> matchingItems = ppCollection
+        .find(combinedFilter)
+        .sort(sortingOrder)
+        .into(new ArrayList<>());
+
+    // Set the JSON body of the response to be the list of products returned by
+    // the database.
+    ctx.json(matchingItems);
+  }
 }
