@@ -41,39 +41,6 @@ describe('Add product', () => {
       cy.get('[data-test="brandInput"]').should('have.value', product.brand);
       cy.get('#mat-select-value-5').should('have.text', product.store);
     });
-
-    it('Should fail with no location', () => {
-      const product: Product = {
-        _id: null,
-        // eslint-disable-next-line @typescript-eslint/naming-convention
-        product_name: 'Test Product',
-        description: 'description',
-        brand: 'Test Brand',
-        category: 'produce',
-        store: 'Willies',
-        location: null,
-        notes: 'Product Notes',
-        lifespan: 30,
-        threshold: 45,
-      };
-
-      page.addProduct(product);
-
-      // We should get an error message
-      cy.get('.mat-simple-snackbar').should('contain', `Failed to add the product`);
-
-      // New URL should end in the 24 hex character Mongo ID of the newly added product
-      cy.url()
-        .should('not.match', /\/products\/[0-9a-fA-F]{24}$/)
-        .should('match', /\/products\/new$/);
-
-      // The things we entered in the form should still be there
-      page.getFormField('product_name').should('have.value', product.product_name);
-      page.getFormField('brand').should('have.value', product.brand);
-      page.getFormField('store').should('contain', product.store);
-      page.getFormField('category').should('contain', 'Produce');
-    });
-
   });
 
   it('Should have the correct title', () => {
@@ -91,7 +58,7 @@ describe('Add product', () => {
 
   // Input: name, brand, category
   page.getFormField('product_name').type('test');
-  page.getFormField('brand').type('test');
+  page.getFormField('threshold').type('2');
   page.getFormField('store').click().get('#mat-option-15 > .mat-option-text').click();
   page.addProductButton().should('be.disabled');
 
@@ -100,13 +67,13 @@ describe('Add product', () => {
   page.addProductButton().should('be.enabled');
 
   // Input: name, store, category
-  page.getFormField('brand').clear();
+  page.getFormField('threshold').clear();
   page.getFormField('store').click().get('#mat-option-15 > .mat-option-text').click();
   page.addProductButton().should('be.disabled');
 
   // Input: brand, category, store
   page.getFormField('product_name').clear();
-  page.getFormField('brand').type('test');
+  page.getFormField('threshold').type('5');
   page.addProductButton().should('be.disabled');
 
   // Input: All
@@ -146,23 +113,6 @@ describe('Add product', () => {
       cy.get('[data-test=descriptionError]').should('not.exist');
     });
 
-    it('Error messages for invalid brands', () => {
-      // Before doing anything there should not be an error
-      cy.get('[data-test=brandError]').should('not.exist');
-
-      // Clicking the brand field without entering anything should cause an error message
-      page.getFormField('brand').click().blur();
-      cy.get('[data-test=brandError]').should('exist').and('be.visible');
-
-      // Entering too large inputs in brand field causes error
-      page.getFormField('brand').type('The fitnessgram pacer test is a multi-stage aerobic capacity test that increases'.repeat(3));
-      cy.get('[data-test=brandError]').should('exist').and('be.visible');
-
-      // Entering a valid brand should remove the error
-      page.getFormField('brand').clear().type('Essential Oils');
-      cy.get('[data-test=brandError]').should('not.exist');
-    });
-
     it('Error messages for invalid stores', () => {
       // Before doing anything there should not be an error
       cy.get('[data-test=storeError]').should('not.exist');
@@ -177,54 +127,13 @@ describe('Add product', () => {
       cy.get('[data-test=storeError]').should('not.exist');
     });
 
-    it('Error messages for invalid locations', () => {
-      // Before doing anything there should not be an error
-      cy.get('[data-test=locationError]').should('not.exist');
-
-      // Entering too large inputs in location field causes error
-      page.getFormField('location').click().blur();
-      page.getFormField('location').type('The fitnessgram pacer test is a multi-stage aerobic capacity test that increases'.repeat(3));
-      cy.get('[data-test=locationError]').should('exist').and('be.visible');
-
-      // Entering a valid location should remove the error
-      page.getFormField('location').clear().type('Aisle 42');
-      cy.get('[data-test=locationError]').should('not.exist');
-    });
-
-    it('Error messages for invalid notes', () => {
-      // Before doing anything there should not be an error
-      cy.get('[data-test=notesError]').should('not.exist');
-
-      // Entering too large inputs in notes field causes error
-      page.getFormField('notes').click().blur();
-      page.getFormField('notes').type('The fitnessgram pacer test is a multi-stage aerobic capacity test that increases'.repeat(5));
-      cy.get('[data-test=notesError]').should('exist').and('be.visible');
-
-      // Entering a valid notes should remove the error
-      page.getFormField('notes').clear().type('Wally World');
-      cy.get('[data-test=notesError]').should('not.exist');
-    });
-
-    it('Error messages for invalid lifespans', () => {
-      // Before doing anything there should not be an error
-      cy.get('[data-test=lifespanError]').should('not.exist');
-
-      // Entering too large inputs in lifespan field causes error
-      page.getFormField('lifespan').click().blur();
-      page.getFormField('lifespan').type('1000001');
-      cy.get('[data-test=lifespanError]').should('exist').and('be.visible');
-
-      // Entering a valid lifespan should remove the error
-      page.getFormField('lifespan').clear().type('69');
-      cy.get('[data-test=lifespanError]').should('not.exist');
-    });
-
     it('Error messages for invalid thresholds', () => {
       // Before doing anything there should not be an error
       cy.get('[data-test=thresholdError]').should('not.exist');
 
       // Entering too large inputs in threshold field causes error
       page.getFormField('threshold').click().blur();
+      cy.get('[data-test=thresholdError]').should('exist');
       page.getFormField('threshold').type('1647263');
       cy.get('[data-test=thresholdError]').should('exist').and('be.visible');
 

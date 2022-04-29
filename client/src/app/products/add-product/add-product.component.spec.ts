@@ -145,9 +145,9 @@ describe('AddProductComponent', () => {
       brandControl = addProductComponent.addProductForm.controls.brand;
     });
 
-    it('should not allow empty brand', () => {
+    it('should allow empty brand', () => {
       brandControl.setValue('');
-      expect(brandControl.valid).toBeFalsy();
+      expect(brandControl.valid).toBeTruthy();
     });
 
     it('should be fine with "brand of item"', () => {
@@ -391,9 +391,9 @@ describe('AddProductComponent', () => {
       thresholdControl = addProductComponent.addProductForm.controls.threshold;
     });
 
-    it('should allow empty threshold', () => {
+    it('should not allow empty threshold', () => {
       thresholdControl.setValue('');
-      expect(thresholdControl.valid).toBeTruthy();
+      expect(thresholdControl.valid).toBeFalsy();
     });
 
     it('should be fine with "27"', () => {

@@ -5,15 +5,12 @@ import static com.mongodb.client.model.Filters.eq;
 // import static com.mongodb.client.model.Filters.regex;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 // import java.util.Objects;
 // import java.util.regex.Pattern;
 
 import com.mongodb.client.MongoDatabase;
 // import com.mongodb.client.model.Sorts;
-import com.mongodb.client.result.DeleteResult;
-
 import org.bson.Document;
 import org.bson.UuidRepresentation;
 import org.bson.conversions.Bson;
@@ -32,9 +29,7 @@ import umm3601.product.Product;
  */
 public class ShoppingListController {
 
-  private static final String QUANTITY_KEY = "quantity";
-  private static final String NAME_KEY = "name";
-  private static final String PROD_KEY = "prodID";
+
 
   /**
    * Construct a controller for shoppingLists.
@@ -108,8 +103,6 @@ public class ShoppingListController {
   }
 
   private Bson constructFilter(Context ctx) {
-    List<Bson> filters = new ArrayList<>(); // start with a blank document
-
     // Combine the list of filters into a single filtering document.
     //Bson combinedFilter = filters.isEmpty() ? new Document() : and(filters);
     Bson combinedFilter = new Document();
@@ -122,23 +115,12 @@ public class ShoppingListController {
    * @param ctx a Javalin HTTP context
    */
   public void addNewShoppingList(Context ctx) {
-    /*
-     * The follow chain of statements uses the Javalin validator system
-     * to verify that instance of `ShoppingList` provided in this context is
-     * a "legal" shoppingList. It checks the following things (in order):
-     * - The shoppingList has a value for the name (`usr.name != null`)
-     * - The shoppingList name is not blank (`usr.name.length > 0`)
-     * - The provided email is valid (matches EMAIL_REGEX)
-     * - The provided age is > 0
-     * - The provided role is valid (one of "admin", "editor", or "viewer")
-     * - A non-blank company is provided
-     */
     ShoppingList newShoppingList = ctx.bodyValidator(ShoppingList.class)
-        .check(usr -> usr.name != null && usr.name.length() > 0,
+        .check(SLitem -> SLitem.name != null && SLitem.name.length() > 0,
             "ShoppingList must have a non-empty shoppingList name")
-        .check(usr -> usr.quantity > 0,
+        .check(SLitem -> SLitem.quantity > 0,
             "ShoppingList Quantity must be greater than zero")
-        .check(usr -> usr.productID != null && usr.productID.length() > 0,
+        .check(SLitem -> SLitem.productID != null && SLitem.productID.length() > 0,
             "ShoppingList must have a non-empty product ID")
         .get();
 
@@ -159,21 +141,7 @@ public class ShoppingListController {
    */
   public void deleteShoppingList(Context ctx) {
     String id = ctx.pathParam("id");
-    DeleteResult deleteResult = shoppingListCollection.deleteOne(eq("_id", new ObjectId(id)));
-    if (deleteResult.getDeletedCount() != 1) {
-      throw new NotFoundResponse(
-          "Was unable to delete ID "
-              + id
-              + "; perhaps illegal ID or an ID for an item not in the system?");
-    }
-  }
-
-  public void getShoppingListInfo(Context ctx) {
-    ArrayList<ShoppingList> matchingProducts = shoppingListCollection
-        .find()
-        .into(new ArrayList<>());
-    // Set the JSON body of the response to be the list of products returned by
-    ctx.json(matchingProducts);
+    shoppingListCollection.deleteOne(eq("_id", new ObjectId(id)));
   }
 
   // the database.

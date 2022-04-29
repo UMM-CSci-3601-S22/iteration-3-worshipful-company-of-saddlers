@@ -92,6 +92,7 @@ describe('Product list', () => {
 
     page.getFilteredProductListItems().should('exist');
     // All returned filtered products should have the product category we are filtering by
+    cy.wait(1000);
     page.getFilteredProductListItems().find('.product-list-category')
       .should('contain.text', 'produce')
       .should('not.contain.text', 'baking supplies')
