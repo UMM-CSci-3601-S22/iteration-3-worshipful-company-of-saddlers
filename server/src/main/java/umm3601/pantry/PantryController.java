@@ -236,7 +236,9 @@ public class PantryController {
    */
   public void deletePantryItem(Context ctx) {
     String id = ctx.pathParam("id");
+    System.err.println(id + "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
     DeleteResult deleteResult = pantryCollection.deleteOne(eq("_id", new ObjectId(id)));
+    System.err.println(deleteResult);
     if (deleteResult.getDeletedCount() != 1) {
       throw new NotFoundResponse(
           "Was unable to delete ID "

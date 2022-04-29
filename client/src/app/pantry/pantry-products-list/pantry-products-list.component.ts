@@ -205,8 +205,13 @@ export class PantryProductsListComponent implements OnInit, OnDestroy {
     }
   }
 
-  openDeleteDialog(pname: string, id: string) {
+  openDeleteDialog(pname: string, id: string, productz: string) {
+    this.getUnfilteredDates = this.pantryService.getPantryItemsForDelete({ productz }).subscribe(returnedPantryItems => {
+      this.filteredPantryItems = returnedPantryItems;
+      this.lengthAllPantryItems = this.filteredPantryItems.length;
+    });
     this.tempId = id;
+    this.tempName = pname;
     this.tempDialog = this.dialog.open(this.dialogRef, { data: { _id: this.tempId } },);
     this.tempDialog.afterClosed().subscribe((res) => {
 
@@ -224,6 +229,7 @@ export class PantryProductsListComponent implements OnInit, OnDestroy {
       this.filteredPantryItems = returnedPantryItems;
       this.lengthAllPantryItems = this.filteredPantryItems.length;
     });
+
     // });
   }
 
