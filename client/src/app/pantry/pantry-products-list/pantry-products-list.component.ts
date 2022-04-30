@@ -256,6 +256,7 @@ export class PantryProductsListComponent implements OnInit, OnDestroy {
         this.tempDeleted = item;
       }
     );
+    this.reloadComponent();
     this.tempDialog.close();
     this.snackBar.open('Product deleted', 'OK', {
       duration: 5000,
