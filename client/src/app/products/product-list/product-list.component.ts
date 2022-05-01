@@ -127,16 +127,16 @@ export class ProductListComponent implements OnInit, OnDestroy {
     }
   }
 
-    // Sorts products based on their category
-    initializeCategoryMap() {
-      // eslint-disable-next-line prefer-const
-      for (let givenCategory of this.categoriesList) {
-        this.categoryNameMap.set(givenCategory,
-          this.productService.filterProducts(this.serverFilteredProducts, { category: givenCategory }));
+  // Sorts products based on their category
+  initializeCategoryMap() {
+    // eslint-disable-next-line prefer-const
+    for (let givenCategory of this.categoriesList) {
+      this.categoryNameMap.set(givenCategory,
+        this.productService.filterProducts(this.serverFilteredProducts, { category: givenCategory }));
 
-      }
-      console.log(this.categoryNameMap);
     }
+    console.log(this.categoryNameMap);
+  }
 
   public updateFilter(): void {
     this.filteredProducts = this.productService.filterProducts(
