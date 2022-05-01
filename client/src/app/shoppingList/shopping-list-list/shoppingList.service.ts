@@ -9,6 +9,7 @@ import { map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class ShoppingListService {
+
   readonly shoppingListUrl: string = environment.apiUrl + 'shoppingList';
 
   constructor(private httpClient: HttpClient ) {
@@ -34,5 +35,9 @@ export class ShoppingListService {
 
   addShoppingList(newShoppingList: ShoppingList): Observable<string> {
     return this.httpClient.post<{id: string}>(this.shoppingListUrl, newShoppingList).pipe(map(res => res.id));
+  }
+
+  deleteItem(id: string): Observable<ShoppingList>  {
+    return this.httpClient.delete<ShoppingList>(this.shoppingListUrl+ '/' + id);
   }
 }

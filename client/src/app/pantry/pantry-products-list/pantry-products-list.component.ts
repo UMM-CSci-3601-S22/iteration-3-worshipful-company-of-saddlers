@@ -52,16 +52,16 @@ export class PantryProductsListComponent implements OnInit, OnDestroy {
   public bakingSuppliesItems: PantryProduct[] = [];
   public bakedGoodsItems: PantryProduct[] = [];
   public deliItems: PantryProduct[] = [];
-  public cleaningItems: PantryProduct[] = [];
+  public cleaningProductsItems: PantryProduct[] = [];
   public petSuppliesItems: PantryProduct[] = [];
   public produceItems: PantryProduct[] = [];
   public meatItems: PantryProduct[] = [];
   public dairyItems: PantryProduct[] = [];
-  public frozenItems: PantryProduct[] = [];
-  public paperItems: PantryProduct[] = [];
-  public beverageItems: PantryProduct[] = [];
-  public herbItems: PantryProduct[] = [];
-  public stapleItems: PantryProduct[] = [];
+  public frozenFoodsItems: PantryProduct[] = [];
+  public paperProductsItems: PantryProduct[] = [];
+  public beveragesItems: PantryProduct[] = [];
+  public herbsAndSpicesItems: PantryProduct[] = [];
+  public staplesItems: PantryProduct[] = [];
   public toiletriesItems: PantryProduct[] = [];
   public miscellaneousItems: PantryProduct[] = [];
 
@@ -175,7 +175,7 @@ export class PantryProductsListComponent implements OnInit, OnDestroy {
     this.getUnfilteredItems();
   }
 
-  reloadComponent() {
+  public reloadComponent() {
     const pantryPageUrl = '';
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.router.onSameUrlNavigation = 'reload';
@@ -251,8 +251,6 @@ export class PantryProductsListComponent implements OnInit, OnDestroy {
   removeItem(id: string): PantryItem {
     this.pantryService.deleteItem(id).subscribe(
       item => {
-        const categoryAsField = categoryCamelCase(item.category);
-        this[categoryAsField] = this[categoryAsField].filter(pitem => pitem._id !== id);
         this.tempDeleted = item;
       }
     );
@@ -261,6 +259,8 @@ export class PantryProductsListComponent implements OnInit, OnDestroy {
     this.snackBar.open('Product deleted', 'OK', {
       duration: 5000,
     });
+    this.getItemsFromServer();
+    this.getUnfilteredItems();
     return this.tempDeleted;
   }
 

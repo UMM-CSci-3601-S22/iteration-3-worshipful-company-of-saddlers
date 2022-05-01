@@ -31,7 +31,7 @@
 
           <mat-form-field>
             <mat-label>Product Brand</mat-label>
-            <input matInput placeholder="Product Brand" formControlName="brand" required>
+            <input matInput placeholder="Product Brand" formControlName="brand">
             <mat-error *ngFor="let validation of addProductValidationMessages.brand">
               <mat-error class="error-message" data-test="brandError"
                 *ngIf="addProductForm.get('brand').hasError(validation.type) && (addProductForm.get('brand').dirty || addProductForm.get('brand').touched)">
@@ -118,7 +118,7 @@
 
           <mat-form-field>
             <mat-label>Product Threshold</mat-label>
-            <input matInput type="number" placeholder="Product Threshold" formControlName="threshold">
+            <input matInput type="number" placeholder="Product Threshold" formControlName="threshold" required>
             <mat-error *ngFor="let validation of addProductValidationMessages.threshold">
               <mat-error class="error-message" data-test="thresholdError"
                 *ngIf="addProductForm.get('threshold').hasError(validation.type) && (addProductForm.get('threshold').dirty || addProductForm.get('threshold').touched)">

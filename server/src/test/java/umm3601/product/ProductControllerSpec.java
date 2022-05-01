@@ -418,30 +418,6 @@ public class ProductControllerSpec {
   }
 
   @Test
-  public void addInvalidCategoryProduct() throws IOException {
-    String testNewProduct = "{"
-        + "\"product_name\": \"Test Product name\","
-        + "\"description\":\"A test product description\","
-        + "\"brand\": \"test brand\","
-        + "\"category\": \"\"," // Invalid category
-        + "\"store\": \"test store\","
-        + "\"location\": \"test location\","
-        + "\"notes\": \"tastes like test\","
-        + "\"lifespan\": 10,"
-        + "\"threshold\": 84,"
-        + "\"image\": \"https://gravatar.com/avatar/8c9616d6cc5de638ea6920fb5d65fc6c?d=identicon\""
-        + "}";
-    mockReq.setBodyContent(testNewProduct);
-    mockReq.setMethod("POST");
-
-    Context ctx = mockContext("api/products");
-
-    assertThrows(ValidationException.class, () -> {
-      productController.addNewProduct(ctx);
-    });
-  }
-
-  @Test
   public void addInvalidThresholdProduct() throws IOException {
     String testNewProduct = "{"
         + "\"product_name\": \"Test Product name\","
@@ -453,30 +429,6 @@ public class ProductControllerSpec {
         + "\"notes\": \"tastes like test\","
         + "\"lifespan\": 100,"
         + "\"threshold\": 0," // Invalid threshold
-        + "\"image\": \"https://gravatar.com/avatar/8c9616d6cc5de638ea6920fb5d65fc6c?d=identicon\""
-        + "}";
-    mockReq.setBodyContent(testNewProduct);
-    mockReq.setMethod("POST");
-
-    Context ctx = mockContext("api/products");
-
-    assertThrows(ValidationException.class, () -> {
-      productController.addNewProduct(ctx);
-    });
-  }
-
-  @Test
-  public void addEmptyLifespanProduct() throws IOException {
-    String testNewProduct = "{"
-        + "\"product_name\": \"Test Product name\","
-        + "\"description\":\"A test product description\","
-        + "\"brand\": \"test brand\","
-        + "\"category\": \"test category\","
-        + "\"store\": \"test store\","
-        + "\"location\": \"test location\","
-        + "\"notes\": \"tastes like test\","
-        + "\"lifespan\": null," // empty lifespan
-        + "\"threshold\": 84,"
         + "\"image\": \"https://gravatar.com/avatar/8c9616d6cc5de638ea6920fb5d65fc6c?d=identicon\""
         + "}";
     mockReq.setBodyContent(testNewProduct);
@@ -538,30 +490,6 @@ public class ProductControllerSpec {
   }
 
   @Test
-  public void addNullDescriptionProduct() throws IOException {
-    String testNewProduct = "{"
-        + "\"product_name\": \"Test Product name\","
-        + "\"description\": null," //null description
-        + "\"brand\": \"test brand\","
-        + "\"category\": \"test category\","
-        + "\"store\": \"test store\","
-        + "\"location\": \"test location\","
-        + "\"notes\": \"tastes like test\","
-        + "\"lifespan\": 100,"
-        + "\"threshold\": 84,"
-        + "\"image\": \"https://gravatar.com/avatar/8c9616d6cc5de638ea6920fb5d65fc6c?d=identicon\""
-        + "}";
-    mockReq.setBodyContent(testNewProduct);
-    mockReq.setMethod("POST");
-
-    Context ctx = mockContext("api/products");
-
-    assertThrows(ValidationException.class, () -> {
-      productController.addNewProduct(ctx);
-    });
-  }
-
-  @Test
   public void addEmptyProductDescription() throws IOException {
     String testNewProduct = "{"
         + "\"product_name\": \"Test Product name\"," // empty name
@@ -600,41 +528,17 @@ public class ProductControllerSpec {
   }
 
   @Test
-  public void addNullBrandProduct() throws IOException {
-    String testNewProduct = "{"
-        + "\"product_name\": \"Test Product name\","
-        + "\"description\":\"A test product description\","
-        + "\"brand\": null," // empty brand
-        + "\"category\": \"test category\","
-        + "\"store\": \"test store\","
-        + "\"location\": \"test location\","
-        + "\"notes\": \"tastes like test\","
-        + "\"lifespan\": 100,"
-        + "\"threshold\": 84,"
-        + "\"image\": \"https://gravatar.com/avatar/8c9616d6cc5de638ea6920fb5d65fc6c?d=identicon\""
-        + "}";
-    mockReq.setBodyContent(testNewProduct);
-    mockReq.setMethod("POST");
-
-    Context ctx = mockContext("api/products");
-
-    assertThrows(ValidationException.class, () -> {
-      productController.addNewProduct(ctx);
-    });
-  }
-
-  @Test
   public void addNullCategoryProduct() throws IOException {
     String testNewProduct = "{"
         + "\"product_name\": \"Test Product name\","
         + "\"description\":\"A test product description\","
         + "\"brand\": \"test brand\","
-        + "\"category\": null ," // empty category
+        + "\"category\": null," // empty category
         + "\"store\": \"test store\","
         + "\"location\": \"test location\","
         + "\"notes\": \"tastes like test\","
-        + "\"lifespan\": 100"
-        + "\"threshold\": 84"
+        + "\"lifespan\": 100,"
+        + "\"threshold\": 84,"
         + "\"image\": \"https://gravatar.com/avatar/8c9616d6cc5de638ea6920fb5d65fc6c?d=identicon\""
         + "}";
     mockReq.setBodyContent(testNewProduct);
@@ -708,7 +612,9 @@ public class ProductControllerSpec {
     String testNewProduct = "{"
         + "\"_id\": \"" + id + "\","
         + "\"threshold\": 100,"
-        + "\"product_name\": \"Test Product\""
+        + "\"product_name\": \"Test Product\","
+        + "\"category\": \"Test category\","
+        + "\"store\": \"Test store\""
         + "}";
     mockReq.setBodyContent(testNewProduct);
     mockReq.setMethod("PUT");
@@ -728,7 +634,9 @@ public class ProductControllerSpec {
     String id = milksId.toHexString();
     String testNewProduct = "{"
         + "\"_id\": \"" + id + "\","
-        + "\"product_name\": \"SpoiledMilk\""
+        + "\"product_name\": \"SpoiledMilk\","
+        + "\"category\": \"Test category\","
+        + "\"store\": \"Test store\""
         + "}";
     mockReq.setBodyContent(testNewProduct);
     mockReq.setMethod("PUT");
@@ -748,7 +656,11 @@ public class ProductControllerSpec {
     String id = milksId.toHexString();
     String testNewProduct = "{"
         + "\"_id\": \"" + id + "\","
-        + "\"description\": \"gross\""
+        + "\"threshold\": 100,"
+        + "\"product_name\": \"Test Product\","
+        + "\"description\": \"gross\","
+        + "\"category\": \"Test category\","
+        + "\"store\": \"Test store\""
         + "}";
     mockReq.setBodyContent(testNewProduct);
     mockReq.setMethod("PUT");
@@ -768,8 +680,11 @@ public class ProductControllerSpec {
     String id = milksId.toHexString();
     String testNewProduct = "{"
         + "\"_id\": \"" + id + "\","
+        + "\"threshold\": 100,"
         + "\"product_name\": \"Test Product name\","
-        + "\"description\": \"gross\""
+        + "\"description\": \"gross\","
+        + "\"category\": \"Test category\","
+        + "\"store\": \"Test store\""
         + "}";
     mockReq.setBodyContent(testNewProduct);
     mockReq.setMethod("PUT");
@@ -828,5 +743,131 @@ public class ProductControllerSpec {
     assertEquals("test location", resultProduct.location);
     assertEquals(100, resultProduct.lifespan);
     assertEquals("tastes like test", resultProduct.notes);
+  }
+
+  @Test
+  public void changeNullCategory() throws IOException {
+    String id = milksId.toHexString();
+    String testNewProduct = "{"
+        + "\"_id\": \"" + id + "\","
+        + "\"threshold\": 100,"
+        + "\"product_name\": \"Test Product\","
+        + "\"category\": null,"
+        + "\"store\": \"Test store\""
+        + "}";
+    mockReq.setBodyContent(testNewProduct);
+    mockReq.setMethod("PUT");
+    Context ctx = mockContext("api/products");
+    assertThrows(ValidationException.class, () -> {
+      productController.changeProduct(ctx);
+    });
+  }
+
+  @Test
+  public void changeEmptyCategory() throws IOException {
+    String id = milksId.toHexString();
+    String testNewProduct = "{"
+        + "\"_id\": \"" + id + "\","
+        + "\"threshold\": 100,"
+        + "\"product_name\": \"Test Product\","
+        + "\"category\": \"\","
+        + "\"store\": \"Test store\""
+        + "}";
+    mockReq.setBodyContent(testNewProduct);
+    mockReq.setMethod("PUT");
+    Context ctx = mockContext("api/products");
+    assertThrows(ValidationException.class, () -> {
+      productController.changeProduct(ctx);
+    });
+  }
+
+  @Test
+  public void changeEmptyName() throws IOException {
+    String id = milksId.toHexString();
+    String testNewProduct = "{"
+        + "\"_id\": \"" + id + "\","
+        + "\"threshold\": 100,"
+        + "\"product_name\": \"\","
+        + "\"category\": \"Test category\","
+        + "\"store\": \"Test store\""
+        + "}";
+    mockReq.setBodyContent(testNewProduct);
+    mockReq.setMethod("PUT");
+    Context ctx = mockContext("api/products");
+    assertThrows(ValidationException.class, () -> {
+      productController.changeProduct(ctx);
+    });
+  }
+
+  @Test
+  public void changeNullName() throws IOException {
+    String id = milksId.toHexString();
+    String testNewProduct = "{"
+        + "\"_id\": \"" + id + "\","
+        + "\"threshold\": 100,"
+        + "\"product_name\": null,"
+        + "\"category\": \"Test category\","
+        + "\"store\": \"Test store\""
+        + "}";
+    mockReq.setBodyContent(testNewProduct);
+    mockReq.setMethod("PUT");
+    Context ctx = mockContext("api/products");
+    assertThrows(ValidationException.class, () -> {
+      productController.changeProduct(ctx);
+    });
+  }
+
+  @Test
+  public void changeNullStore() throws IOException {
+    String id = milksId.toHexString();
+    String testNewProduct = "{"
+        + "\"_id\": \"" + id + "\","
+        + "\"threshold\": 100,"
+        + "\"product_name\": \"test name\","
+        + "\"category\": \"Test category\","
+        + "\"store\": null"
+        + "}";
+    mockReq.setBodyContent(testNewProduct);
+    mockReq.setMethod("PUT");
+    Context ctx = mockContext("api/products");
+    assertThrows(ValidationException.class, () -> {
+      productController.changeProduct(ctx);
+    });
+  }
+
+  @Test
+  public void changeEmptyStore() throws IOException {
+    String id = milksId.toHexString();
+    String testNewProduct = "{"
+        + "\"_id\": \"" + id + "\","
+        + "\"threshold\": 100,"
+        + "\"product_name\": \"test name\","
+        + "\"category\": \"Test category\","
+        + "\"store\": \"\""
+        + "}";
+    mockReq.setBodyContent(testNewProduct);
+    mockReq.setMethod("PUT");
+    Context ctx = mockContext("api/products");
+    assertThrows(ValidationException.class, () -> {
+      productController.changeProduct(ctx);
+    });
+  }
+
+  @Test
+  public void changeNegativeThreshold() throws IOException {
+    String id = milksId.toHexString();
+    String testNewProduct = "{"
+        + "\"_id\": \"" + id + "\","
+        + "\"threshold\": -100,"
+        + "\"product_name\": \"test name\","
+        + "\"category\": \"Test category\","
+        + "\"store\": \"Test Store\""
+        + "}";
+    mockReq.setBodyContent(testNewProduct);
+    mockReq.setMethod("PUT");
+    Context ctx = mockContext("api/products");
+    assertThrows(ValidationException.class, () -> {
+      productController.changeProduct(ctx);
+    });
   }
 }
