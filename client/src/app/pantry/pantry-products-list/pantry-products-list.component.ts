@@ -280,6 +280,7 @@ export class PantryProductsListComponent implements OnInit, OnDestroy {
     });
   }
 
+  /* istanbul ignore next */
   getUnfilteredPantryItems(): void {
     this.unsubDatesUnfiltered();
     this.getUnfilteredDates = this.pantryService.getPantryItemsForDelete().subscribe(returnedDates => {
