@@ -34,6 +34,36 @@ describe('PantryService', () => {
       quantity: 1,
     }
   ];
+  const testPantryItems: PantryItem[] = [
+    {
+      _id: 'banana _id',
+      product: 'banana product id',
+      name: 'banana',
+      category: 'produce',
+      purchase_date: new Date()
+
+
+    },
+    {
+      _id: 'milk _id',
+      product: 'milk product id',
+      name: 'milk',
+      category: 'dairy',
+      purchase_date: new Date()
+
+
+
+    },
+    {
+      _id: 'bread _id',
+      product: 'bread product id',
+      name: 'bread',
+      category: 'baked goods',
+      purchase_date: new Date()
+
+
+    }
+  ];
 
   const testProducts: Product[] = [
     {
@@ -247,9 +277,9 @@ describe('PantryService', () => {
     expect(req.request.method).toEqual('GET');
     req.flush(targetProduct);
   });
-/*
+
   it('deleteItem() deletes from api/pantry', () => {
-    const targetItem: PantryItem = testPantryProducts[1];
+    const targetItem: PantryItem = testPantryItems[1];
     const targetId: string = targetItem._id;
     pantryService.deleteItem(targetId).subscribe(
       item => expect(item).toBe(targetItem)
@@ -260,5 +290,33 @@ describe('PantryService', () => {
     expect(req.request.method).toEqual('DELETE');
     req.flush(targetItem);
   });
-*/
+  it('get deleteDates() gets dates', () => {
+    const targetItem: PantryProduct = testPantryProducts[1];
+     const PantryItems: PantryItem[]= [
+      {
+        _id: 'milk _id',
+        product: 'milk product id',
+        name: 'milk',
+        category: 'dairy',
+        purchase_date: new Date()
+
+
+
+      }
+    ];
+
+     const counter = 0;
+    const productz: string = targetItem.product;
+    pantryService.getPantryItemsForDelete({ productz }).subscribe(
+      items => expect(items[0].product).toBe(PantryItems[0].product)
+    );
+
+    const expectedUrl = 'api/deleteTest?product=milk%20product%20id';
+    const req = httpTestingController.expectOne(expectedUrl);
+    expect(req.request.method).toEqual('GET');
+    req.flush(targetItem);
+
+
+  });
+
 });
