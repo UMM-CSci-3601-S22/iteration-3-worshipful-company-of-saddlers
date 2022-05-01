@@ -15,10 +15,12 @@ import { AddProductToPantryComponent } from './add-product-to-pantry.component';
 import { SingleProductPageComponent } from '../single-product-page/single-product-page.component';
 import { PantryProductsListComponent } from 'src/app/pantry/pantry-products-list/pantry-products-list.component';
 import { HttpClient, HttpHandler } from '@angular/common/http';
-import { MatDialog, MatDialogModule, MAT_DIALOG_SCROLL_STRATEGY } from '@angular/material/dialog';
+import { MatDialog, MatDialogModule, MatDialogRef, MAT_DIALOG_DATA, MAT_DIALOG_SCROLL_STRATEGY } from '@angular/material/dialog';
 
 describe('AddProductToPantryComponent', () => {
   let addProductToPantryComponent: AddProductToPantryComponent;
+  let pantryListComponent: PantryProductsListComponent;
+  let pantryFixture: ComponentFixture<PantryProductsListComponent>;
   let addProductToPantryForm: FormGroup;
   let fixture: ComponentFixture<AddProductToPantryComponent>;
 
@@ -36,13 +38,14 @@ describe('AddProductToPantryComponent', () => {
         RouterTestingModule,
         MatDialogModule
       ],
-      declarations: [ AddProductToPantryComponent, SingleProductPageComponent ],
+      declarations: [ AddProductToPantryComponent, SingleProductPageComponent, PantryProductsListComponent ],
       providers: [{ provide: PantryService, useValue: new MockPantryService() },
+        { provide: MatDialogRef,useValue: []},
+        { provide: MAT_DIALOG_DATA, useValue: [] },
       PantryProductsListComponent,
       ProductService,
       HttpClient,
-      HttpHandler,
-      MatDialog,]
+      HttpHandler,]
     }).compileComponents().catch(error => {
       expect(error).toBeNull();
     });
@@ -51,19 +54,8 @@ describe('AddProductToPantryComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(AddProductToPantryComponent);
     addProductToPantryComponent = fixture.componentInstance;
-    addProductToPantryComponent.product = {
-      _id: 'banana_id',
-      product_name: 'banana',
-      description: '',
-      brand: 'Dole',
-      category: 'produce',
-      store: 'Willies',
-      location: '',
-      notes: '',
-      lifespan: 0,
-      threshold: 0,
-      image: ''
-    };
+    pantryFixture = TestBed.createComponent(PantryProductsListComponent);
+    pantryListComponent = pantryFixture.componentInstance;
     /*addProductToPantryComponent.pantryItem = {
         _id: 'banana _id',
         product: 'banana product id',
@@ -78,6 +70,21 @@ describe('AddProductToPantryComponent', () => {
   });
 
   it('should create the component', () => {
+    const dialogRef = pantryListComponent.openAddDialog(
+      {
+        _id: 'milk_id',
+        product_name: 'Whole Milk',
+        description: '',
+        brand: 'Land O Lakes',
+        category: 'dairy',
+        store: 'Pomme de Terre',
+        location: '',
+        notes: '',
+        lifespan: 0,
+        threshold: 0,
+        image: ''
+      }
+      );
     expect(addProductToPantryComponent).toBeTruthy();
     expect(addProductToPantryForm).toBeTruthy();
   });

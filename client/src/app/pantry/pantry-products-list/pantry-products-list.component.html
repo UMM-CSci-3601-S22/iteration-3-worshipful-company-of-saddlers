@@ -4,8 +4,8 @@
       *ngIf="getUnfilteredProducts; else productError">
       <mat-card>
         <h1 mat-header>My Pantry!</h1>
-        <mat-card-content fxLayout="row" style="justify-content: space-between;">
-          <div fxLayout="row wrap" fxLayoutGap="15px" style="margin-right: 15px;">
+        <mat-card-content fxLayout="row wrap">
+          <div fxLayout="row wrap" fxLayoutGap="15px" style="padding-right: 30%;">
             <div>
               <h3 style="padding-top: 10px;">Filter Your Pantry</h3>
               <mat-form-field class="Pantry-name-input-field">
@@ -17,7 +17,7 @@
             </div>
           </div>
 
-          <mat-nav-list class="add-product-nav-list" style="width: 355px">
+          <mat-nav-list class="add-product-nav-list">
             <h3>Add a product to the pantry</h3>
             <div>
               <mat-form-field class="input-field">
@@ -31,23 +31,16 @@
               <!--
               We need to add a router link to the pop-up message for adding a product to the pantry that
               Collin made.
-            -->
+              -->
               <mat-list-item *ngFor="let product of this.filteredProducts" class="add-product-list-item"
                 data-test="addProductListItem">
-                <p matLine class="add-product-list-name" style="padding-right: 20px;">{{product.product_name}}</p>
-                <div *ngIf="!popup" class="addContainer">
-                  <button mat-raised-button class="add-product-button" matTooltip="Add Product"
-                    matTooltipPosition="left" (click)="popup = true" data-test="addProductButton">
+                <div style="padding-right: 20px;">
+                  <button mat-raised-button color="accent" class="add-product-button" matTooltip="Add Product" matTooltipPosition="left"
+                    (click)="openAddDialog(this.product)" data-test="addProductButton">
                     <mat-icon aria-label="Add Product">add</mat-icon>
                   </button>
                 </div>
-                <div class="overlay" *ngIf="popup">
-                  <div class="popup">
-                    <h2>Add This Product to Your Pantry</h2>
-                    <a class="close" (click)="popup = false">&times;</a>
-                    <app-add-product-to-pantry [product]="this.product"></app-add-product-to-pantry>
-                  </div>
-                </div>
+                  <p class="add-product-list-name" style="padding-right: 20px;">{{product.product_name}}</p>
               </mat-list-item>
             </div>
           </mat-nav-list>

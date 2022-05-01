@@ -92,3 +92,7 @@ span {
 .delete-item-button:hover {
   color: lightsalmon;
 }
+
+.mat-list .mat-list-item {
+  justify-content: space-between;
+}

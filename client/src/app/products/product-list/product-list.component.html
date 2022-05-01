@@ -87,9 +87,9 @@
           <span fxLayout="row" *ngFor="let product of this.filteredProducts">
             <a mat-list-item [routerLink]="['/products', product._id]" class="filtered-product-list-item">
               <p matLine class="product-list-name"> {{product.product_name}} </p>
-              <p matLine class="product-list-brand"> {{product.brand}} </p>
-              <p matLine class="product-list-category"> {{product.category}} </p>
-              <p matLine class="product-list-store"> {{product.store}} </p>
+              <p matLine class="product-list-brand"> Brand: {{product.brand}} </p>
+              <p matLine class="product-list-category"> Category: {{product.category}} </p>
+              <p matLine class="product-list-store"> Store: {{product.store}} </p>
               <mat-divider></mat-divider>
             </a>
             <div class="deleteContainer" style="position: absolute;">
@@ -165,8 +165,8 @@
           <h3 mat-subheader>Product List</h3>
           <a mat-list-item *ngFor="let product of this.filteredProducts" [routerLink]="['/products', product._id]" class="product-list-item">
             <h3 matLine class="product-list-name"> {{product.product_name}} </h3>
-            <p matLine class="product-list-category"> {{product.category}} </p>
-            <p matLine class="product-list-brand"> {{product.brand}} </p>
+            <p matLine class="product-list-category"> Category: {{product.category}} </p>
+            <p matLine class="product-list-brand"> Brand: {{product.brand}} </p>
             <mat-divider></mat-divider>
           </a>
         </mat-nav-list> -->

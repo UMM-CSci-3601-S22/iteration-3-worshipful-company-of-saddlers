@@ -1,34 +1,54 @@
-  <div class="content">
-    <form [formGroup]="addToPantryForm" (ngSubmit)="submitForm();">
-      <mat-card class="add-to-pantry-card">
-        <mat-card-content fxLayout="column">
-          <mat-label>Date Added to Pantry</mat-label>
-          <mat-form-field>
-            <input matInput [matDatepicker]="picker" formControlName="purchase_date"
-                  required>
-                  <mat-hint>DD/MM/YYYY</mat-hint>
-                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                  <mat-datepicker #picker></mat-datepicker>
-          </mat-form-field>
+<h2 mat-dialog-title> Add {{data.product_name | titlecase}} to your pantry</h2>
 
-          <mat-form-field>
-            <mat-label>Pantry Item Notes</mat-label>
-            <input matInput placeholder="Pantry Item Notes" formControlName="notes">
-          </mat-form-field>
-        </mat-card-content>
+<mat-dialog-content [formGroup]="addToPantryForm">
+  <mat-form-field appearance="fill">
+    <mat-label>Date Added To Pantry</mat-label>
+    <input matInput [matDatepicker]="picker" formControlName="purchase_date" required>
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+  <br>
+  <mat-form-field appearance="fill">
+    <mat-label>Pantry Item Notes</mat-label>
+    <input matInput placeholder="Pantry Item Notes" formControlName="notes">
+  </mat-form-field>
+</mat-dialog-content>
 
-        <mat-card-actions align="end">
-          <button
-            mat-button
-            type="button"
-            color="primary"
-            type="submit"
-            data-test="confirmAddProductToPantryButton"
-          >
-            Add Product To Pantry
-          </button>
-        </mat-card-actions>
+<mat-dialog-actions>
+  <button [mat-dialog-close]="this.addToPantryForm.value" mat-button type="button" color="primary" type="submit"
+    data-test="confirmAddProductToPantryButton">
+    Add To Pantry
+  </button>
+  <button mat-button mat-dialog-close>Cancel</button>
+</mat-dialog-actions>
 
-      </mat-card>
-    </form>
-  </div>
+<!--
+<div class="content">
+  <form [formGroup]="addToPantryForm" (ngSubmit)="submitForm();">
+    <mat-card class="add-to-pantry-card">
+      <mat-card-content fxLayout="column">
+        <mat-label>Date Added to Pantry</mat-label>
+        <mat-form-field>
+          <input matInput [matDatepicker]="picker" formControlName="purchase_date" required>
+          <mat-hint>DD/MM/YYYY</mat-hint>
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Pantry Item Notes</mat-label>
+          <input matInput placeholder="Pantry Item Notes" formControlName="notes">
+        </mat-form-field>
+      </mat-card-content>
+
+      <mat-card-actions align="end">
+        <button mat-button type="button" color="primary" type="submit" data-test="confirmAddProductToPantryButton">
+          Add Product To Pantry
+        </button>
+      </mat-card-actions>
+
+    </mat-card>
+  </form>
+</div>
+
+-->
