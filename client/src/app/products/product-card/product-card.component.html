@@ -141,3 +141,11 @@
         Product To Shopping List</button>
     </mat-card-actions>
   </mat-card>
+
+  <div class="overlay" *ngIf="addToShoppingListPopup">
+    <div class="popup">
+      <h2>Add This Product to Your Shopping List</h2>
+      <a class="close" (click)="addToShoppingListPopup = false">&times;</a>
+      <app-add-to-shopping-list [product]="this.product"></app-add-to-shopping-list>
+    </div>
+  </div>
