@@ -283,13 +283,6 @@ public class PantryController {
       }
 
     }
-    // try {
-    //   Thread.sleep(2000);
-    // } catch (Exception e) {
-
-    //   // catching the exception
-    //   System.out.println(e);
-    // }
 
     ppCollection.deleteMany(new Document());
     for (int i = 0; i < foundCounter; i++) {
@@ -322,5 +315,28 @@ public class PantryController {
     // Set the JSON body of the response to be the list of products returned by
     // the database.
     ctx.json(matchingItems);
+  }
+
+  public void getDeleteDates(Context ctx) {
+    //System.out.println(ctx.path());
+    String prodID = ctx.queryParam("product");
+    ArrayList<PantryItem> pantryItems = pantryCollection
+        .find()
+        .into(new ArrayList<>());
+    PantryItem[] pantryArr = pantryItems.toArray(new PantryItem[pantryItems.size()]);
+    PantryItem[] reflection = new PantryItem[pantryArr.length];
+    int index = 0;
+    // String prodID = ctx.pathParam("product");
+    for (int i = 0; i < pantryArr.length; i++) {
+      if (pantryArr[i].product.equals(prodID)) {
+        reflection[index] = pantryArr[i];
+        index++;
+      }
+    }
+    PantryItem[] finalList = new PantryItem[index];
+    for (int i = 0; i < finalList.length; i++) {
+      finalList[i] = reflection[i];
+    }
+    ctx.json(finalList);
   }
 }
