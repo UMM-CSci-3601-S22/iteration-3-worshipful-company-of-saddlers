@@ -2,8 +2,11 @@ import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subscription } from 'rxjs';
+import { PantryProductsListComponent } from 'src/app/pantry/pantry-products-list/pantry-products-list.component';
+import { PantryService } from 'src/app/pantry/pantry.service';
 import { ShoppingList } from '../shoppingList';
 import { ShoppingListService } from './shoppingList.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-shopping-list-list',
@@ -29,7 +32,8 @@ export class ShoppingListListComponent implements OnInit {
   tempID: string;
 
 
-  constructor(private shoppingListService: ShoppingListService, public dialog: MatDialog, private snackBar: MatSnackBar) { }
+  constructor(private shoppingListService: ShoppingListService, public dialog: MatDialog,
+    private router: Router, private snackBar: MatSnackBar) { }
 
   getItemsFromServer(): void {
     this.unsub();
@@ -40,6 +44,13 @@ export class ShoppingListListComponent implements OnInit {
     }, err => {
       console.log(err);
     });
+  }
+
+  public reloadComponent() {
+    const shoppingListUrl = 'shoppingList';
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.router.onSameUrlNavigation = 'reload';
+    this.router.navigate([shoppingListUrl]);
   }
 
   ngOnInit(): void {
@@ -64,6 +75,7 @@ export class ShoppingListListComponent implements OnInit {
         tempDeleted = item;
       }
     );
+    this.reloadComponent();
     this.tempDialog.close();
     this.snackBar.open('Item removed from Shopping List', 'OK', {
       duration: 5000,
