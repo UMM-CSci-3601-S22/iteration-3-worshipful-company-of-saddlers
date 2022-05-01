@@ -79,72 +79,55 @@ describe('PantryProductsListComponent', () => {
     expect(pantryProductsList).toBeTruthy();
   });
 
+  it ('should have 3 items in it', () => {
+    expect(pantryProductsList.pantryProducts.length).toBe(3);
+  });
   /*
   it('should call openDeleteDialog and call removeItem on milk', () => {
-    pantryProductsList.pantryProducts = pantryProductsList.serverFilteredPantryProducts;
-    pantryProductsList.bakedGoodsItems = pantryProductsList.serverFilteredPantryProducts;
-    pantryProductsList.bakingSuppliesItems = pantryProductsList.serverFilteredPantryProducts;
-    pantryProductsList.cleaningItems = pantryProductsList.serverFilteredPantryProducts;
-    pantryProductsList.dairyItems = pantryProductsList.serverFilteredPantryProducts;
-    pantryProductsList.deliItems = pantryProductsList.serverFilteredPantryProducts;
-    pantryProductsList.frozenItems = pantryProductsList.serverFilteredPantryProducts;
-    pantryProductsList.herbItems = pantryProductsList.serverFilteredPantryProducts;
-    pantryProductsList.meatItems = pantryProductsList.serverFilteredPantryProducts;
-    pantryProductsList.miscellaneousItems = pantryProductsList.serverFilteredPantryProducts;
-    pantryProductsList.paperItems = pantryProductsList.serverFilteredPantryProducts;
-    pantryProductsList.petSuppliesItems = pantryProductsList.serverFilteredPantryProducts;
     pantryProductsList.produceItems = pantryProductsList.serverFilteredPantryProducts;
-    pantryProductsList.stapleItems = pantryProductsList.serverFilteredPantryProducts;
-    pantryProductsList.toiletriesItems = pantryProductsList.serverFilteredPantryProducts;
-    pantryProductsList.openDeleteDialog('milk', 'milk _id');
+    expect(pantryProductsList.pantryProducts.length).toBe(3);
+    pantryProductsList.openDeleteDialog('milk', 'milk_id');
     fixture.detectChanges();
-    pantryProductsList.removeItem('milk _id');
-    expect(pantryProductsList.dairyItems.length).toBe(2);
+    pantryProductsList.removeItem('milk_id');
+    pantryProductsList.getItemsFromServer();
+    expect(pantryProductsList.serverFilteredPantryProducts.length).toBe(2);
   });
 
   it('should call openDeleteDialog and call removeProduct on bread', () => {
-    pantryProductsList.pantryProducts = pantryProductsList.serverFilteredPantryProducts;
-    pantryProductsList.bakedGoodsItems = pantryProductsList.serverFilteredPantryProducts;
-    pantryProductsList.bakingSuppliesItems = pantryProductsList.serverFilteredPantryProducts;
-    pantryProductsList.cleaningItems = pantryProductsList.serverFilteredPantryProducts;
-    pantryProductsList.dairyItems = pantryProductsList.serverFilteredPantryProducts;
-    pantryProductsList.deliItems = pantryProductsList.serverFilteredPantryProducts;
-    pantryProductsList.frozenItems = pantryProductsList.serverFilteredPantryProducts;
-    pantryProductsList.herbItems = pantryProductsList.serverFilteredPantryProducts;
-    pantryProductsList.meatItems = pantryProductsList.serverFilteredPantryProducts;
-    pantryProductsList.miscellaneousItems = pantryProductsList.serverFilteredPantryProducts;
-    pantryProductsList.paperItems = pantryProductsList.serverFilteredPantryProducts;
-    pantryProductsList.petSuppliesItems = pantryProductsList.serverFilteredPantryProducts;
     pantryProductsList.produceItems = pantryProductsList.serverFilteredPantryProducts;
-    pantryProductsList.stapleItems = pantryProductsList.serverFilteredPantryProducts;
-    pantryProductsList.toiletriesItems = pantryProductsList.serverFilteredPantryProducts;
-    pantryProductsList.openDeleteDialog('bread', 'bread _id');
+    expect(pantryProductsList.pantryProducts.length).toBe(3);
+    pantryProductsList.openDeleteDialog('bread', 'bread_id');
     fixture.detectChanges();
-    pantryProductsList.removeItem('bread _id');
-    expect(pantryProductsList.bakedGoodsItems.length).toBe(2);
+    pantryProductsList.removeItem('bread_id');
+    pantryProductsList.getItemsFromServer();
+    expect(pantryProductsList.serverFilteredPantryProducts.length).toBe(2);
   });
-
   it('should call openDeleteDialog and call removeProduct on banana', () => {
-    pantryProductsList.pantryProducts = pantryProductsList.serverFilteredPantryProducts;
-    pantryProductsList.bakedGoodsItems = pantryProductsList.serverFilteredPantryProducts;
-    pantryProductsList.bakingSuppliesItems = pantryProductsList.serverFilteredPantryProducts;
-    pantryProductsList.cleaningItems = pantryProductsList.serverFilteredPantryProducts;
-    pantryProductsList.dairyItems = pantryProductsList.serverFilteredPantryProducts;
-    pantryProductsList.deliItems = pantryProductsList.serverFilteredPantryProducts;
-    pantryProductsList.frozenItems = pantryProductsList.serverFilteredPantryProducts;
-    pantryProductsList.herbItems = pantryProductsList.serverFilteredPantryProducts;
-    pantryProductsList.meatItems = pantryProductsList.serverFilteredPantryProducts;
-    pantryProductsList.miscellaneousItems = pantryProductsList.serverFilteredPantryProducts;
-    pantryProductsList.paperItems = pantryProductsList.serverFilteredPantryProducts;
-    pantryProductsList.petSuppliesItems = pantryProductsList.serverFilteredPantryProducts;
-    pantryProductsList.produceItems = pantryProductsList.serverFilteredPantryProducts;
-    pantryProductsList.stapleItems = pantryProductsList.serverFilteredPantryProducts;
-    pantryProductsList.toiletriesItems = pantryProductsList.serverFilteredPantryProducts;
-    pantryProductsList.openDeleteDialog('banana', 'banana _id');
+    expect(pantryProductsList.serverFilteredPantryProducts.length).toBe(3);
+    pantryProductsList.openDeleteDialog('banana', 'banana_id');
     fixture.detectChanges();
-    pantryProductsList.removeItem('banana _id');
-    expect(pantryProductsList.produceItems.length).toBe(2);
+    pantryProductsList.removeItem('banana_id');
+    pantryProductsList.getItemsFromServer();
+    expect(pantryProductsList.serverFilteredPantryProducts.length).toBe(2);
   });
-*/
+  */
+  it('should call update filter', () =>{
+    pantryProductsList.updateFilter();
+    expect(pantryProductsList.activeFilters).toBeFalsy();
+    pantryProductsList.name = 'john';
+    pantryProductsList.updateFilter();
+    expect(pantryProductsList.activeFilters).toBeTruthy();
+  });
+  it('should call update item filter', () =>{
+    pantryProductsList.updateItemFilter();
+    expect(pantryProductsList.activeFilters).toBeFalsy();
+    pantryProductsList.ItemName = 'konner';
+    pantryProductsList.updateItemFilter();
+    expect(pantryProductsList.activeFilters).toBeTruthy();
+  });
+  it('should reload', () =>{
+    // this is hard to prove it actually did something. Issue for iteration 4
+    pantryProductsList.reloadComponent();
+  });
 });
 

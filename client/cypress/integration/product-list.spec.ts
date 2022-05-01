@@ -92,6 +92,7 @@ describe('Product list', () => {
     cy.get('[data-test=productCategorySelect]').click().get(`#mat-option-19 > .mat-option-text`).click();
     page.getFilteredProductListItems().should('exist');
     // All returned filtered products should have the product category we are filtering by
+    cy.wait(1000);
     page.getFilteredProductListItems().find('.product-list-category')
       .should('contain.text', 'produce')
       .should('not.contain.text', 'baking supplies')

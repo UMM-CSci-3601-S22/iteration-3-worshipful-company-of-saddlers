@@ -133,7 +133,7 @@ describe('Delete From ProductList', () => {
     productList.openDeleteDialog('Whole Milk', 'milk_id');
     fixture.detectChanges();
     productList.removeProduct('milk_id');
-    expect(productList.produceProducts.length).toBe(2);
+    expect(productList.allProducts.length).toBe(2);
   });
 
   it('should call openDeleteDialog and call removeProduct on bread', () => {
@@ -144,7 +144,7 @@ describe('Delete From ProductList', () => {
     productList.openDeleteDialog('Wheat Bread', 'bread_id');
     fixture.detectChanges();
     productList.removeProduct('bread_id');
-    expect(productList.produceProducts.length).toBe(2);
+    expect(productList.allProducts.length).toBe(2);
   });
 */
   it('should call openDeleteDialog and call removeProduct on banana', () => {
@@ -155,6 +155,7 @@ describe('Delete From ProductList', () => {
     productList.openDeleteDialog('banana', 'banana_id');
     fixture.detectChanges();
     productList.removeProduct('banana_id');
-    expect(productList.produceProducts.length).toBe(2);
+    expect(productList.allProducts.length).toBe(2);
   });
+
 });

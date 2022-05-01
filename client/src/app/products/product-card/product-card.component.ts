@@ -9,6 +9,8 @@ import { ActivatedRoute } from '@angular/router';
 import { ProductService } from '../product.service';
 import { Subscription } from 'rxjs';
 import { AddProductComponent } from '../add-product/add-product.component';
+import { ShoppingListListComponent } from 'src/app/shoppingList/shopping-list-list/shopping-list-list.component';
+import { ShoppingListService } from 'src/app/shoppingList/shopping-list-list/shoppingList.service';
 
 @Component({
   selector: 'app-product-card',
@@ -20,20 +22,22 @@ export class ProductCardComponent implements OnInit {
   @Input() product: Product;
   @Input() changeProductForm: FormGroup;
   @Input() formExists: boolean;
+
   id: string;
   getProductSub: Subscription;
   popup = false;
+  addToShoppingListPopup = false;
   panelOpenState = false; //Unsure what this is
   changeProductFormMessages;
 
-  constructor(private route: ActivatedRoute, private productService: ProductService, private fb: FormBuilder, private snackBar: MatSnackBar,
-    private router: Router) { }
+  constructor(private route: ActivatedRoute, private productService: ProductService, private shoppingListService: ShoppingListService,
+    private fb: FormBuilder, private snackBar: MatSnackBar,private router: Router) { }
 
   ngOnInit(): void {
     this.changeProductFormMessages = AddProductComponent.createValidationForm();
   }
 
-
+/* istanbul ignore next */
   submitForm() {
     console.log(this.changeProductForm.value);
     this.productService.changeProduct(this.changeProductForm.value).subscribe(newID => {

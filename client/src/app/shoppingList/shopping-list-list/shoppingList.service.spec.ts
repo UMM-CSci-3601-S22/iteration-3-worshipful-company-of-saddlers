@@ -10,19 +10,19 @@ describe('Shopping List service',() =>{
       _id: 'apple_id',
       name:'Apple',
       quantity: 3,
-      prodID: '44444444',
+      productID: '44444444',
     },
     {
       _id: 'orange_id',
       name:'Orange',
       quantity: 4,
-      prodID: '444444445',
+      productID: '444444445',
     },
     {
       _id: 'rootBeer_id',
       name:'Root Beer',
       quantity: 10,
-      prodID: '444444446',
+      productID: '444444446',
     },
   ];
   let shoppingListService: ShoppingListService;
