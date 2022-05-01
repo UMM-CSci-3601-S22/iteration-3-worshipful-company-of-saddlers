@@ -19,7 +19,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Observable } from 'rxjs';
 import { MockProductService } from '../../../testing/product.service.mock';
-import { Product } from '../product';
+import { Product, ProductCategory, categories, categoryCamelCase } from '../product';
 import { ProductListComponent } from './product-list.component';
 import { ProductService } from '../product.service';
 
@@ -126,7 +126,11 @@ describe('Delete From ProductList', () => {
   }));
 
   it('should call openDeleteDialog and call removeProduct on milk', () => {
-    productList.allProducts = productList.serverFilteredProducts;
+    expect(productList.allProducts.length).toBe(3);
+    categories.forEach((cat: ProductCategory) => {
+      const categoryAsField = categoryCamelCase(cat);
+      productList[categoryAsField] = productList.serverFilteredProducts;
+    });
     productList.openDeleteDialog('Whole Milk', 'milk_id');
     fixture.detectChanges();
     productList.removeProduct('milk_id');
@@ -134,7 +138,11 @@ describe('Delete From ProductList', () => {
   });
 
   it('should call openDeleteDialog and call removeProduct on bread', () => {
-    productList.allProducts = productList.serverFilteredProducts;
+    expect(productList.allProducts.length).toBe(3);
+    categories.forEach((cat: ProductCategory) => {
+      const categoryAsField = categoryCamelCase(cat);
+      productList[categoryAsField] = productList.serverFilteredProducts;
+    });
     productList.openDeleteDialog('Wheat Bread', 'bread_id');
     fixture.detectChanges();
     productList.removeProduct('bread_id');
@@ -142,7 +150,11 @@ describe('Delete From ProductList', () => {
   });
 
   it('should call openDeleteDialog and call removeProduct on banana', () => {
-    productList.allProducts = productList.serverFilteredProducts;
+    expect(productList.allProducts.length).toBe(3);
+    categories.forEach((cat: ProductCategory) => {
+      const categoryAsField = categoryCamelCase(cat);
+      productList[categoryAsField] = productList.serverFilteredProducts;
+    });
     productList.openDeleteDialog('banana', 'banana_id');
     fixture.detectChanges();
     productList.removeProduct('banana_id');
