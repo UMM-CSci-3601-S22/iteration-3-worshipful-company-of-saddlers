@@ -89,7 +89,4 @@ export class PantryService {
     return this.httpClient.delete<PantryItem>(this.pantryUrl + '/' + id);
   }
 
-  changeProduct(pantryProduct: PantryProduct[]): Observable<string> {
-    return this.httpClient.put<{id: string}>(this.pantryUrl + '/deleteTest', pantryProduct).pipe(map(res => res.id));
-  }
 }

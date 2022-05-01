@@ -236,9 +236,7 @@ public class PantryController {
    */
   public void deletePantryItem(Context ctx) {
     String id = ctx.pathParam("id");
-    System.err.println(id + "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
     DeleteResult deleteResult = pantryCollection.deleteOne(eq("_id", new ObjectId(id)));
-    System.err.println(deleteResult);
     if (deleteResult.getDeletedCount() != 1) {
       throw new NotFoundResponse(
           "Was unable to delete ID "
@@ -285,13 +283,6 @@ public class PantryController {
       }
 
     }
-    // try {
-    // Thread.sleep(2000);
-    // } catch (Exception e) {
-
-    // // catching the exception
-    // System.out.println(e);
-    // }
 
     ppCollection.deleteMany(new Document());
     for (int i = 0; i < foundCounter; i++) {
@@ -327,9 +318,8 @@ public class PantryController {
   }
 
   public void getDeleteDates(Context ctx) {
-    System.out.println("bruh");
+    //System.out.println(ctx.path());
     String prodID = ctx.queryParam("product");
-    System.out.println(prodID);
     ArrayList<PantryItem> pantryItems = pantryCollection
         .find()
         .into(new ArrayList<>());
@@ -338,7 +328,7 @@ public class PantryController {
     int index = 0;
     // String prodID = ctx.pathParam("product");
     for (int i = 0; i < pantryArr.length; i++) {
-      if(pantryArr[i].product.equals(prodID)){
+      if (pantryArr[i].product.equals(prodID)) {
         reflection[index] = pantryArr[i];
         index++;
       }
@@ -346,7 +336,6 @@ public class PantryController {
     PantryItem[] finalList = new PantryItem[index];
     for (int i = 0; i < finalList.length; i++) {
       finalList[i] = reflection[i];
-      System.out.println(finalList[i].name);
     }
     ctx.json(finalList);
   }

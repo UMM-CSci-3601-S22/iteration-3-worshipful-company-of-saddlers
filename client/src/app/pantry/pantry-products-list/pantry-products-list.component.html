@@ -101,7 +101,7 @@
                         <mat-list class="delete-dates">
                           <span fxLayout="row" *ngFor="let item of this.filteredPantryItems">
                             <a mat-list-item class="product-list-item">
-                              <p matLine class="pantry-item-date"> {{item.purchase_date}} </p>
+                              <p matLine class="pantry-item-date"> {{item.purchase_date | date:' dd/MM/yyyy'}} </p>
 
                               <mat-divider></mat-divider>
                             </a>
