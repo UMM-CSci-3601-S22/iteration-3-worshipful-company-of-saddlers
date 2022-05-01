@@ -55,6 +55,7 @@ export class ShoppingListListComponent implements OnInit {
 
   ngOnInit(): void {
     this.getItemsFromServer();
+    this.shoppingListService.generateShoppingList();
   }
   unsub(): void {
     if (this.getItemsSub) {
@@ -81,5 +82,17 @@ export class ShoppingListListComponent implements OnInit {
       duration: 5000,
     });
     return tempDeleted;
+  }
+
+  genShopList() {
+    this.shoppingListService.generateShoppingList().subscribe(newID => {
+      this.snackBar.open('Updated Product Fields', null, { duration: 2000, });
+      this.reloadComponent();
+    }, err => {
+      this.snackBar.open('Failed to edit the product', 'OK', {
+        duration: 5000,
+      });
+    });
+
   }
 }
