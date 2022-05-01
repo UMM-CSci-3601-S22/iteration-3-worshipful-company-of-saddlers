@@ -1,16 +1,17 @@
-<div fxLayout="row">
-    <div fxFlex fxFlex.gt-sm="80" fxFlexOffset.gt-sm="10">
+<div fxLayout="column">
+  <div fxLayout="row">
+    <div class="shopping-item-search" fxFlex fxFlex.gt-sm="80" fxFlexOffset.gt-sm="10">
 
       <mat-card class="search-card">
         <mat-card-title class="shoppingList-list-title">Shopping List</mat-card-title>
-        <mat-card-content fxLayout="column" >
+        <mat-card-content fxLayout="column">
 
           <div fxLayout="row wrap" fxLayoutGap="10px">
 
             <mat-form-field class="input-field">
               <mat-label>Name</mat-label>
-              <input matInput data-test="shoppingListNameInput" placeholder="Filter by item name"
-              [(ngModel)]="itemName" (input)="getItemsFromServer()">
+              <input matInput data-test="shoppingListNameInput" placeholder="Filter by item name" [(ngModel)]="itemName"
+                (input)="getItemsFromServer()">
               <mat-hint>Search for an item by name</mat-hint>
             </mat-form-field>
 
@@ -20,10 +21,51 @@
     </div>
   </div>
 
-  <mat-list class="shoppingList-list">
-    <h3 mat-subheader>Items</h3>
-    <a mat-list-item *ngFor="let shoppingList of this.filteredShoppingList" class="shoppingList-list-item">
-      <h3 matLine class="shoppingList-list-name">{{shoppingList.name}}</h3>
-      <p matLine class="shoppingList-list-description">Need to buy {{shoppingList.quantity}}</p>
-    </a>
-  </mat-list>
+  <div class="shoppingList-list">
+    <div fxLayout="row wrap">
+      <div fxFlex fxFlex.gt-sm="80" fxFlexOffset.gt-sm="10" *ngIf="getItemsFromServer; else shoppingListError">
+
+        <mat-card>
+          <mat-card-content>
+            <mat-nav-list class="shoppingList-list">
+              <h3 mat-subheader>Items</h3>
+              <span fxLayout="row" *ngFor="let shoppingList of this.filteredShoppingList">
+                <a mat-list-item class="shoppingList-list-item">
+                  <h3 matLine class="shoppingList-list-name">{{shoppingList.name}}</h3>
+                  <p matLine class="shoppingList-list-description">Need to buy {{shoppingList.quantity}}</p>
+                </a>
+                <div class="deleteContainer" style="position: absolute;">
+                  <button mat-icon-button class="delete-item-button" matTooltip="Delete Item" matTooltipPosition="left"
+                    (click)="openDeleteDialog(shoppingList)" data-test="deleteItemButton">
+                    <mat-icon aria-label="Delete Item">close</mat-icon>
+                  </button>
+                  <ng-template #dialogRef let-mydata>
+                    <h1 mat-dialog-title>Delete Product?</h1>
+                    <div mat-dialog-content>
+                      <h4>Are you sure you want to delete <i>{{tempName}}</i>? This action cannot be undone</h4>
+                    </div>
+                    <div mat-dialog-actions>
+                      <button mat-button color="warn" (click)="removeItem(tempID)">Delete</button>
+                      <button mat-button [mat-dialog-close]="" cdkFocusInitial>Cancel</button>
+                    </div>
+                  </ng-template>
+                </div>
+              </span>
+            </mat-nav-list>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+    <ng-template #shoppingListError>
+      <div fxFlex fxFlex.gt-sm="80" fxFlexOffset.gt-sm="10" class="shoppingList-error">
+        <mat-error>
+          There was a problem loading the shoppingList. Possibly the server is down or perhaps there are network
+          issues.
+        </mat-error>
+        <mat-error>
+          Please wait a bit and try again.
+        </mat-error>
+      </div>
+    </ng-template>
+  </div>
+</div>

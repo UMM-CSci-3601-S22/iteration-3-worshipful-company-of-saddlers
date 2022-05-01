@@ -11,6 +11,8 @@ import { Subscription } from 'rxjs';
 import { AddProductComponent } from '../add-product/add-product.component';
 import { PantryService } from 'src/app/pantry/pantry.service';
 import { MatDialog } from '@angular/material/dialog';
+import { ShoppingListListComponent } from 'src/app/shoppingList/shopping-list-list/shopping-list-list.component';
+import { ShoppingListService } from 'src/app/shoppingList/shopping-list-list/shoppingList.service';
 
 @Component({
   selector: 'app-product-card',
@@ -22,9 +24,11 @@ export class ProductCardComponent implements OnInit {
   @Input() product: Product;
   @Input() changeProductForm: FormGroup;
   @Input() formExists: boolean;
+
   id: string;
   getProductSub: Subscription;
   popup = false;
+  addToShoppingListPopup = false;
   panelOpenState = false; //Unsure what this is
   changeProductFormMessages;
 
@@ -35,6 +39,7 @@ export class ProductCardComponent implements OnInit {
     this.changeProductFormMessages = AddProductComponent.createValidationForm();
   }
 
+/* istanbul ignore next */
   openAddDialog(givenProduct: Product) {
     const dialogRef = this.dialog.open(AddProductToPantryComponent, {data: givenProduct});
     dialogRef.afterClosed().subscribe(result => {

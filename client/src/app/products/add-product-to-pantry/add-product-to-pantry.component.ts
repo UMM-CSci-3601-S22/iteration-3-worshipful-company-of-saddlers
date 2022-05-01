@@ -63,6 +63,7 @@ export class AddProductToPantryComponent implements OnInit {
     this.createForms();
   }
 
+  /* istanbul ignore next */
   submitForm() {
     /*
     console.log(this.addToPantryForm.value);

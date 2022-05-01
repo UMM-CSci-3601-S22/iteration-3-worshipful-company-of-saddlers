@@ -173,20 +173,19 @@ public class ProductController {
     Product newProduct = ctx.bodyValidator(Product.class)
         .check(product -> product.product_name != null && product.product_name.length() > 0,
             "Product must have a non-empty product name")
-        .check(product -> product.description != null,
-            "Product description cannot be null")
-        .check(product -> product.brand != null && product.brand.length() > 0, "Product must have a non-empty brand")
+        //.check(product -> product.description != null, "Product description cannot be null")
+        //.check(product -> product.brand.length() > 0, "Product must have a non-empty brand")
         // .check(product -> product.category.matches("^(admin|editor|viewer)$"), "User
         // must have a legal user role")
-        .check(product -> product.category != null && product.category.length() > 0,
+        .check(product -> product.category != null,
             "Product must have a non-empty category")
-        .check(product -> product.store != null && product.store.length() > 0, "Product must have a non-empty store")
-        .check(product -> product.location != null && product.location.length() > 0,
-            "Product must have a non-empty location")
-        .check(product -> product.notes != null, "Product notes cannot be null")
+        .check(product -> product.store != null, "Product must have a non-empty store")
+        //.check(product -> product.location.length() > 0,
+        //    "Product must have a non-empty location")
+        //.check(product -> product.notes != null, "Product notes cannot be null")
         // .check(product -> product.tags != null && product.tags.size() >= 0, "Product
         // tags cannot be null")
-        .check(product -> product.lifespan > 0, "Products's lifespan must be greater than zero")
+        //.check(product -> product.lifespan > 0, "Products's lifespan must be greater than zero")
         .check(product -> product.threshold > 0, "Products's threshold must be greater than zero")
         .get();
 
@@ -218,7 +217,14 @@ public class ProductController {
 
   public void changeProduct(Context ctx) {
     Product newProduct = ctx.bodyValidator(Product.class)
-    .check(pdr -> pdr.threshold >= 0, "Products threshold can't be negative")
+    .check(product -> product.product_name != null && product.product_name.length() > 0,
+    "Product must have a non-empty product name")
+    .check(product -> product.category != null && product.category.length() > 0,
+    "Product must have a non-empty category")
+    .check(product -> product.store != null && product.store.length() > 0,
+     "Product must have a non-empty store")
+    .check(pdr -> pdr.threshold >= 0,
+     "Products threshold can't be negative")
     .get();
 
     System.out.println("This actually happens");

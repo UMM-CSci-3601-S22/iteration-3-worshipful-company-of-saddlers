@@ -35,7 +35,6 @@ export class AddProductComponent implements OnInit {
         {type: 'maxlength', message: 'Product description must be at less than 200 characters'}
       ],
       brand: [
-        {type: 'required', message: 'Product brand is required'},
         {type: 'minlength', message: 'Product brand must be at least 1 character'},
         {type: 'maxlength', message: 'Product brand must be at less than 100 characters'}
       ],
@@ -63,6 +62,7 @@ export class AddProductComponent implements OnInit {
         {type: 'pattern', message: 'Lifespan must be a whole number'}
       ],
       threshold: [
+        {type: 'required', message: 'Product\'s threshold is required'},
         {type: 'min', message: 'Product threshold must be at least 1'},
         {type: 'max', message: 'Product threshold must be at less than 1000000'},
         {type: 'pattern', message: 'Threshold must be a whole number'}
@@ -79,7 +79,7 @@ export class AddProductComponent implements OnInit {
         Validators.minLength(1), Validators.maxLength(200),
       ])),
       brand: new FormControl('', Validators.compose([
-        Validators.required, Validators.minLength(1), Validators.maxLength(100),
+        Validators.minLength(1), Validators.maxLength(100),
       ])),
       category: new FormControl('', Validators.compose([
         Validators.required,
@@ -99,7 +99,7 @@ export class AddProductComponent implements OnInit {
         Validators.min(1), Validators.max(1000000), Validators.pattern('^[0-9]+$')
       ])),
       threshold: new FormControl('', Validators.compose([
-        Validators.min(1), Validators.max(1000000), Validators.pattern('^[0-9]+$')
+        Validators.required, Validators.min(1), Validators.max(1000000), Validators.pattern('^[0-9]+$')
       ])),
     });
   }
@@ -109,6 +109,7 @@ export class AddProductComponent implements OnInit {
     this.createForms();
   }
 
+  /* istanbul ignore next */
   submitForm() {
     console.log(this.addProductForm.value);
     this.productService.addProduct(this.addProductForm.value).subscribe(newID => {
