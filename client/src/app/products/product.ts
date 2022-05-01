@@ -44,7 +44,7 @@ export const categoryCamelCase = (category: ProductCategory) => {
   // you might have uses that don't want 'Items' at the end. If so, then you
   // want to move the addition of 'Items' to the places where it's necessary
   // instead of having it here.
-  return categoryPrefix + 'Items';
+  return categoryPrefix + 'Products';
 };
 
 export type ProductStore = 'Willies' | 'Pomme de Terre' | 'Pomme de Terre/Willies' | 'Real Food Hub' | 'Other';

@@ -206,12 +206,6 @@ export class ProductListPage {
    *
    * @param value The category *value* to select, this is what's found in the mat-option "value" attribute.
    */
-  selectCategory(value: string) {
-    // Find and click the drop down
-    return cy.get('[data-test=productCategorySelect]').click()
-      // Select and click the desired value from the resulting menu
-      .get(`mat-option[value="${value}"]`).click();
-  }
 
   selectStore(value: string) {
     return cy.get('[data-test=productStoreSelect]')

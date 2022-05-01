@@ -2,7 +2,7 @@
 import { Component, TemplateRef, ViewChild, OnInit, OnDestroy } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
-import { Product, ProductCategory } from '../product';
+import { Product, ProductCategory, categories, categoryCamelCase } from '../product';
 import { ProductService } from '../product.service';
 import { Subscription } from 'rxjs';
 
@@ -35,7 +35,25 @@ export class ProductListComponent implements OnInit, OnDestroy {
   // Boolean for if there are active filters
   public activeFilters: boolean;
 
-  // Category collections for use in displaying product categories
+  public categoriesList: ProductCategory[] = [
+    'baked goods',
+    'baking supplies',
+    'beverages',
+    'cleaning products',
+    'dairy',
+    'deli',
+    'frozen foods',
+    'herbs and spices',
+    'meat',
+    'miscellaneous',
+    'paper products',
+    'pet supplies',
+    'produce',
+    'staples',
+    'toiletries',
+  ];
+
+  // Category collections for use in deleting products
   public bakingSuppliesProducts: Product[] = [];
   public bakedGoodsProducts: Product[] = [];
   public deliProducts: Product[] = [];
@@ -51,6 +69,8 @@ export class ProductListComponent implements OnInit, OnDestroy {
   public stapleProducts: Product[] = [];
   public toiletriesProducts: Product[] = [];
   public miscellaneousProducts: Product[] = [];
+
+  public categoryNameMap = new Map<ProductCategory, Product[]>();
 
   // temp variables to use for deletion
   public tempId: string;
@@ -79,36 +99,12 @@ export class ProductListComponent implements OnInit, OnDestroy {
   }
 
   public makeCategoryLists(): void {
-    this.bakedGoodsProducts = this.productService.filterProducts(
-      this.allProducts, { category: 'baked goods'});
-    this.produceProducts = this.productService.filterProducts(
-      this.allProducts, { category: 'produce'});
-    this.meatProducts = this.productService.filterProducts(
-      this.allProducts, { category: 'meat'});
-    this.dairyProducts = this.productService.filterProducts(
-      this.allProducts, { category: 'dairy'});
-    this.frozenProducts = this.productService.filterProducts(
-      this.allProducts, { category: 'frozen foods'});
-    this.herbProducts = this.productService.filterProducts(
-      this.allProducts, { category: 'herbs and spices'});
-    this.beverageProducts = this.productService.filterProducts(
-      this.allProducts, { category: 'beverages'});
-    this.cleaningProducts = this.productService.filterProducts(
-      this.allProducts, { category: 'cleaning products'});
-    this.paperProducts = this.productService.filterProducts(
-      this.allProducts, { category: 'paper products'});
-    this.miscellaneousProducts = this.productService.filterProducts(
-      this.allProducts, { category: 'miscellaneous'});
-    this.deliProducts = this.productService.filterProducts(
-      this.allProducts, { category: 'deli'});
-    this.stapleProducts = this.productService.filterProducts(
-      this.allProducts, { category: 'staples'});
-    this.toiletriesProducts = this.productService.filterProducts(
-      this.allProducts, { category: 'toiletries'});
-    this.bakingSuppliesProducts = this.productService.filterProducts(
-      this.allProducts, { category: 'baking supplies'});
-    this.petSuppliesProducts = this.productService.filterProducts(
-      this.allProducts, { category: 'pet supplies'});
+    categories.forEach((cat: ProductCategory) => {
+      const categoryAsField = categoryCamelCase(cat);
+      this[categoryAsField] = this.productService.filterProducts(
+        this.allProducts, { category: cat }
+      );
+    });
   }
 
   getProductsFromServer(): void {
@@ -118,6 +114,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
       store: this.productStore
     }).subscribe(returnedProducts => {
       this.serverFilteredProducts = returnedProducts;
+      this.initializeCategoryMap();
       this.updateFilter();
     }, err => {
       console.log(err);
@@ -128,6 +125,17 @@ export class ProductListComponent implements OnInit, OnDestroy {
     else {
       this.activeFilters = false;
     }
+  }
+
+  // Sorts products based on their category
+  initializeCategoryMap() {
+    // eslint-disable-next-line prefer-const
+    for (let givenCategory of this.categoriesList) {
+      this.categoryNameMap.set(givenCategory,
+        this.productService.filterProducts(this.serverFilteredProducts, { category: givenCategory }));
+
+    }
+    console.log(this.categoryNameMap);
   }
 
   public updateFilter(): void {
@@ -171,23 +179,9 @@ export class ProductListComponent implements OnInit, OnDestroy {
       prod => {
         this.allProducts = this.allProducts.filter(product => product._id !== id);
         this.filteredProducts = this.filteredProducts.filter(product => product._id !== id);
-        this.serverFilteredProducts = this.filteredProducts.filter(product => product._id !== id);
-        this.bakedGoodsProducts = this.bakedGoodsProducts.filter(product => product._id !== id);
-        this.produceProducts = this.produceProducts.filter(product => product._id !== id);
-        this.meatProducts = this.meatProducts.filter(product => product._id !== id);
-        this.dairyProducts = this.dairyProducts.filter(product => product._id !== id);
-        this.frozenProducts = this.frozenProducts.filter(product => product._id !== id);
-        this.herbProducts = this.herbProducts.filter(product => product._id !== id);
-        this.beverageProducts = this.beverageProducts.filter(product => product._id !== id);
-        this.paperProducts = this.paperProducts.filter(product => product._id !== id);
-        this.petSuppliesProducts = this.petSuppliesProducts.filter(product => product._id !== id);
-        this.miscellaneousProducts = this.miscellaneousProducts.filter(product => product._id !== id);
-        this.stapleProducts = this.stapleProducts.filter(product => product._id !== id);
-        this.deliProducts = this.deliProducts.filter(product => product._id !== id);
-        this.toiletriesProducts = this.toiletriesProducts.filter(product => product._id !== id);
-        this.bakingSuppliesProducts = this.bakingSuppliesProducts.filter(product => product._id !== id);
-
-        this.tempDeleted = prod;
+          const categoryAsField = categoryCamelCase(prod.category);
+          this[categoryAsField] = this[categoryAsField].filter(product => product._id !== id);
+          this.tempDeleted = prod;
      }
     );
     this.tempDialog.close();

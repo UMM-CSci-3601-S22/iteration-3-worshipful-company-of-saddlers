@@ -65,6 +65,26 @@ export class PantryProductsListComponent implements OnInit, OnDestroy {
   public toiletriesItems: PantryProduct[] = [];
   public miscellaneousItems: PantryProduct[] = [];
 
+  public categoryNameMap = new Map<ProductCategory, PantryProduct[]>();
+
+  public categoriesList: ProductCategory[] = [
+    'baked goods',
+    'baking supplies',
+    'beverages',
+    'cleaning products',
+    'dairy',
+    'deli',
+    'frozen foods',
+    'herbs and spices',
+    'meat',
+    'miscellaneous',
+    'paper products',
+    'pet supplies',
+    'produce',
+    'staples',
+    'toiletries',
+  ];
+
   i: number;
   j: number;
   lengthAllProducts: number;
@@ -114,6 +134,7 @@ export class PantryProductsListComponent implements OnInit, OnDestroy {
       name: this.ItemName
     }).subscribe(returnedItems => {
       this.serverFilteredPantryProducts = returnedItems;
+      this.initializeCategoryMap();
     }, err => {
       console.log(err);
     });
@@ -123,6 +144,16 @@ export class PantryProductsListComponent implements OnInit, OnDestroy {
     else {
       this.activeFilters = false;
     }
+  }
+
+  initializeCategoryMap() {
+    // eslint-disable-next-line prefer-const
+    for (let givenCategory of this.categoriesList) {
+      this.categoryNameMap.set(givenCategory,
+        this.pantryService.filterPantryProducts(this.serverFilteredPantryProducts, { category: givenCategory }));
+
+    }
+    console.log(this.categoryNameMap);
   }
 
   getUnfilteredProducts(): void {

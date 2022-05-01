@@ -304,8 +304,6 @@ describe('PantryService', () => {
 
       }
     ];
-
-     const counter = 0;
     const productz: string = targetItem.product;
     pantryService.getPantryItemsForDelete({ productz }).subscribe(
       items => expect(items[0].product).toBe(PantryItems[0].product)
