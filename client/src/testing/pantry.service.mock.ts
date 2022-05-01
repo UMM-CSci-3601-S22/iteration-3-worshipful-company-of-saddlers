@@ -12,7 +12,7 @@ import { Product, ProductCategory } from '../app/products/product';
  */
  @Injectable()
  export class MockPantryService extends PantryService {
-  testPantryProducts: PantryItem[] = [
+  testPantryProducts: PantryProduct[] = [
     {
       _id: 'banana_id',
       product: 'banana product id',
@@ -36,7 +36,7 @@ import { Product, ProductCategory } from '../app/products/product';
     }
    ];
 
-   // deletedItem: PantryItem;
+  // deletedItem: PantryProduct;
 
    constructor() {
      super(null);
@@ -57,7 +57,7 @@ import { Product, ProductCategory } from '../app/products/product';
   //    return of(this.deletedItem);
   //  }
 
-
+/*
   deleteItem(id: string): Observable<PantryItem> {
     //This is the best we could come up with. We know the pop is not correct.
     // eslint-disable-next-line @typescript-eslint/prefer-for-of
@@ -69,4 +69,5 @@ import { Product, ProductCategory } from '../app/products/product';
     }
     return of(this.deletedItem);
  }
+ */
 }

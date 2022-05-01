@@ -5,7 +5,7 @@ import { ShoppingListService } from '../app/shoppingList/shopping-list-list/shop
 
 @Injectable()
 export class MockShoppingListService extends ShoppingListService {
-  static testShoppingList: ShoppingList[] = [
+  testShoppingList: Array<ShoppingList> = [
     {
       _id: 'apple_id',
       name:'Apple',
@@ -33,6 +33,16 @@ export class MockShoppingListService extends ShoppingListService {
   getShoppingList(filters: {
     name?: string;
   }): Observable<ShoppingList[]> {
-    return of(MockShoppingListService.testShoppingList);
+    return of(this.testShoppingList);
+  }
+  deleteItem(id: string): Observable<ShoppingList> {
+    let deletedThing: ShoppingList;
+    // eslint-disable-next-line @typescript-eslint/prefer-for-of
+    for(let i=0; i < this.testShoppingList.length; i++){
+      if(this.testShoppingList[i]._id === id){
+        deletedThing = this.testShoppingList.splice(i,1)[0];
+      }
+    }
+    return of(deletedThing);
   }
 }

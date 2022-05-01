@@ -109,6 +109,7 @@ export class AddProductComponent implements OnInit {
     this.createForms();
   }
 
+  /* istanbul ignore next */
   submitForm() {
     console.log(this.addProductForm.value);
     this.productService.addProduct(this.addProductForm.value).subscribe(newID => {

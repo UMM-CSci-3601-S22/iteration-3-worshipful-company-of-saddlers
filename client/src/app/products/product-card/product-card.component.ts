@@ -37,7 +37,7 @@ export class ProductCardComponent implements OnInit {
     this.changeProductFormMessages = AddProductComponent.createValidationForm();
   }
 
-
+/* istanbul ignore next */
   submitForm() {
     console.log(this.changeProductForm.value);
     this.productService.changeProduct(this.changeProductForm.value).subscribe(newID => {

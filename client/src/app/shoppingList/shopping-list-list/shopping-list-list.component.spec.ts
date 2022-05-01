@@ -83,6 +83,18 @@ describe('ShoppingListListComponent', () => {
     shoppingListList.unsub();
     expect(!shoppingListList.getItemsSub.closed).toBeFalsy();
   });
+
+  describe('Remove shopping list item', () => {
+
+    it('should open delete dialogue and remove apple shopping list item', ()=> {
+        expect(shoppingListList.filteredShoppingList.length).toBe(3);
+        shoppingListList.openDeleteDialog(shoppingListList.filteredShoppingList[0]);
+        fixture.detectChanges();
+        shoppingListList.removeItem('apple_id');
+        shoppingListList.getItemsFromServer();
+        expect(shoppingListList.filteredShoppingList.length).toBe(2);
+    });
+  });
 });
 
 describe('Misbehaving ShoppingList List', () => {

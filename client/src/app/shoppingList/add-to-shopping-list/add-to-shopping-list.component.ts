@@ -52,6 +52,7 @@ export class AddToShoppingListComponent implements OnInit {
     this.createForms();
   }
 
+  /* istanbul ignore next */
   submitForm() {
     console.log(this.addToShoppingListForm.value);
     this.shoppingListService.addShoppingList(this.addToShoppingListForm.value).subscribe(newID => {

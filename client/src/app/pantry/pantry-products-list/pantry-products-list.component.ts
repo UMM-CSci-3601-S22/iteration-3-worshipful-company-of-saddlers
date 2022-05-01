@@ -46,21 +46,21 @@ export class PantryProductsListComponent implements OnInit, OnDestroy {
   public tempName: string;
   public ItemName: string;
 
-  public bakingSuppliesItems: PantryItem[] = [];
-  public bakedGoodsItems: PantryItem[] = [];
-  public deliItems: PantryItem[] = [];
-  public cleaningProductsItems: PantryItem[] = [];
-  public petSuppliesItems: PantryItem[] = [];
-  public produceItems: PantryItem[] = [];
-  public meatItems: PantryItem[] = [];
-  public dairyItems: PantryItem[] = [];
-  public frozenFoodsItems: PantryItem[] = [];
-  public paperProductsItems: PantryItem[] = [];
-  public beveragesItems: PantryItem[] = [];
-  public herbsAndSpicesItems: PantryItem[] = [];
-  public staplesItems: PantryItem[] = [];
-  public toiletriesItems: PantryItem[] = [];
-  public miscellaneousItems: PantryItem[] = [];
+  public bakingSuppliesItems: PantryProduct[] = [];
+  public bakedGoodsItems: PantryProduct[] = [];
+  public deliItems: PantryProduct[] = [];
+  public cleaningProductsItems: PantryProduct[] = [];
+  public petSuppliesItems: PantryProduct[] = [];
+  public produceItems: PantryProduct[] = [];
+  public meatItems: PantryProduct[] = [];
+  public dairyItems: PantryProduct[] = [];
+  public frozenFoodsItems: PantryProduct[] = [];
+  public paperProductsItems: PantryProduct[] = [];
+  public beveragesItems: PantryProduct[] = [];
+  public herbsAndSpicesItems: PantryProduct[] = [];
+  public staplesItems: PantryProduct[] = [];
+  public toiletriesItems: PantryProduct[] = [];
+  public miscellaneousItems: PantryProduct[] = [];
 
   i: number;
   j: number;
