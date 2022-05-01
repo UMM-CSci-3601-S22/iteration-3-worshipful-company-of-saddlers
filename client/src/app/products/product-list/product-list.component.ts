@@ -177,6 +177,8 @@ export class ProductListComponent implements OnInit, OnDestroy {
   removeProduct(id: string): Product {
     this.productService.deleteProduct(id).subscribe(
       prod => {
+        this.allProducts = this.allProducts.filter(product => product._id !== id);
+        this.filteredProducts = this.filteredProducts.filter(product => product._id !== id);
           const categoryAsField = categoryCamelCase(prod.category);
           this[categoryAsField] = this[categoryAsField].filter(product => product._id !== id);
           this.tempDeleted = prod;

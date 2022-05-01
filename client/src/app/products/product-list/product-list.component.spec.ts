@@ -124,8 +124,9 @@ describe('Delete From ProductList', () => {
       fixture.detectChanges();
     });
   }));
-/*
+
   it('should call openDeleteDialog and call removeProduct on milk', () => {
+    expect(productList.allProducts.length).toBe(3);
     categories.forEach((cat: ProductCategory) => {
       const categoryAsField = categoryCamelCase(cat);
       productList[categoryAsField] = productList.serverFilteredProducts;
@@ -137,6 +138,7 @@ describe('Delete From ProductList', () => {
   });
 
   it('should call openDeleteDialog and call removeProduct on bread', () => {
+    expect(productList.allProducts.length).toBe(3);
     categories.forEach((cat: ProductCategory) => {
       const categoryAsField = categoryCamelCase(cat);
       productList[categoryAsField] = productList.serverFilteredProducts;
@@ -146,8 +148,9 @@ describe('Delete From ProductList', () => {
     productList.removeProduct('bread_id');
     expect(productList.allProducts.length).toBe(2);
   });
-*/
+
   it('should call openDeleteDialog and call removeProduct on banana', () => {
+    expect(productList.allProducts.length).toBe(3);
     categories.forEach((cat: ProductCategory) => {
       const categoryAsField = categoryCamelCase(cat);
       productList[categoryAsField] = productList.serverFilteredProducts;
