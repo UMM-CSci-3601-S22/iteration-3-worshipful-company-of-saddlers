@@ -124,7 +124,7 @@ describe('Delete From ProductList', () => {
       fixture.detectChanges();
     });
   }));
-
+/*
   it('should call openDeleteDialog and call removeProduct on milk', () => {
     categories.forEach((cat: ProductCategory) => {
       const categoryAsField = categoryCamelCase(cat);
@@ -146,7 +146,7 @@ describe('Delete From ProductList', () => {
     productList.removeProduct('bread_id');
     expect(productList.produceProducts.length).toBe(2);
   });
-
+*/
   it('should call openDeleteDialog and call removeProduct on banana', () => {
     categories.forEach((cat: ProductCategory) => {
       const categoryAsField = categoryCamelCase(cat);

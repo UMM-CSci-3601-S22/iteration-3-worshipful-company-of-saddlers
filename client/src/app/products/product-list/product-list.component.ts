@@ -53,7 +53,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
     'toiletries',
   ];
 
-  // Category collections for use in displaying product categories
+  // Category collections for use in deleting products
   public bakingSuppliesProducts: Product[] = [];
   public bakedGoodsProducts: Product[] = [];
   public deliProducts: Product[] = [];
@@ -177,25 +177,9 @@ export class ProductListComponent implements OnInit, OnDestroy {
   removeProduct(id: string): Product {
     this.productService.deleteProduct(id).subscribe(
       prod => {
-        this.allProducts = this.allProducts.filter(product => product._id !== id);
-        this.filteredProducts = this.filteredProducts.filter(product => product._id !== id);
-        this.serverFilteredProducts = this.filteredProducts.filter(product => product._id !== id);
-        this.bakedGoodsProducts = this.bakedGoodsProducts.filter(product => product._id !== id);
-        this.produceProducts = this.produceProducts.filter(product => product._id !== id);
-        this.meatProducts = this.meatProducts.filter(product => product._id !== id);
-        this.dairyProducts = this.dairyProducts.filter(product => product._id !== id);
-        this.frozenProducts = this.frozenProducts.filter(product => product._id !== id);
-        this.herbProducts = this.herbProducts.filter(product => product._id !== id);
-        this.beverageProducts = this.beverageProducts.filter(product => product._id !== id);
-        this.paperProducts = this.paperProducts.filter(product => product._id !== id);
-        this.petSuppliesProducts = this.petSuppliesProducts.filter(product => product._id !== id);
-        this.miscellaneousProducts = this.miscellaneousProducts.filter(product => product._id !== id);
-        this.stapleProducts = this.stapleProducts.filter(product => product._id !== id);
-        this.deliProducts = this.deliProducts.filter(product => product._id !== id);
-        this.toiletriesProducts = this.toiletriesProducts.filter(product => product._id !== id);
-        this.bakingSuppliesProducts = this.bakingSuppliesProducts.filter(product => product._id !== id);
-
-        this.tempDeleted = prod;
+          const categoryAsField = categoryCamelCase(prod.category);
+          this[categoryAsField] = this[categoryAsField].filter(product => product._id !== id);
+          this.tempDeleted = prod;
      }
     );
     this.tempDialog.close();
