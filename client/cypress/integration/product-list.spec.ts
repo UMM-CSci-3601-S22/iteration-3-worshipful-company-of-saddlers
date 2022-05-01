@@ -160,6 +160,8 @@ describe('Product list', () => {
     cy.get('.mat-warn > .mat-button-wrapper').click();
 
     // Confirm that Cheese Pizza no longer exists in the products page
+    page.navigateTo();
+    cy.get('[data-test=product_nameInput]').type('Cheese Pizza');
     page.getFilteredProductListItems().should('have.lengthOf', 0);
   });
 
