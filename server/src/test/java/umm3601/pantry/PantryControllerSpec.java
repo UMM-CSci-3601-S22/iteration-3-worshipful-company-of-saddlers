@@ -817,4 +817,24 @@ public class PantryControllerSpec {
         db.getCollection("pantryProducts").countDocuments() - 1,
         returnedPantryItems.length);
   }
+
+  @Test
+  public void getDeleteDatesTest() throws IOException {
+    String testID = bananaEntryId.toHexString();
+    System.err.println(testID);
+    mockReq.setQueryString("product=" + testID);
+    String path = "/api/deleteTest";
+    Context ctx = mockContext(path);
+
+    pantryController.getDeleteDates(ctx);
+    PantryItem[] returnedPantryItems = returnedPantryItems(ctx);
+
+    // The response status should be 200, i.e., our request.append("_id", milksId)
+    // was handled successfully (was OK). This is a named constant in
+    // the class HttpCode.
+    assertEquals(HttpCode.OK.getStatus(), mockRes.getStatus());
+    assertEquals(
+        2,
+        returnedPantryItems.length);
+  }
 }

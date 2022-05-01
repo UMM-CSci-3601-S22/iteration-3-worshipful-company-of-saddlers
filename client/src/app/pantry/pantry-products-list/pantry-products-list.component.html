@@ -76,12 +76,12 @@
                   <a mat-list-item class="product-list-item">
                     <p matLine class="product-list-name"> {{item.name}} </p>
                     <p matLine class="product-list-category"> Category: {{item.category}} </p>
-                    <p matLine class="pantryItem-list-quantity">Quantity: {{item.quantity }}  </p>
+                    <p matLine class="pantryItem-list-quantity">Quantity: {{item.quantity }} </p>
                     <mat-divider></mat-divider>
                   </a>
                   <div class="deleteContainer" style="position: absolute;">
                     <button mat-icon-button class="delete-item-button" matTooltip="Delete Item"
-                      matTooltipPosition="left" (click)="openDeleteDialog(item.name, item._id)"
+                      matTooltipPosition="left" (click)="openDeleteDialog(item.name, item._id, item.product)"
                       data-test="deleteItemButton">
                       <mat-icon aria-label="Delete Item">close</mat-icon>
                     </button>
@@ -89,11 +89,24 @@
                     <ng-template #dialogRef let-mydata>
                       <h1 mat-dialog-title>Delete Product?</h1>
                       <div mat-dialog-content>
-                        <h4>Are you sure you want to delete <i>{{tempName}}</i>? This action cannot be undone</h4>
-                      </div>
-                      <div mat-dialog-actions>
-                        <button mat-button color="warn" (click)="removeItem(tempId)">Delete</button>
-                        <button mat-button [mat-dialog-close]="" cdkFocusInitial>Cancel</button>
+                        <h4>which <i>{{tempName}}</i> do you want to delete? This action cannot be undone</h4>
+
+                        <mat-list class="delete-dates">
+                          <span fxLayout="row" *ngFor="let item of this.filteredPantryItems">
+                            <a mat-list-item class="product-list-item">
+                              <p matLine class="pantry-item-date"> {{item.purchase_date | date:' dd/MM/yyyy'}} </p>
+
+                              <mat-divider></mat-divider>
+                            </a>
+                            <div class="deleteContainer" style="position: absolute;">
+
+                            </div>
+                            <div style="padding-top: 10px;" mat-dialog-actions>
+                              <div style="padding-top: 5px;"><button mat-button color="warn" (click)="removeItem(item._id)">Delete</button></div>
+                              <div><button mat-button [mat-dialog-close]="" cdkFocusInitial>Cancel</button></div>
+                            </div>
+                          </span>
+                        </mat-list>
                       </div>
                     </ng-template>
                   </div>
@@ -133,7 +146,7 @@
                   </a>
                   <div class="deleteContainer" style="position: absolute;">
                     <button mat-icon-button class="delete-item-button" matTooltip="Delete Item"
-                      matTooltipPosition="left" (click)="openDeleteDialog(item.name, item._id)"
+                      matTooltipPosition="left" (click)="openDeleteDialog(item.name, item._id, item.product)"
                       data-test="deleteItemButton">
                       <mat-icon aria-label="Delete Item">close</mat-icon>
                     </button>
@@ -144,7 +157,7 @@
                         <h4>Are you sure you want to delete <i>{{tempName}}</i>? This action cannot be undone</h4>
                       </div>
                       <div mat-dialog-actions>
-                        <button mat-button color="warn" (click)="removeItem(tempId)">Delete</button>
+                        <button mat-button color="warn" (click)="removeItem(item._id)">Delete</button>
                         <button mat-button [mat-dialog-close]="" cdkFocusInitial>Cancel</button>
                       </div>
                     </ng-template>
@@ -173,7 +186,7 @@
                   </a>
                   <div class="deleteContainer" style="position: absolute;">
                     <button mat-icon-button class="delete-item-button" matTooltip="Delete Item"
-                      matTooltipPosition="left" (click)="openDeleteDialog(item.name, item._id)"
+                      matTooltipPosition="left" (click)="openDeleteDialog(item.name, item._id, item.product)"
                       data-test="deleteItemButton">
                       <mat-icon aria-label="Delete Item">close</mat-icon>
                     </button>
@@ -184,7 +197,7 @@
                         <h4>Are you sure you want to delete <i>{{tempName}}</i>? This action cannot be undone</h4>
                       </div>
                       <div mat-dialog-actions>
-                        <button mat-button color="warn" (click)="removeItem(tempId)">Delete</button>
+                        <button mat-button color="warn" (click)="removeItem(item._id)">Delete</button>
                         <button mat-button [mat-dialog-close]="" cdkFocusInitial>Cancel</button>
                       </div>
                     </ng-template>
@@ -213,7 +226,7 @@
                   </a>
                   <div class="deleteContainer" style="position: absolute;">
                     <button mat-icon-button class="delete-item-button" matTooltip="Delete Item"
-                      matTooltipPosition="left" (click)="openDeleteDialog(item.name, item._id)"
+                      matTooltipPosition="left" (click)="openDeleteDialog(item.name, item._id, item.product)"
                       data-test="deleteItemButton">
                       <mat-icon aria-label="Delete Item">close</mat-icon>
                     </button>
@@ -224,7 +237,7 @@
                         <h4>Are you sure you want to delete <i>{{tempName}}</i>? This action cannot be undone</h4>
                       </div>
                       <div mat-dialog-actions>
-                        <button mat-button color="warn" (click)="removeItem(tempId)">Delete</button>
+                        <button mat-button color="warn" (click)="removeItem(item._id)">Delete</button>
                         <button mat-button [mat-dialog-close]="" cdkFocusInitial>Cancel</button>
                       </div>
                     </ng-template>
@@ -253,7 +266,7 @@
                   </a>
                   <div class="deleteContainer" style="position: absolute;">
                     <button mat-icon-button class="delete-item-button" matTooltip="Delete Item"
-                      matTooltipPosition="left" (click)="openDeleteDialog(item.name, item._id)"
+                      matTooltipPosition="left" (click)="openDeleteDialog(item.name, item._id, item.product)"
                       data-test="deleteItemButton">
                       <mat-icon aria-label="Delete Item">close</mat-icon>
                     </button>
@@ -264,7 +277,7 @@
                         <h4>Are you sure you want to delete <i>{{tempName}}</i>? This action cannot be undone</h4>
                       </div>
                       <div mat-dialog-actions>
-                        <button mat-button color="warn" (click)="removeItem(tempId)">Delete</button>
+                        <button mat-button color="warn" (click)="removeItem(item._id)">Delete</button>
                         <button mat-button [mat-dialog-close]="" cdkFocusInitial>Cancel</button>
                       </div>
                     </ng-template>
@@ -293,7 +306,7 @@
                   </a>
                   <div class="deleteContainer" style="position: absolute;">
                     <button mat-icon-button class="delete-item-button" matTooltip="Delete Item"
-                      matTooltipPosition="left" (click)="openDeleteDialog(item.name, item._id)"
+                      matTooltipPosition="left" (click)="openDeleteDialog(item.name, item._id, item.product)"
                       data-test="deleteItemButton">
                       <mat-icon aria-label="Delete Item">close</mat-icon>
                     </button>
@@ -304,7 +317,7 @@
                         <h4>Are you sure you want to delete <i>{{tempName}}</i>? This action cannot be undone</h4>
                       </div>
                       <div mat-dialog-actions>
-                        <button mat-button color="warn" (click)="removeItem(tempId)">Delete</button>
+                        <button mat-button color="warn" (click)="removeItem(item._id)">Delete</button>
                         <button mat-button [mat-dialog-close]="" cdkFocusInitial>Cancel</button>
                       </div>
                     </ng-template>
@@ -333,7 +346,7 @@
                   </a>
                   <div class="deleteContainer" style="position: absolute;">
                     <button mat-icon-button class="delete-item-button" matTooltip="Delete Item"
-                      matTooltipPosition="left" (click)="openDeleteDialog(item.name, item._id)"
+                      matTooltipPosition="left" (click)="openDeleteDialog(item.name, item._id, item.product)"
                       data-test="deleteItemButton">
                       <mat-icon aria-label="Delete Item">close</mat-icon>
                     </button>
@@ -344,7 +357,7 @@
                         <h4>Are you sure you want to delete <i>{{tempName}}</i>? This action cannot be undone</h4>
                       </div>
                       <div mat-dialog-actions>
-                        <button mat-button color="warn" (click)="removeItem(tempId)">Delete</button>
+                        <button mat-button color="warn" (click)="removeItem(item._id)">Delete</button>
                         <button mat-button [mat-dialog-close]="" cdkFocusInitial>Cancel</button>
                       </div>
                     </ng-template>
@@ -373,7 +386,7 @@
                   </a>
                   <div class="deleteContainer" style="position: absolute;">
                     <button mat-icon-button class="delete-item-button" matTooltip="Delete Item"
-                      matTooltipPosition="left" (click)="openDeleteDialog(item.name, item._id)"
+                      matTooltipPosition="left" (click)="openDeleteDialog(item.name, item._id, item.product)"
                       data-test="deleteItemButton">
                       <mat-icon aria-label="Delete Item">close</mat-icon>
                     </button>
@@ -384,7 +397,7 @@
                         <h4>Are you sure you want to delete <i>{{tempName}}</i>? This action cannot be undone</h4>
                       </div>
                       <div mat-dialog-actions>
-                        <button mat-button color="warn" (click)="removeItem(tempId)">Delete</button>
+                        <button mat-button color="warn" (click)="removeItem(item._id)">Delete</button>
                         <button mat-button [mat-dialog-close]="" cdkFocusInitial>Cancel</button>
                       </div>
                     </ng-template>
@@ -413,7 +426,7 @@
                   </a>
                   <div class="deleteContainer" style="position: absolute;">
                     <button mat-icon-button class="delete-item-button" matTooltip="Delete Item"
-                      matTooltipPosition="left" (click)="openDeleteDialog(item.name, item._id)"
+                      matTooltipPosition="left" (click)="openDeleteDialog(item.name, item._id, item.product)"
                       data-test="deleteItemButton">
                       <mat-icon aria-label="Delete Item">close</mat-icon>
                     </button>
@@ -424,7 +437,7 @@
                         <h4>Are you sure you want to delete <i>{{tempName}}</i>? This action cannot be undone</h4>
                       </div>
                       <div mat-dialog-actions>
-                        <button mat-button color="warn" (click)="removeItem(tempId)">Delete</button>
+                        <button mat-button color="warn" (click)="removeItem(item._id)">Delete</button>
                         <button mat-button [mat-dialog-close]="" cdkFocusInitial>Cancel</button>
                       </div>
                     </ng-template>
@@ -453,7 +466,7 @@
                   </a>
                   <div class="deleteContainer" style="position: absolute;">
                     <button mat-icon-button class="delete-item-button" matTooltip="Delete Item"
-                      matTooltipPosition="left" (click)="openDeleteDialog(item.name, item._id)"
+                      matTooltipPosition="left" (click)="openDeleteDialog(item.name, item._id, item.product)"
                       data-test="deleteItemButton">
                       <mat-icon aria-label="Delete Item">close</mat-icon>
                     </button>
@@ -464,7 +477,7 @@
                         <h4>Are you sure you want to delete <i>{{tempName}}</i>? This action cannot be undone</h4>
                       </div>
                       <div mat-dialog-actions>
-                        <button mat-button color="warn" (click)="removeItem(tempId)">Delete</button>
+                        <button mat-button color="warn" (click)="removeItem(item._id)">Delete</button>
                         <button mat-button [mat-dialog-close]="" cdkFocusInitial>Cancel</button>
                       </div>
                     </ng-template>
@@ -493,7 +506,7 @@
                   </a>
                   <div class="deleteContainer" style="position: absolute;">
                     <button mat-icon-button class="delete-item-button" matTooltip="Delete Item"
-                      matTooltipPosition="left" (click)="openDeleteDialog(item.name, item._id)"
+                      matTooltipPosition="left" (click)="openDeleteDialog(item.name, item._id, item.product)"
                       data-test="deleteItemButton">
                       <mat-icon aria-label="Delete Item">close</mat-icon>
                     </button>
@@ -504,7 +517,7 @@
                         <h4>Are you sure you want to delete <i>{{tempName}}</i>? This action cannot be undone</h4>
                       </div>
                       <div mat-dialog-actions>
-                        <button mat-button color="warn" (click)="removeItem(tempId)">Delete</button>
+                        <button mat-button color="warn" (click)="removeItem(item._id)">Delete</button>
                         <button mat-button [mat-dialog-close]="" cdkFocusInitial>Cancel</button>
                       </div>
                     </ng-template>
@@ -533,7 +546,7 @@
                   </a>
                   <div class="deleteContainer" style="position: absolute;">
                     <button mat-icon-button class="delete-item-button" matTooltip="Delete Item"
-                      matTooltipPosition="left" (click)="openDeleteDialog(item.name, item._id)"
+                      matTooltipPosition="left" (click)="openDeleteDialog(item.name, item._id, item.product)"
                       data-test="deleteItemButton">
                       <mat-icon aria-label="Delete Item">close</mat-icon>
                     </button>
@@ -544,7 +557,7 @@
                         <h4>Are you sure you want to delete <i>{{tempName}}</i>? This action cannot be undone</h4>
                       </div>
                       <div mat-dialog-actions>
-                        <button mat-button color="warn" (click)="removeItem(tempId)">Delete</button>
+                        <button mat-button color="warn" (click)="removeItem(item._id)">Delete</button>
                         <button mat-button [mat-dialog-close]="" cdkFocusInitial>Cancel</button>
                       </div>
                     </ng-template>
@@ -573,7 +586,7 @@
                   </a>
                   <div class="deleteContainer" style="position: absolute;">
                     <button mat-icon-button class="delete-item-button" matTooltip="Delete Item"
-                      matTooltipPosition="left" (click)="openDeleteDialog(item.name, item._id)"
+                      matTooltipPosition="left" (click)="openDeleteDialog(item.name, item._id, item.product)"
                       data-test="deleteItemButton">
                       <mat-icon aria-label="Delete Item">close</mat-icon>
                     </button>
@@ -584,7 +597,7 @@
                         <h4>Are you sure you want to delete <i>{{tempName}}</i>? This action cannot be undone</h4>
                       </div>
                       <div mat-dialog-actions>
-                        <button mat-button color="warn" (click)="removeItem(tempId)">Delete</button>
+                        <button mat-button color="warn" (click)="removeItem(item._id)">Delete</button>
                         <button mat-button [mat-dialog-close]="" cdkFocusInitial>Cancel</button>
                       </div>
                     </ng-template>
@@ -613,7 +626,7 @@
                   </a>
                   <div class="deleteContainer" style="position: absolute;">
                     <button mat-icon-button class="delete-item-button" matTooltip="Delete Item"
-                      matTooltipPosition="left" (click)="openDeleteDialog(item.name, item._id)"
+                      matTooltipPosition="left" (click)="openDeleteDialog(item.name, item._id, item.product)"
                       data-test="deleteItemButton">
                       <mat-icon aria-label="Delete Item">close</mat-icon>
                     </button>
@@ -624,7 +637,7 @@
                         <h4>Are you sure you want to delete <i>{{tempName}}</i>? This action cannot be undone</h4>
                       </div>
                       <div mat-dialog-actions>
-                        <button mat-button color="warn" (click)="removeItem(tempId)">Delete</button>
+                        <button mat-button color="warn" (click)="removeItem(item._id)">Delete</button>
                         <button mat-button [mat-dialog-close]="" cdkFocusInitial>Cancel</button>
                       </div>
                     </ng-template>
@@ -653,7 +666,7 @@
                   </a>
                   <div class="deleteContainer" style="position: absolute;">
                     <button mat-icon-button class="delete-item-button" matTooltip="Delete Item"
-                      matTooltipPosition="left" (click)="openDeleteDialog(item.name, item._id)"
+                      matTooltipPosition="left" (click)="openDeleteDialog(item.name, item._id, item.product)"
                       data-test="deleteItemButton">
                       <mat-icon aria-label="Delete Item">close</mat-icon>
                     </button>
@@ -664,7 +677,7 @@
                         <h4>Are you sure you want to delete <i>{{tempName}}</i>? This action cannot be undone</h4>
                       </div>
                       <div mat-dialog-actions>
-                        <button mat-button color="warn" (click)="removeItem(tempId)">Delete</button>
+                        <button mat-button color="warn" (click)="removeItem(item._id)">Delete</button>
                         <button mat-button [mat-dialog-close]="" cdkFocusInitial>Cancel</button>
                       </div>
                     </ng-template>
@@ -693,7 +706,7 @@
                   </a>
                   <div class="deleteContainer" style="position: absolute;">
                     <button mat-icon-button class="delete-item-button" matTooltip="Delete Item"
-                      matTooltipPosition="left" (click)="openDeleteDialog(item.name, item._id)"
+                      matTooltipPosition="left" (click)="openDeleteDialog(item.name, item._id, item.product)"
                       data-test="deleteItemButton">
                       <mat-icon aria-label="Delete Item">close</mat-icon>
                     </button>
@@ -704,7 +717,7 @@
                         <h4>Are you sure you want to delete <i>{{tempName}}</i>? This action cannot be undone</h4>
                       </div>
                       <div mat-dialog-actions>
-                        <button mat-button color="warn" (click)="removeItem(tempId)">Delete</button>
+                        <button mat-button color="warn" (click)="removeItem(item._id)">Delete</button>
                         <button mat-button [mat-dialog-close]="" cdkFocusInitial>Cancel</button>
                       </div>
                     </ng-template>

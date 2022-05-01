@@ -29,6 +29,7 @@ export class PantryProductsListComponent implements OnInit, OnDestroy {
   public serverFilteredPantryProducts: PantryProduct[];
   public filteredPantryProducts: PantryProduct[] = [];
   public filteredProducts: Product[];
+  public filteredPantryItems: PantryItem[];
 
   public name: string;
   public productCategory: ProductCategory;
@@ -40,11 +41,13 @@ export class PantryProductsListComponent implements OnInit, OnDestroy {
   getUnfilteredProductsSub: Subscription;
   getItemsSub: Subscription;
   getUnfilteredItemsSub: Subscription;
+  getUnfilteredDates: Subscription;
 
   public tempId: string;
   public tempDialog: any;
   public tempDeleted: PantryItem;
   public tempName: string;
+  public tempDates: Date[] = [];
   public ItemName: string;
 
   public bakingSuppliesItems: PantryProduct[] = [];
@@ -67,6 +70,7 @@ export class PantryProductsListComponent implements OnInit, OnDestroy {
   j: number;
   lengthAllProducts: number;
   lengthItems: number;
+  lengthAllPantryItems: number;
 
   count: number;
 
@@ -153,7 +157,7 @@ export class PantryProductsListComponent implements OnInit, OnDestroy {
 
   updateItemFilter(): void {
     this.filteredPantryProducts = this.pantryService.filterPantryProducts(
-      this.serverFilteredPantryProducts, {category: this.productCategory, name: this.ItemName}
+      this.serverFilteredPantryProducts, { category: this.productCategory, name: this.ItemName }
     );
     if (this.ItemName || this.productCategory) {
       this.activeFilters = true;
@@ -190,6 +194,11 @@ export class PantryProductsListComponent implements OnInit, OnDestroy {
       this.getUnfilteredProductsSub.unsubscribe();
     }
   }
+  unsubDatesUnfiltered(): void {
+    if (this.getUnfilteredDates) {
+      this.getUnfilteredDates.unsubscribe();
+    }
+  }
 
   unsubItemsUnfiltered(): void {
     if (this.getUnfilteredItemsSub) {
@@ -197,14 +206,32 @@ export class PantryProductsListComponent implements OnInit, OnDestroy {
     }
   }
 
-  openDeleteDialog(pname: string, id: string) {
+  openDeleteDialog(pname: string, id: string, productz: string) {
+    this.getUnfilteredDates = this.pantryService.getPantryItemsForDelete({ productz }).subscribe(returnedPantryItems => {
+      this.filteredPantryItems = returnedPantryItems;
+      this.lengthAllPantryItems = this.filteredPantryItems.length;
+    });
     this.tempId = id;
+    this.tempName = pname;
     this.tempDialog = this.dialog.open(this.dialogRef, { data: { _id: this.tempId } },);
     this.tempDialog.afterClosed().subscribe((res) => {
 
       // Data back from dialog
       console.log({ res });
     });
+  }
+
+  openDeleteDialog2(productz: string) {
+    // this.unsubDatesUnfiltered();
+    // this.getUnfilteredDates = this.pantryService.getPantryItemsForDelete().subscribe(returnedDates => {
+    //   this.filteredPantryItems = returnedDates;
+    //   this.lengthAllPantryItems = this.filteredPantryItems.length;
+    this.getUnfilteredDates = this.pantryService.getPantryItemsForDelete({ productz }).subscribe(returnedPantryItems => {
+      this.filteredPantryItems = returnedPantryItems;
+      this.lengthAllPantryItems = this.filteredPantryItems.length;
+    });
+
+    // });
   }
 
   unsub(): void {
@@ -226,8 +253,9 @@ export class PantryProductsListComponent implements OnInit, OnDestroy {
     this.pantryService.deleteItem(id).subscribe(
       item => {
         this.tempDeleted = item;
-     }
+      }
     );
+    this.reloadComponent();
     this.tempDialog.close();
     this.snackBar.open('Product deleted', 'OK', {
       duration: 5000,
@@ -252,4 +280,11 @@ export class PantryProductsListComponent implements OnInit, OnDestroy {
     });
   }
 
+  getUnfilteredPantryItems(): void {
+    this.unsubDatesUnfiltered();
+    this.getUnfilteredDates = this.pantryService.getPantryItemsForDelete().subscribe(returnedDates => {
+      this.filteredPantryItems = returnedDates;
+      this.lengthAllPantryItems = this.filteredPantryItems.length;
+    });
+  }
 }
