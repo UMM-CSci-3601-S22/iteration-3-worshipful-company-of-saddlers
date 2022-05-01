@@ -46,6 +46,7 @@ export class ProductCardComponent implements OnInit {
       this.pantryService.addPantryItem(result).subscribe(newPantryId => {
         if(newPantryId) {
           this.snackBar.open('Product successfully added to your pantry.');
+          this.router.navigate(['']);
         }
         else {
           this.snackBar.open('Something went wrong.  The product was not added to the pantry.');
