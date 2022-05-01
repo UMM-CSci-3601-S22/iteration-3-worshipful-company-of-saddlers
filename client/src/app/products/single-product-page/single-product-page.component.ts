@@ -65,7 +65,7 @@ export class SingleProductPageComponent implements OnInit, OnDestroy {
          Validators.maxLength(200),
       ])),
       brand: new FormControl(this.product.brand, Validators.compose([
-        Validators.required, Validators.minLength(1), Validators.maxLength(100),
+        Validators.minLength(1), Validators.maxLength(100),
       ])),
       category: new FormControl(this.product.category, Validators.compose([
         Validators.required,
@@ -85,7 +85,7 @@ export class SingleProductPageComponent implements OnInit, OnDestroy {
         Validators.min(0), Validators.max(1000000), Validators.pattern('^[0-9]+$')
       ])),
       threshold: new FormControl(this.product.threshold, Validators.compose([
-        Validators.min(0), Validators.max(1000000), Validators.pattern('^[0-9]+$')
+        Validators.required, Validators.min(0), Validators.max(1000000), Validators.pattern('^[0-9]+$')
       ]))
     });
     this.formExists = true;

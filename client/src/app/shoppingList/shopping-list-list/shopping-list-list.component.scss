@@ -1,0 +1,21 @@
+span {
+  text-align: left;
+  justify-content: right;
+  align-items: right;
+}
+
+.shoppingList-list {
+  margin-bottom: 10px;
+}
+
+.shopping-item-search {
+  margin-bottom: 10px;
+}
+
+.delete-item-button {
+  color: red;
+}
+
+.delete-item-button:hover {
+  color: lightsalmon;
+}

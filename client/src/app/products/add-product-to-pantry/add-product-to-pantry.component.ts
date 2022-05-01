@@ -62,6 +62,7 @@ export class AddProductToPantryComponent implements OnInit {
     this.createForms();
   }
 
+  /* istanbul ignore next */
   submitForm() {
     console.log(this.addToPantryForm.value);
     this.pantryService.addPantryItem(this.addToPantryForm.value).subscribe(newID => {

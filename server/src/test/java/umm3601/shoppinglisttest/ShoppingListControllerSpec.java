@@ -35,6 +35,7 @@ import org.junit.jupiter.api.Test;
 
 import io.javalin.core.JavalinConfig;
 import io.javalin.core.validation.ValidationException;
+import io.javalin.http.BadRequestResponse;
 import io.javalin.http.Context;
 import io.javalin.http.HandlerType;
 import io.javalin.http.NotFoundResponse;
@@ -284,6 +285,15 @@ public class ShoppingListControllerSpec {
   }
 
   @Test
+  public void getShoppingListItemWithoutId() throws IOException {
+
+    Context ctx = mockContext("api/shoppingList/{id}", Map.of("id", "There once was a man from Nantucket"));
+    assertThrows(BadRequestResponse.class, () -> {
+      shoppingListController.getShoppingList(ctx);
+    });
+  }
+
+  @Test
   public void deleteShoppingList() throws IOException {
     testID = new ObjectId();
     testID2 = new ObjectId();
@@ -308,9 +318,13 @@ public class ShoppingListControllerSpec {
     assertEquals(0, db.getCollection("shoppingList").countDocuments(eq("_id", testID)));
   }
 
+
   @Test
   public void addNullProductNameShoppingList() throws IOException {
+    String id = new ObjectId().toHexString();
     String testNewShoppingList = "{"
+        + "\"_id\": \"" + id + "\","
+        + "\"name\": null,"
         + "\"quantity\": 69,"
         + "\"prodID\": 45432323"
         + "}";
@@ -325,8 +339,10 @@ public class ShoppingListControllerSpec {
   }
 
   @Test
-  public void addInvalidProductNameShoppingList() throws IOException {
+  public void addEmptyProductNameShoppingList() throws IOException {
+    String id = new ObjectId().toHexString();
     String testNewShoppingList = "{"
+        + "\"_id\": \"" + id + "\","
         + "\"name\": \"\","
         + "\"quantity\": 69,"
         + "\"prodID\": 45432323"
@@ -351,7 +367,7 @@ public class ShoppingListControllerSpec {
     mockReq.setBodyContent(testNewProduct);
     mockReq.setMethod("POST");
 
-    Context ctx = mockContext("api/products");
+    Context ctx = mockContext("api/shoppingList");
 
     assertThrows(ValidationException.class, () -> {
       shoppingListController.addNewShoppingList(ctx);
@@ -392,6 +408,5 @@ public class ShoppingListControllerSpec {
     assertEquals("chips", addedShoppingList.getString("name"));
     assertEquals(69, addedShoppingList.getInteger("quantity"));
     assertEquals("45432323", addedShoppingList.getString("productID"));
-
   }
 }

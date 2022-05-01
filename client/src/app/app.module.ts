@@ -43,6 +43,7 @@ import { ShoppingListService } from './shoppingList/shopping-list-list/shoppingL
 
 // import { MY_DATE_FORMATS } from './my-date-fomats';
 import { MatMomentDateModule} from '@angular/material-moment-adapter';
+import { AddToShoppingListComponent } from './shoppingList/add-to-shopping-list/add-to-shopping-list.component';
 
 const MATERIAL_MODULES: any[] = [
   MatListModule,
@@ -87,6 +88,7 @@ const MY_DATE_FORMATS = {
     ProductCardComponent,
     AddPantryItemComponent,
     AddProductToPantryComponent,
+    AddToShoppingListComponent,
   ],
   imports: [
     BrowserModule,
@@ -107,6 +109,7 @@ const MY_DATE_FORMATS = {
     PantryService,
     ShoppingListService,
     PantryProductsListComponent,
+    ShoppingListListComponent,
     MatDatepickerModule,
     { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS}
   ],
