@@ -88,8 +88,8 @@ describe('Product list', () => {
 
   it('Should select a category filter and check that it returned correct products', () => {
     // Filter for category Produce
-    page.selectCategory('produce');
-
+    // page.selectCategory('Produce');
+    cy.get('[data-test=productCategorySelect]').click().get(`#mat-option-19 > .mat-option-text`).click();
     page.getFilteredProductListItems().should('exist');
     // All returned filtered products should have the product category we are filtering by
     page.getFilteredProductListItems().find('.product-list-category')
@@ -160,7 +160,6 @@ describe('Product list', () => {
     cy.get('.mat-warn > .mat-button-wrapper').click();
 
     // Confirm that Cheese Pizza no longer exists in the products page
-    cy.get('[data-test=product_nameInput]').type('Cheese Pizza');
     page.getFilteredProductListItems().should('have.lengthOf', 0);
   });
 
