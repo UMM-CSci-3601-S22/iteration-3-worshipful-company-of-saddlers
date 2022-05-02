@@ -9,6 +9,7 @@ import { PantryItem } from '../pantryItem';
 import { PantryProduct } from '../pantryProduct';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
+import { AddProductToPantryComponent } from 'src/app/products/add-product-to-pantry/add-product-to-pantry.component';
 
 @Component({
   selector: 'app-pantry-products-list',
@@ -295,6 +296,22 @@ export class PantryProductsListComponent implements OnInit, OnDestroy {
     return this.tempDeleted;
   }
 
+  openAddDialog(givenProduct: Product) {
+    const dialogRef = this.dialog.open(AddProductToPantryComponent, {data: givenProduct});
+    dialogRef.afterClosed().subscribe(result => {
+      this.pantryService.addPantryItem(result).subscribe(newPantryId => {
+        if(newPantryId) {
+          this.snackBar.open('Product successfully added to your pantry.');
+        }
+        else {
+          this.snackBar.open('Something went wrong.  The product was not added to the pantry.');
+        }
+        this.reloadComponent();
+      });
+    });
+  }
+
+  /* istanbul ignore next */
   getUnfilteredPantryItems(): void {
     this.unsubDatesUnfiltered();
     this.getUnfilteredDates = this.pantryService.getPantryItemsForDelete().subscribe(returnedDates => {

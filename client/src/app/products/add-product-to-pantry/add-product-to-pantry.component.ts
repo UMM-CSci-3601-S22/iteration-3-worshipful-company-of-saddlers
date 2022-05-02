@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
@@ -7,6 +7,8 @@ import { Product } from '../product';
 import { PantryProductsListComponent } from 'src/app/pantry/pantry-products-list/pantry-products-list.component';
 import { PantryService } from 'src/app/pantry/pantry.service';
 import { PantryItem } from 'src/app/pantry/pantryItem';
+import { MAT_DIALOG_DATA, MatDialogRef, MatDialog } from '@angular/material/dialog';
+
 @Component({
   selector: 'app-add-product-to-pantry',
   templateUrl: './add-product-to-pantry.component.html',
@@ -15,13 +17,10 @@ import { PantryItem } from 'src/app/pantry/pantryItem';
 
 export class AddProductToPantryComponent implements OnInit {
 
-  @Input() product: Product;
+  //@Input() product: Product;
 
   addToPantryForm: FormGroup;
-
   pantryItem: PantryItem;
-
-
 
 
   addPantryValidationMessages = {
@@ -36,16 +35,18 @@ export class AddProductToPantryComponent implements OnInit {
   };
 
   constructor(private fb: FormBuilder, private pantryService: PantryService,
-     private snackBar: MatSnackBar, private router: Router, private pantryList: PantryProductsListComponent) {
+     private snackBar: MatSnackBar, private router: Router, private pantryList: PantryProductsListComponent,
+     public dialogRef: MatDialogRef<AddProductToPantryComponent>,
+     @Inject(MAT_DIALOG_DATA) public data: Product) {
   }
 
   createForms() {
     this.addToPantryForm = this.fb.group({
-      product: this.product._id,
+      product: this.data._id,
 
-      name: this.product.product_name,
+      name: this.data.product_name,
 
-      category: this.product.category,
+      category: this.data.category,
 
       purchase_date: new FormControl(new Date(),
       Validators.compose([
@@ -64,6 +65,7 @@ export class AddProductToPantryComponent implements OnInit {
 
   /* istanbul ignore next */
   submitForm() {
+    /*
     console.log(this.addToPantryForm.value);
     this.pantryService.addPantryItem(this.addToPantryForm.value).subscribe(newID => {
       this.snackBar.open('Added Product to Pantry', null, {
@@ -76,6 +78,8 @@ export class AddProductToPantryComponent implements OnInit {
         duration: 5000,
       });
     });
-  }
+  }*/
+  return this.addToPantryForm.value;
+}
 
 }
