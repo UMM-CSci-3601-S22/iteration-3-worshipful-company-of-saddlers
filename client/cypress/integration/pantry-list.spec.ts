@@ -113,6 +113,8 @@ describe('Pantry list', () => {
       page.navigateTo();
       page.getFilteredPantryDropdown().click();
       cy.get('[data-test=pantry_nameInput]').type('Cheese Pizza');
+      page.getFilteredPantryListItems().find('.product-list-name')
+        .should('contain.text', 'Cheese Pizza');
       page.getFilteredPantryListItems().find('.pantryItem-list-quantity').should('contain.text', 3);
     });
 
