@@ -14,4 +14,16 @@ export class PantryListPage {
   getFirstFilterDelete() {
     return cy.get('.filtered-pantry-nav-list .deleteContainer').first();
   }
+
+  getDeliPantryDropdown() {
+    return cy.get('.deli-pantry-expansion-panel');
+  }
+
+  getDeliPantryListItems() {
+    return cy.get('.deli-pantry-nav-list .product-list-item');
+  }
+
+  getFirstDeliDelete() {
+    return cy.get('.deli-pantry-nav-list .deleteContainer').first();
+  }
 }

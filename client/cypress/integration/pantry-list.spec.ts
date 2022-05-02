@@ -15,13 +15,13 @@ describe('Pantry list', () => {
   describe('Filtered product dropdown functions work', () => {
 
     it('All and filtered pantry item dropdown works', () => {
-      // Before clicking on the button, the cleaning products should be hidden
+      // Before clicking on the button, the items should be hidden
       page.getFilteredPantryListItems()
         .should('be.hidden')
         .and('not.be.visible');
       page.getFilteredPantryDropdown()
         .should('exist');
-      // After clicking the dropdown panel, the cleaning products should not be hidden
+      // After clicking the dropdown panel, the items should not be hidden
       page.getFilteredPantryDropdown().click();
       page.getFilteredPantryListItems().should('be.visible');
       // After clicking the dropdown panel again, the items should be hidden
@@ -138,6 +138,96 @@ describe('Pantry list', () => {
       page.getFilteredPantryDropdown().click();
       cy.get('[data-test=pantry_nameInput]').type('Flour - Chickpea');
       page.getFilteredPantryListItems().should('have.lengthOf', 0);
+    });
+  });
+
+  describe('Category dropdown functions work', () => {
+
+    it('Pantry item dropdown works', () => {
+      // Before clicking on the button, the deli items should be hidden
+      page.getDeliPantryListItems()
+        .should('be.hidden')
+        .and('not.be.visible');
+      page.getDeliPantryDropdown()
+        .should('exist');
+      // After clicking the dropdown panel, the deli items should not be hidden
+      page.getDeliPantryDropdown().click();
+      page.getDeliPantryListItems().should('be.visible');
+      // After clicking the dropdown panel again, the items should be hidden
+      page.getDeliPantryDropdown().click();
+      page.getDeliPantryListItems()
+      .should('be.hidden')
+      .and('not.be.visible');
+    });
+
+    it('Pantry delete cancel from category dropdown works', () => {
+      // Open deli pantry item dropdown
+      page.getDeliPantryDropdown().click();
+
+      // Confirm that Eggplant - Regular exists in the pantry page
+      page.getDeliPantryListItems().should('have.lengthOf', 1);
+      page.getDeliPantryListItems().find('.product-list-name')
+        .should('contain.text', 'Eggplant - Regular');
+      page.getDeliPantryListItems().find('.pantryItem-list-quantity').should('contain.text', 2);
+
+      // Open dropdown and delete item
+      page.getFirstDeliDelete().click();
+      cy.window().should('exist');
+      cy.get(':nth-child(1) > .mat-dialog-actions > :nth-child(2) > .mat-focus-indicator').click();
+
+      // Confirm that Eggplant - Regular still exists in the products page
+      page.navigateTo();
+      page.getDeliPantryListItems().should('have.lengthOf', 1);
+      page.getDeliPantryListItems().find('.product-list-name')
+        .should('contain.text', 'Eggplant - Regular');
+      page.getDeliPantryListItems().find('.pantryItem-list-quantity').should('contain.text', 2);
+    });
+
+    it('Pantry delete from multiple of category pantry item works', () => {
+      // Open pantry item dropdown
+      page.getDeliPantryDropdown().click();
+
+      // Confirm that Eggplant - Regular exists in the pantry page
+      page.getDeliPantryListItems().should('have.lengthOf', 1);
+      page.getDeliPantryListItems().find('.product-list-name')
+        .should('contain.text', 'Eggplant - Regular');
+      page.getDeliPantryListItems().find('.pantryItem-list-quantity')
+        .should('contain.text', 2);
+
+      // Open dropdown and delete item
+      page.getFirstDeliDelete().click();
+      cy.window().should('exist');
+      cy.get(':nth-child(1) > .mat-dialog-actions > [style="padding-top: 5px;"] > .mat-focus-indicator').click();
+
+      // Confirm that Eggplant - Regular still exists in the pantry page
+      page.navigateTo();
+      page.getDeliPantryDropdown().click();
+      page.getDeliPantryListItems().find('.product-list-name')
+        .should('contain.text', 'Eggplant - Regular');
+      page.getDeliPantryListItems().find('.pantryItem-list-quantity')
+        .should('contain.text', 1);
+    });
+
+    it('Pantry delete from a singular category pantry item works', () => {
+      // Open pantry item dropdown
+      page.getDeliPantryDropdown().click();
+
+      // Confirm that Eggplant - Regular exists in the pantry page
+      page.getDeliPantryListItems().should('have.lengthOf', 1);
+      page.getDeliPantryListItems().find('.product-list-name')
+        .should('contain.text', 'Eggplant - Regular');
+      page.getDeliPantryListItems().find('.pantryItem-list-quantity')
+        .should('contain.text', 1);
+
+      // Open dropdown and delete item
+      page.getFirstDeliDelete().click();
+      cy.window().should('exist');
+      cy.get(':nth-child(1) > .mat-dialog-actions > [style="padding-top: 5px;"] > .mat-focus-indicator').click();
+
+      // Confirm that Eggplant - Regular no longer exists in the pantry page
+      page.navigateTo();
+      page.getDeliPantryDropdown().click();
+      page.getDeliPantryListItems().should('have.lengthOf', 0);
     });
   });
 });
