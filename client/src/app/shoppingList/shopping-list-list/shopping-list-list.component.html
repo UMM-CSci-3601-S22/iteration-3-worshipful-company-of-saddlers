@@ -24,7 +24,6 @@
   <div class="shoppingList-list">
     <div fxLayout="row wrap">
       <div fxFlex fxFlex.gt-sm="80" fxFlexOffset.gt-sm="10" *ngIf="getItemsFromServer; else shoppingListError">
-
         <mat-card>
           <mat-card-content id="print-section">
             <button mat-icon-button class="print-button" (click)="printShoppingList('print-section');">
