@@ -232,4 +232,51 @@ describe('Pantry list', () => {
       page.getDeliPantryListItems().should('have.lengthOf', 0);
     });
   });
+
+  describe('Add Pantry Item from pantry page works', () => {
+
+    it('Add pantry item to product with existing items', () => {
+      // Confirm that Cheese Pizza exists in the pantry page
+      cy.get('[data-test=pantry_nameInput]').type('Cheese Pizza');
+      page.getDeliPantryDropdown().click();
+      page.getFilteredPantryListItems().should('have.lengthOf', 1);
+      page.getFilteredPantryListItems().find('.product-list-name')
+        .should('contain.text', 'Cheese Pizza');
+      page.getFilteredPantryListItems().find('.pantryItem-list-quantity')
+        .should('contain.text', 3);
+
+        // Look up Cheese Pizza and press add
+        cy.get('[data-test=product_nameInput]').type('Cheese Pizza');
+        cy.get('[data-test="addProductButton"]').click().get('[data-test="confirmAddProductToPantryButton"]').click();
+
+        // Confirm adding Cheese Pizza
+        page.getFilteredPantryDropdown().click();
+        cy.get('[data-test=pantry_nameInput]').type('Cheese Pizza');
+        page.getFilteredPantryListItems().should('have.lengthOf', 1);
+        page.getFilteredPantryListItems().find('.product-list-name')
+          .should('contain.text', 'Cheese Pizza');
+        page.getFilteredPantryListItems().find('.pantryItem-list-quantity')
+          .should('contain.text', 4);
+    });
+
+    it('Add pantry item to product with no existing items', () => {
+      // Confirm that Herring Fillets in wine sauce exists in the pantry page
+      cy.get('[data-test=pantry_nameInput]').type('Herring Fillets in wine sauce');
+      page.getFilteredPantryDropdown().click();
+      page.getFilteredPantryListItems().should('have.lengthOf', 0);
+
+        // Look up Herring Fillets in wine sauce and press add
+        cy.get('[data-test=product_nameInput]').type('Herring Fillets in wine sauce');
+        cy.get('[data-test="addProductButton"]').click().get('[data-test="confirmAddProductToPantryButton"]').click();
+
+        // Confirm adding Herring Fillets in wine sauce
+        page.getFilteredPantryDropdown().click();
+        cy.get('[data-test=pantry_nameInput]').type('Herring Fillets in wine sauce');
+        page.getFilteredPantryListItems().should('have.lengthOf', 1);
+        page.getFilteredPantryListItems().find('.product-list-name')
+          .should('contain.text', 'Herring Fillets in wine sauce');
+        page.getFilteredPantryListItems().find('.pantryItem-list-quantity')
+          .should('contain.text', 1);
+    });
+  });
 });
