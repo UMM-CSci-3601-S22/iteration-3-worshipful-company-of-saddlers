@@ -24,10 +24,11 @@ export class ShoppingListListComponent implements OnInit {
   public itemQuantity: number;
   public tempName: string;
 
+  public printPageActive = false;
+
   getItemsSub: Subscription;
   tempDialog: any;
   tempID: string;
-
 
   constructor(private shoppingListService: ShoppingListService, public dialog: MatDialog, private snackBar: MatSnackBar) { }
 
@@ -70,4 +71,20 @@ export class ShoppingListListComponent implements OnInit {
     });
     return tempDeleted;
   }
+
+  printShoppingList(sectionName) {
+
+    this.printPageActive = true;
+    setTimeout(() =>{
+    const printContents = document.getElementById(sectionName).innerHTML;
+    const originalContents = document.body.innerHTML;
+
+    document.body.innerHTML = printContents;
+
+    window.print();
+
+    document.body.innerHTML = originalContents;
+    window.location.reload();
+    }, 0);
+}
 }
