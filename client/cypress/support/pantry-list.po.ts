@@ -10,4 +10,8 @@ export class PantryListPage {
   getFilteredPantryListItems() {
     return cy.get('.filtered-pantry-nav-list .product-list-item');
   }
+
+  getFirstFilterDelete() {
+    return cy.get('.filtered-pantry-nav-list .deleteContainer').first();
+  }
 }
