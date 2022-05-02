@@ -55,8 +55,8 @@ export class ShoppingListListComponent implements OnInit {
 
   ngOnInit(): void {
     this.getItemsFromServer();
-    this.shoppingListService.generateShoppingList();
   }
+
   unsub(): void {
     if (this.getItemsSub) {
       this.getItemsSub.unsubscribe();
