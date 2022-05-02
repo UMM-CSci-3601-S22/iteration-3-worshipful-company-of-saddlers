@@ -137,6 +137,11 @@
     </mat-card-actions>
 
     <mat-card-actions class="add-to-shopping-list">
+      <button color="primary" mat-raised-button type="button" (click)="openAddDialogShoppingList(this.product)" data-test="addToShoppingListButton"> Add
+        Product To Shopping List</button>
+    </mat-card-actions>
+<!--
+    <mat-card-actions class="add-to-shopping-list">
       <button color="primary" mat-raised-button type="button" (click)="addToShoppingListPopup = true" data-test="addToShoppingListButton"> Add
         Product To Shopping List</button>
     </mat-card-actions>
@@ -149,3 +154,4 @@
       <app-add-to-shopping-list [product]="this.product"></app-add-to-shopping-list>
     </div>
   </div>
+-->

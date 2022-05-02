@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
 import { ProductService } from 'src/app/products/product.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -7,6 +7,7 @@ import { Product } from 'src/app/products/product';
 import { ShoppingListService } from '../shopping-list-list/shoppingList.service';
 import { ShoppingList } from '../shoppingList';
 import { ShoppingListListComponent } from '../shopping-list-list/shopping-list-list.component';
+import { MAT_DIALOG_DATA, MatDialogRef, MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-add-to-shopping-list',
@@ -15,7 +16,7 @@ import { ShoppingListListComponent } from '../shopping-list-list/shopping-list-l
 })
 export class AddToShoppingListComponent implements OnInit {
 
-  @Input() product: Product;
+  //@Input() product: Product;
 
   addToShoppingListForm: FormGroup;
 
@@ -30,13 +31,16 @@ export class AddToShoppingListComponent implements OnInit {
   };
 
   constructor(private fb: FormBuilder, private shoppingListService: ShoppingListService,
-    private snackBar: MatSnackBar, private router: Router, private shoppingListComp: ShoppingListListComponent) { }
+    private snackBar: MatSnackBar, private router: Router, private shoppingListComp: ShoppingListListComponent,
+    public dialogRef: MatDialogRef<AddToShoppingListComponent>,
+     @Inject(MAT_DIALOG_DATA) public data: Product)
+     { }
 
     createForms() {
       this.addToShoppingListForm = this.fb.group({
-        productID: this.product._id,
+        productID: this.data._id,
 
-        name: this.product.product_name,
+        name: this.data.product_name,
 
         quantity: new FormControl('', Validators.compose([
           Validators.pattern('^[0-9]+$'),
@@ -54,7 +58,7 @@ export class AddToShoppingListComponent implements OnInit {
 
   /* istanbul ignore next */
   submitForm() {
-    console.log(this.addToShoppingListForm.value);
+    /*console.log(this.addToShoppingListForm.value);
     this.shoppingListService.addShoppingList(this.addToShoppingListForm.value).subscribe(newID => {
       this.snackBar.open('Added Product to Shopping List', null, {
         duration: 2000,
@@ -65,7 +69,8 @@ export class AddToShoppingListComponent implements OnInit {
       this.snackBar.open('Failed to add the product to your pantry', 'OK', {
         duration: 5000,
       });
-    });
+    });*/
+    return this.addToShoppingListForm.value;
   }
 
 }
