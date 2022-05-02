@@ -28,7 +28,9 @@
         <mat-card>
           <mat-card-content id="print-section">
             <button mat-icon-button class="print-button" (click)="printShoppingList('print-section');">
-              <mat-icon aria-label="Print Shopping List">print</mat-icon>
+              <mat-icon aria-label="Print Shopping List" matTooltip="Print Shopping List" matTooltipPosition="left">
+                print
+              </mat-icon>
             </button>
             <mat-nav-list class="shoppingList-list">
               <h3 mat-subheader>Items</h3>

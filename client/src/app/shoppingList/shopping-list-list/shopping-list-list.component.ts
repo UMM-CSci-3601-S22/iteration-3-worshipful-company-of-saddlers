@@ -72,13 +72,14 @@ export class ShoppingListListComponent implements OnInit {
     return tempDeleted;
   }
 
+  /* istanbul ignore next */
   printShoppingList(sectionName) {
 
     this.printPageActive = true;
     setTimeout(() =>{
     const printContents = document.getElementById(sectionName).innerHTML;
     const originalContents = document.body.innerHTML;
-
+    this.printPageActive = false;
     document.body.innerHTML = printContents;
 
     window.print();
