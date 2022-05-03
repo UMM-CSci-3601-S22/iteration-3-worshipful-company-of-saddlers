@@ -275,6 +275,7 @@ describe('Pantry list', () => {
 
         // Confirm adding Herring Fillets in wine sauce
         page.getFilteredPantryDropdown().click();
+        cy.wait(500);
         cy.get('[data-test=pantry_nameInput]').type('Herring Fillets in wine sauce');
         page.getFilteredPantryListItems().should('have.lengthOf', 1);
         page.getFilteredPantryListItems().find('.product-list-name')
