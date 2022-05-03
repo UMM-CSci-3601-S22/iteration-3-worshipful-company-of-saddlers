@@ -60,7 +60,6 @@ export class AddToShoppingListComponent implements OnInit {
         duration: 2000,
       });
       this.router.navigate(['/shoppingList/']);
-      //this.pantryList.reloadComponent();
     }, err => {
       this.snackBar.open('Failed to add the product to your pantry', 'OK', {
         duration: 5000,

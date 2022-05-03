@@ -96,15 +96,18 @@ public class Server {
     // Add new pantry item with info from JSON body of HTTP request
     server.post("/api/pantry", pantryController::addNewPantryItem);
 
+    //Lists the shoppingList items
     server.get("/api/shoppingList", shoppingListController::getShoppingLists);
 
+    //api call to generate the shopping list using product thresholds and pantry counts
     server.get("/api/shoppingList/generate", shoppingListController::generateShoppingList);
 
-    server.get("/api/shoppingList/{id}", shoppingListController::getShoppingList);
     // Add new item to the shopping list
     server.post("/api/shoppingList", shoppingListController::addNewShoppingList);
 
+    //Generates a list of pantry items of a certain type for better deletion
     server.get("/api/deleteTest", pantryController::getDeleteDates);
+    
     // This catches any uncaught exceptions thrown in the server
     // code and turns them into a 500 response ("Internal Server
     // Error Response"). In general you'll like to *never* actually

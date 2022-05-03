@@ -1,16 +1,11 @@
 package umm3601.shoppingList;
 
-// import static com.mongodb.client.model.Filters.and;
 import static com.mongodb.client.model.Filters.eq;
-// import static com.mongodb.client.model.Filters.regex;
 
 import java.util.ArrayList;
 import java.util.Map;
-// import java.util.Objects;
-// import java.util.regex.Pattern;
 
 import com.mongodb.client.MongoDatabase;
-// import com.mongodb.client.model.Sorts;
 import org.bson.Document;
 import org.bson.UuidRepresentation;
 import org.bson.conversions.Bson;
@@ -88,11 +83,6 @@ public class ShoppingListController {
   public void getShoppingLists(Context ctx) {
     Bson combinedFilter = constructFilter(ctx);
 
-    // All three of the find, sort, and into steps happen "in parallel" inside the
-    // database system. So MongoDB is going to find the shoppingLists with the
-    // specified
-    // properties, return those sorted in the specified manner, and put the
-    // results into an initially empty ArrayList.
     ArrayList<ShoppingList> matchingShoppingLists = shoppingListCollection
         .find(combinedFilter)
         .into(new ArrayList<>());
@@ -146,7 +136,6 @@ public class ShoppingListController {
 
   // the database.
   public void generateShoppingList(Context ctx) {
-    System.out.println("bruh");
     ArrayList<PantryItem> pantryItems = pantryCollection
         .find()
         .into(new ArrayList<>());

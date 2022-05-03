@@ -56,12 +56,7 @@ describe('AddProductToPantryComponent', () => {
     addProductToPantryComponent = fixture.componentInstance;
     pantryFixture = TestBed.createComponent(PantryProductsListComponent);
     pantryListComponent = pantryFixture.componentInstance;
-    /*addProductToPantryComponent.pantryItem = {
-        _id: 'banana _id',
-        product: 'banana product id',
-        purchase_date: '01-02-2022',
-        notes: 'notes for banana pantry item'
-      };*/
+
     addProductToPantryComponent.ngOnInit();
     fixture.detectChanges();
     addProductToPantryForm = addProductToPantryComponent.addToPantryForm;
@@ -104,17 +99,6 @@ describe('AddProductToPantryComponent', () => {
       pantry_dateControl.setValue('');
       expect(pantry_dateControl.valid).toBeFalsy();
     });
-    /*Should not need these tests now that a datepicker is used and user cannot manually enter date text
-    it('Should allow "01-02-2222"', () => {
-      pantry_dateControl.setValue('01-02-2222');
-      expect(pantry_dateControl.valid).toBeTruthy();
-    });
-
-    it('Should not allow a long date', () => {
-      pantry_dateControl.setValue('011-02-2222');
-      expect(pantry_dateControl.valid).toBeFalsy();
-    });
-    */
   });
 
   describe('Pantry Item Notes Field', () => {

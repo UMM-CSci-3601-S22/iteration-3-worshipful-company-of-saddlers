@@ -130,7 +130,6 @@ public class PantryControllerSpec {
     // Add test products to the database
     List<Document> testProducts = new ArrayList<>();
     bananaEntryId = new ObjectId();
-    ObjectId potatObjectId = new ObjectId();
     testProducts.add(
         new Document()
             .append("_id", bananaEntryId)
