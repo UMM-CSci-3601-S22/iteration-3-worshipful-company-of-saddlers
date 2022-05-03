@@ -308,13 +308,10 @@ describe('PantryService', () => {
     pantryService.getPantryItemsForDelete({ productz }).subscribe(
       items => expect(items[0].product).toBe(PantryItems[0].product)
     );
-
     const expectedUrl = 'api/deleteTest?product=milk%20product%20id';
     const req = httpTestingController.expectOne(expectedUrl);
     expect(req.request.method).toEqual('GET');
     req.flush(targetItem);
-
-
   });
 
 });
