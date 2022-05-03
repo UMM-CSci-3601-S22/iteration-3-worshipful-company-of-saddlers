@@ -58,7 +58,7 @@ describe('ShoppingListListComponent', () => {
       providers: [{ provide: ShoppingListService, ProductService, useValue: new MockShoppingListService() },
       ProductService,]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(waitForAsync(() => {
@@ -92,13 +92,19 @@ describe('ShoppingListListComponent', () => {
 
   describe('Remove shopping list item', () => {
 
-    it('should open delete dialogue and remove apple shopping list item', ()=> {
-        expect(shoppingListList.filteredShoppingList.length).toBe(3);
-        shoppingListList.openDeleteDialog(shoppingListList.filteredShoppingList[0]);
-        fixture.detectChanges();
-        shoppingListList.removeItem('apple_id');
-        shoppingListList.getItemsFromServer();
-        expect(shoppingListList.filteredShoppingList.length).toBe(2);
+    it('should open delete dialogue and remove apple shopping list item', () => {
+      expect(shoppingListList.filteredShoppingList.length).toBe(3);
+      shoppingListList.openDeleteDialog(shoppingListList.filteredShoppingList[0]);
+      fixture.detectChanges();
+      shoppingListList.removeItem('apple_id');
+      shoppingListList.getItemsFromServer();
+      expect(shoppingListList.filteredShoppingList.length).toBe(2);
+    });
+    it('Generates a shoppingList', () => {
+      // Since the observer throws an error, we don't expect shoppingLists to be defined.
+      expect(shoppingListList.filteredShoppingList.length).toBe(3);
+      shoppingListList.genShopList();
+      expect(shoppingListList.filteredShoppingList.length).toBe(4);
     });
   });
 });
@@ -141,4 +147,6 @@ describe('Misbehaving ShoppingList List', () => {
     // Since the observer throws an error, we don't expect shoppingLists to be defined.
     expect(shoppingListList.filteredShoppingList).toBeUndefined();
   });
+
+
 });

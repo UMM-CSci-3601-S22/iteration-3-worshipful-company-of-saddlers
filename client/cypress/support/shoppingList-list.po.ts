@@ -12,6 +12,10 @@ export class ShoppingListListComponent {
     return cy.get('.filtered-product-nav-list .filtered-product-list-item');
   }
 
+  getShoppingListItems() {
+    return cy.get('.shoppingList-list .shoppingList-list-item');
+  }
+
   getFormField(fieldName: string) {
     return cy.get(`mat-form-field [formcontrolname=${fieldName}]`);
   }

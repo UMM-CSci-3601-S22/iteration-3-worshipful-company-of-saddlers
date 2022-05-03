@@ -12,7 +12,7 @@ export class ShoppingListService {
 
   readonly shoppingListUrl: string = environment.apiUrl + 'shoppingList';
 
-  constructor(private httpClient: HttpClient ) {
+  constructor(private httpClient: HttpClient) {
   }
 
   getShoppingListById(id: string): Observable<ShoppingList> {
@@ -34,10 +34,15 @@ export class ShoppingListService {
   }
 
   addShoppingList(newShoppingList: ShoppingList): Observable<string> {
-    return this.httpClient.post<{id: string}>(this.shoppingListUrl, newShoppingList).pipe(map(res => res.id));
+    return this.httpClient.post<{ id: string }>(this.shoppingListUrl, newShoppingList).pipe(map(res => res.id));
   }
 
-  deleteItem(id: string): Observable<ShoppingList>  {
-    return this.httpClient.delete<ShoppingList>(this.shoppingListUrl+ '/' + id);
+  deleteItem(id: string): Observable<ShoppingList> {
+    return this.httpClient.delete<ShoppingList>(this.shoppingListUrl + '/' + id);
   }
+
+  generateShoppingList(): Observable<ShoppingList> {
+    return this.httpClient.get<ShoppingList>(this.shoppingListUrl + '/generate');
+  }
+
 }
