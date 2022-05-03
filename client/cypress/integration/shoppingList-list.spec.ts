@@ -29,6 +29,7 @@ describe('Should be able to add product to the shopping list', () => {
 });
 
 describe('Should be able to generate the shopping list & remove items from it', () => {
+  cy.wait(2000);
   before(() => {
     cy.task('seed:database');
   });
