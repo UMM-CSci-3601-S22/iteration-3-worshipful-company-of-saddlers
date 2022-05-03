@@ -13,7 +13,7 @@ describe('Should be able to add product to the shopping list', () => {
     page.navigateToProductPage();
   });
 
-  it.only ('Should definitely be able to add a product to the shopping list', () => {
+  it ('Should definitely be able to add a product to the shopping list', () => {
     cy.get('[data-test=product_nameInput]').type('r');
     page.getFilteredProductListItems().first().then((list) => {
       const addedProduct = list.find('.product-list-name').text().trim();
@@ -22,7 +22,7 @@ describe('Should be able to add product to the shopping list', () => {
     cy.get('[data-test="addToShoppingListButton"]').click();
     page.getFormField('quantity').type('4');
     cy.get('[data-test="confirmAddProductToPantryButton"]').click();
-    page.navigateToShoppingList();
+    //page.navigateToShoppingList();
     cy.get('.shoppingList-list').should('contain.text', addedProduct);
     });
   });
