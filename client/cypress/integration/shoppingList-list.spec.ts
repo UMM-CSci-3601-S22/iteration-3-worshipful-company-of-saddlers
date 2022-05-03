@@ -29,7 +29,6 @@ describe('Should be able to add product to the shopping list', () => {
 });
 
 describe('Should be able to generate the shopping list & remove items from it', () => {
-  cy.wait(2000);
   before(() => {
     cy.task('seed:database');
   });
@@ -40,6 +39,7 @@ describe('Should be able to generate the shopping list & remove items from it', 
   });
 
   it('Should be able to generate the shoppingList', () => {
+    cy.wait(2000);
     cy.get('[data-test="addToShoppingListButton"]').click();
     page.getShoppingListItems().find('.shoppingList-list-name')
       .should('contain.text', 'Organic Coconut Milk');
