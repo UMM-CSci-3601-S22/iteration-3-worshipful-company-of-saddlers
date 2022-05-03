@@ -32,24 +32,26 @@
         #routerLinkActiveInstance="routerLinkActive" [attr.tabindex]="routerLinkActiveInstance.isActive ? 0 : -1"
         [routerLinkActiveOptions]="{exact: true}" (click)="drawer.close()" class="toolbar-item">
         <span>
-        My Pantry
-        <mat-icon matListIcon>local_dining</mat-icon>
-      </span>
+          My Pantry
+          <mat-icon matListIcon>local_dining</mat-icon>
+        </span>
       </a>
 
-      <a mat-list-item routerLink="/products" routerLinkActive="drawer-list-item-active" (click)="drawer.close()" class="toolbar-item">
-<span>
-        Products
-        <mat-icon matListIcon>local_parking</mat-icon>
-      </span>
+      <a mat-list-item routerLink="/products" routerLinkActive="drawer-list-item-active" (click)="drawer.close()"
+        class="toolbar-item">
+        <span>
+          Products
+          <mat-icon matListIcon>local_parking</mat-icon>
+        </span>
       </a>
 
 
-      <a mat-list-item routerLink="/shoppingList" routerLinkActive="drawer-list-item-active" (click)="drawer.close()" class="toolbar-item">
+      <a mat-list-item routerLink="/shoppingList" routerLinkActive="drawer-list-item-active" (click)="drawer.close()"
+        class="toolbar-item">
         <span>
           Shopping List
-        <mat-icon matListIcon>shopping_cart</mat-icon>
-      </span>
+          <mat-icon matListIcon class="icon">shopping_cart</mat-icon>
+        </span>
       </a>
     </mat-toolbar>
     <div class="main-content mat-typography">
