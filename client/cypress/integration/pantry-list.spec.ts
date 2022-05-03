@@ -1,6 +1,10 @@
 import { PantryListPage } from '../support/pantry-list.po';
+import { ProductListPage } from 'cypress/support/product-list.po';
+import { SingleProductPage } from 'cypress/support/single-page-product.po';
 
 const page = new PantryListPage();
+const productPage = new ProductListPage();
+const singlePage = new SingleProductPage();
 
 describe('Pantry list', () => {
 
@@ -277,6 +281,85 @@ describe('Pantry list', () => {
           .should('contain.text', 'Herring Fillets in wine sauce');
         page.getFilteredPantryListItems().find('.pantryItem-list-quantity')
           .should('contain.text', 1);
+    });
+  });
+
+  describe('Add Pantry item from product page works', () => {
+
+    it('Add pantry item to product with no existing item', () => {
+      // Confirm that Tomatoes - Diced exists in the pantry page
+      cy.get('[data-test=pantry_nameInput]').type('Diced Tomatoes');
+      page.getFilteredPantryDropdown().click();
+      page.getFilteredPantryListItems().should('have.lengthOf', 0);
+
+      // Go to products page
+      productPage.navigateTo();
+
+      // Get Bread - Diced Tomatoes
+      cy.get('[data-test=product_nameInput]').type('Diced Tomatoes');
+      productPage.getFilteredProductListItems().first().then((list) => {
+        const firstProductName = list.find('.product-list-name').text().trim();
+
+        productPage.getFilteredProductListItems().first().click();
+
+        // The URL should be '/products/' followed by a mongo ID
+        cy.url().should('match', /products\/[0-9a-fA-F]{24}$/);
+
+        // On this profile page we were sent to, the name should be correct
+        cy.get('[data-test="product_nameInput"]').should('have.value', firstProductName);
+      });
+
+      // Hit Add to Pantry button
+      singlePage.addToPantryButton().click();
+      cy.get('[data-test="confirmAddProductToPantryButton"]').click();
+
+      // Confirm that Diced Tomatoes was added
+      page.getFilteredPantryDropdown().click();
+      cy.get('[data-test=pantry_nameInput]').type('Diced Tomatoes');
+      page.getFilteredPantryListItems().should('have.lengthOf', 1);
+      page.getFilteredPantryListItems().find('.product-list-name')
+        .should('contain.text', 'Diced Tomatoes');
+      page.getFilteredPantryListItems().find('.pantryItem-list-quantity')
+        .should('contain.text', 1);
+    });
+
+    it('Add pantry item to product with an existing item', () => {
+      // Confirm that Tomatoes - Diced exists in the pantry page
+      cy.get('[data-test=pantry_nameInput]').type('Diced Tomatoes');
+      page.getFilteredPantryDropdown().click();
+      page.getFilteredPantryListItems().find('.product-list-name')
+        .should('contain.text', 'Diced Tomatoes');
+      page.getFilteredPantryListItems().should('have.lengthOf', 1);
+
+      // Go to products page
+      productPage.navigateTo();
+
+      // Get Bread - Diced Tomatoes
+      cy.get('[data-test=product_nameInput]').type('Diced Tomatoes');
+      productPage.getFilteredProductListItems().first().then((list) => {
+        const firstProductName = list.find('.product-list-name').text().trim();
+
+        productPage.getFilteredProductListItems().first().click();
+
+        // The URL should be '/products/' followed by a mongo ID
+        cy.url().should('match', /products\/[0-9a-fA-F]{24}$/);
+
+        // On this profile page we were sent to, the name should be correct
+        cy.get('[data-test="product_nameInput"]').should('have.value', firstProductName);
+      });
+
+      // Hit Add to Pantry button
+      singlePage.addToPantryButton().click();
+      cy.get('[data-test="confirmAddProductToPantryButton"]').click();
+
+      // Confirm that Diced Tomatoes was added
+      page.getFilteredPantryDropdown().click();
+      cy.get('[data-test=pantry_nameInput]').type('Diced Tomatoes');
+      page.getFilteredPantryListItems().should('have.lengthOf', 1);
+      page.getFilteredPantryListItems().find('.product-list-name')
+        .should('contain.text', 'Diced Tomatoes');
+      page.getFilteredPantryListItems().find('.pantryItem-list-quantity')
+        .should('contain.text', 2);
     });
   });
 });
