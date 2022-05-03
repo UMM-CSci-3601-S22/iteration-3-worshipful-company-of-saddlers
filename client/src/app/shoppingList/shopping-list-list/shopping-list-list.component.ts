@@ -4,8 +4,11 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { PantryProductsListComponent } from 'src/app/pantry/pantry-products-list/pantry-products-list.component';
+import { PantryService } from 'src/app/pantry/pantry.service';
 import { ShoppingList } from '../shoppingList';
 import { ShoppingListService } from './shoppingList.service';
+import { Router } from '@angular/router';
 import { Product } from 'src/app/products/product';
 import { AddToShoppingListComponent } from '../add-to-shopping-list/add-to-shopping-list.component';
 import { ProductService } from 'src/app/products/product.service';
@@ -54,10 +57,18 @@ export class ShoppingListListComponent implements OnInit {
     });
   }
 
+  public reloadComponent() {
+    const shoppingListUrl = 'shoppingList';
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.router.onSameUrlNavigation = 'reload';
+    this.router.navigate([shoppingListUrl]);
+  }
+
   ngOnInit(): void {
     this.getItemsFromServer();
     this.getUnfilteredProducts();
   }
+
   unsub(): void {
     if (this.getItemsSub) {
       this.getItemsSub.unsubscribe();
@@ -77,6 +88,7 @@ export class ShoppingListListComponent implements OnInit {
         tempDeleted = item;
       }
     );
+    this.reloadComponent();
     this.tempDialog.close();
     this.snackBar.open('Item removed from Shopping List', 'OK', {
       duration: 5000,
@@ -131,5 +143,17 @@ export class ShoppingListListComponent implements OnInit {
         this.reloadComponent();
       });
     });
+  }
+
+  genShopList() {
+    this.shoppingListService.generateShoppingList().subscribe(newID => {
+      this.snackBar.open('Updated Product Fields', null, { duration: 2000, });
+      this.reloadComponent();
+    }, err => {
+      this.snackBar.open('Failed to edit the product', 'OK', {
+        duration: 5000,
+      });
+    });
+
   }
 }
