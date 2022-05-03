@@ -16,8 +16,6 @@ import { MAT_DIALOG_DATA, MatDialogRef, MatDialog } from '@angular/material/dial
 })
 export class AddToShoppingListComponent implements OnInit {
 
-  //@Input() product: Product;
-
   addToShoppingListForm: FormGroup;
 
   shoppingList: ShoppingList;
@@ -58,18 +56,6 @@ export class AddToShoppingListComponent implements OnInit {
 
   /* istanbul ignore next */
   submitForm() {
-    /*console.log(this.addToShoppingListForm.value);
-    this.shoppingListService.addShoppingList(this.addToShoppingListForm.value).subscribe(newID => {
-      this.snackBar.open('Added Product to Shopping List', null, {
-        duration: 2000,
-      });
-      this.router.navigate(['/shoppingList/']);
-      //this.pantryList.reloadComponent();
-    }, err => {
-      this.snackBar.open('Failed to add the product to your pantry', 'OK', {
-        duration: 5000,
-      });
-    });*/
     return this.addToShoppingListForm.value;
   }
 
