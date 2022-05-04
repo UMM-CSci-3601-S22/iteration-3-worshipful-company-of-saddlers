@@ -2,6 +2,7 @@ import { ShoppingListListComponent } from '../support/shoppingList-list.po';
 
 const page = new ShoppingListListComponent();
 
+
 describe('Should be able to add product to the shopping list', () => {
 
   before(() => {
@@ -13,17 +14,17 @@ describe('Should be able to add product to the shopping list', () => {
     page.navigateToProductPage();
   });
 
-  it('Should definitely be able to add a product to the shopping list', () => {
+  it ('Should definitely be able to add a product to the shopping list', () => {
     cy.get('[data-test=product_nameInput]').type('r');
     page.getFilteredProductListItems().first().then((list) => {
       const addedProduct = list.find('.product-list-name').text().trim();
       page.getFilteredProductListItems().first().click();
 
-      cy.get('[data-test="addToShoppingListButton"]').click();
-      page.getFormField('quantity').type('4');
-      cy.get('[data-test="confirmAddProductToPantryButton"]').click();
-      page.navigateToShoppingList();
-      cy.get('.shoppingList-list').should('contain.text', addedProduct);
+    cy.get('[data-test="addToShoppingListButton"]').click();
+    page.getFormField('quantity').type('4');
+    cy.get('[data-test="confirmAddProductToPantryButton"]').click();
+    //page.navigateToShoppingList();
+    cy.get('.shoppingList-list').should('contain.text', addedProduct);
     });
   });
 });
@@ -43,7 +44,7 @@ describe('Should be able to generate the shopping list & remove items from it', 
     cy.wait(2000);
     cy.get('[data-test="addToShoppingListButton"]').click();
     page.getShoppingListItems().find('.shoppingList-list-name')
-      .should('contain.text', 'Organic Coconut Milk');
+      .should('contain.text', 'Distilled Water');
   });
 
   it('Should be able to remove from the shopping list', () => {

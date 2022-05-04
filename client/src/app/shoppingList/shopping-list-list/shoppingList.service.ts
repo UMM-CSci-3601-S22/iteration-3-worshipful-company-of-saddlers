@@ -10,7 +10,7 @@ import { map } from 'rxjs/operators';
 })
 export class ShoppingListService {
 
-  readonly shoppingListUrl: string = environment.apiUrl + 'shoppingList';
+  readonly shoppingListUrl: string = environment.apiUrl + '/shoppingList/';
 
   constructor(private httpClient: HttpClient) {
   }

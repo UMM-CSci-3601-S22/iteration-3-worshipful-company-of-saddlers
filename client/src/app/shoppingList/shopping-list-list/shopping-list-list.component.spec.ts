@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -18,9 +19,14 @@ import { MockShoppingListService } from '../../../testing/shoppingList.service.m
 import { ShoppingList } from '../shoppingList';
 import { ShoppingListListComponent } from './shopping-list-list.component';
 import { ShoppingListService } from './shoppingList.service';
+import { PantryService } from 'src/app/pantry/pantry.service';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { ProductService } from 'src/app/products/product.service';
+import { HttpClient, HttpHandler } from '@angular/common/http';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { PantryProductsListComponent } from 'src/app/pantry/pantry-products-list/pantry-products-list.component';
 
 const COMMON_IMPORTS: any[] = [
   FormsModule,
@@ -39,7 +45,8 @@ const COMMON_IMPORTS: any[] = [
   BrowserAnimationsModule,
   RouterTestingModule,
   MatDialogModule,
-  MatSnackBarModule
+  MatSnackBarModule,
+  HttpClientTestingModule,
 ];
 
 describe('ShoppingListListComponent', () => {
@@ -49,8 +56,13 @@ describe('ShoppingListListComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [COMMON_IMPORTS],
-      declarations: [ShoppingListListComponent],
-      providers: [{ provide: ShoppingListService, useValue: new MockShoppingListService() },]
+      declarations: [ ShoppingListListComponent],
+      providers: [{ provide: ShoppingListService, ProductService, PantryService,
+         useValue: new MockShoppingListService() },
+      ProductService,
+      PantryService,
+      PantryProductsListComponent
+      ]
     })
       .compileComponents();
   });
@@ -124,7 +136,10 @@ describe('Misbehaving ShoppingList List', () => {
       declarations: [ShoppingListListComponent],
       // providers:    [ ShoppingListService ]  // NO! Don't provide the real service!
       // Provide a test-double instead
-      providers: [{ provide: ShoppingListService, useValue: shoppingListServiceStub }]
+      providers: [{ provide: ShoppingListService, useValue: shoppingListServiceStub },
+      ProductService,
+      PantryProductsListComponent,
+      PantryService]
     });
   });
 

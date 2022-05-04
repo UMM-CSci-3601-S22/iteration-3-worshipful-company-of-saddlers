@@ -12,6 +12,7 @@ export class ProductService {
 
   constructor(private httpClient: HttpClient) {}
 
+  // lgtm[duplicate-code]
   getProducts(filters?: { category?: ProductCategory; store?: string }): Observable<Product[]> {
     let httpParams: HttpParams = new HttpParams();
     if (filters) {

@@ -5,15 +5,35 @@
       <mat-card class="search-card">
         <mat-card-title class="shoppingList-list-title">Shopping List</mat-card-title>
         <mat-card-content fxLayout="column">
-
           <div fxLayout="row wrap" fxLayoutGap="10px">
 
-            <mat-form-field class="input-field">
-              <mat-label>Name</mat-label>
-              <input matInput data-test="shoppingListNameInput" placeholder="Filter by item name" [(ngModel)]="itemName"
-                (input)="getItemsFromServer()">
-              <mat-hint>Search for an item by name</mat-hint>
-            </mat-form-field>
+            <mat-nav-list class="add-product-nav-list">
+              <h3>Add a product to your shopping list</h3>
+              <div>
+                <mat-form-field class="input-field">
+                  <mat-label>Product Name</mat-label>
+                  <input matInput data-test="product_nameInput" placeholder="Search for a product" [(ngModel)]="name"
+                    (input)="updateFilter()">
+                </mat-form-field>
+              </div>
+
+              <div *ngIf="activeFilters">
+                <!--
+                We need to add a router link to the pop-up message for adding a product to the pantry that
+                Collin made.
+                -->
+                <mat-list-item *ngFor="let product of this.filteredProducts" class="add-product-list-item"
+                  data-test="addProductListItem">
+                  <div style="padding-right: 20px;">
+                    <button mat-raised-button color="accent" class="add-product-button" matTooltip="Add Product" matTooltipPosition="left"
+                      (click)="openAddDialog(this.product)" data-test="addProductButton">
+                      <mat-icon aria-label="Add Product">add</mat-icon>
+                    </button>
+                  </div>
+                    <p class="add-product-list-name" style="padding-right: 20px;">{{product.product_name}}</p>
+                </mat-list-item>
+              </div>
+            </mat-nav-list>
 
 
 <mat-card-actions class="generateShoppingList">

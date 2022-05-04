@@ -13,12 +13,14 @@ import { PantryService } from 'src/app/pantry/pantry.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ShoppingListListComponent } from 'src/app/shoppingList/shopping-list-list/shopping-list-list.component';
 import { ShoppingListService } from 'src/app/shoppingList/shopping-list-list/shoppingList.service';
+import { AddToShoppingListComponent } from 'src/app/shoppingList/add-to-shopping-list/add-to-shopping-list.component';
 
 @Component({
   selector: 'app-product-card',
   templateUrl: './product-card.component.html',
   styleUrls: ['./product-card.component.scss']
 })
+// lgtm[duplicate-code]
 export class ProductCardComponent implements OnInit {
 
   @Input() product: Product;
@@ -32,7 +34,8 @@ export class ProductCardComponent implements OnInit {
   panelOpenState = false;
   changeProductFormMessages;
 
-  constructor(private route: ActivatedRoute, private productService: ProductService, private pantryService: PantryService,
+  constructor(private route: ActivatedRoute, private productService: ProductService,
+    private pantryService: PantryService, private shoppingListService: ShoppingListService,
     private dialog: MatDialog, private fb: FormBuilder, private snackBar: MatSnackBar, private router: Router) { }
 
   ngOnInit(): void {
@@ -50,6 +53,22 @@ export class ProductCardComponent implements OnInit {
         }
         else {
           this.snackBar.open('Something went wrong.  The product was not added to the pantry.');
+        }
+      });
+    });
+  }
+
+  openAddDialogShoppingList(givenProduct: Product) {
+    console.log(givenProduct);
+    const dialogRef = this.dialog.open(AddToShoppingListComponent, {data: givenProduct});
+    dialogRef.afterClosed().subscribe(result => {
+      this.shoppingListService.addShoppingList(result).subscribe(newShoppingListId => {
+        if(newShoppingListId) {
+          this.snackBar.open('Product successfully added to your shopping list.');
+          this.router.navigate(['/shoppingList/']);
+        }
+        else {
+          this.snackBar.open('Something went wrong.  The product was not added to your shopping list.');
         }
       });
     });
