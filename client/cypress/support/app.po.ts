@@ -7,9 +7,6 @@ export class AppPage {
     return cy.get('.app-title');
   }
 
-  getSidenavButton() {
-    return cy.get('.sidenav-button');
-  }
 
   getSidenav() {
     return cy.get('.sidenav');
