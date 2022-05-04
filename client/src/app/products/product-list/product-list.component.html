@@ -51,20 +51,7 @@
 
         <br>
 
-        <!-- Product Limit Container -->
-        <!-- <div fxLayout="row wrap" fxLayoutGap="10px" class="limitContainer">
-          <mat-form-field class="input-field">
-            <mat-label>Limit</mat-label>
-            <mat-select (selectionChange)="updateFilter()" [(ngModel)]="productLimit" data-test="productLimitSelect">
-              <mat-option>--</mat-option>
-              <mat-option value="5">5</mat-option>
-              <mat-option value="10">10</mat-option>
-              <mat-option value="25">25</mat-option>
-              <mat-option value="50">50</mat-option>
-              <mat-option value="10000">ALL</mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div> -->
+
       </mat-card-content>
 
       <!-- Add Product Button -->
@@ -161,15 +148,6 @@
             </mat-nav-list>
           </mat-expansion-panel>
         </mat-accordion>
-        <!-- <mat-nav-list class="product-nav-list">
-          <h3 mat-subheader>Product List</h3>
-          <a mat-list-item *ngFor="let product of this.filteredProducts" [routerLink]="['/products', product._id]" class="product-list-item">
-            <h3 matLine class="product-list-name"> {{product.product_name}} </h3>
-            <p matLine class="product-list-category"> Category: {{product.category}} </p>
-            <p matLine class="product-list-brand"> Brand: {{product.brand}} </p>
-            <mat-divider></mat-divider>
-          </a>
-        </mat-nav-list> -->
       </mat-card-content>
       <mat-card-actions>
 
