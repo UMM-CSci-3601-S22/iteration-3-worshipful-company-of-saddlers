@@ -65,20 +65,6 @@ export class AddProductToPantryComponent implements OnInit {
 
   /* istanbul ignore next */
   submitForm() {
-    /*
-    console.log(this.addToPantryForm.value);
-    this.pantryService.addPantryItem(this.addToPantryForm.value).subscribe(newID => {
-      this.snackBar.open('Added Product to Pantry', null, {
-        duration: 2000,
-      });
-      this.router.navigate(['']);
-      this.pantryList.reloadComponent();
-    }, err => {
-      this.snackBar.open('Failed to add the product to your pantry', 'OK', {
-        duration: 5000,
-      });
-    });
-  }*/
   return this.addToPantryForm.value;
 }
 

@@ -47,27 +47,4 @@ import { Product, ProductCategory } from '../app/products/product';
      return of(this.testPantryProducts);
    }
 
-  //  deleteItem(id: string): Observable<PantryItem> {
-  //   if (id === MockPantryService.testPantryProducts[0]._id) {this.deletedItem = MockPantryService.testPantryProducts[0];
-  //     MockPantryService.testPantryProducts.pop();}
-  //   if (id === MockPantryService.testPantryProducts[1]._id) {this.deletedItem = MockPantryService.testPantryProducts[1];
-  //     MockPantryService.testPantryProducts.pop();}
-  //   if (id === MockPantryService.testPantryProducts[2]._id) {this.deletedItem = MockPantryService.testPantryProducts[2];
-  //     MockPantryService.testPantryProducts.pop();}
-  //    return of(this.deletedItem);
-  //  }
-
-/*
-  deleteItem(id: string): Observable<PantryItem> {
-    //This is the best we could come up with. We know the pop is not correct.
-    // eslint-disable-next-line @typescript-eslint/prefer-for-of
-    for(let i=0; i < this.testPantryProducts.length; i++){
-      if(id === this.testPantryProducts[i]._id){
-        this.testPantryProducts.pop();
-        this.deletedItem = this.testPantryProducts[i];
-      }
-    }
-    return of(this.deletedItem);
- }
- */
 }
