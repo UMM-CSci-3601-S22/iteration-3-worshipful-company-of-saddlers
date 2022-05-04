@@ -25,4 +25,8 @@ export class SingleProductPage {
   editProductButton() {
     return cy.get('[data-test=confirmChange]');
   }
+
+  addToPantryButton() {
+    return cy.get('[data-test=addToPantryButton]');
+  }
 }
