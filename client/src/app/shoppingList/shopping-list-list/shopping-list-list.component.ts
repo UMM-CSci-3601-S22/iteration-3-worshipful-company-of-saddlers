@@ -37,6 +37,8 @@ export class ShoppingListListComponent implements OnInit {
   public name: string;
   public activeFilters: boolean;
 
+  public printPageActive = false;
+
   getItemsSub: Subscription;
   tempDialog: any;
   tempID: string;
@@ -148,4 +150,21 @@ export class ShoppingListListComponent implements OnInit {
       });
     });
   }
+
+  /* istanbul ignore next */
+  printShoppingList(sectionName) {
+
+    this.printPageActive = true;
+    setTimeout(() =>{
+    const printContents = document.getElementById(sectionName).innerHTML;
+    const originalContents = document.body.innerHTML;
+    this.printPageActive = false;
+    document.body.innerHTML = printContents;
+
+    window.print();
+
+    document.body.innerHTML = originalContents;
+    window.location.reload();
+    }, 0);
+}
 }

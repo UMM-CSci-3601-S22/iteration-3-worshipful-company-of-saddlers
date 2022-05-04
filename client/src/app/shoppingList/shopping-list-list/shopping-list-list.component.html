@@ -50,9 +50,13 @@
   <div class="shoppingList-list">
     <div fxLayout="row wrap">
       <div fxFlex fxFlex.gt-sm="80" fxFlexOffset.gt-sm="10" *ngIf="getItemsFromServer; else shoppingListError">
-
         <mat-card>
-          <mat-card-content>
+          <mat-card-content id="print-section">
+            <button mat-icon-button class="print-button" (click)="printShoppingList('print-section');">
+              <mat-icon aria-label="Print Shopping List" matTooltip="Print Shopping List" matTooltipPosition="left">
+                print
+              </mat-icon>
+            </button>
             <mat-nav-list class="shoppingList-list">
               <h3 mat-subheader>Items</h3>
               <span fxLayout="row" *ngFor="let shoppingList of this.filteredShoppingList">
@@ -60,7 +64,7 @@
                   <h3 matLine class="shoppingList-list-name">{{shoppingList.name}}</h3>
                   <p matLine class="shoppingList-list-description">Need to buy {{shoppingList.quantity}}</p>
                 </a>
-                <div class="deleteContainer" style="position: absolute;">
+                <div class="deleteContainer" style="position: absolute;" *ngIf="!printPageActive">
                   <button mat-icon-button class="delete-item-button" matTooltip="Delete Item" matTooltipPosition="left"
                     (click)="openDeleteDialog(shoppingList)" data-test="deleteItemButton">
                     <mat-icon aria-label="Delete Item">close</mat-icon>
@@ -75,6 +79,9 @@
                       <button mat-button [mat-dialog-close]="" cdkFocusInitial>Cancel</button>
                     </div>
                   </ng-template>
+                </div>
+                <div class="checkbox" *ngIf="printPageActive">
+                  <mat-icon>crop_din</mat-icon>
                 </div>
               </span>
             </mat-nav-list>
