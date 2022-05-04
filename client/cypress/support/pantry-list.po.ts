@@ -26,4 +26,12 @@ export class PantryListPage {
   getFirstDeliDelete() {
     return cy.get('.deli-pantry-nav-list .deleteContainer').first();
   }
+
+  deleteFirstPantryItem() {
+    return cy.get('[data-test="deleteDateItemButton"]').first().click();
+  }
+
+  cancelDeletePantryItem() {
+    return cy.get('[data-test="cancelDeleteItemButton"]').click();
+  }
 }

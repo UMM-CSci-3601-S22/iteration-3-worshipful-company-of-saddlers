@@ -99,13 +99,13 @@
                               <mat-divider></mat-divider>
                             </a>
                             <div class="deleteContainer" style="position: absolute;">
-                              <div style="padding-top: 5px;"><button mat-button color="warn" (click)="removeItem(item._id)">
+                              <div style="padding-top: 5px;"><button mat-button color="warn" (click)="removeItem(item._id)" data-test="deleteDateItemButton">
                                 <mat-icon aria-label="Delete Item">close</mat-icon>
                               </button></div>
                             </div>
                           </span>
                         </mat-list>
-                        <div style="padding-top: 15px;"><button mat-button [mat-dialog-close]="" cdkFocusInitial>Cancel</button></div>
+                        <div style="padding-top: 15px;"><button mat-button [mat-dialog-close]="" cdkFocusInitial data-test="cancelDeleteItemButton">Cancel</button></div>
                       </div>
                     </ng-template>
                   </div>
