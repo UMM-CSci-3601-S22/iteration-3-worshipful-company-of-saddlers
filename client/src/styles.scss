@@ -32,12 +32,12 @@ $my-primary: mat.define-palette(mat.$indigo-palette, 500);
   }
   .drawer-list-item-active {
     background-color: change-color(
-      mat.get-color-from-palette($primary),
+      white,
       $alpha: 0.15
     ) !important;
-    color: mat.get-color-from-palette($primary) !important;
+    color: mat.get-color-from-palette($accent) !important;
     .mat-list-icon {
-      color: mat.get-color-from-palette($primary) !important;
+      color: mat.get-color-from-palette($accent) !important;
     }
   }
 
