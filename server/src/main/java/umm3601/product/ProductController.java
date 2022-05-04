@@ -29,15 +29,9 @@ import io.javalin.http.NotFoundResponse;
 
 public class ProductController {
   private static final String PRODUCT_NAME_KEY = "product_name";
-  // private static final String DESCRIPTION_KEY = "description";
   private static final String BRAND_KEY = "brand";
   private static final String CATEGORY_KEY = "category";
   private static final String STORE_KEY = "store";
-  // private static final String LOCATION_KEY = "location";
-  // private static final String NOTES_KEY = "notes";
-  // private static final String TAGS_KEY = "tags";
-  // private static final String LIFESPAN_KEY = "lifespan";
-  // private static final String THRESHOLD_KEY = "threshold";
 
   private final JacksonMongoCollection<Product> productCollection;
 
@@ -97,14 +91,8 @@ public class ProductController {
     List<Bson> filters = new ArrayList<>(); // start with a blank document
 
     if (ctx.queryParamMap().containsKey(PRODUCT_NAME_KEY)) {
-      filters.add(regex(PRODUCT_NAME_KEY,  Pattern.quote(ctx.queryParam(PRODUCT_NAME_KEY)), "i"));
+      filters.add(regex(PRODUCT_NAME_KEY, Pattern.quote(ctx.queryParam(PRODUCT_NAME_KEY)), "i"));
     }
-    /*
-     * if (ctx.queryParamMap().containsKey(DESCRIPTION_KEY)) {
-     * filters.add(regex(DESCRIPTION_KEY,
-     * Pattern.quote(ctx.queryParam(DESCRIPTION_KEY)), "i"));
-     * }
-     */
 
     if (ctx.queryParamMap().containsKey(BRAND_KEY)) {
       filters.add(regex(BRAND_KEY, Pattern.quote(ctx.queryParam(BRAND_KEY)), "i"));
@@ -117,35 +105,6 @@ public class ProductController {
     if (ctx.queryParamMap().containsKey(STORE_KEY)) {
       filters.add(regex(STORE_KEY, Pattern.quote(ctx.queryParam(STORE_KEY)), "i"));
     }
-
-    /*
-     * if (ctx.queryParamMap().containsKey(LOCATION_KEY)) {
-     * filters.add(regex(LOCATION_KEY, Pattern.quote(ctx.queryParam(LOCATION_KEY)),
-     * "i"));
-     * }
-     *
-     * if (ctx.queryParamMap().containsKey(NOTES_KEY)) {
-     * filters.add(regex(NOTES_KEY, Pattern.quote(ctx.queryParam(NOTES_KEY)), "i"));
-     * }
-     */
-
-    /*
-     * if (ctx.queryParamMap().containsKey(TAGS_KEY)) {
-     * filters.add(regex(TAGS_KEY, Pattern.quote(ctx.queryParam(TAGS_KEY)), "i"));
-     * }
-     *
-     * if (ctx.queryParamMap().containsKey(LIFESPAN_KEY)) {
-     * int targetLifespan = ctx.queryParamAsClass(LIFESPAN_KEY,
-     * Integer.class).get();
-     * filters.add(eq(LIFESPAN_KEY, targetLifespan));
-     * }
-     *
-     * if (ctx.queryParamMap().containsKey(THRESHOLD_KEY)) {
-     * int targetThreshold = ctx.queryParamAsClass(THRESHOLD_KEY,
-     * Integer.class).get();
-     * filters.add(eq(THRESHOLD_KEY, targetThreshold));
-     * }
-     */
 
     // Combine the list of filters into a single filtering document.
     Bson combinedFilter = filters.isEmpty() ? new Document() : and(filters);
@@ -173,19 +132,9 @@ public class ProductController {
     Product newProduct = ctx.bodyValidator(Product.class)
         .check(product -> product.product_name != null && product.product_name.length() > 0,
             "Product must have a non-empty product name")
-        //.check(product -> product.description != null, "Product description cannot be null")
-        //.check(product -> product.brand.length() > 0, "Product must have a non-empty brand")
-        // .check(product -> product.category.matches("^(admin|editor|viewer)$"), "User
-        // must have a legal user role")
         .check(product -> product.category != null,
             "Product must have a non-empty category")
         .check(product -> product.store != null, "Product must have a non-empty store")
-        //.check(product -> product.location.length() > 0,
-        //    "Product must have a non-empty location")
-        //.check(product -> product.notes != null, "Product notes cannot be null")
-        // .check(product -> product.tags != null && product.tags.size() >= 0, "Product
-        // tags cannot be null")
-        //.check(product -> product.lifespan > 0, "Products's lifespan must be greater than zero")
         .check(product -> product.threshold > 0, "Products's threshold must be greater than zero")
         .get();
 
@@ -226,8 +175,6 @@ public class ProductController {
     .check(pdr -> pdr.threshold >= 0,
      "Products threshold can't be negative")
     .get();
-
-    System.out.println("This actually happens");
 
     Bson filter = Filters.eq("_id", newProduct._id);
     productCollection.findOneAndUpdate(filter, Updates.set("product_name", newProduct.product_name));

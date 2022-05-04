@@ -31,7 +31,7 @@ export class ProductCardComponent implements OnInit {
   getProductSub: Subscription;
   popup = false;
   addToShoppingListPopup = false;
-  panelOpenState = false; //Unsure what this is
+  panelOpenState = false;
   changeProductFormMessages;
 
   constructor(private route: ActivatedRoute, private productService: ProductService,

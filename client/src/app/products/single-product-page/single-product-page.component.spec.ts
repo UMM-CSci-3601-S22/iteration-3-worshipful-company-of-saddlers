@@ -62,12 +62,5 @@ describe('SingleProductPageComponent', () => {
     activatedRoute.setParamMap({ id: expectedProduct._id});
     expect(component.id).toEqual(expectedProduct._id);
   });
-/*
-  it('should have `null` for a product with a bad id', () => {
-    activatedRoute.setParamMap({ id: 'badID' });
 
-    expect(component.id).toEqual('badID');
-    expect(component.product).toBeNull();
-  });
-  */
 });

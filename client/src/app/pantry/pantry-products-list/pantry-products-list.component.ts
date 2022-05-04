@@ -107,27 +107,6 @@ export class PantryProductsListComponent implements OnInit, OnDestroy {
     // Nothing here – everything is in the injection parameters.
   }
 
-  /*
-  * Get the products in the pantry from the server,
-  */
-  // getItemsFromServer() {
-  //   this.pantryService.getPantryItems().subscribe(returnedPantryProducts => {
-
-  //     this.pantryProducts = returnedPantryProducts;
-  //     this.lengthItems = this.pantryProducts.length;
-  //   }, err => {
-  //     // If there was an error getting the users, log
-  //     // the problem and display a message.
-  //     console.error('We couldn\'t get the list of products in your pantry; the server might be down');
-  //     this.snackBar.open(
-  //       'Problem contacting the server - try again',
-  //       'OK',
-  //       // The message will disappear after 3 seconds.
-  //       { duration: 3000 });
-
-  //   });
-  // }
-
   getItemsFromServer(): void {
     this.unsub();
     this.getItemsSub = this.pantryService.getPantryItems({
@@ -253,16 +232,11 @@ export class PantryProductsListComponent implements OnInit, OnDestroy {
   }
 
   openDeleteDialog2(productz: string) {
-    // this.unsubDatesUnfiltered();
-    // this.getUnfilteredDates = this.pantryService.getPantryItemsForDelete().subscribe(returnedDates => {
-    //   this.filteredPantryItems = returnedDates;
-    //   this.lengthAllPantryItems = this.filteredPantryItems.length;
     this.getUnfilteredDates = this.pantryService.getPantryItemsForDelete({ productz }).subscribe(returnedPantryItems => {
       this.filteredPantryItems = returnedPantryItems;
       this.lengthAllPantryItems = this.filteredPantryItems.length;
     });
 
-    // });
   }
 
   unsub(): void {
