@@ -140,7 +140,7 @@
       </mat-card-actions>
 
       <mat-card-actions class="add-to-shopping-list">
-        <button color="primary" mat-raised-button type="button" (click)="addToShoppingListPopup = true" data-test="addToShoppingListButton">
+        <button color="primary" mat-raised-button type="button" (click)="openAddDialogShoppingList(this.product)" data-test="addToShoppingListButton">
           <mat-icon aria-label="Shopping List Product">shopping_cart</mat-icon>
           Add Product To Shopping List
         </button>
@@ -148,28 +148,3 @@
     </div>
 
     </form>
-    <mat-card-actions class="add-to-pantry">
-      <button color="primary" mat-raised-button type="button" (click)="openAddDialog(this.product)" data-test="addToPantryButton"> Add
-        Product To Pantry</button>
-    </mat-card-actions>
-
-    <mat-card-actions class="add-to-shopping-list">
-      <button color="primary" mat-raised-button type="button" (click)="openAddDialogShoppingList(this.product)" data-test="addToShoppingListButton"> Add
-        Product To Shopping List</button>
-    </mat-card-actions>
-<!--
-    <mat-card-actions class="add-to-shopping-list">
-      <button color="primary" mat-raised-button type="button" (click)="addToShoppingListPopup = true" data-test="addToShoppingListButton"> Add
-        Product To Shopping List</button>
-    </mat-card-actions>
-  </mat-card>
-
-
-  <div class="overlay" *ngIf="addToShoppingListPopup">
-    <div class="popup">
-      <h2>Add This Product to Your Shopping List</h2>
-      <a class="close" (click)="addToShoppingListPopup = false">&times;</a>
-      <app-add-to-shopping-list [product]="this.product"></app-add-to-shopping-list>
-    </div>
-  </div>
--->
