@@ -123,29 +123,33 @@
               data-test="notesInput"></textarea>
           </div>
       </mat-card-content>
-
+      <div fxLayout="row wrap" fxLayoutGap="25px">
       <mat-card-actions align="start">
         <button mat-raised-button type="button" color="primary" [disabled]="!changeProductForm.valid" type="submit"
           data-test="confirmChange">
-          Edit Product
-          <mat-icon aria-label="Edit Product">close</mat-icon>
+          <mat-icon aria-label="Edit Product">edit</mat-icon>
+          Confirm Edit
         </button>
       </mat-card-actions>
-    </form>
-    <mat-card-actions class="add-to-pantry">
-      <button color="primary" mat-raised-button type="button" (click)="openAddDialog(this.product)" data-test="addToPantryButton"> Add
-        Product To Pantry
-        <mat-icon aria-label="Pantry Product">local_parking</mat-icon>
-      </button>
-    </mat-card-actions>
 
-    <mat-card-actions class="add-to-shopping-list">
-      <button color="primary" mat-raised-button type="button" (click)="addToShoppingListPopup = true" data-test="addToShoppingListButton"> Add
-        Product To Shopping List
-        <mat-icon aria-label="Shopping List Product">close</mat-icon>
-      </button>
-    </mat-card-actions>
+      <mat-card-actions class="add-to-pantry">
+        <button color="primary" mat-raised-button type="button" (click)="openAddDialog(this.product)" data-test="addToPantryButton">
+          <mat-icon aria-label="Pantry Product">local_parking</mat-icon>
+          Add Product To Pantry
+        </button>
+      </mat-card-actions>
+
+      <mat-card-actions class="add-to-shopping-list">
+        <button color="primary" mat-raised-button type="button" (click)="addToShoppingListPopup = true" data-test="addToShoppingListButton">
+          <mat-icon aria-label="Shopping List Product">shopping_cart</mat-icon>
+          Add Product To Shopping List
+        </button>
+      </mat-card-actions>
+    </div>
+
+    </form>
   </mat-card>
+
 
   <div class="overlay" *ngIf="addToShoppingListPopup">
     <div class="popup">
