@@ -146,6 +146,7 @@ public class ShoppingListController {
 
   // the database.
   public void generateShoppingList(Context ctx) {
+    System.out.println("bruh");
     ArrayList<PantryItem> pantryItems = pantryCollection
         .find()
         .into(new ArrayList<>());

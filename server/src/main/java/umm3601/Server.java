@@ -98,7 +98,7 @@ public class Server {
 
     server.get("/api/shoppingList", shoppingListController::getShoppingLists);
 
-    server.get("/api/generateTest", shoppingListController::generateShoppingList);
+    server.get("/api/shoppingList/generate", shoppingListController::generateShoppingList);
 
     server.get("/api/shoppingList/{id}", shoppingListController::getShoppingList);
     // Add new item to the shopping list

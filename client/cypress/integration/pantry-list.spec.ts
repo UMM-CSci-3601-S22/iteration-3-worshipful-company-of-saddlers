@@ -90,10 +90,15 @@ describe('Pantry list', () => {
       // Open dropdown and delete item
       page.getFirstFilterDelete().click();
       cy.window().should('exist');
-      cy.get(':nth-child(1) > .mat-dialog-actions > :nth-child(2) > .mat-focus-indicator').click();
+      page.cancelDeletePantryItem();
 
       // Confirm that Cheese Pizza still exists in the products page
-      page.getFilteredPantryListItems().should('have.lengthOf', 1);
+      page.navigateTo();
+      page.getFilteredPantryDropdown().click();
+      cy.get('[data-test=pantry_nameInput]').type('Cheese Pizza');
+      page.getFilteredPantryListItems().find('.product-list-name')
+        .should('contain.text', 'Cheese Pizza');
+      page.getFilteredPantryListItems().find('.pantryItem-list-quantity').should('contain.text', 4);
     });
 
     it('Pantry delete from multiple of pantry item filtering works', () => {
@@ -111,7 +116,7 @@ describe('Pantry list', () => {
       // Open dropdown and delete item
       page.getFirstFilterDelete().click();
       cy.window().should('exist');
-      cy.get(':nth-child(1) > .mat-dialog-actions > [style="padding-top: 5px;"] > .mat-focus-indicator').click();
+      page.deleteFirstPantryItem();
 
       // Confirm that Cheese Pizza still exists in the pantry page
       page.navigateTo();
@@ -137,7 +142,7 @@ describe('Pantry list', () => {
       // Open dropdown and delete item
       page.getFirstFilterDelete().click();
       cy.window().should('exist');
-      cy.get(':nth-child(1) > .mat-dialog-actions > [style="padding-top: 5px;"] > .mat-focus-indicator').click();
+      page.deleteFirstPantryItem();
 
       // Confirm that Flour - Chickpea no longer exists in the pantry page
       page.navigateTo();
@@ -179,7 +184,7 @@ describe('Pantry list', () => {
       // Open dropdown and delete item
       page.getFirstDeliDelete().click();
       cy.window().should('exist');
-      cy.get(':nth-child(1) > .mat-dialog-actions > :nth-child(2) > .mat-focus-indicator').click();
+      page.cancelDeletePantryItem();
 
       // Confirm that Eggplant - Regular still exists in the products page
       page.navigateTo();
@@ -203,7 +208,7 @@ describe('Pantry list', () => {
       // Open dropdown and delete item
       page.getFirstDeliDelete().click();
       cy.window().should('exist');
-      cy.get(':nth-child(1) > .mat-dialog-actions > [style="padding-top: 5px;"] > .mat-focus-indicator').click();
+      page.deleteFirstPantryItem();
 
       // Confirm that Eggplant - Regular still exists in the pantry page
       page.navigateTo();
@@ -228,7 +233,7 @@ describe('Pantry list', () => {
       // Open dropdown and delete item
       page.getFirstDeliDelete().click();
       cy.window().should('exist');
-      cy.get(':nth-child(1) > .mat-dialog-actions > [style="padding-top: 5px;"] > .mat-focus-indicator').click();
+      page.deleteFirstPantryItem();
 
       // Confirm that Eggplant - Regular no longer exists in the pantry page
       page.navigateTo();
@@ -279,7 +284,7 @@ describe('Pantry list', () => {
         cy.get('[data-test=pantry_nameInput]').type('Herring Fillets in wine sauce');
         page.getFilteredPantryListItems().should('have.lengthOf', 1);
         page.getFilteredPantryListItems().find('.product-list-name')
-          .should('contain.text', 'Herring Fillets in wine sauce');
+          .should('contain.text', ' Herring Fillets In Wine Sauce ');
         page.getFilteredPantryListItems().find('.pantryItem-list-quantity')
           .should('contain.text', 1);
     });
