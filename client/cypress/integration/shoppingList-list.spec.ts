@@ -31,6 +31,10 @@ describe('Should be able to add product to the shopping list', () => {
 
 describe('Should be able to generate the shopping list & remove items from it', () => {
 
+  before(() => {
+    cy.task('seed:database');
+  });
+
   beforeEach(() => {
     // Navigate to products page
     page.navigateToShoppingList();
@@ -42,11 +46,17 @@ describe('Should be able to generate the shopping list & remove items from it', 
     page.getShoppingListItems().find('.shoppingList-list-name')
       .should('contain.text', 'Distilled Water');
   });
+
   it('Should be able to remove from the shopping list', () => {
-    page.getShoppingListItems().should('have.lengthOf', 12);
-    page.getShoppingListItems().first()
+    // const len = page.getShoppingListItems().its('');
+    let len: number;
+    page.getShoppingListItems().its('length').then(($btn) => {
+      len = $btn.valueOf();
+      page.getShoppingListItems().its('length').should('eq', len);
+      page.getShoppingListItems().first()
       .get('[data-test="deleteItemButton"]').first().click().get('[data-test="confirmRemove"]').click();
       cy.wait(500);
-    page.getShoppingListItems().should('have.lengthOf', 11);
+      page.getShoppingListItems().its('length').should('eq', len-1);
+    });
   });
 });

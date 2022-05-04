@@ -140,13 +140,12 @@ export class ShoppingListListComponent implements OnInit {
 
   genShopList() {
     this.shoppingListService.generateShoppingList().subscribe(newID => {
-      this.snackBar.open('Updated Product Fields', null, { duration: 2000, });
+      this.snackBar.open('Generated Shopping List', null, { duration: 2000, });
       this.reloadComponent();
     }, err => {
-      this.snackBar.open('Failed to edit the product', 'OK', {
+      this.snackBar.open('Failed to generate shopping list', 'OK', {
         duration: 5000,
       });
     });
-
   }
 }
