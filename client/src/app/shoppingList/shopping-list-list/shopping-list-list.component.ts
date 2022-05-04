@@ -8,7 +8,6 @@ import { PantryProductsListComponent } from 'src/app/pantry/pantry-products-list
 import { PantryService } from 'src/app/pantry/pantry.service';
 import { ShoppingList } from '../shoppingList';
 import { ShoppingListService } from './shoppingList.service';
-import { Router } from '@angular/router';
 import { Product } from 'src/app/products/product';
 import { AddToShoppingListComponent } from '../add-to-shopping-list/add-to-shopping-list.component';
 import { ProductService } from 'src/app/products/product.service';
@@ -58,10 +57,10 @@ export class ShoppingListListComponent implements OnInit {
   }
 
   public reloadComponent() {
-    const shoppingListUrl = 'shoppingList';
+    const pantryPageUrl = '/shoppingList/';
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.router.onSameUrlNavigation = 'reload';
-    this.router.navigate([shoppingListUrl]);
+    this.router.navigate([pantryPageUrl]);
   }
 
   ngOnInit(): void {
@@ -94,13 +93,6 @@ export class ShoppingListListComponent implements OnInit {
       duration: 5000,
     });
     return tempDeleted;
-  }
-
-  public reloadComponent() {
-    const pantryPageUrl = '/shoppingList/';
-    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-    this.router.onSameUrlNavigation = 'reload';
-    this.router.navigate([pantryPageUrl]);
   }
 
   unsubProductsUnfiltered(): void {
