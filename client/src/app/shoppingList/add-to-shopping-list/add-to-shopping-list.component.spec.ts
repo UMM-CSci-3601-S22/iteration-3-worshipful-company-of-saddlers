@@ -63,12 +63,6 @@ describe('AddToShoppingListComponent', () => {
       threshold: 0,
       image: ''
     };
-    /*addProductToPantryComponent.pantryItem = {
-        _id: 'banana _id',
-        product: 'banana product id',
-        purchase_date: '01-02-2022',
-        notes: 'notes for banana pantry item'
-      };*/
       addToShoppingListComponent.ngOnInit();
     fixture.detectChanges();
     addProductToShoppingListForm = addToShoppingListComponent.addToShoppingListForm;

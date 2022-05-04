@@ -34,10 +34,6 @@ import umm3601.product.Product;
 
 public class PantryController {
 
-  // private static final String PRODUCT_KEY = "product";
-  // private static final String PURCHASE_DATE_KEY = "purchase_date";
-  // private static final String NOTES_KEY = "notes";
-
   private static final String NAME_KEY = "name";
   private static final String CATEGORY_KEY = "category";
 
@@ -318,7 +314,6 @@ public class PantryController {
   }
 
   public void getDeleteDates(Context ctx) {
-    //System.out.println(ctx.path());
     String prodID = ctx.queryParam("product");
     ArrayList<PantryItem> pantryItems = pantryCollection
         .find()
@@ -326,7 +321,6 @@ public class PantryController {
     PantryItem[] pantryArr = pantryItems.toArray(new PantryItem[pantryItems.size()]);
     PantryItem[] reflection = new PantryItem[pantryArr.length];
     int index = 0;
-    // String prodID = ctx.pathParam("product");
     for (int i = 0; i < pantryArr.length; i++) {
       if (pantryArr[i].product.equals(prodID)) {
         reflection[index] = pantryArr[i];
