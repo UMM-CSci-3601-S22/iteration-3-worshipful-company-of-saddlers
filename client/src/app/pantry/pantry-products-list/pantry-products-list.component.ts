@@ -173,8 +173,8 @@ export class PantryProductsListComponent implements OnInit, OnDestroy {
       this.makeCategoryLists();
     });
   }
-
-  updateFilter(): void {
+    // lgtm[duplicate-code]
+  public updateFilter(): void {
     this.filteredProducts = this.productService.filterProducts(
       this.allProducts, { product_name: this.name }
     );

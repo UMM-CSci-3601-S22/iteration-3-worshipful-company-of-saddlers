@@ -43,10 +43,10 @@ describe('Should be able to generate the shopping list & remove items from it', 
       .should('contain.text', 'Distilled Water');
   });
   it('Should be able to remove from the shopping list', () => {
-    page.getShoppingListItems().should('have.lengthOf', 7);
+    page.getShoppingListItems().should('have.lengthOf', 12);
     page.getShoppingListItems().first()
       .get('[data-test="deleteItemButton"]').first().click().get('[data-test="confirmRemove"]').click();
       cy.wait(500);
-    page.getShoppingListItems().should('have.lengthOf', 6);
+    page.getShoppingListItems().should('have.lengthOf', 11);
   });
 });

@@ -1,3 +1,7 @@
+import { SingleProductPage } from './single-page-product.po';
+
+const page = new SingleProductPage();
+
 export class ShoppingListListComponent {
 
   navigateToProductPage() {
@@ -17,29 +21,25 @@ export class ShoppingListListComponent {
   }
 
   getFormField(fieldName: string) {
-    return cy.get(`mat-form-field [formcontrolname=${fieldName}]`);
+    return page.getFormField(fieldName);
   }
 
   getSelect(fieldName: string) {
-    return cy.get(`mat-select [formcontrolname=${fieldName}]`);
+    return page.getSelect(fieldName);
   }
 
   selectEditCategory(value: string) {
     // Find and click the drop down
-    return cy.get('[data-test=categoryDropDown]').click()
-      // Select and click the desired value from the resulting menu
-      .get(`mat-option[value="${value}"]`).click();
+    return page.selectEditCategory(value);
   }
 
   selectEditStore(value: string) {
     // Find and click the drop down
-    return cy.get('[data-test=storeDropDown]').click()
-      // Select and click the desired value from the resulting menu
-      .get(`mat-option[value="${value}"]`).click();
+    return page.selectEditCategory(value);
   }
 
   editProductButton() {
-    return cy.get('[data-test=confirmChange]');
+    return page.editProductButton();
   }
 }
 

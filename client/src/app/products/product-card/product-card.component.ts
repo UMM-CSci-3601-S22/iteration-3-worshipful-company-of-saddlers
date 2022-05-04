@@ -20,6 +20,7 @@ import { AddToShoppingListComponent } from 'src/app/shoppingList/add-to-shopping
   templateUrl: './product-card.component.html',
   styleUrls: ['./product-card.component.scss']
 })
+// lgtm[duplicate-code]
 export class ProductCardComponent implements OnInit {
 
   @Input() product: Product;

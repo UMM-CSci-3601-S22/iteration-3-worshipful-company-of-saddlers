@@ -43,7 +43,8 @@ export class ShoppingListListComponent implements OnInit {
   lengthAllProducts: number;
 
   constructor(private shoppingListService: ShoppingListService, private productService: ProductService,
-    private router: Router, public dialog: MatDialog, private snackBar: MatSnackBar) { }
+    private router: Router, public dialog: MatDialog, private snackBar: MatSnackBar,
+    public pantryProductsList: PantryProductsListComponent) { }
 
   getItemsFromServer(): void {
     this.unsub();
