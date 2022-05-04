@@ -74,8 +74,8 @@
               <mat-nav-list class="filtered-pantry-nav-list">
                 <span fxLayout="row" *ngFor="let item of this.filteredPantryProducts">
                   <a mat-list-item class="product-list-item">
-                    <p matLine class="product-list-name"> {{item.name}} </p>
-                    <p matLine class="product-list-category"> Category: {{item.category}} </p>
+                    <p matLine class="product-list-name"> {{item.name | titlecase}} </p>
+                    <p matLine class="product-list-category"> Category: {{item.category | titlecase}} </p>
                     <p matLine class="pantryItem-list-quantity">Quantity: {{item.quantity }} </p>
                     <mat-divider></mat-divider>
                   </a>
@@ -89,7 +89,7 @@
                     <ng-template #dialogRef let-mydata>
                       <h1 mat-dialog-title>Delete Product?</h1>
                       <div mat-dialog-content>
-                        <h4>which <i>{{tempName}}</i> do you want to delete? This action cannot be undone</h4>
+                        <h4>Which <i>{{tempName}}</i> do you want to delete? This action cannot be undone</h4>
 
                         <mat-list class="delete-dates">
                           <span fxLayout="row" *ngFor="let item of this.filteredPantryItems">
@@ -99,14 +99,13 @@
                               <mat-divider></mat-divider>
                             </a>
                             <div class="deleteContainer" style="position: absolute;">
-
-                            </div>
-                            <div style="padding-top: 10px;" mat-dialog-actions>
-                              <div style="padding-top: 5px;"><button mat-button color="warn" (click)="removeItem(item._id)">Delete</button></div>
-                              <div><button mat-button [mat-dialog-close]="" cdkFocusInitial>Cancel</button></div>
+                              <div style="padding-top: 5px;"><button mat-button color="warn" (click)="removeItem(item._id)">
+                                <mat-icon aria-label="Delete Item">close</mat-icon>
+                              </button></div>
                             </div>
                           </span>
                         </mat-list>
+                        <div style="padding-top: 15px;"><button mat-button [mat-dialog-close]="" cdkFocusInitial>Cancel</button></div>
                       </div>
                     </ng-template>
                   </div>
