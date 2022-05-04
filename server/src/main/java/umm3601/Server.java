@@ -107,7 +107,7 @@ public class Server {
 
     //Generates a list of pantry items of a certain type for better deletion
     server.get("/api/deleteTest", pantryController::getDeleteDates);
-    
+
     // This catches any uncaught exceptions thrown in the server
     // code and turns them into a 500 response ("Internal Server
     // Error Response"). In general you'll like to *never* actually
