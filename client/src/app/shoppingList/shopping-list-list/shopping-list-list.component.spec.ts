@@ -19,12 +19,14 @@ import { MockShoppingListService } from '../../../testing/shoppingList.service.m
 import { ShoppingList } from '../shoppingList';
 import { ShoppingListListComponent } from './shopping-list-list.component';
 import { ShoppingListService } from './shoppingList.service';
+import { PantryService } from 'src/app/pantry/pantry.service';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { ProductService } from 'src/app/products/product.service';
 import { HttpClient, HttpHandler } from '@angular/common/http';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { PantryProductsListComponent } from 'src/app/pantry/pantry-products-list/pantry-products-list.component';
 
 const COMMON_IMPORTS: any[] = [
   FormsModule,
@@ -44,7 +46,7 @@ const COMMON_IMPORTS: any[] = [
   RouterTestingModule,
   MatDialogModule,
   MatSnackBarModule,
-  HttpClientTestingModule
+  HttpClientTestingModule,
 ];
 
 describe('ShoppingListListComponent', () => {
@@ -55,8 +57,12 @@ describe('ShoppingListListComponent', () => {
     TestBed.configureTestingModule({
       imports: [COMMON_IMPORTS],
       declarations: [ ShoppingListListComponent],
-      providers: [{ provide: ShoppingListService, ProductService, useValue: new MockShoppingListService() },
-      ProductService,]
+      providers: [{ provide: ShoppingListService, ProductService, PantryService,
+         useValue: new MockShoppingListService() },
+      ProductService,
+      PantryService,
+      PantryProductsListComponent
+      ]
     })
       .compileComponents();
   });
@@ -131,7 +137,9 @@ describe('Misbehaving ShoppingList List', () => {
       // providers:    [ ShoppingListService ]  // NO! Don't provide the real service!
       // Provide a test-double instead
       providers: [{ provide: ShoppingListService, useValue: shoppingListServiceStub },
-      ProductService,]
+      ProductService,
+      PantryProductsListComponent,
+      PantryService]
     });
   });
 
