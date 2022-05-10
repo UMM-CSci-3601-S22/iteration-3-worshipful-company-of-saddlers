@@ -7,41 +7,14 @@
 [![BCH compliance](https://bettercodehub.com/edge/badge/UMM-CSci-3601-S22/it-1-bletchley-park?branch=main)](https://bettercodehub.com/)
 [![Total alerts](https://img.shields.io/lgtm/alerts/g/UMM-CSci-3601-S22/it-1-bletchley-park.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/UMM-CSci-3601-S22/it-1-bletchley-park/alerts/)
 
-- [Development](#development)
-  - [Common commands](#common-commands)
 - [Key Features](#key-features)
+- [Development](#development)
 - [Deployment](#deployment)
 - [Resources](#resources)
 - [Known Issues](#known-issues)
 - [Contributors](#contributors)
 
 For shoppers who want an organized pantry and shopping experience, Handy Pantry is a home pantry inventory system that tracks consumption and storage. Unlike pen and paper, our product uses your grocery usage information to automatically generate an up-to-date shopping list.
-
-## [Development](DEVELOPMENT.md)
-
-Instructions on setting up the development environment and working with the code are in [the development guide](DEVELOPMENT.md).
-
-### Common commands
-
-From the `server` directory:
-
-- `./gradlew run` to start the server
-- `./gradlew test` to test the server
-- `./gradlew checkstyleMain` to run Checkstyle on the server Java code in the `src/main` folder
-- `./gradlew checkstyleTest` to run Checkstyle on the server Java code in the `src/test` folder
-- `./gradlew check` will run both the tests and Checkstyle in one command
-
-From the `client` directory:
-
-- `ng serve` to run the client
-- `ng test` to test the client
-  - Or `ng test --no-watch --code-coverage` to run the client tests once and
-    also compute the code coverage.
-- `ng e2e` and `ng e2e --watch` to run end-to-end tests
-
-From the `database` directory:
-
-- `./mongoseed.sh` (or `.\mongoseed.bat` on Windows) to seed the database
 
 ## Key Features
 
@@ -52,6 +25,10 @@ The shopping list is generated using a Java algorithm which queries the 'Product
 This backend 'ShoppingList' generation algorithm could most definitely be improved. Right now it aggregates all of the collections into java arrays and iterates over those arrays. Using interesting and complex mongo queries to problem solve this would be much faster, and would make the project a whole lot more scaleable.
 
 Another feature which is worth mentioning is the ability to search for and filter different collections on the frontend. This exists on multiple different pages in multiple different ways, often just for searching for something, but on pages like the ShoppingList page, to be able to add products directly to the list.
+
+## [Development](DEVELOPMENT.md)
+
+Instructions on setting up the development environment and working with the code are in [the development guide](DEVELOPMENT.md).
 
 ## [Deployment](DEPLOYMENT.md)
 
