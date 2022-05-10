@@ -122,3 +122,4 @@ There are many more commands and options for `docker-compose`. They are all docu
 ## Using a custom domain
 
 If you have purchased a domain for your project and would like to use it, set its DNS A record to the IP of your droplet. Stop and remove your containers with `docker-compose down` and then you can use `nano` or similar to edit the `.env` file and change `APP_HOST` to the domain you wish to use. After that use `docker-compose up -d` to start it up again.
+
