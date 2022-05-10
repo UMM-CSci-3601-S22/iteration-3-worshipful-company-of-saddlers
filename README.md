@@ -9,6 +9,7 @@
 
 - [Development](#development)
   - [Common commands](#common-commands)
+- [Key Features](#key-features)
 - [Deployment](#deployment)
 - [Resources](#resources)
 - [Known Issues](#known-issues)
@@ -41,6 +42,16 @@ From the `client` directory:
 From the `database` directory:
 
 - `./mongoseed.sh` (or `.\mongoseed.bat` on Windows) to seed the database
+
+## Key Features
+
+This project puts together an Angular frontend, Javalin java back-end, and a MongoDB database. We use 4 different collections to track all of the different objects that we work with. A 'Product' collection, which contains the individual types of different products we track. There's a 'Pantry' collection which tracks all the different instances of a type of product. This reflects the amount that you currently have in your 'Pantry'. There's a 'PantryProduct' collection which is just an aggregated type of 'Pantry' items with a quantity for better UI and usability. Finally, there's a 'ShoppingList' collection which we use to track the generated shopping list that a user would take to the store. The reason that there needs to be a collection for this is because it gives the user the ability to manually edit the list. For all of the different collections, we have ways for users to edit the collections using the front-end UI. 
+
+The shopping list is generated using a Java algorithm which queries the 'Products' collection to find the threshold of different products, and then checks the 'Pantry' for the amounts of those products. If there is a lower quantity of products in the 'Pantry' than is the threshold for that given product, a quantity to reach that threshold is added to the 'ShoppingList'.
+
+This backend 'ShoppingList' generation algorithm could most definitely be improved. Right now it aggregates all of the collections into java arrays and iterates over those arrays. Using interesting and complex mongo queries to problem solve this would be much faster, and would make the project a whole lot more scaleable.
+
+Another feature which is worth mentioning is the ability to search for and filter different collections on the frontend. This exists on multiple different pages in multiple different ways, often just for searching for something, but on pages like the ShoppingList page, to be able to add products directly to the list.
 
 ## [Deployment](DEPLOYMENT.md)
 
