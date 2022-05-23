@@ -61,3 +61,5 @@ gradle-app.setting
 bin/
 
 !/src/libs/3601-lab3-todos.jar
+
+client/.nyc_output/
